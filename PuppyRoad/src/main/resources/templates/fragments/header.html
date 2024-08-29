@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:fragment="HeaderFragment">
+<nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+	<div class="sb-sidenav-menu">
+		<div class="nav">
+			<div class="sb-sidenav-menu-heading">Web</div>
+			<a class="nav-link" th:href="@{/empList}">
+				<div class="sb-nav-link-icon">
+					<i class="fas fa-tachometer-alt"></i>
+				</div> 조회
+			</a> <a class="nav-link"
+				th:href="@{/empInsert}">
+				<div class="sb-nav-link-icon">
+					<i class="fas fa-tachometer-alt"></i>
+				</div> 등록
+			</a> <a class="nav-link"
+				th:href="@{/bookList}">
+				<div class="sb-nav-link-icon">
+					<i class="fas fa-tachometer-alt"></i>
+				</div> 도서목록
+			</a> <a class="nav-link"
+				th:href="@{/rentList}">
+				<div class="sb-nav-link-icon">
+					<i class="fas fa-tachometer-alt"></i>
+				</div> 대여목록
+			</a>
+		</div>
+	</div>
+</nav>
+</html>
