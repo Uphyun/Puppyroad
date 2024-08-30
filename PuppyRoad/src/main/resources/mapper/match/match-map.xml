@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.puppyroad.app.match.mapper.MatchMapper">
+  <!-- 전체 자율매칭 -->
+  <select id="selectMatchList" resultType="MatchVO">
+		SELECT  bulletin_no,
+		 		cover_photo,
+		 		title,
+		 		writer,
+		 		matching_state,
+		 		start_time,
+		 		end_time,
+		 		writing_time,
+		 		animal_count,
+		 		walk_place_address,
+		 		matching_kind,
+		 		client_code,
+		 		puppy_code
+	    FROM    matching_board
+	    ORDER BY bulletin_no
+  </select>
+  
+  <!-- 단건 자율매칭 -->
+  <select id="selectMatchInfo" resultType="MatchVO">
+		SELECT  bulletin_no,
+		 		cover_photo,
+		 		title,
+		 		writer,
+		 		matching_state,
+		 		start_time,
+		 		end_time,
+		 		writing_time,
+		 		animal_count,
+		 		walk_place_address,
+		 		matching_kind,
+		 		client_code,
+		 		puppy_code
+	    FROM    matching_board
+        WHERE   bulletin_no = #{bulletinNo}
+  </select>
+  
+  <!-- 자율등록 -->
+  <insert id="insertMatch" parameterType="MatchVO">
+
+		INSERT INTO matching_board(
+								bulletin_no,
+				 				cover_photo,
+				 				title,
+				 				writer,
+							 	matching_state,
+							 	start_time,
+							 	end_time,
+							 	writing_time,
+							 	animal_count,
+							 	walk_place_address,
+							 	matching_kind,
+							 	client_code,
+							 	puppy_code)
+		VALUES (#{bulletinNo},
+		        #{coverPhoto},
+		        #{title},
+		        #{writer},
+		        #{matchingState},
+		        #{startTime},
+		        #{endTime},
+		        #{writingTime},
+		        #{animalCount},
+		        #{walkPlaceAddress},
+		        #{matchingKind},
+		        #{clientCode},
+		        #{puppyCode})
+  </insert>
+  
+  <!-- 자율수정 -->
+  <update id="updateMatch" parameterType="MatchVO">
+  	UPDATE matching_board
+  	SET
+  	       cover_photo = #{coverPhoto},
+  	       title = #{title},
+  	       writer = #{writer},
+  	       matching_state = #{matchingState},
+  	       start_time = #{startTime},
+  	       end_time = #{endTime},
+  	       writing_time = #{writingTime},
+  	       animal_count = #{animalCount},
+  	       walk_place_address = #{walkPlaceAddress},
+  	       matching_kind = #{matchingKind},
+  	       client_code = #{clientCode},
+  	       puppy_code = #{puppyCode},
+  	WHERE  bulletin_no = #{bulletinNo}
+  </update>
+  
+  <!-- 자율삭제 -->
+  <delete id="deleteMatch" parameterType="int">
+  	DELETE matching_board
+  	WHERE  bulletin_no = #{bulletinNo}
+  </delete>
+  
+</mapper>
