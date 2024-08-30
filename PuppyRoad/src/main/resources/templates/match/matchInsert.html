@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layouts/default_layout}"
+      layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+<title>matchTest</title>
+</head>
+<body>
+	<div class="container justify-content-center">
+		<form name="insertForm" th:action="@{/matchInsert}" method="post">
+			<h3>매칭 등록</h3>
+			<table>
+				<tr>
+					<th>번호</th>
+					<td><input class="form-control" type="text" name="bulletinNo"></td>
+				</tr>
+				<tr>
+					<th>사진</th>
+					<td><input class="form-control" type="text" name="coverPhoto"></td>
+				</tr>
+				<tr>
+					<th>제목</th>
+					<td>
+					   <input class="form-control" type="text"  name="title">
+					</td>
+				</tr>
+				<tr>
+					<th>작성자</th>
+					<td ><input class="form-control" type="text" name="writer"></td>
+				</tr>
+				<tr>
+					<th>매칭 상태</th>
+					<td><input class="form-control" type="text" name="matchingState"></td>
+				</tr>
+				<tr>
+					<th>시작 시간</th>
+					<td><input class="form-control" type="date" name="startTime"></td>
+				</tr>
+				<tr>
+					<th>종료 시간</th>
+					<td><input class="form-control" type="date" name="endTime"></td>
+				</tr>
+				<tr>
+					<th>작성 시간</th>
+					<td><input class="form-control" type="date" name="writingTime"></td>
+				</tr>
+				<tr>
+					<th>마릿수</th>
+					<td><input class="form-control" type="text" name="animalCount"></td>
+				</tr>
+				<tr>
+					<th>산책장소 주소</th>
+					<td><input class="form-control" type="text" name="walkPlaceAddress"></td>
+				</tr>
+				<tr>
+					<th>매칭 종류</th>
+					<td><input class="form-control" type="text" name="matchingKind"></td>
+				</tr>
+				<tr>
+					<th>고객 코드</th>
+					<td><input class="form-control" type="text" name="clientCode"></td>
+				</tr>
+				<tr>
+					<th>강아지 코드</th>
+					<td><input class="form-control" type="text" name="puppyCode"></td>
+				</tr>
+			</table>
+			<div class="center">
+				<button type="submit" class="btn btn-primary">등록</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

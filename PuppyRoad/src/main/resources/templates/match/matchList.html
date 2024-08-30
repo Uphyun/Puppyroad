@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layouts/default_layout}"
+      layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+<title>matchTest</title>
+</head>
+<body>
+	<p>	
+		<th:block th:each="match : ${matchs}">
+			[[ ${match.bulletinNo} ]]
+			[[ ${match.coverPhoto} ]]
+			[[ ${match.title} ]]
+			[[ ${match.writer} ]]
+			[[ ${match.matchingState} ]]
+			[[ ${match.startTime} ]]
+			[[ ${match.endTime} ]]
+			[[ ${match.writingTime} ]]
+			[[ ${match.animalCount} ]]
+			[[ ${match.walkPlaceAddress} ]]
+			[[ ${match.matchingKind} ]]
+			[[ ${match.clientCode} ]]
+			[[ ${match.puppyCode} ]]
+		</th:block>
+	</p>
+</body>
+</html>
