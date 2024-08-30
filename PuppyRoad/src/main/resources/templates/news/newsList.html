@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layouts/default_layout}"
+      layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+<title>공지사항</title>
+</head>
+<body>
+	<br><br><br>
+	<div class="container text-center">
+		<table class = "table">
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>제목</th>
+					<th>게시일</th> 
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="info : ${newss}">
+					<tr>
+						<td>[[ ${info.bulletinNo} ]]</td>
+						<td>
+						<a href="#" class="title">[[ ${info.title} ]]</a>
+						</td>
+						<td>[[ ${#dates.format(info.writingDate,'yyyy년MM월dd일')} ]]</td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+	</div>
+	<script>
+	$('.title').on('click', function(event){
+		let trTag = $(this).closest('tr');
+		let bno = trTag.children().first().text(); 
+		let url = '/newsInfo?bulletinNo=' + bno;
+		location.href = url;
+	});
+	</script>
+</body>
+</html>
