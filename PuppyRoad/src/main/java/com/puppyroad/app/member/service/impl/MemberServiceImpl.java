@@ -17,16 +17,13 @@ public class MemberServiceImpl implements MemberService {
 	public MemberServiceImpl(MemberMapper memberMapper) {
 		this.memberMapper = memberMapper;
 	}
-	
+
 	@Override
-	public List<MemberVO> selectTest(MemberVO memberVO){
-		return memberMapper.testSelect(memberVO);
-	}
-	
-	@Override
-	public int insertMember(MemberVO memberVO) {
+	public String addMember(MemberVO memberVO) {
 		
-		return memberMapper.insertMember(memberVO) ;
+		int result = memberMapper.insertMember(memberVO);
+		
+		return result == 1 ? memberVO.getMemberCode() : "fail";
 	}
 
 }

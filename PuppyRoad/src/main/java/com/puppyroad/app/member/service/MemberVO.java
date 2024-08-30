@@ -1,20 +1,25 @@
 package com.puppyroad.app.member.service;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
 public class MemberVO {
+	private String memberCode;
 	private String userId;
 	private String userPw;
-	private String userName;
-	private String NickName;
+	private String name;
+	private String nickName;
 	private String address;
 	private String email;
-	private String birthDate;
-	private String phoneNumber;
-	private String gender;
-	private String job;
-	private String voluntIntetion;
-	private int aa;
-	private int bb;
+	private String phone;
+	private String position;
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	private Date activityDate;
+	private Date joinDate;
+	private Date withdrawDate;
+	private String intention;
 }
