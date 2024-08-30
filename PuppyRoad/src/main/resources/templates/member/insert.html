@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+</head>
+<body>
+	<div class="container text=center">
+		<form name="insertForm" th:action="@{/memberInsert}" method="post">
+			<h3>회원가입</h3>
+			<table class="table">
+				<tr>
+					<th>아이디</th>
+					<td><input type="text" name="userId"></td>
+				</tr>
+				<tr>
+					<th>비밀번호</th>
+					<td><input type="text" name="userPw"></td>
+				</tr>
+				<tr>
+					<th>이름</th>
+					<td><input type="text" name="name"></td>
+				</tr>
+				<tr>
+					<th>별명</th>
+					<td><input type="text" name="nickName"></td>
+				</tr>
+				<tr>
+					<th>주소</th>
+					<td><input type="text" name="address"></td>
+				</tr>
+				<tr>
+					<th>이메일</th>
+					<td><input type="text" name="email"></td>
+				</tr>
+				<tr>
+					<th>휴대전화</th>
+					<td><input type="text" name="phone"></td>
+				</tr>
+				<tr>
+					<td>  <input type="radio" id="client" name="client" value="의뢰인">
+  <label for="option1">의뢰인</label>
+  <input type="radio" id="volunteer" name="volunteer" value="봉사인">
+  <label for="option2">봉사인</label>
+  <input type="radio" id="dogwalk" name="dogwalk" value="도그워커">
+  <label for="option3">도그워커</label></td>
+				</tr>
+				<tr id="intention">
+					<th>의도</th>
+					<td><input type="text" name="intention"></td>
+				</tr>
+				<tr>
+					<th></th>
+					<td><button type="submit" class="btn btn-primary">등록</button>
+						<button type="button" class="btn btn-success"
+							th:onclick="|location.href='@{/}'|">목록</button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<script>
+		$('#intention').
+	</script>
+</body>
+</html>

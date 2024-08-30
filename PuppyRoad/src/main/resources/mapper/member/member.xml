@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.puppyroad.app.member.mapper.MemberMapper">
+	<insert id="insertMember">
+		<selectKey keyProperty="memberCode" order="BEFORE"
+		resultType="string">
+			SELECT max(to_number(substr(member_code, -3))) + 1 as "member_code"
+			FROM member
+            WHERE substr(member_code, 2, 4) = substr(to_char(sysdate, 'yymmdd'), 1, 4)
+		</selectKey>
+		INSERT INTO MEMBER
+		(
+		    MEMBER_CODE
+		    , USER_ID
+		    , USER_PW
+		    , NICKNAME
+		    , NAME
+		    , ADDRESS
+		    , EMAIL
+		    , PHONE
+		    , JOIN_DATE
+		    , POSITION
+			<if test="position == '봉사인'">
+		    	, INTENTION
+			</if>
+			
+		)
+		VALUES 
+		(
+			<choose>
+			  <when test="position == '의뢰인'">
+				'M' || substr(to_char(sysdate, 'yyMMdd'), 1, 6) || LPAD(#{memberCode}, 6, 1)
+			  </when>
+		      <otherwise>
+				'W' || substr(to_char(sysdate, 'yyMMdd'), 1, 6) || LPAD(#{memberCode}, 6, 1)
+		      </otherwise>
+			</choose>
+		    , #{userId}
+		    , #{userPw}
+		    , #{name}
+		    , #{nickName}
+		    , #{address}
+		    , #{email}
+		    , #{phone}
+		    , sysdate
+		    , #{position}
+		    <if test="position == '봉사인'">
+		    	, #{intention}
+		    </if>
+
+		)
+	</insert>
+	
+		
+
+</mapper>
