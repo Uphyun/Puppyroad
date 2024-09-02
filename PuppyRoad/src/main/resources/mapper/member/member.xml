@@ -51,6 +51,12 @@
 		)
 	</insert>
 	
+	<select id="idCheck" parameterType="String" resultType="int">
+		SELECT count(*)
+		FROM member
+		WHERE user_id = #{userId}
+	</select>
+	
 		
 
 </mapper>

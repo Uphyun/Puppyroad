@@ -26,4 +26,10 @@ public class MemberServiceImpl implements MemberService {
 		return result == 1 ? memberVO.getMemberCode() : "fail";
 	}
 
+	@Override
+	public int idCheck(String userId) {
+		
+		return memberMapper.idCheck(userId);
+	}
+
 }
