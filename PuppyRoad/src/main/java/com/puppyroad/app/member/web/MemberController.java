@@ -25,7 +25,7 @@ public class MemberController {
 	//회원가입등록 - 페이지
 	@GetMapping("memberInsert")
 	public String memberInsertForm() {
-		return "member/insert";
+		return "member/memberInsert";
 	}
 	
 	//회원가입등록 - 처리
