@@ -1,0 +1,149 @@
+$flaticon-font: "flaticon";
+
+@font-face {
+    font-family: $flaticon-font;
+    src: url("./flaticon.ttf?162c24c43d480cb68f12bfdce2aa10bc") format("truetype"),
+url("./flaticon.woff?162c24c43d480cb68f12bfdce2aa10bc") format("woff"),
+url("./flaticon.woff2?162c24c43d480cb68f12bfdce2aa10bc") format("woff2"),
+url("./flaticon.eot?162c24c43d480cb68f12bfdce2aa10bc#iefix") format("embedded-opentype"),
+url("./flaticon.svg?162c24c43d480cb68f12bfdce2aa10bc#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+$flaticon-map: (
+    "call": "\f101",
+    "location": "\f102",
+    "envelope": "\f103",
+    "pawprint": "\f104",
+    "grooming": "\f105",
+    "dog-toy": "\f106",
+    "pet-food": "\f107",
+    "cat": "\f108",
+    "dog": "\f109",
+    "vet": "\f10a",
+    "pet-toy": "\f10b",
+    "house": "\f10c",
+    "dog-food": "\f10d",
+    "dog-food-1": "\f10e",
+    "pet-shop": "\f10f",
+    "location-1": "\f110",
+    "call-1": "\f111",
+    "email": "\f112",
+    "pin": "\f113",
+    "pet-friendly": "\f114",
+    "pet-care": "\f115",
+    "dog-cage": "\f116",
+    "customer": "\f117",
+    "customer-satisfaction": "\f118",
+    "medal": "\f119",
+    "quotation-mark": "\f11a",
+    "quotation-mark-1": "\f11b",
+    "heart": "\f11c",
+    "hearts": "\f11d",
+    "freedom": "\f11e",
+    "freedom-1": "\f11f",
+);
+
+.flaticon-call:before {
+    content: map-get($flaticon-map, "call");
+}
+.flaticon-location:before {
+    content: map-get($flaticon-map, "location");
+}
+.flaticon-envelope:before {
+    content: map-get($flaticon-map, "envelope");
+}
+.flaticon-pawprint:before {
+    content: map-get($flaticon-map, "pawprint");
+}
+.flaticon-grooming:before {
+    content: map-get($flaticon-map, "grooming");
+}
+.flaticon-dog-toy:before {
+    content: map-get($flaticon-map, "dog-toy");
+}
+.flaticon-pet-food:before {
+    content: map-get($flaticon-map, "pet-food");
+}
+.flaticon-cat:before {
+    content: map-get($flaticon-map, "cat");
+}
+.flaticon-dog:before {
+    content: map-get($flaticon-map, "dog");
+}
+.flaticon-vet:before {
+    content: map-get($flaticon-map, "vet");
+}
+.flaticon-pet-toy:before {
+    content: map-get($flaticon-map, "pet-toy");
+}
+.flaticon-house:before {
+    content: map-get($flaticon-map, "house");
+}
+.flaticon-dog-food:before {
+    content: map-get($flaticon-map, "dog-food");
+}
+.flaticon-dog-food-1:before {
+    content: map-get($flaticon-map, "dog-food-1");
+}
+.flaticon-pet-shop:before {
+    content: map-get($flaticon-map, "pet-shop");
+}
+.flaticon-location-1:before {
+    content: map-get($flaticon-map, "location-1");
+}
+.flaticon-call-1:before {
+    content: map-get($flaticon-map, "call-1");
+}
+.flaticon-email:before {
+    content: map-get($flaticon-map, "email");
+}
+.flaticon-pin:before {
+    content: map-get($flaticon-map, "pin");
+}
+.flaticon-pet-friendly:before {
+    content: map-get($flaticon-map, "pet-friendly");
+}
+.flaticon-pet-care:before {
+    content: map-get($flaticon-map, "pet-care");
+}
+.flaticon-dog-cage:before {
+    content: map-get($flaticon-map, "dog-cage");
+}
+.flaticon-customer:before {
+    content: map-get($flaticon-map, "customer");
+}
+.flaticon-customer-satisfaction:before {
+    content: map-get($flaticon-map, "customer-satisfaction");
+}
+.flaticon-medal:before {
+    content: map-get($flaticon-map, "medal");
+}
+.flaticon-quotation-mark:before {
+    content: map-get($flaticon-map, "quotation-mark");
+}
+.flaticon-quotation-mark-1:before {
+    content: map-get($flaticon-map, "quotation-mark-1");
+}
+.flaticon-heart:before {
+    content: map-get($flaticon-map, "heart");
+}
+.flaticon-hearts:before {
+    content: map-get($flaticon-map, "hearts");
+}
+.flaticon-freedom:before {
+    content: map-get($flaticon-map, "freedom");
+}
+.flaticon-freedom-1:before {
+    content: map-get($flaticon-map, "freedom-1");
+}

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.puppyroad.app.news.mapper.NewsMapper">
+	<!-- 전체조회 -->
+	<select id="selectNewsList" resultType="newsVO">
+		SELECT   bulletin_no
+				,title
+				,content
+				,writer
+				,writing_date
+				,attached_file
+				,bulletin_type
+		FROM  news 		
+	    <where>
+			<if test="title != null and !title.equals('')">
+				OR title = #{bulletinNo}
+			</if>
+		</where>
+		ORDER BY title
+	</select>
+	<!-- 단건조회 -->
+	<select id="selectNewsInfo" resultType="newsVO">
+		SELECT   bulletin_no
+				,title
+				,content
+				,writer
+				,writing_date
+				,attached_file
+				,bulletin_type
+		FROM  news
+		WHERE bulletin_no = #{bulletinNo}
+	</select>
+	<!-- 등록 -->
+	<insert id="insertNews" parameterType="NewsVO">
+		<selectKey keyProperty="bulletinNo"
+				   resultType="Integer"
+				   order="BEFORE">
+			   SELECT NVL(MAX(bulletin_no), 0 ) + 1
+			   FROM   news
+		</selectKey>	
+		INSERT INTO news
+			(
+				bulletin_no
+				,title
+				,content
+				,writer
+				,writing_date
+				,attached_file
+				,bulletin_type
+		   )
+		 VALUES
+		   (
+		   		#{bulletinNo}
+		   		,#{title}
+		   		,#{content}
+		   		,#{writer}
+		   		<choose>
+		   			<when test="writingDate != null">
+		   			,#{writingDate}
+		   			</when>
+		   			<otherwise>
+		   	  		,sysdate
+		   			</otherwise>
+		   		</choose>
+		   		,#{attachedFile}
+		   		,#{bulletinType}
+		   	)  
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="updateNews" parameterType="NewsVO">
+		UPDATE news
+		 SET
+			title = #{title}
+		   ,content = #{content}
+		   ,writer = #{writer}
+		   ,writing_date = sysdate
+		   ,attached_file = #{attachedFile}
+		WHERE bulletin_no = #{bulletinNo}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteNews" parameterType="int">
+		DELETE FROM news
+		WHERE  bulletin_no = #{bulletinNo}
+	</delete>
+</mapper>
