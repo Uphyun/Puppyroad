@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.puppyroad.app.news.mapper.NewsMapper;
 import com.puppyroad.app.news.service.NewsVO;
@@ -20,7 +20,8 @@ class PuppyRoadApplicationTests {
 	// 전체조회
 	// @Test
 	void newsList() {
-		List<NewsVO> list = newsMapper.selectNewsList();
+		NewsVO newsVO = new NewsVO();
+		List<NewsVO> list = newsMapper.selectNewsList(newsVO);
 		assertTrue(!list.isEmpty());
 	}
 
@@ -41,8 +42,7 @@ class PuppyRoadApplicationTests {
 		newsVO.setTitle("Test test");
 		newsVO.setContent("test");
 		newsVO.setWriter("Hong");
-		newsVO.setAttachedFile("image");
-		newsVO.setBulletinType(1);
+		newsVO.setBulletinType("1");
 
 		int result = newsMapper.insertNews(newsVO);
 		System.out.println(newsVO.getBulletinNo());

@@ -11,19 +11,16 @@
 				,attached_file
 				,bulletin_type
 		FROM  news 		
-	    <where>
+		WHERE bulletin_type = #{bulletinType}
 			<if test="title != null and !title.equals('')">
-				OR title = #{bulletinNo}
+				AND title = #{title}
 			</if>
-		</where>
-		ORDER BY title
 	</select>
 	<!-- 단건조회 -->
 	<select id="selectNewsInfo" resultType="newsVO">
 		SELECT   bulletin_no
 				,title
 				,content
-				,writer
 				,writing_date
 				,attached_file
 				,bulletin_type
@@ -62,7 +59,7 @@
 		   	  		,sysdate
 		   			</otherwise>
 		   		</choose>
-		   		,#{attachedFile}
+		   		,to_char(#{attachedFile})
 		   		,#{bulletinType}
 		   	)  
 	</insert>
@@ -73,7 +70,6 @@
 		 SET
 			title = #{title}
 		   ,content = #{content}
-		   ,writer = #{writer}
 		   ,writing_date = sysdate
 		   ,attached_file = #{attachedFile}
 		WHERE bulletin_no = #{bulletinNo}

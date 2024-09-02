@@ -1,8 +1,10 @@
 package com.puppyroad.app.news.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -14,6 +16,6 @@ public class NewsVO {
 	private String writer;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date writingDate;
-	private String attachedFile;
-	private int bulletinType;
+	private List<MultipartFile> attachedFile;
+	private String bulletinType;
 }
