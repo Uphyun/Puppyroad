@@ -15,7 +15,7 @@ public interface MatchMapper {
 	// 등록
 	public int insertMatch(MatchVO matchVO);
 	// 수정
-	public int updateMatch(@Param("bNo") int matchId, @Param("match") MatchVO matchVO);
+	public int updateMatch(@Param("match") MatchVO matchVO);
 	// 삭제
 	public int deleteMatch(int bNo);
 }

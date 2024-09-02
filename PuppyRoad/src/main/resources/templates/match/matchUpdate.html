@@ -7,6 +7,7 @@
 >
   <head>
     <meta charset="UTF-8" />
+    <meta name="contextPath" th:value="${contextPath}">
     <title>matchTest</title>
   </head>
   <body>
@@ -166,6 +167,7 @@
     </div>
   </body>
   <script>
+	const context = $('meta[name="contextPath"]').attr('value');
     $("#updateBtn").on("click", updateAjax);
 
     function updateAjax(event) {
@@ -180,6 +182,9 @@
         .done((data) => {
           if (data.result) {
             alert("정상적으로 수정되었습니다");
+    		let bno = $('#bulletinNo').val();
+    		let url = context + '/matchInfo?bulletinNo=' + bno;
+    		location.href = url;
           } else {
             alert("수정이 실패하였습니다");
           }

@@ -5,6 +5,7 @@
       layout:fragment="Content">
 <head>
 <meta charset="UTF-8">
+<meta name="contextPath" th:value="${contextPath}">
 <title>matchTest</title>
 </head>
 <body>
@@ -15,10 +16,6 @@
 				<tr>
 					<th>번호</th>
 					<td><input class="form-control" type="text" name="bulletinNo"></td>
-				</tr>
-				<tr>
-					<th>사진</th>
-					<td><input class="form-control" type="text" name="coverPhoto"></td>
 				</tr>
 				<tr>
 					<th>제목</th>
@@ -35,20 +32,8 @@
 					<td><input class="form-control" type="text" name="matchingState"></td>
 				</tr>
 				<tr>
-					<th>시작 시간</th>
-					<td><input class="form-control" type="date" name="startTime"></td>
-				</tr>
-				<tr>
-					<th>종료 시간</th>
-					<td><input class="form-control" type="date" name="endTime"></td>
-				</tr>
-				<tr>
 					<th>작성 시간</th>
 					<td><input class="form-control" type="date" name="writingTime"></td>
-				</tr>
-				<tr>
-					<th>마릿수</th>
-					<td><input class="form-control" type="text" name="animalCount"></td>
 				</tr>
 				<tr>
 					<th>산책장소 주소</th>
@@ -59,12 +44,10 @@
 					<td><input class="form-control" type="text" name="matchingKind"></td>
 				</tr>
 				<tr>
-					<th>고객 코드</th>
-					<td><input class="form-control" type="text" name="clientCode"></td>
-				</tr>
-				<tr>
-					<th>강아지 코드</th>
-					<td><input class="form-control" type="text" name="puppyCode"></td>
+					<th>사진</th>
+					<td>
+						<input type="file" name="coverPhoto" multiple>
+					</td>
 				</tr>
 			</table>
 			<div class="center">

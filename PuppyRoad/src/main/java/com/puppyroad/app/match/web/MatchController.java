@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.puppyroad.app.match.service.MatchService;
@@ -65,7 +66,7 @@ public class MatchController {
 	// 수정 - 처리
 	@PostMapping("matchUpdate")
 	@ResponseBody // AJAX
-	public Map<String, Object> matchUpdate( MatchVO matchVO){
+	public Map<String, Object> matchUpdate(@RequestBody MatchVO matchVO){
 		return matchService.modifyMatch(matchVO);
 		
 	}

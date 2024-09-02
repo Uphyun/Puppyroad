@@ -5,6 +5,7 @@
       layout:fragment="Content">
 <head>
 <meta charset="UTF-8">
+<meta name="contextPath" th:value="${contextPath}">
 <title>matchTest</title>
 </head>
   <body>
@@ -169,13 +170,27 @@
             </td>
           </tr>
         </table>
+        <button type="button" class="btn btn-secondary" 
+			th:onclick="|location.href='@{/matchList}'|">목록
+		</button>
         <button type="button" class="btn btn-warning" id="modifyBtn">
           수정
         </button>
-        <button type="button" class="btn btn-danger" id="removeBtn">
-          삭제
-        </button>
+		<button type="button" class="btn btn-danger"
+			th:onclick="|location.href='@{/matchDelete(bulletinNo=${match.bulletinNo})}'|">삭제
+		</button>
+		<button type="button" class="btn btn-primary"
+			th:onclick="|location.href='@{/matchApply(bulletinNo=${match.bulletinNo})}'|">신청
+		</button>
       </form>
     </div>
   </body>
+  <script>
+	const context = $('meta[name="contextPath"]').attr('value');
+	$('#modifyBtn').on('click', function(event){
+		let bno = $('#bulletinNo').val();
+		let url = context + '/matchUpdate?bulletinNo=' + bno;
+		location.href = url;
+	})
+  </script>
 </html>
