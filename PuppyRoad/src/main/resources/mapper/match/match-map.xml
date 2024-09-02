@@ -17,7 +17,7 @@
 		 		client_code,
 		 		puppy_code
 	    FROM    matching_board
-	    ORDER BY bulletin_no
+	    ORDER BY bulletin_no desc
   </select>
   
   <!-- 단건 자율매칭 -->
@@ -86,7 +86,7 @@
   	       walk_place_address = #{walkPlaceAddress},
   	       matching_kind = #{matchingKind},
   	       client_code = #{clientCode},
-  	       puppy_code = #{puppyCode},
+  	       puppy_code = #{puppyCode}
   	WHERE  bulletin_no = #{bulletinNo}
   </update>
   

@@ -66,7 +66,7 @@ public class MatchController {
 	// 수정 - 처리
 	@PostMapping("matchUpdate")
 	@ResponseBody // AJAX
-	public Map<String, Object> matchUpdate( MatchVO matchVO){
+	public Map<String, Object> matchUpdate(@RequestBody MatchVO matchVO){
 		return matchService.modifyMatch(matchVO);
 		
 	}

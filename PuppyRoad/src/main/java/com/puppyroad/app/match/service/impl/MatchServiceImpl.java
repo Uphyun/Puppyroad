@@ -46,7 +46,7 @@ public class MatchServiceImpl implements MatchService {
 		Map<String, Object> map = new HashMap<>();
 		boolean isSuccessed = false;
 		
-		int result = matchMapper.updateMatch(matchVO.getBulletinNo(), matchVO);
+		int result = matchMapper.updateMatch(matchVO);
 		
 		if (result == 1) {
 			isSuccessed = true;
