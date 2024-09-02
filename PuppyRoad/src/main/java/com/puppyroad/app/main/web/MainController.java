@@ -11,4 +11,9 @@ public class MainController {
 		return "index";
 	}
 	
+	@GetMapping("map")
+	public String mapPage() {
+		return "map/map";
+	}
+	
 }
