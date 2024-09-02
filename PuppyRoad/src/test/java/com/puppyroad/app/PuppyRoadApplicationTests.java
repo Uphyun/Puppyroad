@@ -42,7 +42,6 @@ class PuppyRoadApplicationTests {
 		newsVO.setTitle("Test test");
 		newsVO.setContent("test");
 		newsVO.setWriter("Hong");
-		newsVO.setAttachedFile("image");
 		newsVO.setBulletinType("1");
 
 		int result = newsMapper.insertNews(newsVO);
