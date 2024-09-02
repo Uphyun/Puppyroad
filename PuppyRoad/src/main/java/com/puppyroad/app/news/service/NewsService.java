@@ -6,7 +6,7 @@ import java.util.Map;
 public interface NewsService {
 	
 	// 전체조회
-	public List<NewsVO> getNewsList();
+	public List<NewsVO> getNewsList(NewsVO newVO);
 	
 	// 단건조회
 	public NewsVO getNewsInfo(NewsVO newsVO);

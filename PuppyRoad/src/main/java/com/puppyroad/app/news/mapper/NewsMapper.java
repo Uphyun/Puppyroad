@@ -7,7 +7,7 @@ import com.puppyroad.app.news.service.NewsVO;
 
 public interface NewsMapper {
 	// 전체조회
-	public List<NewsVO> selectNewsList();
+	public List<NewsVO> selectNewsList(NewsVO newVO);
 	
 	// 단건 조회
 	public NewsVO selectNewsInfo(NewsVO newVO);

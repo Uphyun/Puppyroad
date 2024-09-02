@@ -1,46 +1,114 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org/"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{common/layouts/default_layout}"
-      layout:fragment="Content">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
 <head>
 <meta charset="UTF-8">
-<title>공지사항 등록</title>
+<title>소식통 등록</title>
+<style>
+#image_container {
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
+	flex-wrap: wrap;
+}
+
+#image_container img {
+	max-width: 100px;
+	max-height: 100px;
+	object-fit: cover;
+	border-radius: 4px;
+	border: 1px solid #ced4da;
+}
+
+th, td {
+	padding: 10px;
+	text-align: left;
+	vertical-align: middle;
+}
+
+th {
+	width: 20%;
+}
+
+td {
+	width: 80%;
+	text-align: center;
+}
+</style>
 </head>
 <body>
-	<br><br><br>
+	<br>
+	<br>
 	<div class="container text-center">
-		<table class="mx-auto">
-            <tr>
-                <th>번호</th>
-                <td>[[${news.bulletinNo}]]</td>
-            </tr>
-            <tr>
-                <th>제목</th>
-                <td>[[${news.title}]]</td>
-            </tr>
-            <tr>
-                <th>내용</th>
-                <td height="100px" width="200px">[[${news.content}]]</td>
-            </tr>
-            <tr>
-                <th>작성자</th>
-                <td>[[${news.writer}]]</td>
-            </tr>
-            <tr>
-                <th>등록일</th>
-                <td>[[ ${#dates.format(news.writingDate,'yyyy년MM월dd일')} ]]</td>
-            </tr>
-            <tr>
-                <th>첨부파일</th>
-                <td><img style="width:50%;" th:src="@{/images/{fileName}(fileName=${news.attachedFile})}"></td>
-            </tr>
-        </table>
-        	<!-- <button type="button" class="btn btn-warning"
-        	    th:onClick="|location.href='@{/boardUpdate(bno=${board.bno})}'|">수정</button>
-        	<button type="button" class="btn btn-danger"
-        		th:onClick="|location.href='@{/boardDelete(no=${board.bno})}'|">삭제</button> -->
-    </div>
-	
+		<form name="insertForm" th:action="@{/newsInsert}" method="post" enctype="multipart/form-data">
+			<table class="mx-auto" style="width: 100%">
+				<tr>
+					<th>제목</th>
+					<td><input class="form-control" type="text" name="title"></td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td><textarea class="form-control" name="content" rows="5"></textarea></td>
+				</tr>
+				<tr>
+					<th>첨부파일</th>
+					<td>
+						<div id="image_container"></div> <input class="form-control"
+						type="file" id="image" accept="image/*"
+						onchange="setThumbnail(event);" multiple name="attachedFile">
+					</td>
+				</tr>
+				<tr >
+					<th>유형 선택</th>
+					<td><label> <input type="radio" name="bulletinType"
+							value="0" checked> 공지사항
+					</label> <label style="margin-left: 20px;"> <input type="radio"
+							name="bulletinType" value="1"> 이벤트
+					</label></td>
+				</tr>
+			</table>
+			<button class="btn btn-info btn-lg my-4" type="submit">등록</button>
+		</form>
+	</div>
+
+	<script>
+		function setThumbnail(event) {
+			$("#image_container").empty();
+			$.each(event.target.files, function(index, image) {
+				let reader = new FileReader();
+
+				reader.onload = function(e) {
+					let img = $("<img>").attr("src", e.target.result);
+					$("#image_container").append(img);
+				};
+				reader.readAsDataURL(image);
+			});
+		}
+
+		$('form[name="insertForm"]').on('submit', insertHandler);
+
+		function insertHandler(event) {
+			event.preventDefault();
+
+			let title = $('input[name="title"]');
+			if (title.val() === '') {
+				alert('제목이 입력되지 않았습니다.');
+				title.focus();
+				return;
+			}
+
+			let content = $('textarea[name="content"]');
+			if (content.val() === '') {
+				alert('내용이 입력되지 않았습니다.');
+				content.focus();
+				return;
+			}
+
+			this.submit();
+			alert("등록이 완료 되었습니다!")
+		}
+	</script>
 </body>
 </html>
