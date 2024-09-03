@@ -33,7 +33,7 @@ public class ChatRoomRepository {
 
     public ChatRoomDTO createChatRoomDTO(String name){
         ChatRoomDTO room = ChatRoomDTO.create(name);
-        chatRoomDTOMap.put(room.getRoomId(), room);
+        chatRoomDTOMap.put(room.getChatRoomCode(), room);
 
         return room;
     }
