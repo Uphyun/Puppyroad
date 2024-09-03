@@ -1,8 +1,6 @@
 package com.puppyroad.app.member.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.SecurityConfig;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.puppyroad.app.member.mapper.MemberMapper;
@@ -30,6 +28,5 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberMapper.idCheck(userId);
 	}
-
 
 }
