@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ko" xmlns:th="https://www.thymeleaf.org/" 
 	xmlns:layout="https://github.com/ultraq/thymeleaf-layout-dialect/"
   	class="light-style layout-wide customizer-hide" dir="ltr" data-theme="theme-default"
@@ -18,52 +18,62 @@
 				<div class="card-body">
 					<div class="contact-form d-flex justify-content-center">
 						<form class="mf_form_validate ajax_submit" name="insertForm"
-							id="frm" th:action="@{/memberInsert}" method="post">
+							id="frm" th:action="@{/memberInsert}" method="post" th:object="${memberVO}">
 							<h4 class="mb-1">회원가입 🚀</h4>
 							<table id="table">
 								<tr class="mb-6 fv-plugins-icon-container">
 									<th>아이디</th>
-									<td><input class="form-control" type="text" name="userId"></td>
+									<td><input class="form-control" type="text" name="userId" th:errorclass="error-input" th:field="*{userId}">
+									<div class="error-class" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></div></td>
 									<td><button type="button" class="btn btn-primary d-grid w-100 waves-effect waves-light" id="idck">중복체크</button></td>
 								</tr>
 								
 								<tr>
 									<th>비밀번호</th>
-									<td><input class="form-control" type="text" name="userPw"></td>
+									<td><input class="form-control" type="text" name="userPw" th:errorclass="error-input" th:field="*{userPw}">
+									<div class="error-class" th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}"></div></td>
+						
 								</tr>
 								<tr>
 									<th>비밀번호확인</th>
-									<td><input class="form-control" type="text"
-										name="userPwck"></td>
+									<td><input class="form-control" type="text" name="userPwck" th:errorclass="error-input" th:field="*{userPwck}">
+									<div class="error-class" th:if="${#fields.hasErrors('userPwck')}" th:errors="*{userPwck}"></div></td>
 								</tr>
 								<tr>
 									<th>이름</th>
-									<td><input class="form-control" type="text" name="name"></td>
+									<td><input class="form-control" type="text" name="name" th:errorclass="error-input" th:field="*{name}">
+									<div class="error-class" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div></td>
 								</tr>
 								<tr>
 									<th>별명</th>
-									<td><input class="form-control" type="text"
-										name="nickName"></td>
+									<td><input class="form-control" type="text" name="nickName" th:errorclass="error-input" th:field="*{nickName}">
+									<div class="error-class" th:if="${#fields.hasErrors('nickName')}" th:errors="*{nickName}"></div></td>
 								</tr>
 								<tr>
 									<th>주소</th>
-									<td><input class="form-control" type="text" name="address"></td>
+									<td><input class="form-control" type="text" name="address" th:errorclass="error-input" th:field="*{address}">
+									<div class="error-class" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div></td>
 								</tr>
 								<tr>
 									<th>이메일</th>
-									<td><input class="form-control" type="text" name="email"></td>
+									<td><input class="form-control" type="text" name="email" th:errorclass="error-input" th:field="*{email}">
+									<div class="error-class" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div></td>
 								</tr>
 								<tr>
 									<th>휴대전화</th>
-									<td><input class="form-control" type="text" name="phone"></td>
+									<td><input class="form-control" type="text" name="phone" th:errorclass="error-input" th:field="*{phone}">
+									<div class="error-class" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div></td>
 								</tr>
 								<tr id="posi">
 									<th>직함</th>
-									<td class="form-check"><input type="radio" name="position"
-										value="의뢰인"> <label for="option1">의뢰인</label> <input
-										type="radio" name="position" value="봉사인"> <label
-										for="option2">봉사인</label> <input type="radio" name="position"
-										value="도그워커"> <label for="option3">도그워커</label></td>
+									<td class="form-check">
+									<input type="radio" name="position"value="의뢰인" th:errorclass="error-input"> 
+									<label for="option1">의뢰인</label> 
+									<input type="radio" name="position" value="봉사인" th:errorclass="error-input"> 
+									<label for="option2">봉사인</label> 
+									<input type="radio" name="position" value="도그워커" th:errorclass="error-input"> 
+									<label for="option3">도그워커</label>
+									</td>
 								</tr>
 								<tr id="intention">
 									<th>의도</th>
@@ -156,35 +166,11 @@
 		}
 	});
 
-	//필수항목체크
-	$('#formCheck').on('click',()=>{
-		if(idck){
-			alert("아이디 중복체크 해주세요");
-			return false;
-		}else if(pwck){
-			alert("비밀번호를 확인해주세요");
-			return false;
-		}else if($("input[name='name']").val() == ''){
-			alert("이름을 입력하세요")
-			$("input[name='name']").focus();
-			return false;
-		}else if($("input[name='nickName']").val() == ''){
-			alert("닉네임을 입력하세요")
-			$("input[name='nickName']").focus();
-			return false;
-		}else if($("input[name='address']").val() == ''){
-			alert("주소 입력하세요")
-			$("input[name='address']").focus();
-			return false;
-		}else if($("input[name='phone']").val() == ''){
-			alert("전화번호를 입력하세요")
-			$("input[name='phone']").focus();
-			return false;
-		}
-	})
-	
 	$('.form-control').css('margin-left', '10px');
 	$('.btn').css('margin-left', '10px');
+	$('.error-class').css('margin-left', '25px');
+	$('.error-class').css('color', 'red');
+	
 	</script>
 </body>
 </html>
