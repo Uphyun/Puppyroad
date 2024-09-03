@@ -74,24 +74,25 @@ td {
 	</div>
 
 	<script>
-		function setThumbnail(event) {
-			$("#image_container").empty();
-			$.each(event.target.files, function(index, image) {
-				let reader = new FileReader();
+	function setThumbnail(event) {
+	    const fileList = event.target.files;
+	    const imageContainer = $("#image_container");
 
-				reader.onload = function(e) {
-					let img = $("<img>").attr("src", e.target.result);
-					$("#image_container").append(img);
-				};
-				reader.readAsDataURL(image);
-			});
-		}
+	    Array.from(fileList).forEach(file => {
+	        let reader = new FileReader();
+	        
+	        reader.onload = function(e) {
+	            let img = $("<img>").attr("src", e.target.result);
+	            imageContainer.append(img);
+	        };
+	        reader.readAsDataURL(file);
+	    });
+	}
 
 		$('form[name="insertForm"]').on('submit', insertHandler);
 
 		function insertHandler(event) {
 			event.preventDefault();
-
 			let title = $('input[name="title"]');
 			if (title.val() === '') {
 				alert('제목이 입력되지 않았습니다.');
@@ -106,8 +107,9 @@ td {
 				return;
 			}
 
-			this.submit();
 			alert("등록이 완료 되었습니다!")
+			this.submit();
+			
 		}
 	</script>
 </body>

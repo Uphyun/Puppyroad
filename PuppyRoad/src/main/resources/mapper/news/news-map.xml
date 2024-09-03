@@ -15,6 +15,7 @@
 			<if test="title != null and !title.equals('')">
 				AND title = #{title}
 			</if>
+		ORDER BY bulletin_no DESC
 	</select>
 	<!-- 단건조회 -->
 	<select id="selectNewsInfo" resultType="NewsVO">
