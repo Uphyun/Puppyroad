@@ -1,13 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="ConfigFragment">
+
+<!-- meta -->
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="Context" th:value="${contextPath}" />
+
+
 <!-- configs -->
 <th:block th:fragment="jQueryConfig">
 <script src="assets/main/js/vendor/modernizr-3.6.0.min.js"></script>
 <script src="assets/main/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 </th:block>
+
+
+<!-- Bootstrap -->
 <th:block th:fragment="Bootstrap">
 <script src="assets/main/js/main.js"></script>
 </th:block>
+
+
+<!-- Css -->
 <th:block th:fragment="Css">
 <!--====== Favicon Icon ======-->
 	<link rel="shortcut icon" href="assets/main/img/favicon.ico" type="img/png" />
