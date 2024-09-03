@@ -16,6 +16,6 @@ public class NewsVO {
 	private String writer;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date writingDate;
-	private List<MultipartFile> attachedFile;
+	private String attachedFile;
 	private String bulletinType;
 }

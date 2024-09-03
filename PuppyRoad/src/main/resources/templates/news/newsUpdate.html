@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layouts/default_layout}"
+      layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+<title>소식통 수정</title>
+<style>
+  th, td {
+    padding: 10px;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  th {
+    width: 20%;
+  }
+
+  td {
+    width: 80%;
+  }
+</style>
+</head>
+<body>
+	<br><br><br>
+		<div class="container text-center">
+		<form name="updateForm" th:object="${news}">
+			<table class="mx-auto">
+				<tr>
+					<th>번호</th>
+					<td><input class="form-control" type="text" readonly
+						th:field="*{bulletinNo}"></td>
+				</tr>
+				<tr>
+					<th>제목</th>
+					<td><input class="form-control" type="text"
+						th:field="*{title}"></td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td height="100px" width="200px"><textarea
+							class="form-control" th:field="*{content}" rows="5"></textarea></td>
+				</tr>
+				<tr>
+					<th>첨부파일</th>
+					<td><input class="form-control" type="file" multiple
+						th:field="*{attachedFile}"></td>
+				</tr>
+			</table>
+
+			<button id="updateBtn" class="btn btn-primary btn-lg my-4"
+				type="button">수정</button>
+		</form>
+	</div>
+
+	<script>
+	function setThumbnail(event) {
+		$("#image_container").empty();
+		$.each(event.target.files, function(index, image) {
+			let reader = new FileReader();
+
+			reader.onload = function(e) {
+				let img = $("<img>").attr("src", e.target.result);
+				$("#image_container").append(img);
+			};
+			reader.readAsDataURL(image);
+		});
+	}
+	
+	$("#updateBtn").on('click',Ajax);
+	
+	function Ajax(){
+		let info = getNewsInfo();
+		
+		$.ajax('newsUpdate', {
+			type : 'post',
+			contentType : 'application/json',
+			data : JSON.stringify(info)
+		})
+		.done(data =>{
+			if(data.result){
+				console.log(result);
+				alert("수정완료");
+			}else{
+				alert("수정실패");
+			}
+		})
+		.fail(err => {
+			console.log(err);
+		})
+	}
+	
+	function getNewsInfo(){
+		let formAry = $('form[name = "updateForm"]').serializeArray();
+		
+		let formObj = {};
+		$.each(formAry,function(idx,tag){
+			formObj[tag.name] = tag.value;
+		});
+		return formObj;
+	}
+	</script>
+</body>
+</html>

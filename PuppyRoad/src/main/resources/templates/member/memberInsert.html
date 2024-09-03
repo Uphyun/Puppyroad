@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org/" 
+	xmlns:layout="https://github.com/ultraq/thymeleaf-layout-dialect/"
+  	class="light-style layout-wide customizer-hide" dir="ltr" data-theme="theme-default"
+  	data-assets-path="assets/admin/" data-template="vertical-menu-template" data-style="light">
+<head>
+<meta charset="UTF-8">
+<th:block
+	th:replace="~{common/configs/admin/admin_config :: AdminConfigFragment}"></th:block>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+	<div class="container-xxl">
+		<div class="authentication-wrapper authentication-basic container-p-y">
+			<div class="authentication-inner py-6">
+			  <div class="card">
+				<div class="card-body">
+					<div class="contact-form d-flex justify-content-center">
+						<form class="mf_form_validate ajax_submit" name="insertForm"
+							id="frm" th:action="@{/memberInsert}" method="post">
+							<h4 class="mb-1">회원가입 🚀</h4>
+							<table id="table">
+								<tr class="mb-6 fv-plugins-icon-container">
+									<th>아이디</th>
+									<td><input class="form-control" type="text" name="userId"></td>
+									<td><button type="button" class="btn btn-primary d-grid w-100 waves-effect waves-light" id="idck">중복체크</button></td>
+								</tr>
+								
+								<tr>
+									<th>비밀번호</th>
+									<td><input class="form-control" type="text" name="userPw"></td>
+								</tr>
+								<tr>
+									<th>비밀번호확인</th>
+									<td><input class="form-control" type="text"
+										name="userPwck"></td>
+								</tr>
+								<tr>
+									<th>이름</th>
+									<td><input class="form-control" type="text" name="name"></td>
+								</tr>
+								<tr>
+									<th>별명</th>
+									<td><input class="form-control" type="text"
+										name="nickName"></td>
+								</tr>
+								<tr>
+									<th>주소</th>
+									<td><input class="form-control" type="text" name="address"></td>
+								</tr>
+								<tr>
+									<th>이메일</th>
+									<td><input class="form-control" type="text" name="email"></td>
+								</tr>
+								<tr>
+									<th>휴대전화</th>
+									<td><input class="form-control" type="text" name="phone"></td>
+								</tr>
+								<tr id="posi">
+									<th>직함</th>
+									<td class="form-check"><input type="radio" name="position"
+										value="의뢰인"> <label for="option1">의뢰인</label> <input
+										type="radio" name="position" value="봉사인"> <label
+										for="option2">봉사인</label> <input type="radio" name="position"
+										value="도그워커"> <label for="option3">도그워커</label></td>
+								</tr>
+								<tr id="intention">
+									<th>의도</th>
+									<td><input class="form-control" type="text" name="intention"></td>
+								</tr>
+								<tr id="client">
+									<th></th>
+									<td><textarea class="form-control" placeholder="*애완견 프로필 페이지로 이동하여 추가정보를 입력해주세요"></textarea></td>
+								</tr>
+								<tr id="dogwalk">
+									<th></th>
+									<td><textarea class="form-control" placeholder="*도그워커 프로필 페이지로 이동하여 추가정보를 입력해주세요"></textarea></td>
+								</tr>
+								<tr>
+									<th></th>
+									<td><button type="submit" id="formCheck"
+											class="btn btn-primary d-grid w-100 waves-effect waves-light">회원가입</button></td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+			  </div>
+			</div>
+		</div>
+	</div>
+	<script>
+	//로딩시점
+	$(document).ready(function() {
+	
+	        $('#intention').hide();
+	        $('#client').hide();
+	        $('#dogwalk').hide();
+	   
+	//선택시점
+	  $("input[name='position']").change(function(){
+	        if($(this).val() == "봉사인"){
+		        $('#client').hide();
+		        $('#dogwalk').hide();
+	            $('#intention').show();
+	        } else if($(this).val() == "의뢰인") {
+	            $('#intention').hide();
+	            $('#dogwalk').hide();
+	            $('#client').show();
+	        } else if($(this).val() == "도그워커"){
+	        	$('#client').hide();
+	            $('#intention').hide();
+	        	$('#dogwalk').show();
+	        }
+	    });
+	});
+	
+	//중복체크
+	let idck = true;
+	let pwck = true;
+	
+	$('#idck').on('click',()=>{
+		let userId = $("input[name='userId']").val();
+		
+		$.ajax({
+			url : 'idCheck',
+			method : 'post',
+			data : {userId}
+		})
+		.done(result => {
+			console.log(result);
+			if(result.cnt > 0){
+				alert("이미 존재하는 아이디입니다.");
+				  $("input[name='userId']").focus();
+			}else{
+				alert("사용가능한 아이디입니다.");
+				idck = false;
+			}
+		})
+	})
+	
+	//비밀번호 확인
+	$("input[name='userPwck']").change(function(){
+		
+		if($("input[name='userPw']").val() == $("input[name='userPwck']").val()){
+			
+			alert("비밀번가 일치합니다.");
+			pwck = false;
+
+			
+		}else{
+			
+			alert("비밀번호가 일치하지 않습니다.")
+			$("input[name='userPwck']").focus();
+		}
+	});
+
+	//필수항목체크
+	$('#formCheck').on('click',()=>{
+		if(idck){
+			alert("아이디 중복체크 해주세요");
+			return false;
+		}else if(pwck){
+			alert("비밀번호를 확인해주세요");
+			return false;
+		}else if($("input[name='name']").val() == ''){
+			alert("이름을 입력하세요")
+			$("input[name='name']").focus();
+			return false;
+		}else if($("input[name='nickName']").val() == ''){
+			alert("닉네임을 입력하세요")
+			$("input[name='nickName']").focus();
+			return false;
+		}else if($("input[name='address']").val() == ''){
+			alert("주소 입력하세요")
+			$("input[name='address']").focus();
+			return false;
+		}else if($("input[name='phone']").val() == ''){
+			alert("전화번호를 입력하세요")
+			$("input[name='phone']").focus();
+			return false;
+		}
+	})
+	
+	$('.form-control').css('margin-left', '10px');
+	$('.btn').css('margin-left', '10px');
+	</script>
+</body>
+</html>
