@@ -1,0 +1,176 @@
+ <!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org/" 
+	xmlns:layout="https://github.com/ultraq/thymeleaf-layout-dialect/"
+  	class="light-style layout-wide customizer-hide" dir="ltr" data-theme="theme-default"
+  	data-assets-path="assets/admin/" data-template="vertical-menu-template" data-style="light">
+<head>
+<meta charset="UTF-8">
+<th:block
+	th:replace="~{common/configs/admin/admin_config :: AdminConfigFragment}"></th:block>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+	<div class="container-xxl">
+		<div class="authentication-wrapper authentication-basic container-p-y">
+			<div class="authentication-inner py-6">
+			  <div class="card">
+				<div class="card-body">
+					<div class="contact-form d-flex justify-content-center">
+						<form class="mf_form_validate ajax_submit" name="insertForm"
+							id="frm" th:action="@{/memberInsert}" method="post" th:object="${memberVO}">
+							<h4 class="mb-1">회원가입 🚀</h4>
+							<table id="table">
+								<tr class="mb-6 fv-plugins-icon-container">
+									<th>아이디</th>
+									<td><input class="form-control" type="text" name="userId" th:errorclass="error-input" th:field="*{userId}">
+									<div class="error-class" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></div></td>
+									<td><button type="button" class="btn btn-primary d-grid w-100 waves-effect waves-light" id="idck">중복체크</button></td>
+								</tr>
+								
+								<tr>
+									<th>비밀번호</th>
+									<td><input class="form-control" type="text" name="userPw" th:errorclass="error-input" th:field="*{userPw}">
+									<div class="error-class" th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}"></div></td>
+						
+								</tr>
+								<tr>
+									<th>비밀번호확인</th>
+									<td><input class="form-control" type="text" name="userPwck" th:errorclass="error-input" th:field="*{userPwck}">
+									<div class="error-class" th:if="${#fields.hasErrors('userPwck')}" th:errors="*{userPwck}"></div></td>
+								</tr>
+								<tr>
+									<th>이름</th>
+									<td><input class="form-control" type="text" name="name" th:errorclass="error-input" th:field="*{name}">
+									<div class="error-class" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div></td>
+								</tr>
+								<tr>
+									<th>별명</th>
+									<td><input class="form-control" type="text" name="nickName" th:errorclass="error-input" th:field="*{nickName}">
+									<div class="error-class" th:if="${#fields.hasErrors('nickName')}" th:errors="*{nickName}"></div></td>
+								</tr>
+								<tr>
+									<th>주소</th>
+									<td><input class="form-control" type="text" name="address" th:errorclass="error-input" th:field="*{address}">
+									<div class="error-class" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div></td>
+								</tr>
+								<tr>
+									<th>이메일</th>
+									<td><input class="form-control" type="text" name="email" th:errorclass="error-input" th:field="*{email}">
+									<div class="error-class" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div></td>
+								</tr>
+								<tr>
+									<th>휴대전화</th>
+									<td><input class="form-control" type="text" name="phone" th:errorclass="error-input" th:field="*{phone}">
+									<div class="error-class" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div></td>
+								</tr>
+								<tr id="posi">
+									<th>직함</th>
+									<td class="form-check">
+									<input type="radio" name="position"value="의뢰인" th:errorclass="error-input"> 
+									<label for="option1">의뢰인</label> 
+									<input type="radio" name="position" value="봉사인" th:errorclass="error-input"> 
+									<label for="option2">봉사인</label> 
+									<input type="radio" name="position" value="도그워커" th:errorclass="error-input"> 
+									<label for="option3">도그워커</label>
+									</td>
+								</tr>
+								<tr id="intention">
+									<th>의도</th>
+									<td><input class="form-control" type="text" name="intention"></td>
+								</tr>
+								<tr id="client">
+									<th></th>
+									<td><textarea class="form-control" placeholder="*애완견 프로필 페이지로 이동하여 추가정보를 입력해주세요"></textarea></td>
+								</tr>
+								<tr id="dogwalk">
+									<th></th>
+									<td><textarea class="form-control" placeholder="*도그워커 프로필 페이지로 이동하여 추가정보를 입력해주세요"></textarea></td>
+								</tr>
+								<tr>
+									<th></th>
+									<td><button type="submit" id="formCheck"
+											class="btn btn-primary d-grid w-100 waves-effect waves-light">회원가입</button></td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+			  </div>
+			</div>
+		</div>
+	</div>
+	<script>
+	//로딩시점
+	$(document).ready(function() {
+	
+	        $('#intention').hide();
+	        $('#client').hide();
+	        $('#dogwalk').hide();
+	   
+	//선택시점
+	  $("input[name='position']").change(function(){
+	        if($(this).val() == "봉사인"){
+		        $('#client').hide();
+		        $('#dogwalk').hide();
+	            $('#intention').show();
+	        } else if($(this).val() == "의뢰인") {
+	            $('#intention').hide();
+	            $('#dogwalk').hide();
+	            $('#client').show();
+	        } else if($(this).val() == "도그워커"){
+	        	$('#client').hide();
+	            $('#intention').hide();
+	        	$('#dogwalk').show();
+	        }
+	    });
+	});
+	
+	//중복체크
+	let idck = true;
+	let pwck = true;
+	
+	$('#idck').on('click',()=>{
+		let userId = $("input[name='userId']").val();
+		
+		$.ajax({
+			url : 'idCheck',
+			method : 'post',
+			data : {userId}
+		})
+		.done(result => {
+			console.log(result);
+			if(result.cnt > 0){
+				alert("이미 존재하는 아이디입니다.");
+				  $("input[name='userId']").focus();
+			}else{
+				alert("사용가능한 아이디입니다.");
+				idck = false;
+			}
+		})
+	})
+	
+	//비밀번호 확인
+	$("input[name='userPwck']").change(function(){
+		
+		if($("input[name='userPw']").val() == $("input[name='userPwck']").val()){
+			
+			alert("비밀번가 일치합니다.");
+			pwck = false;
+
+			
+		}else{
+			
+			alert("비밀번호가 일치하지 않습니다.")
+			$("input[name='userPwck']").focus();
+		}
+	});
+
+	$('.form-control').css('margin-left', '10px');
+	$('.btn').css('margin-left', '10px');
+	$('.error-class').css('margin-left', '25px');
+	$('.error-class').css('color', 'red');
+	
+	</script>
+</body>
+</html>
