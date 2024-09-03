@@ -9,6 +9,5 @@ public interface MemberMapper {
 	public int insertMember(MemberVO memberVO);
 	//중복아이디조회
 	public int idCheck(String userId);
-	//로그인
 	
 }

@@ -21,7 +21,6 @@ public class MemberController {
 	MemberController(MemberService memberService){
 		this.memberService = memberService;
 	}
-	@Autowired
 	
 
 	//회원가입등록 - 페이지
