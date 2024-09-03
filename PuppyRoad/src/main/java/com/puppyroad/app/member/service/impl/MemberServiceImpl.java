@@ -1,5 +1,7 @@
 package com.puppyroad.app.member.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +30,13 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberMapper.idCheck(userId);
 	}
+
+
+	@Override
+	public MemberVO loginMember(MemberVO memberVO) {
+		
+		return memberMapper.memberLogin(memberVO);
+	}
+
 
 }

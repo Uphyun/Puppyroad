@@ -57,6 +57,14 @@
 		WHERE user_id = #{userId}
 	</select>
 	
+	
+	<select id="memberLogin" parameterType="String" resultType="memberVO">
+		SELECT user_id
+			  ,user_pw
+		FROM   member
+		WHERE user_id = #{userId} 
+		and   user_pw = #{userPw}
+	</select>
 		
 
 </mapper>

@@ -5,13 +5,16 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.puppyroad.app.member.service.MemberService;
 import com.puppyroad.app.member.service.MemberVO;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class MemberController {
@@ -25,21 +28,35 @@ public class MemberController {
 
 	//회원가입등록 - 페이지
 	@GetMapping("memberInsert")
-	public String memberInsertForm() {
+	public String memberInsertForm(Model model) {
+		
+		model.addAttribute("memberVO", new MemberVO());
 		return "member/memberInsert";
 	}
 	
 	//회원가입등록 - 처리
 	@PostMapping("memberInsert")
-	public String memberInsertProcess(MemberVO memberVO) {
+	public String memberInsertProcess(@Valid MemberVO memberVO, BindingResult bindingResult, Model model) {
+		
+		
+		if(bindingResult.hasErrors()) {
+			
+			model.addAttribute("memberVO", memberVO);
+			
+			return "member/memberInsert";
+		}
+			
 		String mid = memberService.addMember(memberVO);
-		String url = "redirect:/fail";
 		
 		if(!"fail".equals(mid)) {
-			url = "redirect:/";
-		}
-		
-		return url;
+			
+			return "redirect:memberLogin";
+			
+		}else {	
+			
+			model.addAttribute("fail", "아이디 또는 비밀번호가 일치하지 않습니다.");
+			return "memberInsert/memberInsert";
+		}		
 	}
 	
 	//아이디중복체크
@@ -55,6 +72,30 @@ public class MemberController {
 		
 		return map;
 	}
+	
+	//로그인페이지
+	@GetMapping("memberLogin")
+	public String memberLoginForm(Model model) {
+		
+		return "member/memberLogin";
+	}
+	
+	//로그인처리
+	@PostMapping("memberLogin")
+	public String memberLogin(MemberVO memberVO, Model model) {
+		MemberVO login = memberService.loginMember(memberVO);
+		
+		if(login != null) {
+			
+			return "redirect:/";
+			
+		}else{
+			
+			model.addAttribute("error", "실패");
+			return "member/memberLogin";
+		}
+	}
+
 	
 		
 }
