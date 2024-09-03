@@ -12,24 +12,16 @@ import com.puppyroad.app.member.service.MemberVO;
 @Service
 public class MemberServiceImpl implements MemberService {
 	private MemberMapper memberMapper;
-	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
-	public MemberServiceImpl(MemberMapper memberMapper,PasswordEncoder passwordEncoder) {
+	public MemberServiceImpl(MemberMapper memberMapper) {
 		this.memberMapper = memberMapper;
-		this.passwordEncoder = passwordEncoder;
 	}
-
 
 	@Override
 	public String addMember(MemberVO memberVO) {
-		
-		// 암호화
-		String SecurityPw = passwordEncoder.encode(memberVO.getUserPw());
-		memberVO.setUserPw(SecurityPw); 
-		
+			
 		int result = memberMapper.insertMember(memberVO);
-		
 		return result == 1 ? memberVO.getMemberCode() : "fail";
 	}
 
