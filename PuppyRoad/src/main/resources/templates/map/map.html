@@ -11,9 +11,17 @@
 				<b>Chrome 브라우저는 https 환경에서만 위치정보를 지원합니다.</b> 참고해주세요.
 			</p>
 			<div id="map" class="locations-maps bg-white"></div>
-			<button onclick="selectOverlay('POLYLINE')">선</button>
-			<button onclick="stopWalk()">멈추기</button>
-			<button id="drawBtn">그리기</button>
+			<div>
+				<button onclick="selectOverlay('POLYLINE')">선</button>
+				<button onclick="stopWalk()">멈추기</button>
+				<button id="drawBtn">그리기</button>
+			</div>
+			<div>
+				<input type="text" id="xline" style="background-color: rgb(207, 207, 207);">
+				<input type="text" id="yline" style="background-color: rgb(207, 207, 207);">
+				<button type="button" id="saveBtn">위치
+					저장</button>
+			</div>
 
 		</div>
 	</section>
@@ -24,202 +32,9 @@
 
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=22529f2e0edbc8b92825acd8646989cb&libraries=drawing"></script>
+	<script type="text/javascript" src="assets/main/js/gps/gps.js"></script>
 	<script>
-		let interval;
-		let mapContainer = document.getElementById('map'); // 지도를 표시할 div 
-		let mapOption = {
-			center: new kakao.maps.LatLng(35.8691089, 128.593387), // 지도의 중심좌표
-			level: 5
-			// 지도의 확대 레벨 
-		};
-
-		let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-		let drawOptions = { // Drawing Manager를 생성할 때 사용할 옵션입니다
-			map: map, // Drawing Manager로 그리기 요소를 그릴 map 객체입니다
-			drawingMode: [ // Drawing Manager로 제공할 그리기 요소 모드입니다
-				kakao.maps.Drawing.OverlayType.POLYLINE],
-			// 사용자에게 제공할 그리기 가이드 툴팁입니다
-			// 사용자에게 도형을 그릴때, 드래그할때, 수정할때 가이드 툴팁을 표시하도록 설정합니다
-			guideTooltip: ['draw', 'drag', 'edit'],
-			polylineOptions: { // 선 옵션입니다
-				draggable: false, // 그린 후 드래그가 가능하도록 설정합니다
-				removable: false, // 그린 후 삭제 할 수 있도록 x 버튼이 표시됩니다
-				editable: true, // 그린 후 수정할 수 있도록 설정합니다 
-				strokeColor: '#39f', // 선 색
-				hintStrokeStyle: 'dash', // 그리중 마우스를 따라다니는 보조선의 선 스타일
-				hintStrokeOpacity: 0.5
-				// 그리중 마우스를 따라다니는 보조선의 투명도
-			}
-		};
-
-		// 위에 작성한 옵션으로 Drawing Manager를 생성합니다
-		let manager = new kakao.maps.Drawing.DrawingManager(drawOptions);
-
-		// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
-		if (navigator.geolocation) {
-
-			// n초마다 위치정보 반복적으로 불러오기
-			interval = setInterval(function () {
-				// GeoLocation을 이용해서 접속 위치를 얻어옵니다
-				navigator.geolocation.getCurrentPosition(function (position) {
-
-					let lat = position.coords.latitude; // 위도
-					let lon = position.coords.longitude; // 경도
-
-					console.log(lat, lon);
-
-					let locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-					let message = '<div style="padding:5px;">여기에 존재중인듯</div>'; // 인포윈도우에 표시될 내용입니다
-
-					// 마커와 인포윈도우를 표시합니다
-					//displayMarker(locPosition, message);
-
-					//선그리기
-					drawPolylineNow(lat, lon);
-
-				});
-			}, 10000);
-
-		} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-
-			let locPosition = new kakao.maps.LatLng(35.8691089, 128.593387), message = '위치 정보를 가져올 수 없습니다.'
-
-			displayMarker(locPosition, message);
-		}
-
-		// 지도에 마커와 인포윈도우를 표시하는 함수입니다
-		function displayMarker(locPosition, message) {
-
-			// 마커를 생성합니다
-			let marker = new kakao.maps.Marker({
-				map: map,
-				position: locPosition
-			});
-
-			let iwContent = message, // 인포윈도우에 표시할 내용
-				iwRemoveable = true;
-
-			// 인포윈도우를 생성합니다
-			let infowindow = new kakao.maps.InfoWindow({
-				content: iwContent,
-				removable: iwRemoveable
-			});
-
-			// 인포윈도우를 마커위에 표시합니다 
-			infowindow.open(map, marker);
-
-			// 지도 중심좌표를 접속위치로 변경합니다
-			map.setCenter(locPosition);
-		}
-
-		// 버튼 클릭 시 호출되는 핸들러 입니다
-		function selectOverlay(type) {
-			// 그리기 중이면 그리기를 취소합니다
-			manager.cancel();
-
-			// 클릭한 그리기 요소 타입을 선택합니다
-			manager.select(kakao.maps.Drawing.OverlayType[type]);
-		}
-
-		let data;
-		let overlays = [];
-		function stopWalk() {
-			clearInterval(interval);
-
-			//선 데이터 뽑아내기
-			data = manager.getData();
-			console.log(data[kakao.maps.drawing.OverlayType.POLYLINE]);
-			removeOverlays();
-		}
-
-		$("#drawBtn").on("click", () => {
-			let lines = data[kakao.maps.drawing.OverlayType.POLYLINE];
-			var len = lines.length;
-
-			for (let i = 0; i < len; i++) {
-				var path = pointsToPath(lines[i].points);
-				var polyline = new kakao.maps.Polyline({
-					map: map,
-					path: path,
-					strokeColor: "#39f",
-					strokeOpacity: 1,
-					strokeStyle: "solid",
-					strokeWeight: 3
-				});
-
-				overlays.push(polyline);
-			}
-		});
-
-		//선그리기
-		function drawPolyline(lines) {
-			var len = lines.length;
-
-			for (let i = 0; i < len; i++) {
-				var path = pointsToPath(lines[i].points);
-				var polyline = new kakao.maps.Polyline({
-					map: map,
-					path: path,
-					strokeColor: "#39f",
-					strokeOpacity: 1,
-					strokeStyle: "solid",
-					strokeWeight: 3
-				});
-
-				overlays.push(polyline);
-			}
-		}
-
-		function drawPolylineNow(let, lon) {
-			var len = lines.length;
-
-			var path = pointsToPathNow(lat, lon);
-			var polyline = new kakao.maps.Polyline({
-				map: map,
-				path: path,
-				strokeColor: "#39f",
-				strokeOpacity: 1,
-				strokeStyle: "solid",
-				strokeWeight: 3
-			});
-
-			overlays.push(polyline);
-		}
-
-
-		// Drawing Manager에서 가져온 데이터 중 
-		// 선과 다각형의 꼭지점 정보를 kakao.maps.LatLng객체로 생성하고 배열로 반환하는 함수입니다 
-		function pointsToPath(points) {
-			var len = points.length,
-				path = [],
-				i = 0;
-
-			for (; i < len; i++) {
-				var latlng = new kakao.maps.LatLng(points[i].y, points[i].x);
-				path.push(latlng);
-			}
-
-			return path;
-		}
-
-		function pointsToPathNow(lat, lon) {
-			var path = [];
-			path.push(new kakao.maps.LatLng(lat, lon));
-
-			return path;
-		}
-
-		//선 삭제
-		function removeOverlays() {
-			var len = overlays.length, i = 0;
-
-			for (; i < len; i++) {
-				overlays[i].setMap(null);
-			}
-
-			overlays = [];
-		}
+		setMap();
 	</script>
 </body>
 
