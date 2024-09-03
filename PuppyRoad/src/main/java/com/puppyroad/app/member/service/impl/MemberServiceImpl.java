@@ -31,6 +31,7 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.idCheck(userId);
 	}
 
+
 	@Override
 	public MemberVO loginMember(MemberVO memberVO) {
 		
