@@ -1,50 +1,43 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{common/layouts/default_layout}"
-      layout:fragment="Content">
+<html lang="ko" xmlns:th="https://www.thymeleaf.org/" 
+                layout:decorate="~{common/layouts/default_layout}"
+	            layout:fragment="Content">
 <head>
-<meta charset="UTF-8">
-<meta name="contextPath" th:value="${contextPath}">
-<title>room.html</title>
+<title>채팅방</title>
 </head>
 
 <body>
-<th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
-    <th:block th:fragment="content">
-
-        <div class="container">
-            <div class="col-6">
-                <h1>[[${room.name}]]</h1>
-            </div>
-            <div>
-                <div id="msgArea" class="col"></div>
-                <div class="col-6">
-                    <div class="input-group mb-3">
-                        <input type="text" id="msg" class="form-control">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
-                        </div>
-                    </div>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="col-6">
+        <h1>[[${room.seriesCode}]]</h1>
+    </div>
+    <div>
+        <div id="msgArea" class="col"></div>
+        <div class="col-6">
+            <div class="input-group mb-3">
+                <input type="text" id="msg" class="form-control">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
                 </div>
             </div>
-            <div class="col-6"></div>
         </div>
-        
-		<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-		
-    </th:block>
-</th:block>
+    </div>
+    <div class="col-6"></div>
+</div>
+       
+	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+	
 </body>
 
-<script th:inline="javascript">
+<script>
     $(document).ready(function(){
 
-        var roomName = [[${room.name}]];
-        var roomId = [[${room.roomId}]];
-        var username = [[${#authentication.principal.username}]];
+        var roomName = [[${room.chatRoomCode}]];
+        var roomId = [[${room.seriesCode}]];
 
         console.log(roomName + ", " + roomId + ", " + username);
 

@@ -30,18 +30,18 @@ public class RoomController {
         return mv;
     }
 
-    // 등록 - 페이지 : get
-    @GetMapping("room")
-    public String roomInfo(ChatRoomDTO chatRoomDTO, Model model){
-    	model.addAttribute("room", chatRoomService.getRoomInfo(chatRoomDTO));
-    	return "chat/rooms";
+    //채팅방 개설 : post
+    @PostMapping("room")
+    public String roomInsert(ChatRoomDTO chatRoomDTO, RedirectAttributes rttr){
+    	rttr.addFlashAttribute("roomName", chatRoomService.addRoom(chatRoomDTO));
+    	return "redirect:/chat/rooms";
     }
     
-    // 등록 - 페이지 : post
-    @PostMapping("room")
-    public String roomInsert(@RequestParam ChatRoomDTO chatRoomDTO, RedirectAttributes rttr){
-        rttr.addFlashAttribute("roomName", chatRoomService.addRoom(chatRoomDTO));
-        return "chat/rooms";
+    //채팅방 조회 : get
+    @GetMapping("room")
+    public void roomInfo(ChatRoomDTO chatRoomDTO, Model model){
+    	model.addAttribute("room", chatRoomService.getRoomInfo(chatRoomDTO));
     }
+    
 
 }

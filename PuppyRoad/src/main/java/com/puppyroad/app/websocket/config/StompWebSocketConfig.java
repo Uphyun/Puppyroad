@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer { 
 // WebSocketMessageBrokerConfigurer를 상속받아 STOMP로 메시지 처리 방법을 구성한다
-    private final ChannelInterceptor[] stompHandler;
     //세션 관리
 
     @Override
@@ -36,12 +35,6 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
     //클라이언트에서 "Websocket"에 접근 할 수 있는 엔드포인트 지정
     	registry.addEndpoint("/stomp/chat") // ex ) ws://localhost:80/stomp/chat
                 .setAllowedOriginPatterns("*").withSockJS(); 
-                 // client 가 "sockJs" 로 개발되어 있을 때만 필요, client 가 java 면 필요없음
     }
 
-    @Override
-    public void configureClientInboundChannel (ChannelRegistration registration){
-    //사용자가 웹 소켓 연결을 연결 될 때와 끊길 때 추가 기능(인증, 세션 관리)을 위한 인터셉터
-    	registration.interceptors(stompHandler);
-    }
 }
