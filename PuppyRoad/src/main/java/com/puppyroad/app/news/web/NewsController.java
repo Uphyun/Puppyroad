@@ -70,16 +70,16 @@ public class NewsController {
 	
 	// 등록 - 처리
 	@PostMapping("newsInsert")
-	public String newsInsertProcess(@RequestPart("attachedFile") NewsVO newsVO) {
+	public String newsInsertProcess(@RequestPart MultipartFile[] files, NewsVO newsVO) {
 		
-		for(MultipartFile file : newsVO.getAttachedFile()) {
+		for(MultipartFile file : files) {
 			System.out.println("컨트롤러 도달");
 			log.info(file.getContentType());
 			log.info(file.getOriginalFilename());
 			log.info(String.valueOf(file.getSize()));	
 			
 			String fileName = file.getOriginalFilename();
-			String saveName = uploadPath + File.separator + fileName;
+			String saveName = uploadPath + fileName;
 			
 			log.debug("saveName : " + saveName);
 			
@@ -87,6 +87,7 @@ public class NewsController {
 			
 			try {
 				file.transferTo(savePath); // 실제 업로드(내가 지정한 경로로 파일 이동시켜줌)
+				newsVO.setAttachedFile(fileName);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

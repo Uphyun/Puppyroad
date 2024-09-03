@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.puppyroad.app.news.mapper.NewsMapper">
 	<!-- 전체조회 -->
-	<select id="selectNewsList" resultType="newsVO">
+	<select id="selectNewsList" resultType="NewsVO">
 		SELECT   bulletin_no
 				,title
 				,content
@@ -17,7 +17,7 @@
 			</if>
 	</select>
 	<!-- 단건조회 -->
-	<select id="selectNewsInfo" resultType="newsVO">
+	<select id="selectNewsInfo" resultType="NewsVO">
 		SELECT   bulletin_no
 				,title
 				,content
