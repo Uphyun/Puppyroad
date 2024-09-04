@@ -3,6 +3,7 @@ package com.puppyroad.app.websocket.web;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 import com.puppyroad.app.websocket.service.ChatMessageDTO;
 
@@ -11,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class StompWebsocketController {
-
     private final SimpMessagingTemplate template; //특정 Broker로 메세지를 전달
 
     //Client가 SEND할 수 있는 경로
@@ -19,12 +19,12 @@ public class StompWebsocketController {
     //"/pub/chat/enter"
     @MessageMapping("chat/enter")
     public void enter(ChatMessageDTO message){
-        message.setContent(message.getWriter() + "님이 채팅방에 참여하였습니다.");
-        template.convertAndSend("/sub/chat/room/" + message.getSeriesCode(), message);
+        message.setMessage(message.getWriter() + "님이 채팅방에 참여하였습니다.");
+        template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
 
     @MessageMapping("chat/message")
     public void message(ChatMessageDTO message){
-        template.convertAndSend("/sub/chat/room/" + message.getSeriesCode(), message);
+        template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
 }
