@@ -1,39 +1,34 @@
 package com.puppyroad.app;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
-import org.jasypt.iv.RandomIvGenerator;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Configuration;
 
-import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+import com.puppyroad.app.navi.mapper.NaviMapper;
+import com.puppyroad.app.navi.service.NaviVO;
 
-@Configuration
-@EnableEncryptableProperties
 @SpringBootTest
 class YmcTest {
+	
+	@Autowired
+	NaviMapper naviMapper;
 
 	@Test
-	void stringEncryptor() {
-		String url = "43.202.52.72"; 
-		String username = "puppy";
-		String password = "road";
-
-		System.out.println(jasyptEncoding(url));
-		System.out.println(jasyptEncoding(username));
-		System.out.println(jasyptEncoding(password));
+	void prodTest() {
+		NaviVO nvo = new NaviVO();
+		nvo.setTurnNo(0);
+		nvo.setX(128.593387);
+		nvo.setY(35.8691089);
+		nvo.setPuppyCode("test01");
+		
+		List<NaviVO> list = naviMapper.setCallDogNavi(nvo);
+		
+		assertEquals(0, list.get(0).getTurnNo());
 	}
 	
-	public String jasyptEncoding(String value) {
-
-		String key = "my_jasypt_key";
-		StandardPBEStringEncryptor pbeEnc = new StandardPBEStringEncryptor();
-		pbeEnc.setAlgorithm("PBEWITHHMACSHA512ANDAES_256");
-		pbeEnc.setPassword(key);
-		pbeEnc.setIvGenerator(new RandomIvGenerator());
-		return pbeEnc.encrypt(value);
-	}
 
 }
