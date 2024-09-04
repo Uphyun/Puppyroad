@@ -33,7 +33,9 @@ public class RoomController {
     //채팅방 개설 : post
     @PostMapping("room")
     public String roomInsert(ChatRoomDTO chatRoomDTO, RedirectAttributes rttr){
-    	rttr.addFlashAttribute("roomName", chatRoomService.addRoom(chatRoomDTO));
+    	int result = chatRoomService.addRoom(chatRoomDTO);
+    	if ( result == 1)
+    		rttr.addFlashAttribute("roomNames", chatRoomDTO.getRoomName());
     	return "redirect:/chat/rooms";
     }
     

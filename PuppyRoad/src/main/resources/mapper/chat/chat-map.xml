@@ -3,26 +3,26 @@
 <mapper namespace="com.puppyroad.app.websocket.mapper.ChatMapper">
  <!-- 채팅방 목록 조회 -->
 <select id="selectRoomList">
-	SELECT    chat_room_code,
-                 series_code,
-                 member_code,
-                 created_date,
-                 chatting_type
+	SELECT    room_name,
+              room_id,
+              member_code,
+              created_date,
+              chatting_type
     FROM      chat_room
-    ORDER BY  chat_room_code desc
+    ORDER BY  created_date
 </select>
  
  <!-- 채팅방 추가 -->
 <insert id="insertRoom">
  	INSERT INTO chat_room(
- 	                      chat_room_code,
-                          series_code,
+ 	                      room_name,
+                          room_id,
                           member_code,
                           created_date,
                           chatting_type)
     VALUES(
-           #{chatRoomCode},
-           #{seriesCode},
+           #{roomName},
+           #{roomId},
            #{memberCode},
            #{createdDate},
            #{chattingType})
@@ -30,13 +30,13 @@
   
   <!-- 채팅방 조회 -->
 <select id="selectRoomInfo">
-	SELECT    chat_room_code,
-              series_code,
+	SELECT    room_name,
+              room_id,
               member_code,
               created_date,
               chatting_type
     FROM      chat_room
-    WHERE     series_code = #{seriesCode}
+    WHERE     room_id = #{roomId}
 </select>
   
 </mapper>
