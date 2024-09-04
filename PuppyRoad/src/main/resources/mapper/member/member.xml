@@ -4,9 +4,9 @@
 	<insert id="insertMember">
 		<selectKey keyProperty="memberCode" order="BEFORE"
 		resultType="string">
-			SELECT max(to_number(substr(member_code, -3))) + 1 as "member_code"
+			SELECT nvl(max(to_number(substr(member_code, -3))), 0) + 1 as "member_code"
 			FROM member
-            WHERE substr(member_code, 2, 4) = substr(to_char(sysdate, 'yymmdd'), 1, 4)
+            WHERE substr(member_code, 1, 6) = to_char(sysdate, 'yymmdd')
 		</selectKey>
 		INSERT INTO MEMBER
 		(
@@ -29,10 +29,10 @@
 		(
 			<choose>
 			  <when test="position == '의뢰인'">
-				'M' || substr(to_char(sysdate, 'yyMMdd'), 1, 6) || LPAD(#{memberCode}, 6, 1)
+				'M' || to_char(sysdate, 'yyMMdd') || LPAD(#{memberCode}, 3, 0)
 			  </when>
 		      <otherwise>
-				'W' || substr(to_char(sysdate, 'yyMMdd'), 1, 6) || LPAD(#{memberCode}, 6, 1)
+				'W' || to_char(sysdate, 'yyMMdd') || LPAD(#{memberCode}, 3, 0)
 		      </otherwise>
 			</choose>
 		    , #{userId}
@@ -61,9 +61,9 @@
 	<select id="memberLogin" parameterType="String" resultType="memberVO">
 		SELECT user_id
 			  ,user_pw
+			  ,position
 		FROM   member
 		WHERE user_id = #{userId} 
-		and   user_pw = #{userPw}
 	</select>
 		
 

@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,10 +21,11 @@ import jakarta.validation.Valid;
 @Controller
 public class MemberController {
 	private MemberService memberService;
-	
+	private PasswordEncoder passwordEncoder;
 	@Autowired
-	MemberController(MemberService memberService){
+	MemberController(MemberService memberService, PasswordEncoder passwordEncoder){
 		this.memberService = memberService;
+		this.passwordEncoder = passwordEncoder;
 	}
 	
 
@@ -45,6 +48,9 @@ public class MemberController {
 			
 			return "member/memberInsert";
 		}
+		
+		String password = passwordEncoder.encode(memberVO.getUserPw());
+		memberVO.setUserPw(password);
 			
 		String mid = memberService.addMember(memberVO);
 		
@@ -85,7 +91,7 @@ public class MemberController {
 	public String memberLogin(MemberVO memberVO, Model model) {
 		MemberVO login = memberService.loginMember(memberVO);
 		
-		if(login != null) {
+		if(login != null && passwordEncoder.matches(memberVO.getUserPw(), login.getUserPw())) {
 			
 			return "redirect:/";
 			
