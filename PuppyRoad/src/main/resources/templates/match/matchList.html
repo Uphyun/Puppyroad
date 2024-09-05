@@ -6,43 +6,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="contextPath" th:value="${contextPath}">
-<title>matchTest</title>
+<link rel="stylesheet" href="/assets/main/css/match/matchList.css" type="text/css" />
+
+<title>matchList</title>
 </head>
 <body>
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">자율 매칭</h5>
-
-    <!-- Default Table -->
-    <table class="table">
-      <thead>
-        <tr>
-			<th scope="col">No</th>
-			<th scope="col">제목</th>
-			<th scope="col">지역</th>
-			<th scope="col">매칭상태</th>
-			<th scope="col">작성자</th>
-			<th scope="col">작성시간</th>
-        </tr>
-      </thead>
-		<tbody>
-			<th:block th:each="match : ${matchs}">
-				<tr>
-					<td scope="row">[[ ${match.bulletinNo} ]]</td>
-					<td scope="row">[[ ${match.title} ]]</td>
-					<td scope="row">[[ ${match.walkPlaceAddress} ]]</td>
-					<td scope="row">[[ ${match.matchingState} ]]</td>
-					<td scope="row">[[ ${match.writer} ]]</td>
-					<td scope="row">[[${#dates.format(match.writingTime, 'yyyy/MM/dd')}]]</td>
-				</tr>
-			</th:block>
-		</tbody>
-    </table>
-		<button type="button" class="btn btn-primary"
-			th:onclick="|location.href='@{/matchInsert}'|">작성하기
-		</button>
-  </div>
-</div>
+<section class="match-section pt-60 pb-60">
+	<div class="container 
+	d-flex align-items-center justify-content-between">
+	  <div class="card-body">
+	    <table id="matchList" class="table">
+	      <thead>
+	        <tr>
+				<th scope="col" class="col-md-1">No</th>
+				<th scope="col" class="col-md-7">제목</th>
+				<th scope="col" class="col-md-1">지역</th>
+				<th scope="col" class="col-md-1">매칭상태</th>
+				<th scope="col" class="col-md-1">작성자</th>
+				<th scope="col" class="col-md-2">작성시간</th>
+	        </tr>
+	      </thead>
+			<tbody>
+				<th:block th:each="match : ${matchs}">
+					<tr>
+						<td scope="row">[[ ${match.bulletinNo} ]]</td>
+						<td scope="row">[[ ${match.title} ]]</td>
+						<td scope="row">[[ ${match.walkPlaceAddress} ]]</td>
+						<td scope="row">[[ ${match.matchingState} ]]</td>
+						<td scope="row">[[ ${match.writer} ]]</td>
+						<td scope="row">[[${#dates.format(match.writingTime, 'yyyy/MM/dd')}]]</td>
+					</tr>
+				</th:block>
+			</tbody>
+	    </table>
+			<button type="button" class="btn btn-primary"
+				th:onclick="|location.href='@{/matchInsert}'|">작성하기
+			</button>
+	  </div>
+	</div>
+</section>
 		
 </body>
 <script type="text/javascript" src="/assets/main/js/match/matchList.js"></script>

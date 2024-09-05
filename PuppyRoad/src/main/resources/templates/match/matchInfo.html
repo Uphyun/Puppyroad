@@ -6,175 +6,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="contextPath" th:value="${contextPath}">
-<title>matchTest</title>
+<link rel="stylesheet" href="/assets/main/css/match/matchInfo.css" type="text/css" />
+
+<title>matchInfo</title>
 </head>
-  <body>
-    <div class="container justify-content-center">
-      <form name="updateForm" th:object="${match}">
-        <h3>매칭 수정</h3>
-        <table>
-          <tr>
-            <th>번호</th>
-            <td>
-              <input
-                class="form-control"
-                type="number"
-                name="bulletinNo"
-                th:field="*{bulletinNo}"
-                readonly
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>사진</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="coverPhoto"
-                th:field="*{coverPhoto}"
-                readonly
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>제목</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="title"
-                th:field="*{title}"
-                readonly
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>작성자</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="writer"
-                th:field="*{writer}"
-                readonly
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>매칭 상태</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="matchingState"
-                th:field="*{matchingState}"
-                readonly
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>시작 시간</th>
-            <td>
-              <input
-                class="form-control"
-                type="date"
-                name="startTime"
-                th:field="*{startTime}"
-                readonly
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>종료 시간</th>
-            <td>
-              <input
-                class="form-control"
-                type="date"
-                name="endTime"
-                th:field="*{endTime}"
-                readonly
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>작성 시간</th>
-            <td>
-              <input
-                class="form-control"
-                type="date"
-                name="writingTime"
-                th:field="*{writingTime}"
-                readonly
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>마릿수</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="animalCount"
-                th:field="*{animalCount}"
-                readonly
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>산책장소 주소</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="walkPlaceAddress"
-                th:field="*{walkPlaceAddress}"
-                readonly
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>매칭 종류</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="matchingKind"
-                th:field="*{matchingKind}"
-                readonly
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>고객 코드</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="clientCode"
-                th:field="*{clientCode}"
-                readonly
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>강아지 코드</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="puppyCode"
-                th:field="*{puppyCode}"
-                readonly
-              />
-            </td>
-          </tr>
-        </table>
-        <button type="button" class="btn btn-secondary" 
+<body>
+<section class="match-section pt-70 pb-60">
+<div class="container pt-3">
+<h4>자율매칭</h4>
+<hr/>
+   <form name="InfoForm" th:object="${match}">
+     <div class="row mb-3">
+       <label for="title" class="col-md-3 col-lg-3 col-form-label">제목</label>
+       <div class="col-md-9 col-lg-9">
+         <input name="title" type="text" class="form-control" th:field="*{title}" readonly>
+       </div>
+     </div>
+     
+     <hr/>
+     
+     <div class="row mb-3">
+       <label for="dogInfo" class="col-md-3 col-lg-3 col-form-label">반려견 정보</label>
+       <div class="col-md-9 col-lg-9">
+         <img src="assets/img/profile-img.jpg" alt="dogInfo">
+       </div>
+     </div>
+     <hr/>
+
+     <div class="row mb-3">
+       <label for="about" class="col-md-3 col-lg-3 col-form-label">소개</label>
+       <div class="col-md-9 col-lg-9">
+         <textarea name="about" class="form-control" id="about" style="height: 100px"
+         ></textarea>
+       </div>
+     </div>
+          <hr/>
+     
+     
+   </form><!-- End Profile Edit Form -->
+     <div class="text-right">
+	    <button type="button" class="btn btn-secondary" 
 			th:onclick="|location.href='@{/matchList}'|">목록
 		</button>
-        <button type="button" class="btn btn-warning" id="modifyBtn">
-          수정
+        <button type="button" class="btn btn-warning" id="modifyBtn"
+            th:onclick="|location.href='@{/matchUpdate(bulletinNo=${match.bulletinNo})}'|">수정
         </button>
 		<button type="button" class="btn btn-danger"
 			th:onclick="|location.href='@{/matchDelete(bulletinNo=${match.bulletinNo})}'|">삭제
@@ -182,8 +57,8 @@
 		<button type="button" class="btn btn-primary"
 			th:onclick="|location.href='@{/matchApply(bulletinNo=${match.bulletinNo})}'|">신청
 		</button>
-      </form>
-    </div>
-  </body>
-  <script type="text/javascript" src="/assets/main/js/match/matchInfo.js"></script>
+     </div>
+  </div>
+</section>
+</body>
 </html>
