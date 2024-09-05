@@ -31,7 +31,7 @@ import jakarta.servlet.DispatcherType;
 					.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 
 					// "/"와 "/all" 경로에 대한 요청은 인증 없이 접근을 허용합니다.
-					.requestMatchers("/memberInsert", "/memberLogin", "/assets/**", "/main/**", "/login").permitAll()
+					.requestMatchers("/memberInsert", "/memberLogin", "/assets/**", "/main/**", "/login", "idCheck*").permitAll()
 
 					// "/user/**" 경로에 대한 요청은 "USER, ADMIN" 역할을 가진 사용자만 접근
 					.requestMatchers("/").hasAnyRole("봉사자", "도그워커","의뢰인")
@@ -49,7 +49,7 @@ import jakarta.servlet.DispatcherType;
 							// 로그인 성공 시 기본적으로 "/" 경로로 리다이렉트됩니다.
 							.usernameParameter("userId")
 							.passwordParameter("userPw")
-							.defaultSuccessUrl("/")
+							.defaultSuccessUrl("/", true)
 							.failureUrl("/memberLogin?error=true")) // 로그인 실패 시 이동할 경로
 					// 로그아웃 설정을 추가합니다.
 					.logout(logout -> logout
