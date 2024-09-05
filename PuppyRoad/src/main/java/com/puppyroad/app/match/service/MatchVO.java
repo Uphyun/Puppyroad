@@ -24,5 +24,6 @@ public class MatchVO {
 	private String  matchingKind;
 	private String  clientCode;
 	private String  puppyCode;
+	private String  content;
 	
 }

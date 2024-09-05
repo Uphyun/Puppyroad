@@ -952,7 +952,7 @@ var mirandaDoc;
         document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
     /*-------------------------------------------------------------------------------
-  Newsletter popup close and set cookie
+  newsletter popup close and set cookie
   -------------------------------------------------------------------------------*/
     $(".popup-trigger").on('click', function() {
         setCookie('popup_viewed', 'true');

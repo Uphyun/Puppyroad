@@ -1,6 +1,7 @@
 package com.puppyroad.app.navi.service;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -15,4 +16,5 @@ public class NaviVO {
 	private String puppyCode;
 	private String journalCode;
 	private String scheduleCode;
+	private List<NaviVO> cNavi;
 }

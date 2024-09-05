@@ -9156,7 +9156,6 @@ header.sticky-header.sticky-active.header-two .header-info .item .title {
 .table thead th,
 .table td {
     vertical-align: bottom;
-    border: 1px solid #111111;
 }
 .table .cw-align {
     vertical-align: middle;
