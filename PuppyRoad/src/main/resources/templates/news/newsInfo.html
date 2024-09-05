@@ -38,10 +38,7 @@ td {
 </style>
 </head>
 <body>
-	<br>
-	<br>
-	<br>
-	<div class="container text-center">
+	<div class="container text-center pt-60 pb-60">
 		<table class="mx-auto">
 			<tr>
 				<th>번호</th>
@@ -53,7 +50,8 @@ td {
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td height="100px" width="200px">[[${news.content}]]</td>
+				<td height="100px" width="200px" style="white-space: pre-wrap;">
+					[[${news.content}]]</td>
 			</tr>
 			<tr>
 				<th>등록일</th>
@@ -61,20 +59,20 @@ td {
 			</tr>
 			<tr>
 				<th>첨부파일</th>
-				 <td>
-                    <div id="image_container">
-                        <img th:each="fileName : ${#strings.arraySplit(news.attachedFile, ',')}" 
-                             th:src="@{/images/{fileName}(fileName=${fileName})}" >
-                    </div>
-                </td>
+				<td>
+					<div id="image_container">
+						<img
+							th:each="fileName : ${#strings.arraySplit(news.attachedFile, ',')}"
+							th:src="@{/images/{fileName}(fileName=${fileName})}">
+					</div>
+				</td>
 			</tr>
 
 		</table>
 		<br>
 		<button type="button" class="btn btn-warning"
 			th:onClick="|location.href='@{/newsUpdate(bulletinNo=${news.bulletinNo})}'|">수정</button>
-		<button type="button" class="btn btn-danger"
-			th:onClick="Delete()">삭제</button>
+		<button type="button" class="btn btn-danger" th:onClick="Delete()">삭제</button>
 	</div>
 	<script>
 		function Delete() {
