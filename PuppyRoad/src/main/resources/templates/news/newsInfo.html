@@ -80,7 +80,6 @@ td {
 		function Delete() {
 			let confirmAction = confirm("정말로 삭제하시겠습니까?");
 			if (confirmAction) {
-				alert("삭제가 완료되었습니다.");
 				location.href = '[[@{/newsDelete(no=${news.bulletinNo})}]]';
 			} else {
 				alert("삭제가 취소되었습니다.");
