@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,83 +21,69 @@ import jakarta.validation.Valid;
 @Controller
 public class MemberController {
 	private MemberService memberService;
-	
-	@Autowired
-	MemberController(MemberService memberService){
-		this.memberService = memberService;
-	}
-	
+	private PasswordEncoder passwordEncoder;
 
-	//회원가입등록 - 페이지
+	@Autowired
+	MemberController(MemberService memberService, PasswordEncoder passwordEncoder) {
+		this.memberService = memberService;
+		this.passwordEncoder = passwordEncoder;
+	}
+
+	// 회원가입등록 - 페이지
 	@GetMapping("memberInsert")
 	public String memberInsertForm(Model model) {
-		
+
 		model.addAttribute("memberVO", new MemberVO());
 		return "member/memberInsert";
 	}
-	
-	//회원가입등록 - 처리
+
+
+
+	// 회원가입등록 - 처리
 	@PostMapping("memberInsert")
 	public String memberInsertProcess(@Valid MemberVO memberVO, BindingResult bindingResult, Model model) {
-		
-		
-		if(bindingResult.hasErrors()) {
-			
-			model.addAttribute("memberVO", memberVO);
-			
-			return "member/memberInsert";
-		}
-			
+
 		String mid = memberService.addMember(memberVO);
-		
-		if(!"fail".equals(mid)) {
-			
+		// 입력 값에 오류가 있는 경우
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("memberVO", memberVO);
+			return "member/memberInsert"; // 입력 폼으로 다시 이동
+		}
+		try {
+
+			if (!"fail".equals(mid)) {
+				String password = passwordEncoder.encode(memberVO.getUserPw());
+				memberVO.setUserPw(password);
+			}
 			return "redirect:memberLogin";
-			
-		}else {	
-			
-			model.addAttribute("fail", "아이디 또는 비밀번호가 일치하지 않습니다.");
+
+		} catch (DuplicateKeyException e) {
+			model.addAttribute("key", "중복 아이디값 존재");
 			return "memberInsert/memberInsert";
-		}		
-	}
-	
-	//아이디중복체크
-	@PostMapping("idCheck")
-		@ResponseBody
-		public Map<String, Object> idCheck(String userId){
-		
-		int count = 0;
-		Map<String, Object> map = new HashMap<>();
-		
-		count = memberService.idCheck(userId);
-		map.put("cnt", count);
-		
-		return map;
-	}
-	
-	//로그인페이지
-	@GetMapping("memberLogin")
-	public String memberLoginForm(Model model) {
-		
-		return "member/memberLogin";
-	}
-	
-	//로그인처리
-	@PostMapping("memberLogin")
-	public String memberLogin(MemberVO memberVO, Model model) {
-		MemberVO login = memberService.loginMember(memberVO);
-		
-		if(login != null) {
-			
-			return "redirect:/";
-			
-		}else{
-			
-			model.addAttribute("error", "실패");
-			return "member/memberLogin";
+		} catch (Exception e) {
+			return "redirect:/signup?error_code=-99";
 		}
 	}
 
-	
-		
+	// 아이디중복체크
+	@PostMapping("idCheck")
+	@ResponseBody
+	public Map<String, Object> idCheck(String userId) {
+
+		int count = 0;
+		Map<String, Object> map = new HashMap<>();
+
+		count = memberService.idCheck(userId);
+		map.put("cnt", count);
+
+		return map;
+	}
+
+	// 로그인페이지
+	@GetMapping("memberLogin")
+	public String memberLoginForm() {
+
+		return "member/memberLogin";
+	}
+
 }
