@@ -5,17 +5,17 @@
 	<select id="setCallDogNavi" statementType="CALLABLE" parameterType="NaviVO" resultMap="dogNavi">
 		{
 			call navi_dogmap_prod(
-				#{turnNo,		mode=IN,		jdbcType=DECIMAL},
-				#{x,			mode=IN,		jdbcType=DOUBLE},
-				#{y,			mode=IN,		jdbcType=DOUBLE},
-				#{puppyCode,	mode=IN,		jdbcType=VARCHAR},
-				#{c_navi,		mode=OUT,		jdbcType=CURSOR,		resultMap=dogNavi}
+				#{turnNo,		mode=IN,	jdbcType=DECIMAL},
+				#{x,			mode=IN,	jdbcType=DOUBLE},
+				#{y,			mode=IN,	jdbcType=DOUBLE},
+				#{puppyCode,	mode=IN,	jdbcType=VARCHAR},
+				#{cNavi,		mode=OUT,	jdbcType=CURSOR,	javaType=java.sql.ResultSet,		resultMap=dogNavi}
 			)
 		}
 	</select>
 	
-	<resultMap type="NaviVO" id="dogNavi">
-		<result property="turnNo" column="turn_no"/>
+	<resultMap type="NaviVO" id="dogNavi" >
+		<result property="turnNo" column="turnNo"/>
 		<result property="x" column="x"/>
 		<result property="y" column="y"/>
 	</resultMap>

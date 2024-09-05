@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.puppyroad.app.navi.mapper.NaviMapper;
 import com.puppyroad.app.navi.service.NaviVO;
@@ -18,16 +19,22 @@ class YmcTest {
 	NaviMapper naviMapper;
 
 	@Test
+	@Transactional
 	void prodTest() {
 		NaviVO nvo = new NaviVO();
-		nvo.setTurnNo(0);
-		nvo.setX(128.593387);
+		nvo.setTurnNo(1);
+		nvo.setX(128.593400);
 		nvo.setY(35.8691089);
 		nvo.setPuppyCode("test01");
 		
-		List<NaviVO> list = naviMapper.setCallDogNavi(nvo);
+		naviMapper.setCallDogNavi(nvo);
 		
-		assertEquals(0, list.get(0).getTurnNo());
+		List<NaviVO> list = nvo.getCNavi();
+		
+		
+		System.out.println(list);
+		
+		assertEquals(2, list.size());
 	}
 	
 
