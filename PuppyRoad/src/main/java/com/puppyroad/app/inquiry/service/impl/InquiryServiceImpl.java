@@ -13,6 +13,7 @@ import com.puppyroad.app.inquiry.mapper.InquiryMapper;
 import com.puppyroad.app.inquiry.service.InquiryService;
 import com.puppyroad.app.inquiry.service.InquiryVO;
 
+
 @Service
 public class InquiryServiceImpl implements InquiryService{
 	private InquiryMapper inquiryMapper;
@@ -21,7 +22,8 @@ public class InquiryServiceImpl implements InquiryService{
 	InquiryServiceImpl(InquiryMapper inquiryMapper){
 		this.inquiryMapper= inquiryMapper;
 	}
-	
+
+
 	// 전체조회
 	@Override
 	public List<InquiryVO> getInquiryList(InquiryVO inquriyVO) {
@@ -30,24 +32,24 @@ public class InquiryServiceImpl implements InquiryService{
 	
 	// 단건조회
 	@Override
-	public InquiryVO getInquiryInfo(InquiryVO inquiryVO) {
-		return inquiryMapper.selectInquiryInfo(inquiryVO);
+	public InquiryVO getInquiryInfo(InquiryVO inquriyVO) {
+		return inquiryMapper.selectInquiryInfo(inquriyVO);
 	}
 
 	// 등록
 	@Override
-	public int addInquiry(InquiryVO inquiryVO) {
-		int result = inquiryMapper.insertInquiry(inquiryVO);
-		return result == 1 ? inquiryVO.getBulletinNo()  : -1;
+	public int addInquiry(InquiryVO inquriyVO) {
+		int result = inquiryMapper.insertInquiry(inquriyVO);
+		return result == 1 ? inquriyVO.getBulletinNo()  : -1;
 	}
 
 	// 수정
 	@Override
-	public Map<String, Object> modifyInquiry(InquiryVO inquiryVO) {
+	public Map<String, Object> modifyInquiry(InquiryVO inquriyVO) {
 		Map<String, Object> map = new HashMap<>();
 		boolean isSuccessed = false;
 		
-		int result = inquiryMapper.updateInquiry(inquiryVO);
+		int result = inquiryMapper.updateInquiry(inquriyVO);
 		if(result == 1) {
 			isSuccessed = true;
 		}
@@ -57,7 +59,7 @@ public class InquiryServiceImpl implements InquiryService{
 		
 		map.put("date", updateDate);
 		map.put("result", isSuccessed);
-		map.put("target", inquiryVO);
+		map.put("target", inquriyVO);
 		
 		return map;
 	}
@@ -65,7 +67,9 @@ public class InquiryServiceImpl implements InquiryService{
 	// 삭제
 	@Override
 	public int removeInquiry(int ino) {
-		return inquiryMapper.deleteInquriy(ino);
+		return inquiryMapper.deleteInquiry(ino);
 	}
+
+	
 
 }

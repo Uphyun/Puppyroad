@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+<title>문의 하기</title>
+<style>
+#image_container {
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
+	flex-wrap: wrap;
+}
+
+#image_container img {
+	max-width: 100px;
+	max-height: 100px;
+	object-fit: cover;
+	border-radius: 4px;
+	border: 1px solid #ced4da;
+}
+
+th, td {
+	padding: 10px;
+	text-align: left;
+	vertical-align: middle;
+}
+
+th {
+	width: 20%;
+}
+
+td {
+	width: 80%;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<div class="container text-center col-lg-3 col-md-6 pt-60 pb-60">
+
+		<form name="insertForm" th:action="@{/reportInsert}" method="post"
+			enctype="multipart/form-data">
+			<select name="reportType">
+				<option value="" disabled selected>신고 유형을 선택하세요</option>
+				<option value="1">서비스의 부적합 거래행위</option>
+				<option value="2">사회적으로 분열을 조장하는 행위</option>
+				<option value="3">비매너 행위</option>
+				<option value="4">연락두절·회피 행위</option>
+				<option value="5">약관 또는 법령에 위반되거나 위법·부당한 행위로 의심될 만한 상당한 이유가 있는 행위</option>
+				<option value="6">기타</option>
+			</select>
+			<table class="mx-auto" style="width: 100%">
+				<tr>
+					<th>신고할 대상</th>
+					<td><input class="form-control" type="text" name="reportTarget"
+						readonly></td>
+				</tr>
+				<tr>
+					<th>카테고리</th>
+					<td><input class="form-control" type="text" name="category"
+						readonly></td>
+				</tr>
+				<tr>
+					<th>제목</th>
+					<td><input class="form-control" type="text" name="title"></td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td><textarea class="form-control" name="content" rows="5"></textarea></td>
+				</tr>
+				<tr>
+					<th>첨부파일</th>
+					<td>
+						<div id="image_container"></div> <input class="form-control"
+						type="file" id="image" accept="image/*"
+						onchange="setThumbnail(event);" multiple name="files">
+					</td>
+				</tr>
+			</table>
+			<button class="btn btn-info btn-lg my-4" type="submit">신고하기</button>
+		</form>
+	</div>
+
+	<script>
+	function setThumbnail(event) {
+	    const fileList = event.target.files;
+	    const imageContainer = $("#image_container");
+
+	    Array.from(fileList).forEach(file => {
+	        let reader = new FileReader();
+	        
+	        reader.onload = function(e) {
+	            let img = $("<img>").attr("src", e.target.result);
+	            imageContainer.append(img);
+	        };
+	        reader.readAsDataURL(file);
+	    });
+	}
+
+		$('form[name="insertForm"]').on('submit', insertHandler);
+
+		function insertHandler(event) {
+			event.preventDefault();
+			let title = $('input[name="title"]');
+			if (title.val() === '') {
+				alert('제목이 입력되지 않았습니다.');
+				title.focus();
+				return;
+			}
+
+			let content = $('textarea[name="content"]');
+			if (content.val() === '') {
+				alert('내용이 입력되지 않았습니다.');
+				content.focus();
+				return;
+			}
+
+			 if (confirm("작성된 내용은 수정이 불가능 합니다 등록 하시겠습니까?")) {
+		            this.submit();
+		        } else {
+		            event.preventDefault();
+		        }
+			
+		}
+	</script>
+</body>
+</html>

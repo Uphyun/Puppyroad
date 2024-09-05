@@ -6,43 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>소식통 등록</title>
-<style>
-#image_container {
-	display: flex;
-	gap: 10px;
-	margin-top: 10px;
-	flex-wrap: wrap;
-}
-
-#image_container img {
-	max-width: 100px;
-	max-height: 100px;
-	object-fit: cover;
-	border-radius: 4px;
-	border: 1px solid #ced4da;
-}
-
-th, td {
-	padding: 10px;
-	text-align: left;
-	vertical-align: middle;
-}
-
-th {
-	width: 20%;
-}
-
-td {
-	width: 80%;
-	text-align: center;
-}
-</style>
 </head>
 <body>
-	<br>
-	<br>
-	<div class="container text-center">
-		<form name="insertForm" th:action="@{/newsInsert}" method="post" enctype="multipart/form-data">
+	<div class="container text-center pt-60 pb-60">
+		<form name="insertForm" th:action="@{/newsInsert}" method="post"
+			enctype="multipart/form-data">
 			<table class="mx-auto" style="width: 100%">
 				<tr>
 					<th>제목</th>
@@ -55,12 +23,18 @@ td {
 				<tr>
 					<th>첨부파일</th>
 					<td>
-						<div id="image_container"></div> <input class="form-control"
-						type="file" id="image" accept="image/*"
-						onchange="setThumbnail(event);" multiple name="files">
+						<div class="dz-message needsclick">
+							여기에 파일을 놓거나 클릭하여 업로드하세요. <span class="note needsclick"> <span
+								class="fw-medium"></span>
+							</span>
+						</div>
+						<div class="fallback">
+							<input name="file" type="file" accept="image/*" multiple />
+						</div>
+
 					</td>
 				</tr>
-				<tr >
+				<tr>
 					<th>유형 선택</th>
 					<td><label> <input type="radio" name="bulletinType"
 							value="0" checked> 공지사항
@@ -74,20 +48,12 @@ td {
 	</div>
 
 	<script>
-	function setThumbnail(event) {
-	    const fileList = event.target.files;
-	    const imageContainer = $("#image_container");
-
-	    Array.from(fileList).forEach(file => {
-	        let reader = new FileReader();
-	        
-	        reader.onload = function(e) {
-	            let img = $("<img>").attr("src", e.target.result);
-	            imageContainer.append(img);
-	        };
-	        reader.readAsDataURL(file);
-	    });
-	}
+		const dropzoneMulti = new Dropzone('#dropzone-multi', {
+			previewTemplate : previewTemplate,
+			parallelUploads : 1,
+			maxFilesize : 5,
+			addRemoveLinks : true
+		});
 
 		$('form[name="insertForm"]').on('submit', insertHandler);
 
@@ -108,7 +74,7 @@ td {
 			}
 
 			this.submit();
-			
+
 		}
 	</script>
 </body>
