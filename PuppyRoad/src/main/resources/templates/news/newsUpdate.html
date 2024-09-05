@@ -58,40 +58,34 @@ td {
 </style>
 </head>
 <body>
-    <br>
-    <br>
-    <br>
     <div class="container text-center">
         <form name="updateForm" th:action="@{/newsUpdate}" method="post" th:object="${news}" enctype="multipart/form-data">
             <table class="mx-auto">
                 <tr>
                     <th>번호</th>
-                    <td><input class="form-control" type="text" readonly
-                        th:field="*{bulletinNo}"></td>
+                    <td><input class="form-control" type="text" readonly th:field="*{bulletinNo}"></td>
                 </tr>
                 <tr>
                     <th>제목</th>
-                    <td><input class="form-control" type="text"
-                        th:field="*{title}"></td>
+                    <td><input class="form-control" type="text" th:field="*{title}"></td>
                 </tr>
                 <tr>
                     <th>내용</th>
-                    <td height="100px" width="200px"><textarea
-                            class="form-control" th:field="*{content}" rows="5"></textarea></td>
+                    <td><textarea class="form-control" th:field="*{content}" rows="5"></textarea></td>
                 </tr>
                 <tr>
                     <th>첨부파일</th>
                     <td>
                         <div id="image_container">
-                            <input class="form-control" type="file" multiple
-                                onchange="setThumbnail(event)" accept="image/*"
-                                name="files">
-                                
+                            <input class="form-control" type="file" multiple onchange="setThumbnail(event)" accept="image/*" name="files">
+
                             <!-- 기존에 등록된 파일 목록 -->
-                            <div th:each="fileName : ${#strings.arraySplit(news.attachedFile, ',')}">
-                                <div class="image-wrapper">
-                                    <img th:src="@{/images/{fileName}(fileName=${fileName})}">
-                                    <button type="button" onclick="removeExistingImage(this, '[[${fileName}]]')">x</button>
+                            <div id="existing_images">
+                                <div th:each="fileName : ${#strings.arraySplit(news.attachedFile, ',')}">
+                                    <div class="image-wrapper">
+                                        <img th:src="@{/images/{fileName}(fileName=${fileName})}" alt="첨부 이미지">
+                                        <button type="button" onclick="removeExistingImage(this, '[[${fileName}]]')">x</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -104,6 +98,7 @@ td {
     </div>
 
     <script>
+    // 미리보기 추가 처리
     function setThumbnail(event) {
         const fileList = event.target.files;
         const imageContainer = $("#image_container");
@@ -113,9 +108,9 @@ td {
             
             reader.onload = function(e) {
                 let imgWrapper = $("<div>").addClass("image-wrapper");
-                let img = $("<img>").attr("src", e.target.result);
+                let img = $("<img>").attr("src", e.target.result).attr("alt", "추가된 이미지");
                 let removeBtn = $("<button>").text("x").on("click", function() {
-                    $(this).parent().remove(); // 이미지 삭제
+                    $(this).parent().remove(); 
                 });
 
                 imgWrapper.append(img).append(removeBtn);
@@ -125,6 +120,7 @@ td {
         });
     }
 
+    // 기존 이미지 삭제 처리
     function removeExistingImage(button, fileName) {
         $(button).parent().remove();
         
@@ -138,15 +134,12 @@ td {
         deleteFilesInput.val(currentFiles ? currentFiles + "," + fileName : fileName);
     }
 
-    $('form[name="updateForm"]').on('submit', updateHandler);
-
-    function updateHandler(event) {
-        event.preventDefault();
-        
+    $('form[name="updateForm"]').on('submit', function(event) {
         let title = $('input[name="title"]');
         if (title.val() === '') {
             alert('제목이 입력되지 않았습니다.');
             title.focus();
+            event.preventDefault();
             return;
         }
 
@@ -154,20 +147,17 @@ td {
         if (content.val() === '') {
             alert('내용이 입력되지 않았습니다.');
             content.focus();
+            event.preventDefault();
             return;
         }
 
-        let confirmAction = confirm("정말로 수정하시겠습니까?");
-		if (confirmAction) {
-	        this.submit();
-			alert("수정이 완료되었습니다.");
-		} else {
-			alert("수정이 취소되었습니다.");
-		}
-        
-    }
-    
-</script>
-
+        if (confirm("정말로 수정하시겠습니까?")) {
+            this.submit();
+        } else {
+            alert("수정이 취소되었습니다.");
+            event.preventDefault();
+        }
+    });
+    </script>
 </body>
 </html>
