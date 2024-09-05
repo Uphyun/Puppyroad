@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="https://www.thymeleaf.org/"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{common/layouts/default_layout}"
+  layout:fragment="Content"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="contextPath" th:value="${contextPath}">
+    <title>matchTest</title>
+  </head>
+  <body>
+    <div class="container justify-content-center">
+      <form name="updateForm" th:object="${match}">
+        <h3>매칭 수정</h3>
+        <table>
+          <tr>
+            <th>번호</th>
+            <td>
+              <input
+                class="form-control"
+                type="number"
+                name="bulletinNo"
+                th:field="*{bulletinNo}"
+                readonly
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>사진</th>
+            <td>
+              <input
+                class="form-control"
+                type="text"
+                name="coverPhoto"
+                th:field="*{coverPhoto}"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>제목</th>
+            <td>
+              <input
+                class="form-control"
+                type="text"
+                name="title"
+                th:field="*{title}"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>작성자</th>
+            <td>
+              <input
+                class="form-control"
+                type="text"
+                name="writer"
+                th:field="*{writer}"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>매칭 상태</th>
+            <td>
+              <input
+                class="form-control"
+                type="text"
+                name="matchingState"
+                th:field="*{matchingState}"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>시작 시간</th>
+            <td>
+              <input
+                class="form-control"
+                type="date"
+                name="startTime"
+                th:field="*{startTime}"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>종료 시간</th>
+            <td>
+              <input
+                class="form-control"
+                type="date"
+                name="endTime"
+                th:field="*{endTime}"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>작성 시간</th>
+            <td>
+              <input
+                class="form-control"
+                type="date"
+                name="writingTime"
+                th:field="*{writingTime}"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>마릿수</th>
+            <td>
+              <input
+                class="form-control"
+                type="text"
+                name="animalCount"
+                th:field="*{animalCount}"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>산책장소 주소</th>
+            <td>
+              <input
+                class="form-control"
+                type="text"
+                name="walkPlaceAddress"
+                th:field="*{walkPlaceAddress}"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>매칭 종류</th>
+            <td>
+              <input
+                class="form-control"
+                type="text"
+                name="matchingKind"
+                th:field="*{matchingKind}"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>고객 코드</th>
+            <td>
+              <input
+                class="form-control"
+                type="text"
+                name="clientCode"
+                th:field="*{clientCode}"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>강아지 코드</th>
+            <td>
+              <input
+                class="form-control"
+                type="text"
+                name="puppyCode"
+                th:field="*{puppyCode}"
+              />
+            </td>
+          </tr>
+        </table>
+        <button type="button" class="btn btn-primary" id="updateBtn">저장</button>
+      </form>
+    </div>
+  </body>
+  <script type="text/javascript" src="/assets/main/js/match/matchUpdate.js"></script>
+</html>
