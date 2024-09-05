@@ -15,7 +15,7 @@
 	</select>
 	
 	<resultMap type="NaviVO" id="dogNavi" >
-		<result property="turnNo" column="turnNo"/>
+		<result property="turnNo" column="turn_no"/>
 		<result property="x" column="x"/>
 		<result property="y" column="y"/>
 	</resultMap>

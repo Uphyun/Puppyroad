@@ -7,6 +7,7 @@
  * <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=22529f2e0edbc8b92825acd8646989cb&libraries=drawing"></script>
  */
 
+
 //변수 집합소
 let manager;            //그리기도구(?)
 let interval;           //산책할 때 쓸 반복실행
@@ -50,21 +51,22 @@ function setMap(mapWrap = "map") {
 //실시간 경로그리기(산책시작)
 function startWalking(code = 'test01', used = 'puppy') {
     //used => puppy, schedule, journal;
-    let turnNo = 0;
+    let turn = 0;
+
     interval = setInterval(function () {
         // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
         if (navigator.geolocation) {
-
             // GeoLocation을 이용해서 접속 위치를 얻어옵니다
             navigator.geolocation.getCurrentPosition(function (position) {
 
                 let lat = position.coords.latitude; // 위도(세로)
                 let lon = position.coords.longitude; // 경도(가로)
 
-                let sendData = setData(turnNo, code, used, lon, lat);
-                turnNo++;
+                let sendData = setData(turn, code, used, lon, lat);
+                turn++;
 
                 //경로 등록 및 부르기
+                let locations = [];
                 let url = "/callNavi";
                 $.ajax({
                     url,
@@ -73,7 +75,14 @@ function startWalking(code = 'test01', used = 'puppy') {
                     data: JSON.stringify(sendData),
                 })
                     .done(datas => {
-                        console.log(datas);
+                        datas.forEach(data => {
+                            locations.push({
+                                turnNo: data.turnNo,
+                                x: data.x,
+                                y: data.y
+                            });
+                        });
+
                         //선 삭제
                         removeOverlays();
 
@@ -81,9 +90,6 @@ function startWalking(code = 'test01', used = 'puppy') {
                         drawPolylineNow(locations);
                     })
                     .fail(err => console.log(err));
-
-
-
             });
 
         } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
@@ -99,10 +105,8 @@ function setData(turnNo, code, used, x, y) {
         x,
         y
     };
-    console.log("1");
-    console.log(data);
 
-    let puppyCode, scheduleCode, journalCode;
+    // puppyCode, scheduleCode, journalCode;
     if (used == 'puppy') {
         data.puppyCode = code;
     } else if (used == 'schedule') {
@@ -111,13 +115,10 @@ function setData(turnNo, code, used, x, y) {
         data.journalCode = code;
     }
 
-    console.log("2");
-    console.log(data);
-
     return data;
 }
 
-//선 그리기
+//선 그리기(경로 갯수에 따라 for문 사용)
 function drawPolylineNow(lines) {
 
     let path = pointsToPathNow(lines);
@@ -134,14 +135,14 @@ function drawPolylineNow(lines) {
 
 }
 
-//선의 경로만들기
+//선의 경로만들기(경로 하나의 점의 갯수)
 function pointsToPathNow(points) {
-    let len = points.length,
+    var len = points.length,
         path = [],
         i = 0;
 
     for (; i < len; i++) {
-        let latlng = new kakao.maps.LatLng(points[i].y, points[i].x);
+        var latlng = new kakao.maps.LatLng(points[i].y, points[i].x);
         path.push(latlng);
     }
 
@@ -157,4 +158,9 @@ function removeOverlays() {
     }
 
     overlays = [];
+}
+
+//산책종료
+function stopWalk() {
+    clearInterval(interval);
 }
