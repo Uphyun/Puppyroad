@@ -1,8 +1,7 @@
 package com.puppyroad.app.member.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.puppyroad.app.member.mapper.MemberMapper;
@@ -20,7 +19,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public String addMember(MemberVO memberVO) {
-			
+
 		int result = memberMapper.insertMember(memberVO);
 		return result == 1 ? memberVO.getMemberCode() : "fail";
 	}
@@ -29,13 +28,6 @@ public class MemberServiceImpl implements MemberService {
 	public int idCheck(String userId) {
 		
 		return memberMapper.idCheck(userId);
-	}
-
-
-	@Override
-	public MemberVO loginMember(MemberVO memberVO) {
-		
-		return memberMapper.memberLogin(memberVO);
 	}
 
 
