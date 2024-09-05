@@ -6,7 +6,7 @@
 		resultType="string">
 			SELECT nvl(max(to_number(substr(member_code, -3))), 0) + 1 as "member_code"
 			FROM member
-            WHERE substr(member_code, 1, 6) = to_char(sysdate, 'yymmdd')
+            WHERE substr(member_code, 2, 6) = to_char(sysdate, 'yymmdd')
 		</selectKey>
 		INSERT INTO MEMBER
 		(
@@ -58,7 +58,7 @@
 	</select>
 	
 	
-	<select id="memberLogin" parameterType="String" resultType="memberVO">
+	<select id="getUserInfo" parameterType="MemberVO" resultType="MemberVO">
 		SELECT user_id
 			  ,user_pw
 			  ,position

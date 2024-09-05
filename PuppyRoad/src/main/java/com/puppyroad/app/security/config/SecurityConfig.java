@@ -4,6 +4,7 @@
   import org.springframework.context.annotation.Bean; import
   org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import
   org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; import
@@ -12,7 +13,9 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import jakarta.servlet.DispatcherType;
   
-  @Configuration public class SecurityConfig {
+  @Configuration 
+  @EnableWebSecurity
+  public class SecurityConfig {
   
 	  @Bean 
 	  PasswordEncoder passwordEncoder() { 
@@ -28,11 +31,11 @@ import jakarta.servlet.DispatcherType;
 					.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 
 					// "/"와 "/all" 경로에 대한 요청은 인증 없이 접근을 허용합니다.
-					.requestMatchers("/memberInsert", "/memberLogin", "/assets/**", "/main/**").permitAll()
+					.requestMatchers("/memberInsert", "/memberLogin", "/assets/**", "/main/**", "/login").permitAll()
 
 					// "/user/**" 경로에 대한 요청은 "USER, ADMIN" 역할을 가진 사용자만 접근
-					//.requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-
+					.requestMatchers("/").hasAnyRole("봉사자", "도그워커","의뢰인")
+					//.requestMatchers("/").hasRole("A1")
 					// "/admin/**" 경로에 대한 요청은 "ROLE_ADMIN" 권한을 가진 사용자만 접근
 					//.requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
 
@@ -42,18 +45,18 @@ import jakarta.servlet.DispatcherType;
 					.formLogin(formlogin -> formlogin // 로그인 데이터가 자동으로 뜨는거
 							//내가 만든 로그인 페이지
 							.loginPage("/memberLogin")
-							// 로그인 성공 시 기본적으로 "/all" 경로로 리다이렉트됩니다.
+					
+							// 로그인 성공 시 기본적으로 "/" 경로로 리다이렉트됩니다.
+							.usernameParameter("userId")
+							.passwordParameter("userPw")
 							.defaultSuccessUrl("/")
-							// 로그인 성공 후 접근허용	
-							.permitAll())
+							.failureUrl("/memberLogin?error=true")) // 로그인 실패 시 이동할 경로
 					// 로그아웃 설정을 추가합니다.
 					.logout(logout -> logout
 							// 로그아웃 성공 시 "/all" 경로로 리다이렉트됩니다.
-							.logoutSuccessUrl("/")
+							.logoutSuccessUrl("/memberLogin")
 							// 로그아웃 시 세션을 무효화하여 사용자 세션 정보를 삭제합니다.
-							.invalidateHttpSession(true))
-					.sessionManagement(session -> session
-							.sessionCreationPolicy(SessionCreationPolicy.STATELESS)	
+							.invalidateHttpSession(true)	
 					);
 
 			// 설정된 HttpSecurity 객체를 기반으로 SecurityFilterChain을 빌드하여 반환합니다.

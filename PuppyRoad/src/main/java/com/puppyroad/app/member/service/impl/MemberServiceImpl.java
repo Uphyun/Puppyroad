@@ -30,13 +30,5 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.idCheck(userId);
 	}
 
-	@Override
-	public MemberVO loginMember(MemberVO memberVO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
 
 }

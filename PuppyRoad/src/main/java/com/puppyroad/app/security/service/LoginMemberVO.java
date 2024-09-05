@@ -23,7 +23,7 @@ public class LoginMemberVO implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() { //map 사용불가
 		// extends GrantedAuthority를 상속한 대상중에서 (하나 제한한다는 개념) <=> super 반대개념
 		List<GrantedAuthority> auths = new ArrayList<>();
-		auths.add(new SimpleGrantedAuthority(memberVO.getPosition()));
+		auths.add(new SimpleGrantedAuthority("ROLE_" + memberVO.getPosition()));
 		return auths;
 	} //권한을 체크할때 그 값을 확인하는 용도
 
