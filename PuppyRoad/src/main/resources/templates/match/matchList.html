@@ -9,41 +9,41 @@
 <title>matchTest</title>
 </head>
 <body>
-	<table class="table">
-			<thead>
-				<tr>
-					<th scope="col">No</th>
-					<th scope="col">제목</th>
-					<th scope="col">지역</th>
-					<th scope="col">매칭상태</th>
-					<th scope="col">작성자</th>
-					<th scope="col">작성시간</th>
-				</tr>
-			</thead>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">자율 매칭</h5>
+
+    <!-- Default Table -->
+    <table class="table">
+      <thead>
+        <tr>
+			<th scope="col">No</th>
+			<th scope="col">제목</th>
+			<th scope="col">지역</th>
+			<th scope="col">매칭상태</th>
+			<th scope="col">작성자</th>
+			<th scope="col">작성시간</th>
+        </tr>
+      </thead>
 		<tbody>
 			<th:block th:each="match : ${matchs}">
 				<tr>
 					<td scope="row">[[ ${match.bulletinNo} ]]</td>
-					<td>[[ ${match.title} ]]</td>
-					<td>[[ ${match.walkPlaceAddress} ]]</td>
-					<td>[[ ${match.matchingState} ]]</td>
-					<td>[[ ${match.writer} ]]</td>
-					<td>[[${#dates.format(match.writingTime, 'yyyy/MM/dd')}]]</td>
+					<td scope="row">[[ ${match.title} ]]</td>
+					<td scope="row">[[ ${match.walkPlaceAddress} ]]</td>
+					<td scope="row">[[ ${match.matchingState} ]]</td>
+					<td scope="row">[[ ${match.writer} ]]</td>
+					<td scope="row">[[${#dates.format(match.writingTime, 'yyyy/MM/dd')}]]</td>
 				</tr>
 			</th:block>
 		</tbody>
-	</table>
-		<button type="button" class="btn btn-light"
+    </table>
+		<button type="button" class="btn btn-primary"
 			th:onclick="|location.href='@{/matchInsert}'|">작성하기
 		</button>
+  </div>
+</div>
+		
 </body>
-<script>
-	const context = $('meta[name="contextPath"]').attr('value');
-	$('tbody > tr').on('click', function(event){
-		let bno = $(event.currentTarget).children().first().text();
-		let url = context + '/matchInfo?bulletinNo=' + bno;
-		location.href = url;
-	})
-	
-</script>
+<script type="text/javascript" src="/assets/main/js/match/matchList.js"></script>
 </html>

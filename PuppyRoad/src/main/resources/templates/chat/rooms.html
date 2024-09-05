@@ -9,38 +9,19 @@
 <br>
 <br>
 <br>
-	<div class="container">
-		<div>
-			<ul th:each="room : ${list}">
-				<li><a th:href="@{/chat/room(seriesCode=${room.seriesCode})}">[[${room.seriesCode}]]</a></li>
-			</ul>
-		</div>
-	<form th:action="@{/chat/room}" method="post">
-		<input type="text" name="seriesCode" class="form-control">
-		<button class="btn btn-secondary">개설하기</button>
-	</form>
-
-	<script>
-            $(document).ready(function(){
-
-                let roomName = [[${roomName}]];
-
-                if(roomName != null)
-                    alert(roomName + "방이 개설되었습니다.");
-
-                $(".btn-create").on("click", function (e){
-                    e.preventDefault();
-
-                    var name = $("input[name='seriesCode']").val();
-
-                    if(name == "")
-                        alert("Please write the seriesCode.")
-                    else
-                        $("form").submit();
-                });
-
-            });
-        </script>
+<div class="container">
+	<div>
+		<ul th:each="room : ${list}">
+			<li><a th:href="@{/chat/room(roomId=${room.roomId})}">[[${room.roomName}]]</a></li>
+		</ul>
 	</div>
+<form th:action="@{/chat/room}" method="post">
+	<label>방이름</label>
+	<input type="text" name="roomName" class="form-control">
+	<label>방아이디</label>
+	<input type="text" name="roomId" class="form-control">
+	<button class="btn btn-secondary">개설하기</button>
+</form>
+</div>
 </body>
 </html>

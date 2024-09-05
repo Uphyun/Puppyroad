@@ -15,9 +15,16 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSocketMessageBroker 
 @RequiredArgsConstructor
 public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer { 
-// WebSocketMessageBrokerConfigurer를 상속받아 STOMP로 메시지 처리 방법을 구성한다
     //세션 관리
 
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) { 
+    //클라이언트에서 "Websocket"에 접근 할 수 있는 엔드포인트 지정
+    	registry.addEndpoint("/stomp/chat") // ex ) ws://localhost:80/stomp/chat
+                .setAllowedOriginPatterns("http://localhost:80")
+                .withSockJS(); 
+    }
+	
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) { 
     //configureMessageBroker에서는 메시지를 중간에서 라우팅할 때 사용하는 메시지 브로커를 구성한다.
@@ -28,13 +35,6 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.setApplicationDestinationPrefixes("/pub"); // (4)
         //메세지 발행요청의 prefix 넣음
         //"/pub"로 시작하는 메세지만 해당 Broker 에서 처리
-    }
-
-    @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) { 
-    //클라이언트에서 "Websocket"에 접근 할 수 있는 엔드포인트 지정
-    	registry.addEndpoint("/stomp/chat") // ex ) ws://localhost:80/stomp/chat
-                .setAllowedOriginPatterns("*").withSockJS(); 
     }
 
 }
