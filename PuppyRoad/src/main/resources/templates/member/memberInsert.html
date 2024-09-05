@@ -24,7 +24,8 @@
 								<tr class="mb-6 fv-plugins-icon-container">
 									<th>아이디</th>
 									<td><input class="form-control" type="text" name="userId" th:errorclass="error-input" th:field="*{userId}">
-									<div class="error-class" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></div></td>
+									<div class="error-class" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></div>
+									<div th:if="${key} != null"><p>*아이디 또는 비밀번호를 확인해주세요</p></div></td>
 									<td><button type="button" class="btn btn-primary d-grid w-100 waves-effect waves-light" id="idck">중복체크</button></td>
 								</tr>
 								
@@ -91,6 +92,12 @@
 									<th></th>
 									<td><button type="submit" id="formCheck"
 											class="btn btn-primary d-grid w-100 waves-effect waves-light">회원가입</button></td>
+											
+								</tr>
+								<tr>
+								<th></th>
+									<td><button type="button" id="mainGo"
+											class="btn btn-primary d-grid w-100 waves-effect waves-light">메인페이지</button></td>
 								</tr>
 							</table>
 						</form>
@@ -170,6 +177,10 @@
 	$('.btn').css('margin-left', '10px');
 	$('.error-class').css('margin-left', '25px');
 	$('.error-class').css('color', 'red');
+	
+	$("#mainGo").on('click', ()=>{
+		location.href = '/';
+	})
 	
 	</script>
 </body>
