@@ -43,25 +43,29 @@ public class MemberController {
 	@PostMapping("memberInsert")
 	public String memberInsertProcess(@Valid MemberVO memberVO, BindingResult bindingResult, Model model) {
 
+		String password = passwordEncoder.encode(memberVO.getUserPw());
+		memberVO.setUserPw(password);
 		String mid = memberService.addMember(memberVO);
+		
 		// 입력 값에 오류가 있는 경우
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("memberVO", memberVO);
 			return "member/memberInsert"; // 입력 폼으로 다시 이동
 		}
 		try {
-
-			if (!"fail".equals(mid)) {
-				String password = passwordEncoder.encode(memberVO.getUserPw());
-				memberVO.setUserPw(password);
-			}
+			System.out.println(mid + "333");
+			if ("fail".equals(mid)) {
+				return "redireact:member/memberInsert";     
+			}else {
 			return "redirect:memberLogin";
-
+			}
 		} catch (DuplicateKeyException e) {
-			model.addAttribute("key", "중복 아이디값 존재");
-			return "memberInsert/memberInsert";
+			
+			return "redirect:member/memberInsert";
+			
 		} catch (Exception e) {
-			return "redirect:/signup?error_code=-99";
+			
+			return "redireact:member/memberInsert";
 		}
 	}
 
@@ -69,20 +73,19 @@ public class MemberController {
 	@PostMapping("idCheck")
 	@ResponseBody
 	public Map<String, Object> idCheck(String userId) {
-
+		System.out.println("아이디체크");
 		int count = 0;
 		Map<String, Object> map = new HashMap<>();
-
 		count = memberService.idCheck(userId);
 		map.put("cnt", count);
-
+		
 		return map;
 	}
 
 	// 로그인페이지
 	@GetMapping("memberLogin")
 	public String memberLoginForm() {
-
+		System.out.println("로그인");
 		return "member/memberLogin";
 	}
 

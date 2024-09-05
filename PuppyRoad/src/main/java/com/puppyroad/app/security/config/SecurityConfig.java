@@ -49,7 +49,7 @@ import jakarta.servlet.DispatcherType;
 							// 로그인 성공 시 기본적으로 "/" 경로로 리다이렉트됩니다.
 							.usernameParameter("userId")
 							.passwordParameter("userPw")
-							.defaultSuccessUrl("/")
+							.defaultSuccessUrl("/", true)
 							.failureUrl("/memberLogin?error=true")) // 로그인 실패 시 이동할 경로
 					// 로그아웃 설정을 추가합니다.
 					.logout(logout -> logout

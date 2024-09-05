@@ -21,6 +21,7 @@ public class MemberServiceImpl implements MemberService {
 	public String addMember(MemberVO memberVO) {
 
 		int result = memberMapper.insertMember(memberVO);
+		
 		return result == 1 ? memberVO.getMemberCode() : "fail";
 	}
 
