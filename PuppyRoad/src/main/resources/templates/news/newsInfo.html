@@ -61,10 +61,12 @@ td {
 			</tr>
 			<tr>
 				<th>첨부파일</th>
-				<td>
-					<div id="image_container"></div> <img
-					th:src="@{/images/{fileName}(fileName=${news.attachedFile})}">
-				</td>
+				 <td>
+                    <div id="image_container">
+                        <img th:each="fileName : ${#strings.arraySplit(news.attachedFile, ',')}" 
+                             th:src="@{/images/{fileName}(fileName=${fileName})}" >
+                    </div>
+                </td>
 			</tr>
 
 		</table>

@@ -24,8 +24,8 @@ public class NewsServiceImpl implements NewsService {
 	
 	// 전체조회
 	@Override
-	public List<NewsVO> getNewsList(NewsVO newVO) {
-		return newsMapper.selectNewsList(newVO);
+	public List<NewsVO> getNewsList(NewsVO newsVO) {
+		return newsMapper.selectNewsList(newsVO);
 	}
 	
 	// 단건조회

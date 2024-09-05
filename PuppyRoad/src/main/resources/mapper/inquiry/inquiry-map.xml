@@ -1,35 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.puppyroad.app.news.mapper.NewsMapper">
+<mapper namespace="package com.puppyroad.app.inquiry.mapper.inquiryMapper">
 	<!-- 전체조회 -->
-	<select id="selectNewsList" resultType="NewsVO">
+	<select id="selectInquiryList" resultType="InquiryVO">
 		SELECT   bulletin_no
 				,title
 				,content
 				,writer
-				,writing_date
 				,attached_file
-				,bulletin_type
-		FROM  news 		
-		WHERE bulletin_type = #{bulletinType}
+				,inquiry_date
+				,answer
+				,inquiry_type
+				,inquiry_state
+		FROM inquiry	
+		WHERE inquiry_type = #{inquiryType}
 			<if test="title != null and !title.equals('')">
 				AND title = #{title}
 			</if>
 		ORDER BY bulletin_no DESC
 	</select>
 	<!-- 단건조회 -->
-	<select id="selectNewsInfo" resultType="NewsVO">
+	<select id="selectInquiryInfo" resultType="InquiryVO">
 		SELECT   bulletin_no
 				,title
 				,content
-				,writing_date
+				,writer
 				,attached_file
-				,bulletin_type
-		FROM  news
+				,inquiry_date
+				,answer
+				,inquiry_type
+				,inquiry_state
+		FROM  inquiry
 		WHERE bulletin_no = #{bulletinNo}
 	</select>
 	<!-- 등록 -->
-	<insert id="insertNews" parameterType="NewsVO">
+	<insert id="insertInquiry" parameterType="InquiryVO">
 		<selectKey keyProperty="bulletinNo"
 				   resultType="Integer"
 				   order="BEFORE">
@@ -42,9 +47,11 @@
 				,title
 				,content
 				,writer
-				,writing_date
 				,attached_file
-				,bulletin_type
+				,inquiry_date
+				,answer
+				,inquiry_type
+				,inquiry_state
 		   )
 		 VALUES
 		   (
@@ -52,32 +59,29 @@
 		   		,#{title}
 		   		,#{content}
 		   		,#{writer}
+		   		,to_char(#{attachedFile})
 		   		<choose>
-		   			<when test="writingDate != null">
-		   			,#{writingDate}
+		   			<when test="inquiryDate != null">
+		   			,#{inquiryDate}
 		   			</when>
 		   			<otherwise>
 		   	  		,sysdate
 		   			</otherwise>
 		   		</choose>
-		   		,to_char(#{attachedFile})
-		   		,#{bulletinType}
+		   		,#{inquiryType}
+		   		,#{inquiryState}
 		   	)  
 	</insert>
 	
 	<!-- 수정 -->
-	<update id="updateNews" parameterType="NewsVO">
+	<update id="updateInquiry" parameterType="InquiryVO">
 		UPDATE news
-		 SET
-			title = #{title}
-		   ,content = #{content}
-		   ,writing_date = sysdate
-		   ,attached_file = #{attachedFile}
+		 SET   answer = #{answer}
 		WHERE bulletin_no = #{bulletinNo}
 	</update>
 	
 	<!-- 삭제 -->
-	<delete id="deleteNews" parameterType="int">
+	<delete id="deleteInquriy" parameterType="int">
 		DELETE FROM news
 		WHERE  bulletin_no = #{bulletinNo}
 	</delete>
