@@ -18,5 +18,6 @@ public class InquiryVO {
 	private String answer;
 	private String inquiryType;
 	private String inquiryState;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date processedDate;
 }

@@ -1,5 +1,7 @@
 package com.puppyroad.app.navi.service;
 
-public interface NaviService {
+import java.util.List;
 
+public interface NaviService {
+	public List<NaviVO> callBackNavi(NaviVO naviVO);
 }

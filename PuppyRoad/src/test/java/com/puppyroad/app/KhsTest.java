@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.puppyroad.app.inquiry.mapper.InquiryMapper;
 import com.puppyroad.app.inquiry.service.InquiryVO;
+import com.puppyroad.app.news.service.NewsVO;
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 
 @Configuration
@@ -23,7 +24,7 @@ class KhsTest {
 	// 전체조회
 	 @Test
 	void newsList() {
-		InquiryVO inquiryVO = new InquiryVO();
+		 InquiryVO inquiryVO = new InquiryVO();
 		List<InquiryVO> list = inquiryMapper.selectInquiryList(inquiryVO);
 		assertTrue(!list.isEmpty());
 	}
