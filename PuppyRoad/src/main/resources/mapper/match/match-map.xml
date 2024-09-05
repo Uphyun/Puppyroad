@@ -7,6 +7,7 @@
 		 		cover_photo,
 		 		title,
 		 		writer,
+		 		content,
 		 		matching_state,
 		 		start_time,
 		 		end_time,
@@ -26,6 +27,7 @@
 		 		cover_photo,
 		 		title,
 		 		writer,
+		 		content,
 		 		matching_state,
 		 		start_time,
 		 		end_time,
@@ -41,12 +43,18 @@
   
   <!-- 자율등록 -->
   <insert id="insertMatch" parameterType="MatchVO">
-
+        <selectKey keyProperty="bulletinNo"
+                   resultType="Integer"
+                   order="BEFORE">
+			SELECT NVL(MAX(bulletin_no), 0) + 1
+			FROM   matching_board
+        </selectKey>
 		INSERT INTO matching_board(
 								bulletin_no,
 				 				cover_photo,
 				 				title,
 				 				writer,
+				 				content,
 							 	matching_state,
 							 	start_time,
 							 	end_time,
@@ -60,10 +68,11 @@
 		        #{coverPhoto},
 		        #{title},
 		        #{writer},
-		        #{matchingState},
+		        #{content},
+		        1,
 		        #{startTime},
 		        #{endTime},
-		        #{writingTime},
+		        sysdate,
 		        #{animalCount},
 		        #{walkPlaceAddress},
 		        #{matchingKind},
@@ -78,6 +87,7 @@
   	       cover_photo = #{coverPhoto},
   	       title = #{title},
   	       writer = #{writer},
+  	       content = #{content},
   	       matching_state = #{matchingState},
   	       start_time = #{startTime},
   	       end_time = #{endTime},

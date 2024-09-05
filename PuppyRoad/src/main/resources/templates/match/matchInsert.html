@@ -6,54 +6,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="contextPath" th:value="${contextPath}">
+<link rel="stylesheet" href="/assets/main/css/match/matchInfo.css" type="text/css" />
+
 <title>matchTest</title>
 </head>
 <body>
+<section class="match-section pt-70 pb-60">
 	<div class="container justify-content-center">
 		<form name="insertForm" th:action="@{/matchInsert}" method="post">
-			<h3>매칭 등록</h3>
-			<table>
-				<tr>
-					<th>번호</th>
-					<td><input class="form-control" type="text" name="bulletinNo"></td>
-				</tr>
-				<tr>
-					<th>제목</th>
-					<td>
-					   <input class="form-control" type="text"  name="title">
-					</td>
-				</tr>
-				<tr>
-					<th>작성자</th>
-					<td ><input class="form-control" type="text" name="writer"></td>
-				</tr>
-				<tr>
-					<th>매칭 상태</th>
-					<td><input class="form-control" type="text" name="matchingState"></td>
-				</tr>
-				<tr>
-					<th>작성 시간</th>
-					<td><input class="form-control" type="date" name="writingTime"></td>
-				</tr>
-				<tr>
-					<th>산책장소 주소</th>
-					<td><input class="form-control" type="text" name="walkPlaceAddress"></td>
-				</tr>
-				<tr>
-					<th>매칭 종류</th>
-					<td><input class="form-control" type="text" name="matchingKind"></td>
-				</tr>
-				<tr>
-					<th>사진</th>
-					<td>
-						<input type="file" name="coverPhoto" multiple>
-					</td>
-				</tr>
-			</table>
-			<div class="center">
-				<button type="submit" class="btn btn-primary">등록</button>
-			</div>
-		</form>
+			<h4>매칭 등록</h4>
+			<hr/>
+		     <div class="row mb-3">
+		       <label for="title" class="col-md-2 col-lg-2 col-form-label">제목</label>
+		       <div class="col-md-10 col-lg-10">
+		         <input name="title" type="text" class="form-control">
+		       </div>
+		     </div>
+		     
+		     <hr/>
+		     
+		     <div class="row mb-3">
+		       <label for="dogInfo" class="col-md-2 col-lg-2 col-form-label">반려견 정보</label>
+		       <div class="col-md-3 col-lg-3">
+		         <img src="" alt="dogInfo">
+		       <button type="button">불러오기</button>
+		       </div>
+			       <div>
+			         <input name="dogBreed" type="text" class="form-control">
+			       </div>
+			       <div>
+			         <input name="personality" type="text" class="form-control">
+			       </div>
+			       <div>
+			         <input name="walkPlaceAddress" type="text" class="form-control">
+			       </div>
+			       <div>
+			         <input name="neutralizationPreAbs" type="text" class="form-control">
+			       </div>
+			       <div>
+			         <input name="diseasePreAbs" type="text" class="form-control">
+			       </div>
+		       </div>
+		     <hr/>
+		
+		     <div class="row mb-3">
+		       <label for="content" class="col-md-2 col-lg-2 col-form-label">소개</label>
+		       <div class="col-md-10 col-lg-10">
+		         <textarea name="content" class="form-control" id="content" style="height: 100px"></textarea>
+		       </div>
+		     </div>
+		   <hr/>
+		   <input name="matchingKind" type="hidden" value="1">
+		   <input name="writer" type="hidden" th:value="${#authentication.principal.username}">
+		<div class="text-right">
+			<button type="submit" class="btn btn-primary">등록</button>
+		</div>
+	   </form>
 	</div>
+</section>
 </body>
 </html>

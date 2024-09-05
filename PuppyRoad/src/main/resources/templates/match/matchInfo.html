@@ -17,8 +17,8 @@
 <hr/>
    <form name="InfoForm" th:object="${match}">
      <div class="row mb-3">
-       <label for="title" class="col-md-3 col-lg-3 col-form-label">제목</label>
-       <div class="col-md-9 col-lg-9">
+       <label for="title" class="col-md-2 col-lg-2 col-form-label">제목</label>
+       <div class="col-md-10 col-lg-10">
          <input name="title" type="text" class="form-control" th:field="*{title}" readonly>
        </div>
      </div>
@@ -26,24 +26,22 @@
      <hr/>
      
      <div class="row mb-3">
-       <label for="dogInfo" class="col-md-3 col-lg-3 col-form-label">반려견 정보</label>
-       <div class="col-md-9 col-lg-9">
+       <label for="dogInfo" class="col-md-2 col-lg-2 col-form-label">반려견 정보</label>
+       <div class="col-md-10 col-lg-10">
          <img src="assets/img/profile-img.jpg" alt="dogInfo">
        </div>
      </div>
      <hr/>
 
      <div class="row mb-3">
-       <label for="about" class="col-md-3 col-lg-3 col-form-label">소개</label>
-       <div class="col-md-9 col-lg-9">
-         <textarea name="about" class="form-control" id="about" style="height: 100px"
-         ></textarea>
+       <label for="content" class="col-md-2 col-lg-2 col-form-label">소개</label>
+       <div class="col-md-10 col-lg-10">
+         <textarea name="content" class="form-control" id="content" style="height: 100px"
+          th:field="*{content}" readonly></textarea>
        </div>
      </div>
           <hr/>
-     
-     
-   </form><!-- End Profile Edit Form -->
+   </form>
      <div class="text-right">
 	    <button type="button" class="btn btn-secondary" 
 			th:onclick="|location.href='@{/matchList}'|">목록

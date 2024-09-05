@@ -19,10 +19,10 @@
 	      <thead>
 	        <tr>
 				<th scope="col" class="col-md-1">No</th>
-				<th scope="col" class="col-md-7">제목</th>
-				<th scope="col" class="col-md-1">지역</th>
-				<th scope="col" class="col-md-1">매칭상태</th>
-				<th scope="col" class="col-md-1">작성자</th>
+				<th scope="col" class="col-md-6">제목</th>
+				<th scope="col" class="col-md-2">지역</th>
+				<th scope="col" class="col-md-2">매칭상태</th>
+				<th scope="col" class="col-md-2">작성자</th>
 				<th scope="col" class="col-md-2">작성시간</th>
 	        </tr>
 	      </thead>
@@ -39,9 +39,11 @@
 				</th:block>
 			</tbody>
 	    </table>
+	    <div class="text-right">
 			<button type="button" class="btn btn-primary"
 				th:onclick="|location.href='@{/matchInsert}'|">작성하기
 			</button>
+		</div>
 	  </div>
 	</div>
 </section>
