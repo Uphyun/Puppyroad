@@ -31,6 +31,13 @@
                                 <button type="submit"><i class="far fa-search"></i></button>
                             </form>
                         </div>
+
+                        <ul class="sigma_social-links justify-content-center">
+                        	<!-- 아이콘 트위터 -->
+                            <!-- <li><a href="#"><i class="fab fa-facebook-f"></i></a></li> -->
+                            <!-- <li><a href="#" class="red-icon"><i class="fab fa-twitter"></i></a></li> -->
+                            <li><a th:href="@{/memberLogout}">로그아웃</a></li>
+
                     </div>
                     <ul class="sigma_social-links justify-content-center">
                         <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
@@ -45,7 +52,7 @@
             <div class="nav-container d-flex align-items-center justify-content-between">
                 <!-- Site Logo -->
                 <div class="site-logo">
-                    <a th:href="@{/}" }><img src="/assets/main/img/logo.png" alt="Logo"></a>
+                    <a th:href="@{/}" ><img src="/assets/main/img/logo.png" alt="Logo"></a>
                 </div>
                 <!-- Main Menu -->
                 <div class="nav-menu d-lg-flex align-items-center justify-content-between">
@@ -72,6 +79,7 @@
                             <!-- <th:block th:if="${auth == '관리자'}"> -->
                             <li><a th:href="@{/admin}">관리자 페이지</a></li>
                             <!-- </th:block> -->
+
                         </ul>
                     </div>
                 </div>

@@ -18,16 +18,13 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="contact-form d-flex justify-content-center">
-							<form class="mf_form_validate ajax_submit" name="insertForm"
-								id="frm" th:action="@{/memberLogin}" method="post">
-
 								<div class="container-xxl">
 									<div
 										class="authentication-wrapper authentication-basic container-p-y">
 										<div class="authentication-inner py-6">
 											<!-- Login -->
-											<div class="card">
-												<div class="card-body">
+											<div class="card" style="width:350px; margin:auto">
+												<div class="card-body" >
 													<!-- Logo -->
 													<div class="app-brand justify-content-center mb-6">
 														<a href="index.html" class="app-brand-link"> <span
@@ -54,48 +51,21 @@
 														</span> <span class="app-brand-text demo text-heading fw-bold">PuppyRoad</span>
 														</a>
 													</div>
+													<div>
 													<!-- /Logo -->
-													<h4 class="mb-1">Welcome to PuppyRoad! 👋</h4>
-													<p class="mb-6">아이디 비밀번호를 입력해주세요!</p>
+													<h4 class="mb-1">회원가입을 축하합니다</h4>
+													<h4 class="mb-1">Welcome to the PuppyRoad! 👋</h4>
 
-													<form id="formAuthentication" class="mb-4" action="@{/memberLogin}" method="GET">
 														<div class="mb-6">
-															<label for="email" class="form-label">LoginID</label> <input
-																type="text" class="form-control" id="email"
-																name="userId" placeholder="Enter ID" autofocus />
-														</div>
-														<div class="mb-6 form-password-toggle">
-															<label class="form-label" for="password">Password</label>
-															<div class="input-group input-group-merge">
-																<input type="password" id="password"
-																	class="form-control" name="userPw"
-																	placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-																	aria-describedby="password" /> <span
-																	class="input-group-text cursor-pointer"><i
-																	class="ti ti-eye-off"></i></span>
-															</div>
-														</div>
-														<div th:if="${error} != null">
-															<p>*아이디 또는 비밀번호를 확인해주세요
-															<p>
-														</div>
-														<div class="my-8">
-															<div class="d-flex justify-content-between">
-																<div class="form-check mb-0 ms-2">
-																	<input class="form-check-input" type="checkbox"
-																		id="remember-me" /> <label class="form-check-label"
-																		for="remember-me"> Remember Me </label>
-																</div>
-																<a th:href="@{/memberFind}">
-																	<p class="mb-0">아이디/비밀번호찾기</p>
-																</a>
-															</div>
+															<a th:href="@{/memberLogin}"><button  class="btn btn-primary d-grid w-100"
+																type="button">로그인</button></a>
 														</div>
 														<div class="mb-6">
-															<button class="btn btn-primary d-grid w-100"
-																type="submit">Login</button>
+															<a th:href="@{/}"><button  class="btn btn-primary d-grid w-100"
+																type="button">메인페이지</button></a>
 														</div>
-													</form>
+
+													
 
 													<p class="text-center">
 														<span>계정이 없으신가요?</span> <a th:href="@{/memberInsert}"> <span>회원가입</span>
@@ -122,12 +92,12 @@
 														</a>
 													</div>
 												</div>
+												</div>
 											</div>
 											<!-- /Register -->
 										</div>
 									</div>
 								</div>
-							</form>
 						</div>
 					</div>
 				</div>

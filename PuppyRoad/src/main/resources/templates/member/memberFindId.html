@@ -10,6 +10,8 @@
 	th:replace="~{common/configs/admin/admin_config :: AdminConfigFragment}"></th:block>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 </head>
 <body>
 	<div class="container-xxl">
@@ -55,25 +57,26 @@
 														</a>
 													</div>
 													<!-- /Logo -->
-													<h4 class="mb-1">Welcome to PuppyRoad! 👋</h4>
-													<p class="mb-6">아이디 비밀번호를 입력해주세요!</p>
+													
+													<p class="mb-6">본인인증을 진행해주세요!</p>
 
 													<form id="formAuthentication" class="mb-4" action="@{/memberLogin}" method="GET">
 														<div class="mb-6">
-															<label for="email" class="form-label">LoginID</label> <input
-																type="text" class="form-control" id="email"
-																name="userId" placeholder="Enter ID" autofocus />
+															<label class="form-label">휴대전화 번호</label> <input
+																type="text" class="form-control" name="phone"
+																name="userId" placeholder="phone number" autofocus />
+																<button class="btn btn-primary d-grid w-100" id="sendPhoneNumber"
+																type="button">인증번호 받기</button>
 														</div>
 														<div class="mb-6 form-password-toggle">
-															<label class="form-label" for="password">Password</label>
+															<label class="form-label">인증번호</label>
 															<div class="input-group input-group-merge">
-																<input type="password" id="password"
-																	class="form-control" name="userPw"
-																	placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-																	aria-describedby="password" /> <span
-																	class="input-group-text cursor-pointer"><i
-																	class="ti ti-eye-off"></i></span>
+																<input type="text" id=""
+																	class="form-control" name=""
+																	placeholder="인증번호"
+																	aria-describedby="password" /> 
 															</div>
+															
 														</div>
 														<div th:if="${error} != null">
 															<p>*아이디 또는 비밀번호를 확인해주세요
@@ -81,19 +84,15 @@
 														</div>
 														<div class="my-8">
 															<div class="d-flex justify-content-between">
-																<div class="form-check mb-0 ms-2">
-																	<input class="form-check-input" type="checkbox"
-																		id="remember-me" /> <label class="form-check-label"
-																		for="remember-me"> Remember Me </label>
-																</div>
+																
 																<a th:href="@{/memberFind}">
-																	<p class="mb-0">아이디/비밀번호찾기</p>
+																	<p class="mb-0">비밀번호찾기</p>
 																</a>
 															</div>
 														</div>
 														<div class="mb-6">
-															<button class="btn btn-primary d-grid w-100"
-																type="submit">Login</button>
+															<a th:href="@{/memberLogin}"><button class="btn btn-primary d-grid w-100"
+																type="submit">Login</button></a>
 														</div>
 													</form>
 
@@ -135,7 +134,10 @@
 		</div>
 	</div>
 	<script>
-		
+		$("#sendPhoneNumber").on('click',()=>{
+			let phone = $("input[name='phone']").val();
+			Swal.fire('인증번호 발송완료!');
+		})
 	</script>
 </body>
 </html>

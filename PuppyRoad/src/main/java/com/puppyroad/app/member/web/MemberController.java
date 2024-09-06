@@ -1,10 +1,11 @@
 package com.puppyroad.app.member.web;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.puppyroad.app.member.service.MemberService;
 import com.puppyroad.app.member.service.MemberVO;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 @Controller
+//@RequestMapping("member")
 public class MemberController {
 	private MemberService memberService;
 	private PasswordEncoder passwordEncoder;
@@ -37,38 +40,28 @@ public class MemberController {
 		return "member/memberInsert";
 	}
 
-
-
 	// 회원가입등록 - 처리
 	@PostMapping("memberInsert")
-	public String memberInsertProcess(@Valid MemberVO memberVO, BindingResult bindingResult, Model model) {
+	public String memberInsertProcess(@Valid MemberVO memberVO, BindingResult bindingResult, Model model, String pwck) {
 
-		String password = passwordEncoder.encode(memberVO.getUserPw());
-		memberVO.setUserPw(password);
-		String mid = memberService.addMember(memberVO);
-		
+
 		// 입력 값에 오류가 있는 경우
-		if (bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors() ) {
 			model.addAttribute("memberVO", memberVO);
 			return "member/memberInsert"; // 입력 폼으로 다시 이동
+		} else {
+					String password = passwordEncoder.encode(memberVO.getUserPw());
+					memberVO.setUserPw(password);
+					String mid = memberService.addMember(memberVO);
+					if (mid.equals("fail")) {
+						return "redireact:member/memberInsert";
+					} else {
+						
+						return "redirect:member/memberJoin";
+					}
+				} 
 		}
-		try {
-			System.out.println(mid + "333");
-			if ("fail".equals(mid)) {
-				return "redireact:member/memberInsert";     
-			}else {
-			return "redirect:memberLogin";
-			}
-		} catch (DuplicateKeyException e) {
-			
-			return "redirect:member/memberInsert";
-			
-		} catch (Exception e) {
-			
-			return "redireact:member/memberInsert";
-		}
-	}
-
+	
 	// 아이디중복체크
 	@PostMapping("idCheck")
 	@ResponseBody
@@ -78,15 +71,59 @@ public class MemberController {
 		Map<String, Object> map = new HashMap<>();
 		count = memberService.idCheck(userId);
 		map.put("cnt", count);
-		
+
 		return map;
 	}
 
 	// 로그인페이지
 	@GetMapping("memberLogin")
 	public String memberLoginForm() {
-		System.out.println("로그인");
+
 		return "member/memberLogin";
 	}
 
+	// 인증번호
+	@PostMapping("sendSMS")
+	@ResponseBody
+	public String sendSMS(String phoneNumber) {
+		Random random = new Random();
+		String randNum = "";
+		for (int i = 0; i < 4; i++) {
+			String ran = Integer.toString(random.nextInt(10));
+			randNum += ran;
+		}
+		System.out.println(randNum);
+		System.out.println("수신자 번호 : " + phoneNumber);
+		System.out.println("인증번호 : " + randNum);
+		memberService.certifiedPhoneNumber(phoneNumber, randNum);
+		return randNum;
+	}
+	
+	//회원가입축하페이지
+	@GetMapping("memberJoin")
+	public String memberJoin() {
+		return "member/memberJoin";
+	}
+	
+	//아이디,비밀번호 찾기 - 페이지
+	@GetMapping("memberFind")
+	public String memberFind() {
+		return "member/memberFind";
+	}
+	
+	//아이디찾기 - 처리
+	@PostMapping("memberFindId")
+	public String memberFindIdProcess(MemberVO memberVO, Model model) {
+		MemberVO id = memberService.findId(memberVO);
+		
+		model.addAttribute("id", id);
+		
+		return "member/memberFindId";
+	}
+	
+	//아이디찾기 - 페이지
+	@GetMapping("memberFindId")
+	public String memberFindPwProcess() {
+		return "member/memberFindId";
+	}
 }
