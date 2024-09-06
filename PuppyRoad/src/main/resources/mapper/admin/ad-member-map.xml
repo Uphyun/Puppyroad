@@ -7,4 +7,15 @@
 		from	walker_add_info
 		where	approval_state = 3
 	</select>
+	
+	<select id="selectMemberList" resultType="MemberVO">
+		select    user_id
+		        , nickname
+		        , join_date
+		        , activity_date
+		        , withdraw_date
+		        , account_state
+		from    member
+		where   position = '의뢰인'
+	</select>
 </mapper>
