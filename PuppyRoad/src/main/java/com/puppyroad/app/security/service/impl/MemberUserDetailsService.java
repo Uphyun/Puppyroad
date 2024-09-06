@@ -14,7 +14,7 @@ import com.puppyroad.app.security.service.LoginMemberVO;
 public class MemberUserDetailsService implements UserDetailsService {
 	
 	private MemberMapper memberMapper;
-	
+
 	public MemberUserDetailsService(MemberMapper memberMapper) {
 		this.memberMapper= memberMapper;
 	}
@@ -22,7 +22,7 @@ public class MemberUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 		// Mapper를 활용해서 DB 접근
 		MemberVO memberVO = memberMapper.getUserInfo(userId);
-		
+	
 		if(memberVO == null) {
 			throw new UsernameNotFoundException("사용자를 찾을 수 없습니다." + userId);
 		}
