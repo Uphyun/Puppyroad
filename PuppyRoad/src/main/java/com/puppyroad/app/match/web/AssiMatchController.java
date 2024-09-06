@@ -24,7 +24,7 @@ public class AssiMatchController {
 	AssiMatchService assiService;
 	
 	// 전체조회 : get
-	@GetMapping("assiList")
+	@GetMapping("user/assiList")
 	public String assiList(Model model) {
 		List<AssiMatchVO> list = assiService.getAssiMatchList();
 		model.addAttribute("assis", list);
@@ -32,7 +32,7 @@ public class AssiMatchController {
 	}
 	
 	// 단건조회 : get
-	@GetMapping("assiInfo")
+	@GetMapping("user/assiInfo")
 	public String assiInfo(AssiMatchVO matchVO, Model model) {
 		AssiMatchVO findVO = assiService.getAssiMatchInfo(matchVO);
 		model.addAttribute("match", findVO);
@@ -40,13 +40,13 @@ public class AssiMatchController {
 	}
 	
 	// 등록 - 페이지 : get
-	@GetMapping("assiInsert")
+	@GetMapping("user/assiInsert")
 	public String assiInsertForm() {
 		return "match/assiInsert";
 	}
 	
 	// 등록 - 처리 : post
-	@PostMapping("assiInsert")
+	@PostMapping("user/assiInsert")
 	public String assiInsertProcess(AssiMatchVO assiVO) {
 		int bno = assiService.addAssiMatch(assiVO);
 		String url = null;
@@ -59,14 +59,14 @@ public class AssiMatchController {
 	}
 	
 	// 수정 - 페이지
-	@GetMapping("assiUpdate")
+	@GetMapping("user/assiUpdate")
 	public String assiUpdateForm(AssiMatchVO assiVO, Model model) {
 		AssiMatchVO findVO = assiService.getAssiMatchInfo(assiVO);
 		model.addAttribute("assi", findVO);
 		return "match/assiUpdate";
 	}
 	// 수정 - 처리
-	@PostMapping("assiUpdate")
+	@PostMapping("user/assiUpdate")
 	@ResponseBody // AJAX
 	public Map<String, Object> assiUpdate(@RequestBody AssiMatchVO assiVO){
 		return assiService.modifyAssiMatch(assiVO);
@@ -74,7 +74,7 @@ public class AssiMatchController {
 	}
 	
 	// 삭제 - 처리
-	@GetMapping("assiDelete")
+	@GetMapping("user/assiDelete")
 	public String assiDelete(Integer bulletinNo) {
 		assiService.removeAssiMatch(bulletinNo);
 		return "redirect:assiList";

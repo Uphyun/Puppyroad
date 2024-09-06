@@ -6,43 +6,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="contextPath" th:value="${contextPath}">
+<link rel="stylesheet" href="/assets/main/css/match/assiList.css" type="text/css" />
+
 <title>matchTest</title>
 </head>
 <body>
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">자율 매칭</h5>
-
-    <!-- Default Table -->
-    <table class="table">
-      <thead>
-        <tr>
-			<th scope="col">No</th>
-			<th scope="col">제목</th>
-			<th scope="col">지역</th>
-			<th scope="col">매칭상태</th>
-			<th scope="col">작성자</th>
-			<th scope="col">작성시간</th>
-        </tr>
-      </thead>
-		<tbody>
-			<th:block th:each="match : ${matchs}">
-				<tr>
-					<td scope="row">[[ ${match.bulletinNo} ]]</td>
-					<td scope="row">[[ ${match.title} ]]</td>
-					<td scope="row">[[ ${match.walkPlaceAddress} ]]</td>
-					<td scope="row">[[ ${match.matchingState} ]]</td>
-					<td scope="row">[[ ${match.writer} ]]</td>
-					<td scope="row">[[${#dates.format(match.writingTime, 'yyyy/MM/dd')}]]</td>
-				</tr>
-			</th:block>
-		</tbody>
-    </table>
-		<button type="button" class="btn btn-primary"
-			th:onclick="|location.href='@{/matchInsert}'|">작성하기
-		</button>
-  </div>
-</div>
+<section class="match-section pt-70 pb-60">
+  <th:blcok th:each="assi : ${assis}">
+	<div class="container d-flex align-items-center justify-content-between">
+	    <div class="assiList">
+	  	  <div class="img">
+	  		<img src="assets/main/img/logo.png" alt="image">
+	  	  </div>
+	  	  <div>
+	  		  <h6>name star review</h6>
+	  		  <span>content km</span>
+	  	  </div>
+	  	  <div>
+	  	  	<hr>
+	  	  	<h6>중형견 이하 : money</h6>
+	  	  	<h6>대형견 : money</h6>
+	  	  </div>
+	  	  <div>
+	  	  	<hr>
+	  	  	<h6>※15kg이하 소중형견</h6>
+            <h6>  15초과 대형견</h6>
+	  	  </div>
+	    </div>
+	    <div>
+	    	<img src="assets/main/img/logo.png" alt="image">
+	    </div>
+	</div>
+  </th:blcok>
+</section>
 		
 </body>
 <script type="text/javascript" src="/assets/main/js/match/matchList.js"></script>

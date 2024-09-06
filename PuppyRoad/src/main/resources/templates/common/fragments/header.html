@@ -60,11 +60,11 @@
                         <div class="menu-items">
                             <ul>
                                 <li>
-                                    <a href="#">매칭하기</a>
+                                    <a href="user">매칭하기</a>
                                     <ul class="submenu">
-                                        <li><a href="#">자율매칭</a></li>
-                                        <li><a href="#">실시간 매칭</a></li>
-                                        <li><a href="#">대리 매칭</a></li>
+                                        <li><a th:onclick="|location.href='@{/user/matchList}'|"  style="cursor:pointer;">자율매칭</a></li>
+                                        <li><a th:onclick="|location.href='@{/user/realMatch}'|"  style="cursor:pointer;">실시간 매칭</a></li>
+                                        <li><a th:onclick="|location.href='@{/user/assiMatch}'|"  style="cursor:pointer;">대리 매칭</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="newsList">게시판</a></li>

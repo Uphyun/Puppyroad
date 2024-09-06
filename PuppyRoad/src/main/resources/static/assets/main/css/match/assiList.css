@@ -1,0 +1,19 @@
+.assiList {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-rows: 1fr;
+    grid-template-rows: 1fr;
+    -ms-grid-columns: 200px 2fr;
+    grid-template-columns: 200px 2fr;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.container.d-flex.align-items-center.justify-content-between {
+    background-color: #fff;
+    padding: 20px 40px;
+    margin: 20px auto;
+    border-radius: 30px;
+}
+

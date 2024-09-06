@@ -32,7 +32,10 @@
 						<td scope="row">[[ ${match.bulletinNo} ]]</td>
 						<td scope="row">[[ ${match.title} ]]</td>
 						<td scope="row">[[ ${match.walkPlaceAddress} ]]</td>
-						<td scope="row">[[ ${match.matchingState} ]]</td>
+						<td scope="row" th:if = "${match.matchingState}==1" th:text="매칭중"></td>
+						<td scope="row" th:if = "${match.matchingState}==2" th:text="매칭예약"></td>
+						<td scope="row" th:if = "${match.matchingState}==3" th:text="매칭종료"></td>
+						<td scope="row" th:if = "${match.matchingState}==4" th:text="매칭취소"></td>
 						<td scope="row">[[ ${match.writer} ]]</td>
 						<td scope="row">[[${#dates.format(match.writingTime, 'yyyy/MM/dd')}]]</td>
 					</tr>
@@ -41,7 +44,7 @@
 	    </table>
 	    <div class="text-right">
 			<button type="button" class="btn btn-primary"
-				th:onclick="|location.href='@{/matchInsert}'|">작성하기
+				th:onclick="|location.href='@{/user/matchInsert}'|">작성하기
 			</button>
 		</div>
 	  </div>
