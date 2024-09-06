@@ -17,11 +17,9 @@ public class NaviServiceImpl implements NaviService {
 
 	@Override
 	public List<NaviVO> callBackNavi(NaviVO naviVO) {
-		System.out.println(naviVO.getScheduleCode());
 		if(naviVO.getPuppyCode() != null) {
 			naviMapper.setCallDogNavi(naviVO);
 		}
-		System.out.println(naviVO.getCNavi());
 
 		return naviVO.getCNavi();
 	}
