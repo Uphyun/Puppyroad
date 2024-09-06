@@ -21,16 +21,29 @@ public class MatchController {
 	@Autowired
 	MatchService matchService;
 	
+	@GetMapping("user/match")
+	public String match(Model model) {
+		return "match/match";
+	}
+	
 	// 전체조회 : get
-	@GetMapping("matchList")
+	@GetMapping("user/matchList")
 	public String matchList(Model model) {
 		List<MatchVO> list = matchService.getMatchList();
 		model.addAttribute("matchs", list);
 		return "match/matchList";
 	}
 	
+	// real 전체조회 : get
+	@GetMapping("user/realMatch")
+	public String realMatch(Model model) {
+		List<MatchVO> list = matchService.getMatchList();
+		model.addAttribute("matchs", list);
+		return "match/realMatch";
+	}
+	
 	// 단건조회 : get
-	@GetMapping("matchInfo")
+	@GetMapping("user/matchInfo")
 	public String matchInfo(MatchVO matchVO, Model model) {
 		MatchVO findVO = matchService.getMatchInfo(matchVO);
 		model.addAttribute("match", findVO);
@@ -38,13 +51,13 @@ public class MatchController {
 	}
 	
 	// 등록 - 페이지 : get
-	@GetMapping("matchInsert")
+	@GetMapping("user/matchInsert")
 	public String matchInsertForm() {
 		return "match/matchInsert";
 	}
 	
 	// 등록 - 처리 : post
-	@PostMapping("matchInsert")
+	@PostMapping("user/matchInsert")
 	public String matchInsertProcess(MatchVO matchVO) {
 		int bno = matchService.addMatch(matchVO);
 		String url = null;
@@ -57,14 +70,14 @@ public class MatchController {
 	}
 	
 	// 수정 - 페이지
-	@GetMapping("matchUpdate")
+	@GetMapping("user/matchUpdate")
 	public String matchUpdateForm(MatchVO matchVO, Model model) {
 		MatchVO findVO = matchService.getMatchInfo(matchVO);
 		model.addAttribute("match", findVO);
 		return "match/matchUpdate";
 	}
 	// 수정 - 처리
-	@PostMapping("matchUpdate")
+	@PostMapping("user/matchUpdate")
 	@ResponseBody // AJAX
 	public Map<String, Object> matchUpdate(@RequestBody MatchVO matchVO){
 		return matchService.modifyMatch(matchVO);
@@ -72,7 +85,7 @@ public class MatchController {
 	}
 	
 	// 삭제 - 처리
-	@GetMapping("matchDelete")
+	@GetMapping("user/matchDelete")
 	public String matchDelete(Integer bulletinNo) {
 		matchService.removeMatch(bulletinNo);
 		return "redirect:matchList";

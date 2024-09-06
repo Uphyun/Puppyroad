@@ -1,97 +1,106 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      th:fragment="HeaderFragment">
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="HeaderFragment">
 <header class="header-three">
-        <div class="header-top">
-            <div class="container container-custom-three">
-                <div class="d-md-flex align-items-center justify-content-between">
-                    <ul class="contact-list">
-                        <li>
-                            <a href="#">
-                                <i class="fal fa-envelope"></i>
-                                puppyroad.com
-                            </a>
-                        </li>
-                        <li>
-                            <a href="tel:010-3351-3743">
-                                <i class="fal fa-phone"></i>
-                                010-3351-3743
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="d-flex align-items-center justify-content-center justify-content-md-end">
-                        <!-- search btton -->
-                        <div class="search">
-                            <a href="#" class="search-icon" id="searchBtn">
-                                <i class="fal fa-search open-icon"></i>
-                                <i class="fal fa-times close-icon"></i>
-                            </a>
-                            <div class="search-form">
-                                <form action="#">
-                                    <input type="text" placeholder="Search your keyword...">
-                                    <button type="submit"><i class="far fa-search"></i></button>
-                                </form>
-                            </div>
+    <div class="header-top">
+        <div class="container container-custom-three">
+            <div class="d-md-flex align-items-center justify-content-between">
+                <ul class="contact-list">
+                    <li>
+                        <a href="#">
+                            <i class="fal fa-envelope"></i>
+                            puppyroad.com
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tel:010-3351-3743">
+                            <i class="fal fa-phone"></i>
+                            010-3351-3743
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center justify-content-center justify-content-md-end">
+                    <!-- search btton -->
+                    <div class="search">
+                        <a href="#" class="search-icon" id="searchBtn">
+                            <i class="fal fa-search open-icon"></i>
+                            <i class="fal fa-times close-icon"></i>
+                        </a>
+                        <div class="search-form">
+                            <form action="#">
+                                <input type="text" placeholder="Search your keyword...">
+                                <button type="submit"><i class="far fa-search"></i></button>
+                            </form>
                         </div>
+
                         <ul class="sigma_social-links justify-content-center">
                         	<!-- 아이콘 트위터 -->
                             <!-- <li><a href="#"><i class="fab fa-facebook-f"></i></a></li> -->
                             <!-- <li><a href="#" class="red-icon"><i class="fab fa-twitter"></i></a></li> -->
                             <li><a th:href="@{/memberLogout}">로그아웃</a></li>
+
+                    </div>
+                    <ul class="sigma_social-links justify-content-center">
+                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#" class="red-icon"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-menu-area sticky-header">
+        <div class="container container-custom-three">
+            <div class="nav-container d-flex align-items-center justify-content-between">
+                <!-- Site Logo -->
+                <div class="site-logo">
+                    <a th:href="@{/}" ><img src="/assets/main/img/logo.png" alt="Logo"></a>
+                </div>
+                <!-- Main Menu -->
+                <div class="nav-menu d-lg-flex align-items-center justify-content-between">
+
+                    <!-- Navbar Close Icon -->
+                    <div class="navbar-close">
+                        <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                    </div>
+
+                    <!-- Mneu Items -->
+                    <div class="menu-items">
+                        <ul>
+                            <li>
+                                <a th:onclick="|location.href='@{/user/match}'|"  style="cursor:pointer;">매칭하기</a>
+                                <ul class="submenu">
+									<li><a th:onclick="|location.href='@{/user/matchList}'|"  style="cursor:pointer;">자율매칭</a></li>
+                                    <li><a th:onclick="|location.href='@{/user/realMatch}'|"  style="cursor:pointer;">실시간 매칭</a></li>
+                                    <li><a th:onclick="|location.href='@{/user/assiList}'|"  style="cursor:pointer;">대리 매칭</a></li>
+                                </ul>
+                            </li>
+                            <li><a th:href="@{/user/newsList}" style="cursor:pointer;">게시판</a></li>
+                            <li><a th:href="@{/user/petstar}" style="cursor:pointer;">펫스타그램</a></li>
+                            <li><a th:href="@{/user/inquiryInsert}" style="cursor:pointer;">문의 하기</a></li>
+                            <!-- <th:block th:if="${auth == '관리자'}"> -->
+                            <li><a th:href="@{/admin}">관리자 페이지</a></li>
+                            <!-- </th:block> -->
+
                         </ul>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="main-menu-area sticky-header">
-            <div class="container container-custom-three">
-                <div class="nav-container d-flex align-items-center justify-content-between">
-                    <!-- Site Logo -->
-                    <div class="site-logo">
-                        <a href="index.html"><img src="assets/main/img/logo.png" alt="Logo"></a>
-                    </div>
-                    <!-- Main Menu -->
-                    <div class="nav-menu d-lg-flex align-items-center justify-content-between">
 
-                        <!-- Navbar Close Icon -->
-                        <div class="navbar-close">
-                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                        </div>
-
-                        <!-- Mneu Items -->
-                        <div class="menu-items">
-                            <ul>
-                                <li>
-                                    <a href="#">매칭하기</a>
-                                    <ul class="submenu">
-                                        <li><a href="#">자율매칭</a></li>
-                                        <li><a href="#">실시간 매칭</a></li>
-                                        <li><a href="#">대리 매칭</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="newsList">게시판</a></li>
-                                <li><a href="#">펫스타그램</a></li>
-                                <li><a href="inquiryInsert">문의 하기</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- navbar right content -->
-                    <div class="menu-right-buttons">
-                        <!-- Log in icon -->
-                        <!-- <div class="login-btn ml-0">
+                <!-- navbar right content -->
+                <div class="menu-right-buttons">
+                    <!-- Log in icon -->
+                    <!-- <div class="login-btn ml-0">
                             <a href="cart.html" id="loginBtn"><i class="fal fa-shopping-bag"></i></a>
                         </div> -->
-                        
-                        <a class="main-btn btn-filled ml-2 d-none d-md-block" href="contact.html" tabindex="0">Book now </a>
-                    
-                        <!-- Navbar Toggler -->
-                        <div class="navbar-toggler">
-                            <span></span><span></span><span></span>
-                        </div>
+
+                    <a class="main-btn btn-filled ml-2 d-none d-md-block" href="contact.html" tabindex="0">Book now </a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="navbar-toggler">
+                        <span></span><span></span><span></span>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
+
 </html>

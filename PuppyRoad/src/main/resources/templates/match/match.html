@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layouts/default_layout}"
+      layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+<meta name="contextPath" th:value="${contextPath}">
+<link rel="stylesheet" href="/assets/main/css/match/match.css" type="text/css" />
+
+<title>match</title>
+</head>
+<body>
+<section class="match-section pt-70 pb-60">
+	<div class="container d-flex align-items-center justify-content-between">
+<div class="row features-loop">
+                <div class="col-lg-4 col-sm-6 order-1">
+                    <div class="feature-box with-hover-img wow fadeInLeft" data-wow-delay=".3s"
+                     th:onclick="|location.href='@{/user/matchList}'|"   style="cursor:pointer;">
+                        <div class="icon">
+                            <i class="flaticon-grooming"></i>
+                        </div>
+                        <h3>자율 매칭</h3>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna..
+                        </p>
+                        <span class="count">01</span>
+                        <div class="hover-img" style="background-image: url(assets/img/feature/01.jpg);"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 order-2">
+                    <div class="feature-box wow fadeInUp" data-wow-delay=".4s"
+                     th:onclick="|location.href='@{/user/realMatch}'|"   style="cursor:pointer;">
+                        <div class="icon">
+                            <i class="flaticon-pet-friendly"></i>
+                        </div>
+                        <h3>실시간 매칭</h3>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna..
+                        </p>
+                        <span class="count">02</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 order-3 order-sm-4 order-lg-3">
+                    <div class="feature-box with-hover-img wow fadeInRight" data-wow-delay=".5s"
+                    th:onclick="|location.href='@{/user/assiList}'|"  style="cursor:pointer;">
+                        <div class="icon">
+                            <i class="flaticon-cat"></i>
+                        </div>
+                        <h3>대리 매칭</h3>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna..
+                        </p>
+                        <span class="count">03</span>
+                        <div class="hover-img" style="background-image: url(assets/img/feature/02.jpg);"></div>
+                    </div>
+                </div>
+            </div>
+	</div>
+</section>
+		
+</body>
+<script type="text/javascript" src="/assets/main/js/match/matchList.js"></script>
+</html>

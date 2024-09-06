@@ -12,7 +12,7 @@
 let manager;            //그리기도구(?)
 let interval;           //산책할 때 쓸 반복실행
 let overlays = [];      //지도에 존재하는 선목록
-console.log(ContextPath);
+let map;
 
 //지도 설정
 function setMap(mapWrap = "map") {
@@ -23,7 +23,7 @@ function setMap(mapWrap = "map") {
         // 지도의 확대 레벨 
     };
 
-    let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+    map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
     //그리기 도구 설정
     let drawOptions = { // Drawing Manager를 생성할 때 사용할 옵션입니다
@@ -67,7 +67,7 @@ function startWalking(code = 'test01', used = 'puppy') {
 
                 //경로 등록 및 부르기
                 let locations = [];
-                let url = "/callNavi";
+                let url = "/ajax/callNavi";
                 $.ajax({
                     url,
                     method: 'post',
@@ -137,12 +137,12 @@ function drawPolylineNow(lines) {
 
 //선의 경로만들기(경로 하나의 점의 갯수)
 function pointsToPathNow(points) {
-    var len = points.length,
+    let len = points.length,
         path = [],
         i = 0;
 
     for (; i < len; i++) {
-        var latlng = new kakao.maps.LatLng(points[i].y, points[i].x);
+        let latlng = new kakao.maps.LatLng(points[i].y, points[i].x);
         path.push(latlng);
     }
 
