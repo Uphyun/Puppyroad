@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="https://www.thymeleaf.org/"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{common/layouts/default_layout}"
-  layout:fragment="Content"
->
+<html xmlns:th="https://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layouts/default_layout}"
+      layout:fragment="Content">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="contextPath" th:value="${contextPath}">
-  <link rel="stylesheet" href="/assets/main/css/match/matchInfo.css" type="text/css" />
-  <title>matchUpdate</title>
+<meta charset="UTF-8">
+<meta name="contextPath" th:value="${contextPath}">
+<link rel="stylesheet" href="/assets/main/css/match/match.css" type="text/css" />
+
+<title>match</title>
 </head>
 <body>
-	<section class="match-section pt-70 pb-60">
+<section class="match-section pt-70 pb-60">
+	<div class="container d-flex align-items-center justify-content-between">
 		<div class="container justify-content-center">
-		<h4>매칭 수정</h4>
+		<h4>실시간 매칭 등록</h4>
 		<hr/>
-			<form name="updateForm" th:object="${match}">
+			<form name="realMatchForm" th:object="${match}">
 			     
 			     <div class="row mb-3">
-			       <label for="title" class="col-md-2 col-lg-2 col-form-label">제목</label>
+			       <label for="title" class="col-md-2 col-lg-2 col-form-label">프로필</label>
 			       <div class="col-md-10 col-lg-10">
-			         <input name="title" type="text" class="form-control" th:field="*{title}">
+			         <input name="title" type="text" class="form-control">
 			       </div>
 			     </div>
 			     <hr/>
@@ -70,8 +70,7 @@
 			     <div class="row mb-3">
 			       <label for="WalkPlaceAddress" class="col-md-2 col-lg-2 col-form-label">산책 장소</label>
 			       <div class="col-md-10 col-lg-10">
-			         <input name="WalkPlaceAddress" type="text" class="form-control" 
-			         th:field ="*{walkPlaceAddress}">
+			         <input name="WalkPlaceAddress" type="text" class="form-control">
 			       </div>
 			     </div>
 			     <hr/>
@@ -79,16 +78,17 @@
 			     <div class="row mb-3">
 			       <label for="content" class="col-md-2 col-lg-2 col-form-label">소개</label>
 			       <div class="col-md-10 col-lg-10">
-			         <textarea name="content" class="form-control" id="content" style="height: 100px"
-			          th:field="*{content}"></textarea>
+			         <textarea name="content" class="form-control" id="content" style="height: 100px"></textarea>
 			       </div>
 			     </div>
 				<div class="center">
-					<button type="button" class="btn btn-primary"  id="updateBtn">저장</button>
+					<button type="button" class="btn btn-primary" id="updateBtn">저장</button>
 				</div>
 			</form>
 		</div>
-	</section>
-  <script type="text/javascript" src="/assets/main/js/match/matchUpdate.js"></script>
+	</div>
+</section>
+		
 </body>
+<script type="text/javascript" src="/assets/main/js/match/matchList.js"></script>
 </html>
