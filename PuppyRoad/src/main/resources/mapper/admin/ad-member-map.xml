@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.puppyroad.app.admin.main.mapper.AdminMainMapper">
+	
+	<select id="getWalkerCnt" resultType="int">
+		select	count(1)
+		from	walker_add_info
+		where	approval_state = 3
+	</select>
+</mapper>

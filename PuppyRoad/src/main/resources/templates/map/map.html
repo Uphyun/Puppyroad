@@ -15,12 +15,6 @@
 				<button onclick="startWalking()">산책시작</button>
 				<button onclick="startWalking()">산책종료</button>
 			</div>
-			<div>
-				<input type="text" id="xline" style="background-color: rgb(207, 207, 207);">
-				<input type="text" id="yline" style="background-color: rgb(207, 207, 207);">
-				<button type="button" id="saveBtn">위치
-					저장</button>
-			</div>
 
 		</div>
 	</section>
@@ -31,9 +25,9 @@
 
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=22529f2e0edbc8b92825acd8646989cb&libraries=drawing"></script>
-	<script type="text/javascript" src="assets/main/js/gps/gps.js"></script>
+	<script type="text/javascript" src="/assets/main/js/gps/gps.js"></script>
 	<script>
-		setMap();
+		setMap("map");
 	</script>
 </body>
 

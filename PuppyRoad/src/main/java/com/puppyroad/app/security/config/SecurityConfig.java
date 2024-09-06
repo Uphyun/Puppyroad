@@ -37,7 +37,7 @@ import jakarta.servlet.DispatcherType;
 					.requestMatchers("/").hasAnyRole("봉사자", "도그워커","의뢰인")
 					//.requestMatchers("/").hasRole("A1")
 					// "/admin/**" 경로에 대한 요청은 "ROLE_ADMIN" 권한을 가진 사용자만 접근
-					//.requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+					.requestMatchers("/admin/**").hasAuthority("ROLE_관리자")
 
 					// 위에서 명시된 경로들을 제외한 나머지 모든 요청은 인증된 사용자만 접근
 					.anyRequest().authenticated())
