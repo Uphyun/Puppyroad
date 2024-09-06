@@ -59,16 +59,16 @@
                     <div class="menu-items">
                         <ul>
                             <li>
-                                <a href="#">매칭하기</a>
+                                <a th:onclick="|location.href='@{/user/match}'|"  style="cursor:pointer;">매칭하기</a>
                                 <ul class="submenu">
 									<li><a th:onclick="|location.href='@{/user/matchList}'|"  style="cursor:pointer;">자율매칭</a></li>
                                     <li><a th:onclick="|location.href='@{/user/realMatch}'|"  style="cursor:pointer;">실시간 매칭</a></li>
                                     <li><a th:onclick="|location.href='@{/user/assiList}'|"  style="cursor:pointer;">대리 매칭</a></li>
                                 </ul>
                             </li>
-                            <li><a th:href="@{user/newsList}">게시판</a></li>
-                            <li><a th:href="@{user/petstar}">펫스타그램</a></li>
-                            <li><a th:href="@{user/inquiryInsert}">문의 하기</a></li>
+                            <li><a th:href="@{/user/newsList}" style="cursor:pointer;">게시판</a></li>
+                            <li><a th:href="@{/user/petstar}" style="cursor:pointer;">펫스타그램</a></li>
+                            <li><a th:href="@{/user/inquiryInsert}" style="cursor:pointer;">문의 하기</a></li>
                             <!-- <th:block th:if="${auth == '관리자'}"> -->
                             <li><a th:href="@{/admin}">관리자 페이지</a></li>
                             <!-- </th:block> -->
