@@ -1,68 +1,93 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org/"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{common/layouts/default_layout}"
-      layout:fragment="Content">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
 <head>
 <meta charset="UTF-8">
 <meta name="contextPath" th:value="${contextPath}">
-<link rel="stylesheet" href="/assets/main/css/match/matchInfo.css" type="text/css" />
-
-<title>matchTest</title>
+<link rel="stylesheet" href="/assets/main/css/match/matchInfo.css"
+	type="text/css" />
+<title>matchInsert</title>
 </head>
 <body>
-<section class="match-section pt-70 pb-60">
-	<div class="container justify-content-center">
-		<form name="insertForm" th:action="@{/matchInsert}" method="post">
+	<section class="match-section pt-70 pb-60">
+		<div class="container justify-content-center">
 			<h4>매칭 등록</h4>
-			<hr/>
-		     <div class="row mb-3">
-		       <label for="title" class="col-md-2 col-lg-2 col-form-label">제목</label>
-		       <div class="col-md-10 col-lg-10">
-		         <input name="title" type="text" class="form-control">
-		       </div>
-		     </div>
-		     
-		     <hr/>
-		     
-		     <div class="row mb-3">
-		       <label for="dogInfo" class="col-md-2 col-lg-2 col-form-label">반려견 정보</label>
-		       <div class="col-md-3 col-lg-3">
-		         <img src="" alt="dogInfo">
-		       <button type="button">불러오기</button>
-		       </div>
-			       <div>
-			         <input name="dogBreed" type="text" class="form-control">
-			       </div>
-			       <div>
-			         <input name="personality" type="text" class="form-control">
-			       </div>
-			       <div>
-			         <input name="walkPlaceAddress" type="text" class="form-control">
-			       </div>
-			       <div>
-			         <input name="neutralizationPreAbs" type="text" class="form-control">
-			       </div>
-			       <div>
-			         <input name="diseasePreAbs" type="text" class="form-control">
-			       </div>
-		       </div>
-		     <hr/>
-		
-		     <div class="row mb-3">
-		       <label for="content" class="col-md-2 col-lg-2 col-form-label">소개</label>
-		       <div class="col-md-10 col-lg-10">
-		         <textarea name="content" class="form-control" id="content" style="height: 100px"></textarea>
-		       </div>
-		     </div>
-		   <hr/>
-		   <input name="matchingKind" type="hidden" value="1">
-		   <input name="writer" type="hidden" th:value="${#authentication.principal.username}">
-		<div class="text-right">
-			<button type="submit" class="btn btn-primary">등록</button>
+			<hr />
+			<form name="insertForm" th:action="@{/user/matchInsert}"
+				method="post">
+
+				<div class="row mb-3">
+					<label for="title" class="col-md-2 col-lg-2 col-form-label">제목</label>
+					<div class="col-md-10 col-lg-10">
+						<input name="title" type="text" class="form-control">
+					</div>
+				</div>
+				<hr />
+
+				<div class="row mb-3">
+
+					<div class="col-2">
+						<label for="dogInfo" class="col-form-label">반려견 정보</label>
+						<div class="">
+							<button type="button" class="my_btn">불러오기</button>
+						</div>
+					</div>
+					<div class="col-2">
+						<img src="/assets/main/img/logo.png" alt="puppyImg">
+					</div>
+					<div class="col-8">
+						<div class="row">
+
+							<div class="col-md-6 pb-2 col-lg-4">
+								<input name="dogBreed" type="text" class="form-control"
+									placeholder="견종" readonly>
+							</div>
+							<div class="col-md-6 pb-2 col-lg-4">
+								<input name="personality" type="text" class="form-control"
+									placeholder="성격" readonly>
+							</div>
+							<div class="col-md-6 pb-2 col-lg-4">
+								<input name="dogSize" type="text" class="form-control"
+									placeholder="견종 크기" readonly>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-lg-4">
+								<input name="neutralizationPreAbs" type="text"
+									class="form-control" placeholder="중성화 유무" readonly>
+							</div>
+							<div class="col-md-6 col-lg-4">
+								<input name="diseasePreAbs" type="text" class="form-control"
+									placeholder="질병 유무" readonly>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr />
+
+				<div class="row mb-3">
+					<label for="WalkPlaceAddress"
+						class="col-md-2 col-lg-2 col-form-label">산책 장소</label>
+					<div class="col-md-10 col-lg-10">
+						<input name="WalkPlaceAddress" type="text" class="form-control">
+					</div>
+				</div>
+				<hr />
+
+				<div class="row mb-3">
+					<label for="content" class="col-md-2 col-lg-2 col-form-label">소개</label>
+					<div class="col-md-10 col-lg-10">
+						<textarea name="content" class="form-control" id="content"
+							style="height: 100px"></textarea>
+					</div>
+				</div>
+				<div class="center">
+					<button type="submit" class="btn btn-primary">등록</button>
+				</div>
+			</form>
 		</div>
-	   </form>
-	</div>
-</section>
+	</section>
 </body>
 </html>

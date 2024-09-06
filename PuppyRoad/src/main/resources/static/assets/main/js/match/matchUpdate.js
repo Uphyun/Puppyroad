@@ -18,7 +18,7 @@ function updateAjax(event) {
       if (data.result) {
         alert("정상적으로 수정되었습니다");
 		let bno = $('#bulletinNo').val();
-		let url = context + '/matchInfo?bulletinNo=' + bno;
+		let url = context + '/user/matchInfo?bulletinNo=' + bno;
 		location.href = url;
       } else {
         alert("수정이 실패하였습니다");

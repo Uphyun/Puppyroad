@@ -31,7 +31,7 @@ import jakarta.servlet.DispatcherType;
 					.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 
 					// "/"와 "/all" 경로에 대한 요청은 인증 없이 접근을 허용합니다.
-					.requestMatchers("/memberInsert", "/memberLogin", "/assets/**", "/main/**", "/login", "/**").permitAll()
+					.requestMatchers("/memberInsert", "/memberLogin", "/assets/**", "/main/**", "/login").permitAll()
 
 					// "/user/**" 경로에 대한 요청은 "USER, ADMIN" 역할을 가진 사용자만 접근
 					.requestMatchers("/").hasAnyRole("봉사자", "도그워커","의뢰인")

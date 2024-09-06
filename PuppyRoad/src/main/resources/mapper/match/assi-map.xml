@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.puppyroad.app.match.mapper.AssiMatchMapper">
   <!-- 전체 자율매칭 -->
-  <select id="selectMatchList" resultType="MatchVO">
+  <select id="selectAssiMatchList" resultType="AssiMatchVO">
 		SELECT  bulletin_no,
 		 		cover_photo,
 		 		title,
@@ -21,7 +21,7 @@
   </select>
   
   <!-- 단건 자율매칭 -->
-  <select id="selectMatchInfo" resultType="MatchVO">
+  <select id="selectAssiMatchInfo" resultType="AssiMatchVO">
 		SELECT  bulletin_no,
 		 		cover_photo,
 		 		title,
@@ -40,7 +40,7 @@
   </select>
   
   <!-- 자율등록 -->
-  <insert id="insertMatch" parameterType="MatchVO">
+  <insert id="insertAssiMatch" parameterType="AssiMatchVO">
 
 		INSERT INTO matching_board(
 								bulletin_no,
@@ -72,7 +72,7 @@
   </insert>
   
   <!-- 자율수정 -->
-  <update id="updateMatch" parameterType="MatchVO">
+  <update id="updateAssiMatch" parameterType="AssiMatchVO">
   	UPDATE matching_board
   	SET
   	       cover_photo = #{coverPhoto},
@@ -91,7 +91,7 @@
   </update>
   
   <!-- 자율삭제 -->
-  <delete id="deleteMatch" parameterType="int">
+  <delete id="deleteAssiMatch" parameterType="int">
   	DELETE matching_board
   	WHERE  bulletin_no = #{bulletinNo}
   </delete>

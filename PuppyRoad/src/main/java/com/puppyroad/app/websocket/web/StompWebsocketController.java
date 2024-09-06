@@ -10,17 +10,15 @@ import com.puppyroad.app.websocket.service.ChatMessageDTO;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequiredArgsConstructor
+@RequiredArgsConstructor //생성자 생성
 public class StompWebsocketController {
     private final SimpMessagingTemplate template; //특정 Broker로 메세지를 전달
 
-    //Client가 SEND할 수 있는 경로
-    //stompConfig에서 설정한 applicationDestinationPrefixes와 @MessageMapping 경로가 병합됨
-    //"/pub/chat/enter"
-    @MessageMapping("chat/enter")
+    @MessageMapping("chat/enter") //@MessageMapping 을 통해 WebSocket으로 들어오는 메세지 발행을 처리한다.
     public void enter(ChatMessageDTO message){
         message.setMessage(message.getWriter() + "님이 채팅방에 참여하였습니다.");
         template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
+        //구독 경로를 각 유저마다 독립적으로 사용하면 해당 유저에게만 메시지를 전송할 수 있다. 나중에 convertAndSendToUser(보안용)
     }
 
     @MessageMapping("chat/message")
