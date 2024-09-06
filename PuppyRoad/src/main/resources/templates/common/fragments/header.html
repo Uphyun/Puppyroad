@@ -61,9 +61,9 @@
                             <li>
                                 <a href="#">매칭하기</a>
                                 <ul class="submenu">
-                                    <li><a href="#">자율매칭</a></li>
-                                    <li><a href="#">실시간 매칭</a></li>
-                                    <li><a href="#">대리 매칭</a></li>
+									<li><a th:onclick="|location.href='@{/user/matchList}'|"  style="cursor:pointer;">자율매칭</a></li>
+                                    <li><a th:onclick="|location.href='@{/user/realMatch}'|"  style="cursor:pointer;">실시간 매칭</a></li>
+                                    <li><a th:onclick="|location.href='@{/user/assiList}'|"  style="cursor:pointer;">대리 매칭</a></li>
                                 </ul>
                             </li>
                             <li><a th:href="@{user/newsList}">게시판</a></li>
@@ -76,33 +76,6 @@
                     </div>
                 </div>
 
-                        <!-- Navbar Close Icon -->
-                        <div class="navbar-close">
-                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                        </div>
-
-                        <!-- Mneu Items -->
-                        <div class="menu-items">
-                            <ul>
-                                <li>
-                                    <a href="user">매칭하기</a>
-                                    <ul class="submenu">
-                                        <li><a th:onclick="|location.href='@{/user/matchList}'|"  style="cursor:pointer;">자율매칭</a></li>
-                                        <li><a th:onclick="|location.href='@{/user/realMatch}'|"  style="cursor:pointer;">실시간 매칭</a></li>
-                                        <li><a th:onclick="|location.href='@{/user/assiMatch}'|"  style="cursor:pointer;">대리 매칭</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="newsList">게시판</a></li>
-                                <li><a href="#">펫스타그램</a></li>
-                                <li><a href="inquiryInsert">문의 하기</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- navbar right content -->
-                    <div class="menu-right-buttons">
-                        <!-- Log in icon -->
-                        <!-- <div class="login-btn ml-0">
                 <!-- navbar right content -->
                 <div class="menu-right-buttons">
                     <!-- Log in icon -->
