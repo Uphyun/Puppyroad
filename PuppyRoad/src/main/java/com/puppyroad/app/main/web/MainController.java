@@ -8,12 +8,9 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String mainPage() {
+		
 		return "index";
 	}
 	
-	@GetMapping("map")
-	public String mapPage() {
-		return "map/map";
-	}
 	
 }
