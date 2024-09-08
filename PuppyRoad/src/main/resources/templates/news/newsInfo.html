@@ -4,85 +4,55 @@
 	layout:decorate="~{common/layouts/default_layout}"
 	layout:fragment="Content">
 <head>
+<link rel="stylesheet" href="/assets/main/css/news/newsInfo.css" type="text/css" />
+<script type="text/javascript" src="/assets/main/js/news/newsInsert.js"></script>
 <meta charset="UTF-8">
 <title>공지사항 상세</title>
-<style>
-#image_container {
-	display: flex;
-	gap: 10px;
-	margin-top: 10px;
-	flex-wrap: wrap;
-}
-
-#image_container img {
-	max-width: 100px;
-	max-height: 100px;
-	object-fit: cover;
-	border-radius: 4px;
-	border: 1px solid #ced4da;
-}
-
-th, td {
-	padding: 10px;
-	text-align: left;
-	vertical-align: middle;
-}
-
-th {
-	width: 20%;
-}
-
-td {
-	width: 80%;
-}
-</style>
 </head>
 <body>
 	<div class="container text-center pt-60 pb-60">
-		<table class="mx-auto">
-			<tr>
-				<th>번호</th>
-				<td>[[${news.bulletinNo}]]</td>
-			</tr>
-			<tr>
-				<th>제목</th>
-				<td>[[${news.title}]]</td>
-			</tr>
-			<tr>
-				<th>내용</th>
-				<td height="100px" width="200px" style="white-space: pre-wrap;">
-					[[${news.content}]]</td>
-			</tr>
-			<tr>
-				<th>등록일</th>
-				<td>[[ ${#dates.format(news.writingDate,'yyyy년MM월dd일')} ]]</td>
-			</tr>
-			<tr>
-				<th>첨부파일</th>
-				<td>
-					<div id="image_container">
-						<img
-							th:each="fileName : ${#strings.arraySplit(news.attachedFile, ',')}"
-							th:src="@{/images/{fileName}(fileName=${fileName})}">
-					</div>
-				</td>
-			</tr>
+		<!-- 번호 -->
+		<div class="col-md-8 mb-3 info-field">
+			<div class="label">번호</div>
+			<div class="value">[[${news.bulletinNo}]]</div>
+		</div>
 
-		</table>
-		<br>
-		<button type="button" class="btn btn-warning"
-			th:onClick="|location.href='@{/newsUpdate(bulletinNo=${news.bulletinNo})}'|">수정</button>
-		<button type="button" class="btn btn-danger" th:onClick="Delete()">삭제</button>
+		<!-- 제목 -->
+		<div class="col-md-8 mb-3 info-field">
+			<div class="label">제목</div>
+			<div class="value">[[${news.title}]]</div>
+		</div>
+
+		<!-- 내용 -->
+		<div class="col-md-8 mb-3 info-field">
+			<div class="label">내용</div>
+			<div class="value" style="white-space: pre-wrap;">[[${news.content}]]</div>
+		</div>
+
+		<!-- 등록일 -->
+		<div class="col-md-8 mb-3 info-field">
+			<div class="label">등록일</div>
+			<div class="value">[[${#dates.format(news.writingDate,'yyyy년 MM월 dd일')}]]</div>
+		</div>
+
+		<!-- 첨부파일 미리보기 -->
+		<div class="col-md-8 mb-3 info-field">
+			<div class="label">첨부파일</div>
+			<div class="value">
+				<div id="image_container">
+					<img th:each="fileName : ${#strings.arraySplit(news.attachedFile, ',')}"
+						th:src="@{/images/{fileName}(fileName=${fileName})}" alt="첨부파일 이미지">
+				</div>
+			</div>
+		</div>
+
+		<!-- 버튼 -->
+		<div class="buttons">
+			<button type="button" class="btn btn-warning"
+				th:onClick="|location.href='@{/newsUpdate(bulletinNo=${news.bulletinNo})}'|">수정</button>
+			<button type="button" class="btn btn-danger" onclick="Delete()">삭제</button>
+		</div>
 	</div>
-	<script>
-		function Delete() {
-			let confirmAction = confirm("정말로 삭제하시겠습니까?");
-			if (confirmAction) {
-				location.href = '[[@{/newsDelete(no=${news.bulletinNo})}]]';
-			} else {
-				alert("삭제가 취소되었습니다.");
-			}
-		}
-	</script>
+
 </body>
 </html>
