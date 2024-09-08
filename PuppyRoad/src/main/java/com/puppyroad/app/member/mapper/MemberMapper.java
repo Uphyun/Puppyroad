@@ -9,4 +9,8 @@ public interface MemberMapper {
 	public int idCheck(String userId);
 	//로그인
 	public MemberVO getUserInfo(String userId);	
+	//아이디찾기
+	public MemberVO idFind(MemberVO memberVO);
+	//비밀번호찾기
+	public int pwFind(String phoneNumber);
 }

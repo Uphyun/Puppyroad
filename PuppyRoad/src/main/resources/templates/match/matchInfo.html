@@ -25,13 +25,46 @@
      
      <hr/>
      
-     <div class="row mb-3">
-       <label for="dogInfo" class="col-md-2 col-lg-2 col-form-label">반려견 정보</label>
-       <div class="col-md-10 col-lg-10">
-         <img src="assets/img/profile-img.jpg" alt="dogInfo">
-       </div>
-     </div>
-     <hr/>
+				<div class="row mb-3">
+
+					<div class="col-2">
+						<label for="dogInfo" class="col-form-label">반려견 정보</label>
+						<div class="">
+							<button type="button" class="my_btn">불러오기</button>
+						</div>
+					</div>
+					<div class="col-2">
+						<img src="/assets/main/img/logo.png" alt="puppyImg">
+					</div>
+					<div class="col-8">
+						<div class="row">
+
+							<div class="col-md-6 pb-2 col-lg-4">
+								<input name="dogBreed" type="text" class="form-control"
+									placeholder="견종" readonly>
+							</div>
+							<div class="col-md-6 pb-2 col-lg-4">
+								<input name="personality" type="text" class="form-control"
+									placeholder="성격" readonly>
+							</div>
+							<div class="col-md-6 pb-2 col-lg-4">
+								<input name="dogSize" type="text" class="form-control"
+									placeholder="견종 크기" readonly>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-lg-4">
+								<input name="neutralizationPreAbs" type="text"
+									class="form-control" placeholder="중성화 유무" readonly>
+							</div>
+							<div class="col-md-6 col-lg-4">
+								<input name="diseasePreAbs" type="text" class="form-control"
+									placeholder="질병 유무" readonly>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr />
 
      <div class="row mb-3">
        <label for="content" class="col-md-2 col-lg-2 col-form-label">소개</label>
@@ -41,21 +74,21 @@
        </div>
      </div>
           <hr/>
-   </form>
      <div class="text-right">
 	    <button type="button" class="btn btn-secondary" 
-			th:onclick="|location.href='@{/matchList}'|">목록
+			th:onclick="|location.href='@{/user/matchList}'|">목록
 		</button>
         <button type="button" class="btn btn-warning" id="modifyBtn"
-            th:onclick="|location.href='@{/matchUpdate(bulletinNo=${match.bulletinNo})}'|">수정
+            th:onclick="|location.href='@{/user/matchUpdate(bulletinNo=${match.bulletinNo})}'|">수정
         </button>
 		<button type="button" class="btn btn-danger"
-			th:onclick="|location.href='@{/matchDelete(bulletinNo=${match.bulletinNo})}'|">삭제
+			th:onclick="|location.href='@{/user/matchDelete(bulletinNo=${match.bulletinNo})}'|">삭제
 		</button>
 		<button type="button" class="btn btn-primary"
-			th:onclick="|location.href='@{/matchApply(bulletinNo=${match.bulletinNo})}'|">신청
+			th:onclick="|location.href='@{/user/matchApply(bulletinNo=${match.bulletinNo})}'|">신청
 		</button>
      </div>
+   </form>
   </div>
 </section>
 </body>

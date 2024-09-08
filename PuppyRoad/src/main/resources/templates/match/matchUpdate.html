@@ -5,164 +5,90 @@
   layout:decorate="~{common/layouts/default_layout}"
   layout:fragment="Content"
 >
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="contextPath" th:value="${contextPath}">
-    <title>matchTest</title>
-  </head>
-  <body>
-    <div class="container justify-content-center">
-      <form name="updateForm" th:object="${match}">
-        <h3>매칭 수정</h3>
-        <table>
-          <tr>
-            <th>번호</th>
-            <td>
-              <input
-                class="form-control"
-                type="number"
-                name="bulletinNo"
-                th:field="*{bulletinNo}"
-                readonly
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>사진</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="coverPhoto"
-                th:field="*{coverPhoto}"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>제목</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="title"
-                th:field="*{title}"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>작성자</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="writer"
-                th:field="*{writer}"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>매칭 상태</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="matchingState"
-                th:field="*{matchingState}"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>시작 시간</th>
-            <td>
-              <input
-                class="form-control"
-                type="date"
-                name="startTime"
-                th:field="*{startTime}"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>종료 시간</th>
-            <td>
-              <input
-                class="form-control"
-                type="date"
-                name="endTime"
-                th:field="*{endTime}"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>작성 시간</th>
-            <td>
-              <input
-                class="form-control"
-                type="date"
-                name="writingTime"
-                th:field="*{writingTime}"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>마릿수</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="animalCount"
-                th:field="*{animalCount}"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>산책장소 주소</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="walkPlaceAddress"
-                th:field="*{walkPlaceAddress}"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>매칭 종류</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="matchingKind"
-                th:field="*{matchingKind}"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>고객 코드</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="clientCode"
-                th:field="*{clientCode}"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>강아지 코드</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="puppyCode"
-                th:field="*{puppyCode}"
-              />
-            </td>
-          </tr>
-        </table>
-        <button type="button" class="btn btn-primary" id="updateBtn">저장</button>
-      </form>
-    </div>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="contextPath" th:value="${contextPath}">
+  <link rel="stylesheet" href="/assets/main/css/match/matchInfo.css" type="text/css" />
+  <title>matchUpdate</title>
+</head>
+<body>
+	<section class="match-section pt-70 pb-60">
+		<div class="container justify-content-center">
+		<h4>매칭 수정</h4>
+		<hr/>
+			<form name="updateForm" th:object="${match}">
+			     
+			     <div class="row mb-3">
+			       <label for="title" class="col-md-2 col-lg-2 col-form-label">제목</label>
+			       <div class="col-md-10 col-lg-10">
+			         <input name="title" type="text" class="form-control" th:field="*{title}">
+			       </div>
+			     </div>
+			     <hr/>
+			     
+				<div class="row mb-3">
+
+					<div class="col-2">
+						<label for="dogInfo" class="col-form-label">반려견 정보</label>
+						<div class="">
+							<button type="button" class="my_btn">불러오기</button>
+						</div>
+					</div>
+					<div class="col-2">
+						<img src="/assets/main/img/logo.png" alt="puppyImg">
+					</div>
+					<div class="col-8">
+						<div class="row">
+
+							<div class="col-md-6 pb-2 col-lg-4">
+								<input name="dogBreed" type="text" class="form-control"
+									placeholder="견종" readonly>
+							</div>
+							<div class="col-md-6 pb-2 col-lg-4">
+								<input name="personality" type="text" class="form-control"
+									placeholder="성격" readonly>
+							</div>
+							<div class="col-md-6 pb-2 col-lg-4">
+								<input name="dogSize" type="text" class="form-control"
+									placeholder="견종 크기" readonly>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-lg-4">
+								<input name="neutralizationPreAbs" type="text"
+									class="form-control" placeholder="중성화 유무" readonly>
+							</div>
+							<div class="col-md-6 col-lg-4">
+								<input name="diseasePreAbs" type="text" class="form-control"
+									placeholder="질병 유무" readonly>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr />
+			     
+			     <div class="row mb-3">
+			       <label for="WalkPlaceAddress" class="col-md-2 col-lg-2 col-form-label">산책 장소</label>
+			       <div class="col-md-10 col-lg-10">
+			         <input name="WalkPlaceAddress" type="text" class="form-control" 
+			         th:field ="*{walkPlaceAddress}">
+			       </div>
+			     </div>
+			     <hr/>
+			
+			     <div class="row mb-3">
+			       <label for="content" class="col-md-2 col-lg-2 col-form-label">소개</label>
+			       <div class="col-md-10 col-lg-10">
+			         <textarea name="content" class="form-control" id="content" style="height: 100px"
+			          th:field="*{content}"></textarea>
+			       </div>
+			     </div>
+				<div class="center">
+					<button type="button" class="btn btn-primary"  id="updateBtn">저장</button>
+				</div>
+			</form>
+		</div>
+	</section>
   <script type="text/javascript" src="/assets/main/js/match/matchUpdate.js"></script>
+</body>
 </html>

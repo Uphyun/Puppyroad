@@ -31,13 +31,20 @@ import jakarta.servlet.DispatcherType;
 					.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 
 					// "/"와 "/all" 경로에 대한 요청은 인증 없이 접근을 허용합니다.
-					.requestMatchers("/memberInsert", "/memberLogin", "/assets/**", "/main/**", "/login", "/**").permitAll()
+
+					.requestMatchers("/memberInsert", "/memberLogin", "/assets/**", "/main/**", "/login", "/idCheck","/sendSMS","/memberJoin", "/", "/memberFindId", "/memberFind").permitAll()
+
+
 
 					// "/user/**" 경로에 대한 요청은 "USER, ADMIN" 역할을 가진 사용자만 접근
-					.requestMatchers("/").hasAnyRole("봉사자", "도그워커","의뢰인")
+					.requestMatchers("/user/**").hasAnyRole("봉사자", "도그워커","의뢰인")
 					//.requestMatchers("/").hasRole("A1")
 					// "/admin/**" 경로에 대한 요청은 "ROLE_ADMIN" 권한을 가진 사용자만 접근
-					//.requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+
+					//.requestMatchers("/admin/**").hasAuthority("관리자")
+
+					.requestMatchers("/admin/**").hasAuthority("ROLE_관리자")
+
 
 					// 위에서 명시된 경로들을 제외한 나머지 모든 요청은 인증된 사용자만 접근
 					.anyRequest().authenticated())
@@ -53,6 +60,7 @@ import jakarta.servlet.DispatcherType;
 							.failureUrl("/memberLogin?error=true")) // 로그인 실패 시 이동할 경로
 					// 로그아웃 설정을 추가합니다.
 					.logout(logout -> logout
+							.logoutUrl("/memberLogout")
 							// 로그아웃 성공 시 "/all" 경로로 리다이렉트됩니다.
 							.logoutSuccessUrl("/memberLogin")
 							// 로그아웃 시 세션을 무효화하여 사용자 세션 정보를 삭제합니다.

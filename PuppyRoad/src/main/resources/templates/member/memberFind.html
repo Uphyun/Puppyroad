@@ -1,0 +1,99 @@
+<!-- <!DOCTYPE html> -->
+<html lang="ko" xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="https://github.com/ultraq/thymeleaf-layout-dialect/"
+	class="light-style layout-wide customizer-hide" dir="ltr"
+	data-theme="theme-default" data-assets-path="assets/admin/"
+	data-template="vertical-menu-template" data-style="light">
+<head>
+<meta charset="UTF-8">
+<th:block
+	th:replace="~{common/configs/admin/admin_config :: AdminConfigFragment}"></th:block>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+	<div class="container-xxl">
+		<div class="authentication-wrapper authentication-basic container-p-y">
+			<div class="authentication-inner py-6">
+				<div class="card">
+					<div class="card-body">
+						<div class="contact-form d-flex justify-content-center">
+								<div class="container-xxl">
+									<div
+										class="authentication-wrapper authentication-basic container-p-y">
+										<div class="authentication-inner py-6">
+											<!-- Login -->
+											<div class="card" style="width:1000px; margin:auto">
+												<div class="card-body" >
+													<!-- Logo -->
+													<div class="app-brand justify-content-center mb-6">
+														<a href="index.html" class="app-brand-link"> <span
+															class="app-brand-logo demo"> <svg width="32"
+																	height="22" viewBox="0 0 32 22" fill="none"
+																	xmlns="http://www.w3.org/2000/svg">
+                     													 <path fill-rule="evenodd"
+																		clip-rule="evenodd"
+																		d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z"
+																		fill="#7367F0" />
+                    													  <path opacity="0.06"
+																		fill-rule="evenodd" clip-rule="evenodd"
+																		d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z"
+																		fill="#161616" />
+                    													  <path opacity="0.06"
+																		fill-rule="evenodd" clip-rule="evenodd"
+																		d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z"
+																		fill="#161616" />
+                      														<path fill-rule="evenodd"
+																		clip-rule="evenodd"
+																		d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z"
+																		fill="#7367F0" />
+                   															 </svg>
+														</span> <span class="app-brand-text demo text-heading fw-bold">PuppyRoad</span>
+														</a>
+													</div>
+						<!-- main -->	<div class="row gy-3 mt-0" style="margin:0 auto;">
+                          <div class="col-xl-3 col-md-5 col-sm-6 col-12 fv-plugins-icon-container" style="width:474px" id="lookingId">
+                            <div class="form-check custom-option custom-option-icon checked">
+                              <label class="form-check-label custom-option-content" for="basicPlanMain1" >
+                                <span class="custom-option-body">
+                                  <i class="ti ti-brand-telegram"></i>
+                                  <span class="custom-option-title"> 아이디찾기 </span>
+                                  <small> 휴대전화 인증을 통한 아이디 찾기 </small>
+                                </span>
+                                <input name="formValidationPlan" class="form-check-input" type="radio" value="" id="basicPlanMain1" checked="">
+                              </label>
+                            </div>
+                          </div>
+                          <div class="col-xl-3 col-md-5 col-sm-6 col-12" style="width:474px" id="lookingPw">
+                            <div class="form-check custom-option custom-option-icon">
+                              <label class="form-check-label custom-option-content" for="basicPlanMain2">
+                                <span class="custom-option-body">
+                                  <i class="ti ti-users"></i>
+                                  <span class="custom-option-title"> 비밀번호찾기 </span>
+                                  <small> 휴대전화 인증을 통한 비밀번호 찾기 </small>
+                                </span>
+                                <input name="formValidationPlan" class="form-check-input" type="radio" value="" id="basicPlanMain2">
+                              </label>
+                            </div>
+                          </div>
+                          
+                        </div>
+												</div>
+											</div>
+											<!-- /Register -->
+										</div>
+									</div>
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$("#lookingId").on('click',()=>{
+			location.href = "/memberFindId";
+		})
+	</script>
+</body>
+</html>
