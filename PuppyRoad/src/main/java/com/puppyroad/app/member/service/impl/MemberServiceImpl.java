@@ -1,9 +1,10 @@
 package com.puppyroad.app.member.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import com.puppyroad.app.member.mapper.MemberMapper;
 import com.puppyroad.app.member.service.MemberService;
@@ -69,9 +70,22 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberVO findId(MemberVO memberVO) {
+	public List<MemberVO> findId(String phoneNumber) {
 		
-		return memberMapper.idFind(memberVO);
+		return memberMapper.idFind(phoneNumber);
+	}
+
+	@Override
+	public MemberVO memberGetInfo(MemberVO memberVO) {
+		
+		return memberMapper.memberGetInfo(memberVO);
+		
+	}
+
+	@Override
+	public String memberUpdate(MemberVO memberVO) {
+		int result = memberMapper.memberUpdate(memberVO);
+		return result == 1 ? memberVO.getMemberCode() : "fail";
 	}
 
 

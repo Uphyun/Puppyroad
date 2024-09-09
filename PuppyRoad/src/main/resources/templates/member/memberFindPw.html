@@ -60,9 +60,12 @@
 													<p class="mb-6">본인인증을 진행해주세요!</p>
 
 														<div class="mb-6">
+														<label class="form-label">아이디</label> <input
+																type="text" class="form-control" name="userId"
+																 placeholder="EntherID" autofocus />
 															<label class="form-label">휴대전화 번호</label> <input
 																type="text" class="form-control" name="phone"
-																 placeholder="phone number" autofocus />
+																 placeholder="phone number" />
 																<button class="btn btn-primary d-grid w-100" id="sendPhoneNumber"
 																type="button">인증번호 받기</button>
 														</div>
@@ -77,19 +80,13 @@
 															
 														</div>
 														
-														<!-- 인증번호 인증 완료시 아이디 띄울 곳 -->
+														<!-- 인증번호 인증 비밀번호변경 -->
 														<div id="realId" class="real" style="display:none">
-														<label class="form-label">아이디</label>
-														<input class="form-control"  type="text" value="" readonly />
-														</div>
-														<div id="realPosition" class="real" style="display:none">
-														<label class="form-label">직함</label>
-														<input class="form-control"  type="text" value="" readonly />
 														</div>
 														
 														<div class="mb-6">
-															<button class="btn btn-primary d-grid w-100" id="formCheck"
-																type="button">아이디 찾기</button>
+															<button class="btn btn-primary d-grid w-100" id="changePw"
+																type="button">비밀번호 변경</button>
 														</div>
 														<div class="mb-6">
 															<a th:href="@{/memberLogin}"><button class="btn btn-primary d-grid w-100"
@@ -113,7 +110,8 @@
 		</div>
 	</div>
 	<script>
-	let phck = false;
+	let pwck = false;
+	let idck = false;
 		$("#sendPhoneNumber").on('click',()=>{
 			let phone = $("input[name='phone']").val();
 			Swal.fire('인증번호 발송완료!');
@@ -131,7 +129,7 @@
 	                              '휴대폰 인증이 정상적으로 완료되었습니다.',
 	                              'success',
 	                          	)
-	                         //phck = true;
+	                         //pwck = true;
 						}else{
 							Swal.fire(
 									
@@ -148,32 +146,23 @@
 		})
 	let userId = "";
 	let position = "";
-	$("#formCheck").on('click', ()=>{
-		if(!phck){
+	$("#chagePw").on('click', ()=>{
 			$.ajax({
-				url : "memberLookingId?phone="+ $("input[name='phone']").val(),
+				url : "memberLookingId?phone=" + $("input[name='phone']").val(),
 				method : "GET",
 				success : function(result){
 					console.log(result);
 					$.each(result, function(index,item){
 						 userId = item.userId;
-						 position = item.position;
 						
 					})
-					$(".real").show();
-					$("#realId input").val(userId);
-					$("#realPosition input").val(position);
 				}
 			})
+			if(userId == $("input[name='userId']").val() && pwck == true){
+				
+			}
 			
-			$("#formAuthentication").submit();
-		}else{
-			Swal.fire(
-				 "인증실패!",
-                 "휴대전화 인증을 진행해 주세요"
-                	)
-            $("input[name='phone']").focus();
-		}
+		
 	})
 	</script>
 </body>
