@@ -14,8 +14,7 @@
 	th:replace="~{common/configs/admin/admin_config :: AdminConfigFragment}"></th:block>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 	<div class="container-xxl">
@@ -33,7 +32,7 @@
 										<th>아이디</th>
 										<td><input class="form-control" type="text" name="userId"
 											th:errorclass="error-input" th:field="*{userId}" id="userId"
-											placeholder="아이디는 숫자와 영소문자 섞어서 " />
+											placeholder="영소문자+숫자" />
 											<div class="error-class"
 												th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></div>
 											<div>
@@ -44,7 +43,7 @@
 									<tr>
 										<th>비밀번호</th>
 										<td><input class="form-control" type="password"
-											name="userPw" th:errorclass="error-input"
+											name="userPw" th:errorclass="error-input" placeholder="영문자+숫자+특수문자"
 											th:field="*{userPw}" />
 											<div class="error-class"
 												th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}"></div>
@@ -52,7 +51,7 @@
 									</tr>
 									<tr>
 										<th>비밀번호확인</th>
-										<td><input class="form-control" type="password"
+										<td><input class="form-control" type="password" placeholder="영문자+숫자+특수문자"
 											name="userPwck" th:errorclass="error-input"
 											th:field="*{userPwck}" />
 											<div class="error-class"
@@ -92,15 +91,40 @@
 										<th></th>
 										<td><input class="form-control" type="text"
 											name="address" id="sample4_roadAddress" placeholder="도로명주소" />
-											<span id="guide" style="color: #999; display: none"></span></td>
+											</td>
 									</tr>
 									<tr>
 										<th></th>
 										<td><input class="form-control" type="text"
-											name="address" id="sample4_detailAddress" placeholder="상세주소" />
+											name="address" id="sample4_jibunAddress" placeholder="지번주소" />
 											<div class="error-class"
 												th:if="${#fields.hasErrors('address')}"
 												th:errors="*{address}"></div></td>
+									</tr>
+									<tr>
+									<th></th>
+									<td><span id="guide" style="color:#999;display:none"></span></td>
+								     </tr>
+									
+									<tr>
+										<th></th>
+										
+										<td><input class="form-control" type="text"
+											name="address" id="sample4_detailAddress" placeholder="상세주소" />
+											<div class="error-class"
+												th:if="${#fields.hasErrors('address')}"
+												th:errors="*{address}">
+												</div></td>
+									</tr>
+									<tr>
+										<th></th>
+										
+										<td><input class="form-control" style="display:none" type="text"
+											name="address" id="sample4_extraAddress" placeholder="참고" />
+											<div class="error-class"
+												th:if="${#fields.hasErrors('address')}"
+												th:errors="*{address}">
+												</div></td>
 									</tr>
 									<tr>
 										<th></th>
@@ -108,7 +132,7 @@
 									</tr>
 									<tr>
 										<th>이메일</th>
-										<td><input class="form-control" type="text" name="email"
+										<td><input class="form-control" type="text" name="email" placeholder="aaaa@naver.com"
 											th:errorclass="error-input" th:field="*{email}" />
 											<div class="error-class"
 												th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
@@ -116,7 +140,7 @@
 									</tr>
 									<tr>
 										<th>휴대전화</th>
-										<td><input class="form-control" type="text" name="phone"
+										<td><input class="form-control" type="text" name="phone" placeholder="'-' 값 빼고 입력"
 											th:errorclass="error-input" th:field="*{phone}" />
 											<div class="error-class"
 												th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div></td>
@@ -180,6 +204,7 @@
 										</td>
 									</tr>
 								</table>
+								
 							</form>
 						</div>
 					</div>
@@ -285,7 +310,6 @@
           pwck = false;
         } else {
           $("#pwCheck").text("비밀번호가 일치하지 않습니다.");
-          $("input[name='userPwck']").focus();
         }
       });
 	   //css
@@ -330,13 +354,11 @@
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById("sample4_postcode").value = data.zonecode;
             document.getElementById("sample4_roadAddress").value = roadAddr;
-            document.getElementById("sample4_jibunAddress").value =
-              data.jibunAddress;
+            document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
 
             // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
             if (roadAddr !== "") {
-              document.getElementById("sample4_extraAddress").value =
-                extraRoadAddr;
+              document.getElementById("sample4_extraAddress").value = extraRoadAddr;
             } else {
               document.getElementById("sample4_extraAddress").value = "";
             }

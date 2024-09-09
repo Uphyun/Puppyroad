@@ -52,9 +52,9 @@
 														</a>
 													</div>
 						<!-- main -->	<div class="row gy-3 mt-0" style="margin:0 auto;">
-                          <div class="col-xl-3 col-md-5 col-sm-6 col-12 fv-plugins-icon-container" style="width:474px" id="lookingId">
+                          <div class="col-xl-3 col-md-5 col-sm-6 col-12 fv-plugins-icon-container" style="width:474px">
                             <div class="form-check custom-option custom-option-icon checked">
-                              <label class="form-check-label custom-option-content" for="basicPlanMain1" >
+                              <label class="form-check-label custom-option-content" for="basicPlanMain1" id="lookingId">
                                 <span class="custom-option-body">
                                   <i class="ti ti-brand-telegram"></i>
                                   <span class="custom-option-title"> 아이디찾기 </span>
@@ -93,6 +93,9 @@
 	<script>
 		$("#lookingId").on('click',()=>{
 			location.href = "/memberFindId";
+		})
+		$("#lookingPw").on('click',()=>{
+			location.href = "/memberFindPw";
 		})
 	</script>
 </body>

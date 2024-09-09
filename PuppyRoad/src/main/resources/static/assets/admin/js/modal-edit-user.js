@@ -1,5 +1,5 @@
 /**
- * Edit User
+ * View User
  */
 
 'use strict';
@@ -23,12 +23,12 @@ $(function () {
 document.addEventListener('DOMContentLoaded', function (e) {
   (function () {
     // variables
-    const modalEditUserTaxID = document.querySelector('.modal-edit-tax-id');
-    const modalEditUserPhone = document.querySelector('.phone-number-mask');
+    const modalViewUserTaxID = document.querySelector('.modal-edit-tax-id');
+    const modalViewUserPhone = document.querySelector('.phone-number-mask');
 
     // Prefix
-    if (modalEditUserTaxID) {
-      new Cleave(modalEditUserTaxID, {
+    if (modalViewUserTaxID) {
+      new Cleave(modalViewUserTaxID, {
         prefix: 'TIN',
         blocks: [3, 3, 3, 4],
         uppercase: true
@@ -36,17 +36,17 @@ document.addEventListener('DOMContentLoaded', function (e) {
     }
 
     // Phone Number Input Mask
-    if (modalEditUserPhone) {
-      new Cleave(modalEditUserPhone, {
+    if (modalViewUserPhone) {
+      new Cleave(modalViewUserPhone, {
         phone: true,
         phoneRegionCode: 'US'
       });
     }
 
     // Edit user form validation
-    FormValidation.formValidation(document.getElementById('editUserForm'), {
+    FormValidation.formValidation(document.getElementById('viewUserForm'), {
       fields: {
-        modalEditUserFirstName: {
+        modalViewUserFirstName: {
           validators: {
             notEmpty: {
               message: 'Please enter your first name'
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
             }
           }
         },
-        modalEditUserLastName: {
+        modalViewUserLastName: {
           validators: {
             notEmpty: {
               message: 'Please enter your last name'
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
             }
           }
         },
-        modalEditUserName: {
+        modalViewUserName: {
           validators: {
             notEmpty: {
               message: 'Please enter your username'
