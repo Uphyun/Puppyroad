@@ -47,11 +47,11 @@
             </div>
             <div id="image_list" class="mt-3">
                 <!-- 기존에 등록된 파일 목록 -->
-                <div id="existing_files" th:each="fileName : ${#strings.arraySplit(news.attachedFile, ',')}">
-                    <div class="preview-item" id="existing-file-[[${fileName}]]">
-                        <img th:src="@{/images/{fileName}(fileName=${fileName})}" alt="첨부 이미지" style="max-width: 100px; max-height: 100px;"/>
+               <div th:each="fileName : ${#strings.arraySplit(news.attachedFile, ',')}">
+                    <div class="preview-item">
+                        <img th:src="@{/images/{fileName}(fileName=${fileName})}" alt="첨부 이미지" style="max-width: 100px; max-height: 100px; display: block;"/>
                         <p class="name" th:text="${fileName}"></p>
-                        <button type="button" class="remove-btn" onclick="removeExistingFile('[[${fileName}]]')">x</button>
+                      <a th:onclick="deleteExistingFile([[${fileName}]])"><i class="far fa-minus-square"></i></a>	
                     </div>
                 </div>
             </div>
@@ -63,6 +63,5 @@
         </div>
     </form>
 </div>
-
 </body>
 </html>

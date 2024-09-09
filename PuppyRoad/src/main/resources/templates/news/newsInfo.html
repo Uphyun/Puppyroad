@@ -49,8 +49,9 @@
 		<!-- 버튼 -->
 		<div class="buttons">
 			<button type="button" class="btn btn-warning"
-				th:onClick="|location.href='@{/newsUpdate(bulletinNo=${news.bulletinNo})}'|">수정</button>
-			<button type="button" class="btn btn-danger" onclick="Delete()">삭제</button>
+				th:onClick="|location.href='@{/user/newsUpdate(bulletinNo=${news.bulletinNo})}'|">수정</button>
+			<button type="button" class="btn btn-danger"
+			    th:onClick="|confirmDelete(${news.bulletinNo})|">삭제</button>
 		</div>
 	</div>
 
