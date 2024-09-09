@@ -72,5 +72,17 @@ public class MatchServiceImpl implements MatchService {
 		return map;
 	}
 
+	@Override
+	public List<MatchVO> getDogList(MatchVO matchVO) {
+		// 개 정보 리스트
+		return matchMapper.selectDogMatchList(matchVO);
+	}
+
+	@Override
+	public MatchVO getDogInfo(MatchVO matchVO) {
+		// 개 단건 정보
+		return matchMapper.selectDogMatchInfo(matchVO);
+	}
+
 
 }

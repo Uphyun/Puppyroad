@@ -29,9 +29,6 @@
 
 					<div class="col-2">
 						<label for="dogInfo" class="col-form-label">반려견 정보</label>
-						<div class="">
-							<button type="button" class="my_btn">불러오기</button>
-						</div>
 					</div>
 					<div class="col-2">
 						<img src="/assets/main/img/logo.png" alt="puppyImg">
@@ -65,7 +62,16 @@
 					</div>
 				</div>
 				<hr />
-
+				
+				<div class="row mb-3">
+			       <label for="WalkPlaceAddress" class="col-md-2 col-lg-2 col-form-label">산책 장소</label>
+			       <div class="col-md-10 col-lg-10">
+			         <input name="WalkPlaceAddress" type="text" class="form-control" 
+			         th:field ="*{walkPlaceAddress}" readonly>
+			       </div>
+			     </div>
+			     <hr/>
+			     
      <div class="row mb-3">
        <label for="content" class="col-md-2 col-lg-2 col-form-label">소개</label>
        <div class="col-md-10 col-lg-10">

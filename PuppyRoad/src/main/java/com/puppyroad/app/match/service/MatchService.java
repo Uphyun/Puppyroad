@@ -15,4 +15,8 @@ public interface MatchService {
 	// 단건 삭제
 	public Map<String, Object> removeMatch(int matchId);
 	
+	// 개 정보 불러오기
+	public List<MatchVO> getDogList(MatchVO matchVO);
+	// 단건 개 정보
+	public MatchVO getDogInfo(MatchVO matchVO);
 }

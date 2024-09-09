@@ -10,6 +10,12 @@ import com.puppyroad.app.match.service.MatchVO;
 public interface MatchMapper {
 	// 전체 자율게시판 조회
 	public List<MatchVO> selectMatchList();
+	
+	// 개 전체 조회
+	public List<MatchVO> selectDogMatchList(MatchVO matchVO);
+	// 개 단건 조회
+	public MatchVO selectDogMatchInfo(MatchVO matchVO);
+	
 	// 단건 조회
 	public MatchVO selectMatchInfo(MatchVO matchVO);
 	// 등록
