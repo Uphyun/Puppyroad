@@ -1,23 +1,25 @@
 package com.puppyroad.app.member.web;
 
-import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.puppyroad.app.member.service.MemberService;
 import com.puppyroad.app.member.service.MemberVO;
 
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 @Controller
@@ -95,7 +97,7 @@ public class MemberController {
 		System.out.println(randNum);
 		System.out.println("수신자 번호 : " + phoneNumber);
 		System.out.println("인증번호 : " + randNum);
-		memberService.certifiedPhoneNumber(phoneNumber, randNum);
+		//memberService.certifiedPhoneNumber(phoneNumber, randNum);
 		return randNum;
 	}
 	
@@ -112,18 +114,37 @@ public class MemberController {
 	}
 	
 	//아이디찾기 - 처리
-	@PostMapping("memberFindId")
-	public String memberFindIdProcess(MemberVO memberVO, Model model) {
-		MemberVO id = memberService.findId(memberVO);
+	@GetMapping("memberLookingId")
+	@ResponseBody
+	public List<MemberVO> memberFindIdProcess(MemberVO memberVO, Model model) {
 		
-		model.addAttribute("id", id);
-		
-		return "member/memberFindId";
+		return memberService.findId(memberVO.getPhone());
 	}
 	
 	//아이디찾기 - 페이지
 	@GetMapping("memberFindId")
 	public String memberFindPwProcess() {
 		return "member/memberFindId";
+	}
+	
+	//회원정보조회
+	@GetMapping("memberGetInfo")
+	public String memberGetInfo(MemberVO memberVO, Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		memberVO.setUserId(authentication.getName());
+		System.out.println("2 => " + memberVO.getUserId());
+		MemberVO list = memberService.memberGetInfo(memberVO);
+		model.addAttribute("list", list);
+		return "member/memberGetInfo";
+	}
+	
+	//회원정보수정
+	@PostMapping("ajax/memberUpdate")
+	@ResponseBody
+	public String memberUpdate(@RequestBody MemberVO memberVO) {
+		System.out.println(memberVO);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		memberVO.setUserId(authentication.getName());
+		return memberService.memberUpdate(memberVO);
 	}
 }

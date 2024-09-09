@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div style="width: 500px; margin: auto">
+		<h3 class="box-title">내 정보 수정</h3>
+		<div class="comment-form">
+			<form name="updateForm" th:object="${list}" id="memberUpdate">
+
+				<div class="input-group input-group-two textarea mb-20">
+					<input th:field="*{userId}" readonly>
+					<div class="icon">
+						<i class="fas fa-user"></i>
+					</div>
+				</div>
+				<div class="input-group input-group-two mb-20">
+
+					<div class="icon">
+						<i class="fas fa-user" id="pwUpdate"></i>
+					</div>
+				</div>
+				<div class="input-group input-group-two mb-20">
+					<input th:field="*{name}" type="text" placeholder="Enter your name">
+					<div class="icon">
+						<i class="fas fa-user"></i>
+					</div>
+				</div>
+				<div class="input-group input-group-two mb-20">
+					<input th:field="*{nickName}" type="text"
+						placeholder="Enter your Nickname">
+					<div class="icon">
+						<i class="fas fa-pen"></i>
+					</div>
+				</div>
+				<div class="input-group input-group-two mb-20">
+					<input th:field="*{email}" type="email"
+						placeholder="Type your Website....">
+					<div class="icon">
+						<i class="fas fa-pen"></i>
+					</div>
+				</div>
+				<div class="input-group input-group-two mb-20">
+					<input th:field="*{address}" type="text"
+						placeholder="Type your Website....">
+					<div class="icon">
+						<i class="fas fa-user"></i>
+					</div>
+				</div>
+				<div class="input-group input-group-two mb-20">
+					<input th:field="*{phone}" type="text"
+						placeholder="Type your Name....">
+					<div class="icon">
+						<i class="fas fa-pen"></i>
+					</div>
+				</div>
+				<div class="input-group input-group-two mb-20">
+					<input th:field="*{position}" type="text" readonly>
+					<div class="icon">
+						<i class="fas fa-user"></i>
+					</div>
+				</div>
+				<div class="input-group  mt-30">
+					<button id="updateBtn" type="button" style="margin: auto"
+						class="main-btn btn-filled">
+						<i class="far fa-comments"></i> 저장
+					</button>
+				</div>
+				<div class="input-group  mt-30">
+					<button id="deleteBtn" type="button" style="margin: auto"
+						class="main-btn btn-filled">
+						<i class="far fa-comments"></i> 탈퇴하기
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+<script>
+	$("#updateBtn").on('click', (e)=>{
+		 let datas = getFormData();
+		
+		$.ajax({
+			url : "/ajax/memberUpdate",
+			method : "post",
+			data : JSON.stringify(datas),
+			contentType : "application/json;charset=UTF-8;",
+		}).done((result)=> {
+		alert("정보가 성공적으로 업데이트되었습니다.")
+		console.log (result)});
+	})
+	//JSON 형태 폼 value 꺼내기
+	function getFormData() {
+			let formArr = $("form[name='updateForm']").serializeArray();
+			let datas = {};
+
+			$.each(formArr, function (idx, tag) {
+				datas[tag.name] = tag.value;
+			});
+
+			return datas;
+		}
+	$("#deleteBtn").on('click', ()=>{
+		
+	})
+</script>
+</body>
+</html>
