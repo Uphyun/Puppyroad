@@ -36,6 +36,9 @@ public class NewsController {
 		this.newsService = newsService;
 	}
 	
+	// 검색 기능
+	
+	
 	// 공지사항 전체조회
 	@GetMapping("newsList")
 	public String newsList(NewsVO newsVO, Model model) {
