@@ -1,8 +1,11 @@
 package com.puppyroad.app.member.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.puppyroad.app.puppy.service.PuppyVO;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -36,7 +39,11 @@ public class MemberVO {
 	private String position;
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date activityDate;
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date joinDate;
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date withdrawDate;
 	private String intention;
+	private int accountState;
+	private List<PuppyVO> puppyList;
 }

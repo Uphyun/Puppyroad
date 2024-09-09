@@ -1,21 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.puppyroad.app.admin.main.mapper.AdminMainMapper">
-	
+<mapper
+	namespace="com.puppyroad.app.admin.manage.mapper.ManageMemberMapper">
+
 	<select id="getWalkerCnt" resultType="int">
-		select	count(1)
-		from	walker_add_info
-		where	approval_state = 3
+		select count(1)
+		from
+		walker_add_info
+		where approval_state = 3
+	</select>
+
+	<select id="selectMemberList" resultType="MemberVO">
+		select member_code
+		,
+		user_id
+		, nickname
+		, join_date
+		, activity_date
+		, withdraw_date
+		,
+		account_state
+		from member
+		where position = '의뢰인'
+		order by join_date desc
 	</select>
 	
-	<select id="selectMemberList" resultType="MemberVO">
-		select    user_id
-		        , nickname
-		        , join_date
-		        , activity_date
-		        , withdraw_date
-		        , account_state
-		from    member
-		where   position = '의뢰인'
+
+	
+	<resultMap type="MemberVO" id="adminMemberInfo">
+	    <id column="member_code" property="memberCode"/>
+		<collection property="puppyList" javaType="java.util.ArrayList" column="member_code" ofType="PuppyVO" select="selectPuppyOfMemberInfo" />
+	</resultMap>
+
+	<select id="selectMemberInfo" resultMap="adminMemberInfo">
+		select 	member_code
+				, user_id
+				, nickname
+				, name
+				, phone
+				, email
+				, address
+				, join_date
+				, activity_date
+				, withdraw_date
+				, account_state
+				, intention
+		from member
+		where member_code = #{memberCode}
+	</select>
+	
+	<select id="selectPuppyOfMemberInfo" resultType="PuppyVO">
+		select	puppy_code
+				, picture
+				, dog_name
+				, dog_breed
+				, gender
+				, age
+				, neutralization_pre_abs
+				, disease_pre_abs
+				, note
+		from	puppy
+		where	client_user_id = #{memberCode}
 	</select>
 </mapper>
