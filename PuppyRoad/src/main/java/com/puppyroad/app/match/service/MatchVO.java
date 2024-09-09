@@ -25,5 +25,16 @@ public class MatchVO {
 	private String  clientCode;
 	private String  puppyCode;
 	private String  content;
-	
+	private String  memberCode;
+	private String  userId;
+	private String  nickname;
+	private String  clientUserId;
+	private String  dogBreed;
+	private Integer age;
+	private String  gender;
+	private String  dogSize;
+	private String  personality;
+	private String  neutralizationPreAbs;
+	private String  diseasePreAbs;
+	private String  dogName;
 }
