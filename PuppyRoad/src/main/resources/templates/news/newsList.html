@@ -43,7 +43,7 @@
 	$('.title').on('click', function(event) {
 		let trTag = $(this).closest('tr');
 		let bno = trTag.children().first().text(); 
-		let url = '/newsInfo?bulletinNo=' + bno;
+		let url = '/user/newsInfo?bulletinNo=' + bno;
 		location.href = url;
 	});
 	

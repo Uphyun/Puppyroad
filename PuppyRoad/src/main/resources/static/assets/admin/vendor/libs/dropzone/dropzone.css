@@ -1,4 +1,4 @@
-.dropzone {
+	.dropzone {
   width: 100%;
   position: relative;
   cursor: pointer;
@@ -22,7 +22,7 @@
   content: "";
   border-radius: 6px;
   position: absolute;
-  top: 5rem;
+  top: 2rem;
   left: calc(50% - 23px);
   display: inline-block;
   height: 40px;
