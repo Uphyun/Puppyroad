@@ -6,11 +6,11 @@ import com.puppyroad.app.news.service.NewsVO;
 
 
 public interface NewsMapper {
-	// 전체조회
-	public List<NewsVO> selectNewsList(NewsVO newVO);
+	// 전체 조회
+	public List<NewsVO> selectNewsList(NewsVO newsVO);
 	
 	// 단건 조회
-	public NewsVO selectNewsInfo(NewsVO newVO);
+	public NewsVO selectNewsInfo(NewsVO newsVO);
 	
 	// 단건 등록
 	public int insertNews(NewsVO newsVO);

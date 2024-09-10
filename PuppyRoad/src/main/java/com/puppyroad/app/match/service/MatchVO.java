@@ -1,8 +1,11 @@
 package com.puppyroad.app.match.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.puppyroad.app.member.service.MemberVO;
 
 import lombok.Data;
 
@@ -23,18 +26,9 @@ public class MatchVO {
 	private String  walkPlaceAddress;
 	private String  matchingKind;
 	private String  clientCode;
-	private String  puppyCode;
 	private String  content;
-	private String  memberCode;
-	private String  userId;
-	private String  nickname;
-	private String  clientUserId;
-	private String  dogBreed;
-	private Integer age;
-	private String  gender;
-	private String  dogSize;
-	private String  personality;
-	private String  neutralizationPreAbs;
-	private String  diseasePreAbs;
-	private String  dogName;
+	
+	private MemberVO memberVO;
+	
+	private List<String> puppies;
 }

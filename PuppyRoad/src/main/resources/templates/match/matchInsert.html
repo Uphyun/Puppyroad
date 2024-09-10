@@ -15,11 +15,20 @@
 		<div class="container justify-content-center">
 			<h4>매칭 등록</h4>
 			<hr />
-			<form name="insertForm">
+			<form name="insertForm" th:action="@{/user/matchInsert}" method="post">
 				<div class="row mb-3">
 					<label for="title" class="col-md-2 col-lg-2 col-form-label">제목</label>
 					<div class="col-md-10 col-lg-10">
 						<input name="title" type="text" class="form-control" />
+					</div>
+				</div>
+				<hr />
+				
+				<div class="row mb-3">
+					<label for="title" class="col-md-2 col-lg-2 col-form-label">작성자</label>
+					<div class="col-md-10 col-lg-10">
+						<input name="writer" type="text" class="form-control" 
+						th:value="${#authentication.principal.username}" readonly>
 					</div>
 				</div>
 				<hr />
@@ -81,8 +90,12 @@
 							style="height: 100px"></textarea>
 					</div>
 				</div>
-				<div class="center">
-					<button type="button" class="btn btn-primary" style="float: right">
+				<input type="hidden" name="puppies" id="puppies">
+				<div class="text-right">
+				    <button type="button" class="btn btn-secondary" 
+						th:onclick="|location.href='@{/user/matchList}'|">목록
+					</button>
+					<button type = "button" class="btn btn-primary" id="insertBtn">
 						등록
 					</button>
 				</div>
