@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.puppyroad.app.match.mapper.MatchMapper;
 import com.puppyroad.app.match.service.MatchService;
@@ -33,6 +34,7 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
+	@Transactional
 	public int addMatch(MatchVO matchVO) {
 		// TODO 단건 등록
 		int result = matchMapper.insertMatch(matchVO);

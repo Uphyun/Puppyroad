@@ -108,7 +108,12 @@
 		WHERE  user_id = #{userId}
 				
 	</update>
+	<delete id="memberDelete">
 	
+		DELETE member
+		WHERE user_id = #{userId}
+	
+	</delete>
 		
 
 </mapper>

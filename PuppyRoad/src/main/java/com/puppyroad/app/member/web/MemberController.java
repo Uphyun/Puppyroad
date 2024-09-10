@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.puppyroad.app.member.service.MemberService;
@@ -56,7 +57,7 @@ public class MemberController {
 					memberVO.setUserPw(password);
 					String mid = memberService.addMember(memberVO);
 					if (mid.equals("fail")) {
-						return "redireact:member/memberInsert";
+						return "redirect:member/memberInsert";
 					} else {
 						
 						return "redirect:member/memberJoin";
@@ -138,6 +139,20 @@ public class MemberController {
 		return "member/memberGetInfo";
 	}
 	
+	//비밀번호체크
+	@PostMapping("checkPassword")
+	@ResponseBody
+	public String checkPassword(@RequestParam("userPw") String inputPw, MemberVO memberVO) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		memberVO.setUserId(authentication.getName());
+		MemberVO userPw = memberService.memberGetInfo(memberVO);
+		if(passwordEncoder.matches(inputPw , userPw.getUserPw())) {
+			return "비밀번호일치";
+		}else {
+			return "비밀번호 불일치";
+		}
+	}
+	
 	//회원정보수정
 	@PostMapping("ajax/memberUpdate")
 	@ResponseBody
@@ -146,5 +161,20 @@ public class MemberController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		memberVO.setUserId(authentication.getName());
 		return memberService.memberUpdate(memberVO);
+	}
+	
+	//회원탈퇴-페이지
+	@GetMapping("memberDelete")
+	public String memberDeletePage() {
+		return "member/memberDelete";
+	}
+	
+	//회원탈퇴-처리
+	@GetMapping("memberDeleteDone")
+	public String memberDelete(MemberVO memberVO) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		memberVO.setUserId(authentication.getName());
+		 memberService.memberDelete(memberVO);
+		 return "redirect:/";
 	}
 }
