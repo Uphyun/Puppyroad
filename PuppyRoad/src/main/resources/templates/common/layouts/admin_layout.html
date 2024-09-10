@@ -11,6 +11,11 @@
 
 <title>관리자페이지</title>
 
+<meta name="Context" th:value="${contextPath}" />
+<meta name="Auth" th:value="${auth}" />
+
+<script>const ContextPath = $("meta[name='Context']").attr('value');</script>
+<script>const Auth = $("meta[name='Auth']").attr('value');</script>
 
 </head>
 
