@@ -1,40 +1,50 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<!--공통 JS / CSS 영역을 관리하는 환경 영역-->
-<!-- <head th:replace="common/configs/admin/admin_config :: AdminConfigFragment"> -->
+<!doctype html>
+
+<html lang="ko" xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="https://github.com/ultraq/thymeleaf-layout-dialect/"
+	class="light-style layout-navbar-fixed layout-wide"
+	dir="ltr" data-theme="theme-default" data-assets-path="/assets/admin/"
+	data-template="front-pages" data-style="light">
+
 <head>
-<th:block th:insert="common/configs/config :: ConfigFragment" />
 <title>PuppyRoad</title>
 
-<meta name="Context" th:value="${contextPath}" />
-<meta name="Auth" th:value="${auth}" />
-
-<script>const ContextPath = $("meta[name='Context']").attr('value');</script>
-<script>const Auth = $("meta[name='Auth']").attr('value');</script>
+<th:block th:insert="common/configs/config :: ConfigFragment" />
 <script>
-	console.log(ContextPath)
+	const ContextPath = $("meta[name='Context']").attr('value');
+	const Auth = $("meta[name='Auth']").attr('value');
 </script>
 </head>
-<body class="sb-nav-fixed">
-		<div th:replace="common/fragments/loding :: loderFragment"></div>
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-					<!--Header 영역을 참조합니다.-->
-					<header th:replace="common/fragments/header :: HeaderFragment"></header>
-            </div>
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-      					<!--Content 내용 영역을 참조합니다-->
-						<th:block layout:fragment="Content">
-						
-						</th:block>
-                    </div>
-                </main>
-                <!--Footer 영역을 참조합니다.-->
-				<footer th:replace="common/fragments/footer :: FooterFragment"></footer>
-            </div>
-        </div>
-    </body>
+
+<body>
+	<script src="/assets/admin/vendor/js/dropdown-hover.js"></script>
+	<script src="/assets/admin/vendor/js/mega-dropdown.js"></script>
+
+	<!-- Navbar: Start -->
+	<th:block th:insert="common/fragments/navbar :: NavbarFragment"></th:block>
+	<!-- Navbar: End -->
+
+	<!-- Sections:Start -->
+
+	<div data-bs-spy="scroll" class="scrollspy-example">
+		<!-- Hero: Start -->
+		<th:block th:insert="common/fragments/hero :: HeroFragment"></th:block>
+		<!-- Hero: End -->
+
+		<!-- Content: Start -->
+		<th:block layout:fragment="Content"></th:block>
+		<!-- Content: End -->
+	</div>
+
+	<!-- / Sections:End -->
+
+	<!-- Footer: Start -->
+	<th:block th:insert="common/fragments/footer :: FooterFragment"></th:block>
+	<!-- Footer: End -->
+
+	<!-- footerConfig: Start -->
+	<th:block th:insert="common/configs/footerConfig :: FooterConfigFragment" />
+	<!-- footerConfig: End -->
+</body>
+
 </html>
