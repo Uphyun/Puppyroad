@@ -1,74 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.puppyroad.app.news.mapper.NewsMapper">
+<mapper namespace="com.puppyroad.app.petstarbulletin.mapper.PetstarBulletinMapper">
 	<!-- 전체조회 -->
-	<select id="selectNewsList" resultType="NewsVO">
+	<select id="selectBulletinList" resultType="PetstarBulletinVO">
 		SELECT   bulletin_no
-				,title
 				,content
-				,writer
 				,writing_date
+				,update_date
 				,attached_file
-				,bulletin_type
-		FROM  news 		
-		WHERE bulletin_type = #{bulletinType}
-		ORDER BY bulletin_no DESC
+				,member_code
+		FROM  pet_stargram_bulletin 
+		WHERE member_code = #{memberCode}		
+		ORDER BY writing_date DESC
 	</select>
 	<!-- 단건조회 -->
-	<select id="selectNewsInfo" resultType="NewsVO">
+	<select id="selectBulletinInfo" resultType="PetstarBulletinVO">
 		SELECT   bulletin_no
-				,title
 				,content
 				,writing_date
+				,update_date
 				,attached_file
-				,bulletin_type
-		FROM  news
+				,member_code
+		FROM  pet_stargram_bulletin
 		WHERE bulletin_no = #{bulletinNo}
 	</select>
-	<!-- 등록 --> 
-	<insert id="insertNews" parameterType="NewsVO">
+	<!-- 등록 -->
+	<insert id="insertBulletin" parameterType="PetstarBulletinVO">
 		<selectKey keyProperty="bulletinNo"
-				   resultType="Integer"
+				   resultType="String"
 				   order="BEFORE">
 			   SELECT NVL(MAX(bulletin_no), 0 ) + 1
-			   FROM   news
+			   FROM   pet_stargram_bulletin
 		</selectKey>	
-		INSERT INTO news
+		INSERT INTO pet_stargram_bulletin
 			(
 				bulletin_no
-				,title
 				,content
-				,writer
 				,writing_date
 				,attached_file
-				,bulletin_type
 		   )
 		 VALUES
 		   (
 		   		#{bulletinNo}
-		   		,#{title}
 		   		,#{content}
-		   		,#{writer}
 		   		,NVL(#{writingDate}, sysdate)
 		   		,to_char(#{attachedFile})
-		   		,#{bulletinType}
 		   	)  
 	</insert>
 	
 	<!-- 수정 -->
-	<update id="updateNews" parameterType="NewsVO">
-		UPDATE news
+	<update id="updateBulletin" parameterType="PetstarBulletinVO">
+		UPDATE pet_stargram_bulletin
 		 SET
-			title = #{title}
 		   ,content = #{content}
-		   ,writing_date = sysdate
+		   ,update_date = sysdate
 		   ,attached_file = #{attachedFile}
 		WHERE bulletin_no = #{bulletinNo}
 	</update>
 	
 	<!-- 삭제 -->
-	<delete id="deleteNews" parameterType="int">
-		DELETE FROM news
+	<delete id="deleteBulletin" parameterType="int">
+		DELETE FROM pet_stargram_bulletin
 		WHERE  bulletin_no = #{bulletinNo}
 	</delete>
 </mapper>
