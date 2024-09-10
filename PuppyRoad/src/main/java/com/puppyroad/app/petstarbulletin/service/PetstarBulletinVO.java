@@ -1,5 +1,19 @@
 package com.puppyroad.app.petstarbulletin.service;
 
-public class PetstarBulletinVO {
+import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.Data;
+
+@Data
+public class PetstarBulletinVO {
+	private int bulletinNo;
+	private String content;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date writingDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date updateDate;
+	private String attachedFile;
+	private String memberCode;
 }

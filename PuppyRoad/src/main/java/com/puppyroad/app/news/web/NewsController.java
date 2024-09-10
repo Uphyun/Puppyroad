@@ -40,7 +40,6 @@ public class NewsController {
 		this.newsService = newsService;
 	}
 
-	// 검색 기능
 
 	// 공지사항 전체조회
 	@GetMapping("user/newsList")
@@ -82,7 +81,6 @@ public class NewsController {
 		List<String> imageList = new ArrayList<>();
 
 		for (MultipartFile file : files) {
-			System.out.println("컨트롤러 도달");
 			log.info(file.getContentType());
 			log.info(file.getOriginalFilename());
 			log.info(String.valueOf(file.getSize()));
@@ -110,7 +108,7 @@ public class NewsController {
 
 	// 수정 - 페이지
 	@GetMapping("user/newsUpdate")
-	public String boardUpdateForm(NewsVO newsVO, Model model) {
+	public String newsUpdateForm(NewsVO newsVO, Model model) {
 		NewsVO findVO = newsService.getNewsInfo(newsVO);
 		model.addAttribute("news", findVO);
 		return "news/newsUpdate";
@@ -126,8 +124,7 @@ public class NewsController {
 		NewsVO findVO = newsService.getNewsInfo(newsVO);
 		String existingFiles = findVO.getAttachedFile(); // 기존 파일 목록 문자열
 		List<String> fileList = (existingFiles != null && !existingFiles.isEmpty())
-				? new ArrayList<>(Arrays.asList(existingFiles.split(",")))
-				: new ArrayList<>();
+				? new ArrayList<>(Arrays.asList(existingFiles.split(","))) : new ArrayList<>();
 
 		// 2. 삭제할 파일 처리
 		if (deletedFiles != null && deletedFiles.length > 0) {
