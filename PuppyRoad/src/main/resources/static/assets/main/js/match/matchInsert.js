@@ -22,7 +22,6 @@ window.onclick = function (event) {
 };
 
 
-
 function getCheckboxValue(event)  {
   if(event.target.checked)  {
 	var div = $(event.target).closest(".abc");
@@ -33,9 +32,9 @@ function getCheckboxValue(event)  {
 	var neutralizationPreAbs = div.find('#neutralizationPreAbs').html();
 	var diseasePreAbs = div.find('#diseasePreAbs').html();
 	
-	$("#first").clone().attr('id', 'first' + puppyCode).insertBefore("#second");
+	$("#first").clone().attr('id', puppyCode).insertBefore("#second");
 	
-	var div2 = $("#first" + puppyCode);
+	var div2 = $("#" + puppyCode);
 	div2.find('label').remove();
 	div2.find('#popBtn').remove();
 	div2.find('[name=dogBreed]').val(dogBreed);
@@ -47,8 +46,23 @@ function getCheckboxValue(event)  {
   }else {
 	var div = $(event.target).closest(".abc");
 	puppyCode = div.find('#puppyCode').val();
-	$('#first' + puppyCode).remove();
-  }
-  
+	$('#' + puppyCode).remove();
+  } 
 }
+
+$('#insertBtn').on("click", function(){
+  let checkedList = [];
+  
+  $("input[name=dogBox]:checked").each(function(){
+        if($(this).is(":checked")==true){
+          let pupCode = $(this).closest(".abc").find('#puppyCode').val()
+          checkedList.push(pupCode);
+        } 
+  });
+          console.log(checkedList);
+          $("#puppies").val(checkedList);
+    $("form[name='insertForm']").submit();      
+  //return checkedList;
+	
+});
 

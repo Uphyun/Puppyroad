@@ -5,9 +5,10 @@
 <select id="selectRoomList">
 	SELECT    room_name,
               room_id,
-              member_code,
+              recipient,
               created_date,
-              chatting_type
+              chatting_type,
+              sender
     FROM      chat_room
     ORDER BY  created_date
 </select>
@@ -16,11 +17,13 @@
 <select id="selectMyRoomList">
 	SELECT    room_name,
               room_id,
-              member_code,
+              recipient,
               created_date,
-              chatting_type
+              chatting_type,
+              sender
     FROM      chat_room
-    WHERE     member_code = #{memberCode}
+    WHERE     recipient = #{recipient}
+    OR        sender = #{sender}
     ORDER BY  created_date
 </select>
  
@@ -29,24 +32,27 @@
  	INSERT INTO chat_room(
  	                      room_name,
                           room_id,
-                          member_code,
+                          recipient,
                           created_date,
-                          chatting_type)
+                          chatting_type,
+                          sender)
     VALUES(
            #{roomName},
            #{roomId},
-           #{memberCode},
+           #{recipient},
            #{createdDate},
-           #{chattingType})
+           #{chattingType},
+           #{sender})
 </insert>
   
   <!-- 채팅방 조회 -->
 <select id="selectRoomInfo">
 	SELECT    room_name,
               room_id,
-              member_code,
+              recipient,
               created_date,
-              chatting_type
+              chatting_type,
+              sender
     FROM      chat_room
     WHERE     room_id = #{roomId}
 </select>

@@ -22,14 +22,13 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("chat")
 public class RoomController {
 	
 	@Autowired
     private final ChatRoomService chatRoomService;
 
     //채팅방 목록 조회
-    @GetMapping("rooms")
+    @GetMapping("chat/rooms")
     public ModelAndView roomList(){
         ModelAndView mv = new ModelAndView("chat/rooms");
         mv.addObject("rlist", chatRoomService.getRoomList());
@@ -37,18 +36,28 @@ public class RoomController {
     }
     
     //내 채팅방 목록
-    @GetMapping("myChat")
+    @GetMapping("chat/myChat")
     public String myRoomList(ChatRoomDTO chatRoomDTO, Model model) {
     	String mcode = SecurityUtil.memberCode();
-		chatRoomDTO.setMemberCode(mcode);
+		chatRoomDTO.setSender(mcode);
+		chatRoomDTO.setRecipient(mcode);
 		
 		List<ChatRoomDTO> list = chatRoomService.getMyRoomList(chatRoomDTO);
     	model.addAttribute("myList", list);   
         return "/chat/myChat";
     }
+    
+    //신청시 매칭 채팅방 : post
+    @PostMapping("matchingRoom")
+    public String myRoomInsert(ChatRoomDTO chatRoomDTO, RedirectAttributes rttr){
+    	int result = chatRoomService.addRoom(chatRoomDTO);
+    	if ( result == 1)
+    		rttr.addFlashAttribute("myRoomNames", chatRoomDTO.getRoomName());
+    	return "redirect:/chat/myChat";
+    }
 
     //채팅방 개설 : post
-    @PostMapping("room")
+    @PostMapping("chat/room")
     public String roomInsert(ChatRoomDTO chatRoomDTO, RedirectAttributes rttr){
     	int result = chatRoomService.addRoom(chatRoomDTO);
     	if ( result == 1)
@@ -57,7 +66,7 @@ public class RoomController {
     }
     
     //채팅방 조회 : get
-    @GetMapping("room")
+    @GetMapping("chat/room")
     public void roomInfo(ChatRoomDTO chatRoomDTO, Model model){
     	model.addAttribute("room", chatRoomService.getRoomInfo(chatRoomDTO));
     }
