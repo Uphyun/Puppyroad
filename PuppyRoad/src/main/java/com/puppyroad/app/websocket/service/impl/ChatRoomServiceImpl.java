@@ -33,4 +33,9 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 		return chatMapper.insertRoom(chatRoomDTO);
 	}
 
+	@Override
+	public List<ChatRoomDTO> getMyRoomList(ChatRoomDTO chatRoomDTO) {
+		return chatMapper.selectMyRoomList(chatRoomDTO);
+	}
+
 }

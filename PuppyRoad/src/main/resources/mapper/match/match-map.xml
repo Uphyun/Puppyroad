@@ -15,8 +15,7 @@
 		 		animal_count,
 		 		walk_place_address,
 		 		matching_kind,
-		 		client_code,
-		 		puppy_code
+		 		client_code
 	    FROM    matching_board
 	    ORDER BY bulletin_no desc
   </select>
@@ -69,8 +68,7 @@
 		 		animal_count,
 		 		walk_place_address,
 		 		matching_kind,
-		 		client_code,
-		 		puppy_code
+		 		client_code
 	    FROM    matching_board
         WHERE   bulletin_no = #{bulletinNo}
   </select>
@@ -96,8 +94,7 @@
 							 	animal_count,
 							 	walk_place_address,
 							 	matching_kind,
-							 	client_code,
-							 	puppy_code)
+							 	client_code)
 		VALUES (#{bulletinNo},
 		        #{coverPhoto},
 		        #{title},
@@ -110,10 +107,17 @@
 		        #{animalCount},
 		        #{walkPlaceAddress},
 		        #{matchingKind},
-		        #{clientCode},
-		        #{puppyCode})
+		        #{clientCode})
   </insert>
   
+  <!-- 자율매칭의 반려견 저장 -->
+  <insert id="insertMatchingPuppy" parameterType="MatchVO">
+  	INSERT INTO matching_puppy(bulletin_no,
+                               puppy_code)
+    VALUES(#{bulletinNo},
+           #{puppyCode})
+  </insert>
+    
   <!-- 자율수정 -->
   <update id="updateMatch" parameterType="MatchVO">
   	UPDATE matching_board
@@ -130,7 +134,6 @@
   	       walk_place_address = #{walkPlaceAddress},
   	       matching_kind = #{matchingKind},
   	       client_code = #{clientCode},
-  	       puppy_code = #{puppyCode}
   	WHERE  bulletin_no = #{bulletinNo}
   </update>
   

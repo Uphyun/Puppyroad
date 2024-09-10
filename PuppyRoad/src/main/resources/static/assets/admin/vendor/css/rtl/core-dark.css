@@ -4368,10 +4368,13 @@ textarea.form-control-lg {
   border-radius: var(--bs-card-inner-border-radius);
 }
 
-.card-img,
 .card-img-top,
 .card-img-bottom {
   width: 100%;
+}
+
+.card-img {
+	height: 150px;
 }
 
 .card-img,
@@ -5497,7 +5500,7 @@ textarea.form-control-lg {
 @media (min-width: 992px) {
   .modal-lg,
   .modal-xl {
-    --bs-modal-width: 50rem;
+    --bs-modal-width: 60rem;
   }
 }
 @media (min-width: 1200px) {
@@ -12474,7 +12477,7 @@ html:not([dir=rtl]) .modal-top .btn-close:hover {
 }
 
 .modal-simple .modal-content {
-  padding: 3rem;
+  padding: 2rem;
 }
 @media (max-width: 767.98px) {
   .modal-simple .modal-content {
@@ -12486,13 +12489,13 @@ html:not([dir=rtl]) .modal-top .btn-close:hover {
 }
 .modal-simple .btn-close {
   position: absolute;
-  top: -2rem;
+  top: -1.5rem;
 }
 [dir=rtl] .modal-simple .btn-close {
   left: -2rem;
 }
 html:not([dir=rtl]) .modal-simple .btn-close {
-  right: -2rem;
+  right: -1.5rem;
 }
 @media (max-width: 767.98px) {
   .modal-simple .btn-close {
