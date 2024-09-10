@@ -15,8 +15,7 @@
 		<div class="container justify-content-center">
 			<h4>매칭 등록</h4>
 			<hr />
-			<form name="insertForm" th:action="@{/user/matchInsert}"
-				method="post">
+			<form name="insertForm">
 				<div class="row mb-3">
 					<label for="title" class="col-md-2 col-lg-2 col-form-label">제목</label>
 					<div class="col-md-10 col-lg-10">
@@ -83,8 +82,9 @@
 					</div>
 				</div>
 				<div class="center">
-					<button type="submit" class="btn btn-primary" style="float: right">
-						등록</button>
+					<button type="button" class="btn btn-primary" style="float: right">
+						등록
+					</button>
 				</div>
 			</form>
 
@@ -116,30 +116,25 @@
 										<div class="col-8">
 											<div class="row">
 												<div class="col-md-6 pb-2 col-lg-4">
-													<h5 id="dogName" class="form-control">[[
-														${matchDog.dogName} ]]</h5>
+													<input id="puppyCode" th:value="${matchDog.puppyCode}" type="hidden"/>
+													<h5 id="dogName" class="form-control">[[ ${matchDog.dogName} ]]</h5>
 												</div>
 												<div class="col-md-6 pb-2 col-lg-4">
-													<h5 id="dogBreed" class="form-control">[[
-														${matchDog.dogBreed} ]]</h5>
+													<h5 id="dogBreed" class="form-control">[[ ${matchDog.dogBreed} ]]</h5>
 												</div>
 												<div class="col-md-6 pb-2 col-lg-4">
-													<h5 id="personality" class="form-control">[[
-														${matchDog.personality} ]]</h5>
+													<h5 id="personality" class="form-control">[[ ${matchDog.personality} ]]</h5>
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-md-6 pb-2 col-lg-4">
-													<h5 id="dogSize" class="form-control">[[
-														${matchDog.dogSize} ]]</h5>
+													<h5 id="dogSize" class="form-control">[[ ${matchDog.dogSize} ]]</h5>
 												</div>
 												<div class="col-md-6 col-lg-4">
-													<h5 id="neutralizationPreAbs" class="form-control">[[
-														${matchDog.neutralizationPreAbs} ]]</h5>
+													<h5 id="neutralizationPreAbs" class="form-control">[[ ${matchDog.neutralizationPreAbs} ]]</h5>
 												</div>
 												<div class="col-md-6 col-lg-4">
-													<h5 id="diseasePreAbs" class="form-control">[[
-														${matchDog.diseasePreAbs} ]]</h5>
+													<h5 id="diseasePreAbs" class="form-control">[[ ${matchDog.diseasePreAbs} ]]</h5>
 												</div>
 											</div>
 										</div>

@@ -53,26 +53,17 @@ public class MatchController {
 		return "match/matchInfo";
 	}
 	
-	
 	//  등록 + 개 전체 조회 : get
 	@GetMapping("user/matchInsert")
 	public String matchDogList(MatchVO matchVO, Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String userId = authentication.getName();
 		matchVO.setUserId(userId);
+		
 		List<MatchVO> list = matchService.getDogList(matchVO);
 		model.addAttribute("matchDogs", list);
 		return "match/matchInsert";
 	}
-	
-	// AJAX 등록 + 개 조회
-	@GetMapping("user/matchDogs")
-	@ResponseBody
-	public Map<String, Object> matchDogAjax(@RequestBody List<MatchVO> list) {
-		
-		return null;
-	}
-	
 	
 	// 등록 - 처리 : post
 	@PostMapping("user/matchInsert")

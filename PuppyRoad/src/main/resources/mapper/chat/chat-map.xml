@@ -12,6 +12,18 @@
     ORDER BY  created_date
 </select>
  
+ <!-- 내 채팅방 목록 조회 -->
+<select id="selectMyRoomList">
+	SELECT    room_name,
+              room_id,
+              member_code,
+              created_date,
+              chatting_type
+    FROM      chat_room
+    WHERE     member_code = #{memberCode}
+    ORDER BY  created_date
+</select>
+ 
  <!-- 채팅방 추가 -->
 <insert id="insertRoom">
  	INSERT INTO chat_room(
