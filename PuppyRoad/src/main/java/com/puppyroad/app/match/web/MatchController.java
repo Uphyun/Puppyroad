@@ -58,7 +58,7 @@ public class MatchController {
 	public String matchDogList(MatchVO matchVO, Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String userId = authentication.getName();
-		matchVO.setUserId(userId);
+		matchVO.getMemberVO().getUserId();
 		
 		List<MatchVO> list = matchService.getDogList(matchVO);
 		model.addAttribute("matchDogs", list);
@@ -67,13 +67,17 @@ public class MatchController {
 	
 	// 등록 - 처리 : post
 	@PostMapping("user/matchInsert")
-	public String matchInsertProcess(MatchVO matchVO) {
+	public String matchInsertProcess(MatchVO matchVO, String puppies) {
+		System.out.println(puppies);
+		String[] test = puppies.split(",");
+		System.out.println(test);
+		
 		int bno = matchService.addMatch(matchVO);
 		String url = null;
 		if(bno > -1) {
-			url = "redirect:matchInfo?bulletinNo=" + bno;
+			//url = "redirect:matchInfo?bulletinNo=" + bno;
 		} else {
-			url = "redirect:matchList";
+			//url = "redirect:matchList";
 		}
 		return url;
 	}

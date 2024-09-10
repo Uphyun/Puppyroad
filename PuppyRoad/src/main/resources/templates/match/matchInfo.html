@@ -25,6 +25,15 @@
      
      <hr/>
      
+     <div class="row mb-3">
+       <label for="title" class="col-md-2 col-lg-2 col-form-label">작성자</label>
+       <div class="col-md-10 col-lg-10">
+         <input name="writer" type="text" class="form-control" th:field="*{writer}" readonly>
+       </div>
+     </div>
+     
+     <hr/>
+     
 				<div class="row mb-3">
 
 					<div class="col-2">
@@ -85,17 +94,21 @@
 			th:onclick="|location.href='@{/user/matchList}'|">목록
 		</button>
         <button type="button" class="btn btn-warning" id="modifyBtn"
-            th:onclick="|location.href='@{/user/matchUpdate(bulletinNo=${match.bulletinNo})}'|">수정
+            th:onclick="|location.href='@{/user/matchUpdate(bulletinNo=${match.bulletinNo})}'|"
+            th:if="${#authentication.principal.username} == *{writer}">수정
         </button>
 		<button type="button" class="btn btn-danger"
-			th:onclick="|location.href='@{/user/matchDelete(bulletinNo=${match.bulletinNo})}'|">삭제
+			th:onclick="|location.href='@{/user/matchDelete(bulletinNo=${match.bulletinNo})}'|"
+			th:if="${#authentication.principal.username} == *{writer}">삭제
 		</button>
-		<button type="button" class="btn btn-primary"
-			th:onclick="|location.href='@{/user/matchApply(bulletinNo=${match.bulletinNo})}'|">신청
+		<button type="button" class="btn btn-primary" id="appBtn"
+		 th:if="${#authentication.principal.username} != *{writer}">
+			신청
 		</button>
      </div>
    </form>
   </div>
 </section>
+	<script type="text/javascript" src="/assets/main/js/match/matchInfo.js"></script>
 </body>
 </html>
