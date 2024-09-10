@@ -45,5 +45,6 @@ public class MemberVO {
 	private Date withdrawDate;
 	private String intention;
 	private int accountState;
+	
 	private List<PuppyVO> puppyList;
 }
