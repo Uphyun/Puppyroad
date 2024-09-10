@@ -7,6 +7,8 @@ import com.puppyroad.app.websocket.service.ChatRoomDTO;
 public interface ChatMapper {
 	// 전체 방 리스트 조회
 	public List<ChatRoomDTO> selectRoomList();
+	// my 전체 방
+	public List<ChatRoomDTO> selectMyRoomList(ChatRoomDTO chatRoomDTO);
 	// 방 추가
 	public int insertRoom(ChatRoomDTO chatRoomDTO);
 	// 단건 조회

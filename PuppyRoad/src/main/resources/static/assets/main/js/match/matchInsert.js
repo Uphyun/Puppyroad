@@ -1,7 +1,7 @@
 /*
  * matchList.js
  */
-let dogName = '';
+let puppyCode = '';
 
 const btn = document.getElementById("popBtn"); // 모달을 띄우는 버튼 요소 가져오기
 const modal = document.getElementById("modalWrap"); // 모달 창 요소 가져오기
@@ -26,16 +26,18 @@ window.onclick = function (event) {
 function getCheckboxValue(event)  {
   if(event.target.checked)  {
 	var div = $(event.target).closest(".abc");
-	dogName = div.find('#dogName').html();
+	puppyCode = div.find('#puppyCode').val();
 	var dogBreed = div.find('#dogBreed').html();
 	var personality = div.find('#personality').html();
 	var dogSize = div.find('#dogSize').html();
 	var neutralizationPreAbs = div.find('#neutralizationPreAbs').html();
 	var diseasePreAbs = div.find('#diseasePreAbs').html();
 	
-	$("#first").clone().attr('id', 'first' + dogName).insertBefore("#second");
+	$("#first").clone().attr('id', 'first' + puppyCode).insertBefore("#second");
 	
-	var div2 = $("#first" + dogName);
+	var div2 = $("#first" + puppyCode);
+	div2.find('label').remove();
+	div2.find('#popBtn').remove();
 	div2.find('[name=dogBreed]').val(dogBreed);
 	div2.find('[name=personality]').val(personality);
 	div2.find('[name=dogSize]').val(dogSize);
@@ -44,8 +46,8 @@ function getCheckboxValue(event)  {
 	
   }else {
 	var div = $(event.target).closest(".abc");
-	dogName = div.find('#dogName').html();
-	$('#first' + dogName).remove();
+	puppyCode = div.find('#puppyCode').val();
+	$('#first' + puppyCode).remove();
   }
   
 }
