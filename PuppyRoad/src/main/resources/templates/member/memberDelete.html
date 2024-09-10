@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div style="width: 500px; margin: auto">
+		
+			<div class="input-group input-group-two textarea mb-20">
+			<h3 class="box-title">탈퇴페이지</h3>
+				<input id="pwck" type="text" placeholder="비밀번호확인">
+				<div class="icon">
+					<i class="fas fa-user"></i>
+				</div>
+				<a href="@{/memberDelete}">
+					<button id="deleteBtn" type="button" style="margin: auto"
+						class="main-btn btn-filled" >
+						<i class="far fa-comments"></i> 탈퇴하기
+					</button>
+				</a>
+			</div>
+
+	</div>
+</body>
+<script>
+let pwck = false;
+
+$("#pwck").on('keypress', function(e) {
+	if (e.which == 13) { 
+		let userPw = $("#pwck").val();
+		$.ajax({
+			url: "checkPassword",
+			method: "POST",
+			data: { userPw: userPw }
+		}).done((result) => {
+			if (result === "비밀번호일치") {
+				alert("비밀번호 확인 완료");
+				pwck = true;
+			} else {
+				alert("비밀번호가 일치하지 않습니다.");
+				pwck = false;
+			}
+		}).fail((error) => {
+			console.error(error.responseText);
+			alert("비밀번호 확인 중 오류가 발생했습니다.");
+		});
+	}
+});
+	
+
+	$("#deleteBtn").on('click', function(){
+		if(pwck){
+			$.ajax({
+				url : "memberDeleteDone",
+				method : "get",
+			}).done((result)=>{
+				alert("회원탈퇴가 완료되었습니다.")
+				window.location.href = '/'; 
+			})
+		}else{
+			alert("비밀번호를 확인하세요");
+			
+		}
+	})
+	
+	
+	
+</script>
+</body>
+</html>

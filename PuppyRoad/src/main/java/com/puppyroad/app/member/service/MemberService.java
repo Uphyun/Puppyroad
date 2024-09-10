@@ -15,4 +15,6 @@ public interface MemberService {
 	public MemberVO memberGetInfo(MemberVO memberVO);
 	//회원정보업데이트
 	public String memberUpdate(MemberVO memberVO);
+	//회원탈퇴
+	public int memberDelete(MemberVO memberVO);
 }

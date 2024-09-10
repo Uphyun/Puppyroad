@@ -21,4 +21,6 @@ public interface MemberMapper {
 	public MemberVO memberGetInfo(MemberVO memberVO);
 	//회원정보수정
 	public int memberUpdate(MemberVO memberVO);
+	//회원정보탈퇴
+	public int memberDelete(MemberVO memberVO);
 }

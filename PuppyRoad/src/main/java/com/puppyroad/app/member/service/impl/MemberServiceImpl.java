@@ -88,6 +88,12 @@ public class MemberServiceImpl implements MemberService {
 		return result == 1 ? memberVO.getMemberCode() : "fail";
 	}
 
+	@Override
+	public int memberDelete(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return memberMapper.memberDelete(memberVO);
+	}
+
 
 
 }
