@@ -58,7 +58,7 @@ public class MatchController {
 	public String matchDogList(MatchVO matchVO, Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String userId = authentication.getName();
-		matchVO.getMemberVO().getUserId();
+		matchVO.getMemberVO().setUserId(userId);
 		
 		List<MatchVO> list = matchService.getDogList(matchVO);
 		model.addAttribute("matchDogs", list);
