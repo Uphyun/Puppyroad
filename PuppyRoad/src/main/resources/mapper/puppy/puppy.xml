@@ -42,6 +42,35 @@
 
 		)
 	</insert>
-
+	<select id="selectPuppy" resultType="puppyVO" parameterType="string">
+		SELECT 	picture
+				, client_user_Id
+				, dog_name
+				, dog_breed
+				, age
+				, weight
+				, gender
+				, dog_size
+				, personality
+				, note
+		FROM    puppy
+		WHERE   client_user_Id = #{clientUserId}
+		ORDER BY puppy_code
+	</select>
+		<select id="selectPuppyInfo" resultType="puppyVO" parameterType="puppyVO">
+		SELECT 	picture
+				, dog_name
+				, dog_breed
+				, age
+				, weight
+				, gender
+				, dog_size
+				, personality
+				, note
+		FROM    puppy
+		WHERE   client_user_Id = #{clientUserId}
+		AND     puppy_code = #{puppyCode}
+	</select>
+	
 
 </mapper>

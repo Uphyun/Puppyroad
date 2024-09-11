@@ -19,7 +19,7 @@
 <body>
 	<script src="/assets/admin/vendor/js/dropdown-hover.js"></script>
 	<script src="/assets/admin/vendor/js/mega-dropdown.js"></script>
-
+    <script th:if="${successMessage}">alert(/*[[${successMsg}]]*/);</script>
 	<!-- Navbar: Start -->
 	<th:block th:insert="common/fragments/navbar :: NavbarFragment"></th:block>
 	<!-- Navbar: End -->
