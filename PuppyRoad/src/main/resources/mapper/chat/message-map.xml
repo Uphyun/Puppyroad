@@ -10,8 +10,8 @@
               attached_file,
               chatting_code
     FROM      chatting
-    WHERE     room_id = ${roomId}
-    ORDER BY  outgoing_date
+    WHERE     room_id = #{roomId}
+    ORDER BY  chatting_code
 </select>
  
 

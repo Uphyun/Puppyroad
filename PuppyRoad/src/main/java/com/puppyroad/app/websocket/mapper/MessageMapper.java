@@ -7,7 +7,7 @@ import com.puppyroad.app.websocket.service.ChatMessageService;
 
 public interface MessageMapper {
 	//메세지 목록
-	public List<ChatMessageDTO> getMessageList(ChatMessageDTO chatMessageDTO);
+	public List<ChatMessageDTO> selectMessageList(ChatMessageDTO chatMessageDTO);
 	
 	//메세지 저장
 	public int insertMessage(ChatMessageDTO chatMessageDTO);

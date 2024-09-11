@@ -22,7 +22,7 @@ public class ChatMessageServiceImpl implements ChatMessageService {
 
 	@Override
 	public List<ChatMessageDTO> getMessageList(ChatMessageDTO chatMessageDTO) {
-		return messageMapper.getMessageList(chatMessageDTO);
+		return messageMapper.selectMessageList(chatMessageDTO);
 	}
 	
 	@Override
