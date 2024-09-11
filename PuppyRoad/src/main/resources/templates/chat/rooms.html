@@ -1,27 +1,25 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="https://www.thymeleaf.org/" 
-                layout:decorate="~{common/layouts/default_layout}"
-	            layout:fragment="Content">
+<html lang="ko" xmlns:th="https://www.thymeleaf.org/"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
 <head>
 <title>채팅리스트</title>
 </head>
 <body>
-<br>
-<br>
-<br>
-<div class="container">
-	<div>
-		<ul th:each="room : ${rlist}">
-			<li><a th:href="@{/chat/room(roomId=${room.roomId})}">[[${room.roomName}]]</a></li>
-		</ul>
-	</div>
-<form th:action="@{/chat/room}" method="post">
-	<label>방이름</label>
-	<input type="text" name="roomName" class="form-control">
-	<label>방아이디</label>
-	<input type="text" name="roomId" class="form-control">
-	<button class="btn btn-secondary">개설하기</button>
-</form>
-</div>
+	<section class="first-section-pt">
+		<div class="container">
+			<div>
+				<ul th:each="room : ${rlist}">
+					<li><a th:href="@{/chat/room(roomId=${room.roomId})}">[[${room.roomName}]]</a></li>
+				</ul>
+			</div>
+			<form th:action="@{/chat/room}" method="post">
+				<label>방이름</label> <input type="text" name="roomName"
+					class="form-control"> <label>방아이디</label> <input
+					type="text" name="roomId" class="form-control">
+				<button class="btn btn-secondary">개설하기</button>
+			</form>
+		</div>
+	</section>
 </body>
 </html>

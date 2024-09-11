@@ -11,7 +11,7 @@
 <title>matchInfo</title>
 </head>
 <body>
-<section class="match-section pt-70 pb-60">
+<section class="first-section-pt">
 <div class="container pt-3">
 <h4>자율매칭</h4>
 <hr/>
@@ -19,7 +19,7 @@
      <div class="row mb-3">
        <label for="title" class="col-md-2 col-lg-2 col-form-label">제목</label>
        <div class="col-md-10 col-lg-10">
-         <input name="title" type="text" class="form-control" th:field="*{title}" readonly>
+         <input name="title" type="text" class="form-control-plaintext" th:field="*{title}" readonly>
        </div>
      </div>
      
@@ -28,7 +28,7 @@
      <div class="row mb-3">
        <label for="title" class="col-md-2 col-lg-2 col-form-label">작성자</label>
        <div class="col-md-10 col-lg-10">
-         <input name="writer" type="text" class="form-control" th:field="*{writer}" readonly>
+         <input name="writer" type="text" class="form-control-plaintext" th:field="*{writer}" readonly>
        </div>
      </div>
      
@@ -75,7 +75,7 @@
 				<div class="row mb-3">
 			       <label for="WalkPlaceAddress" class="col-md-2 col-lg-2 col-form-label">산책 장소</label>
 			       <div class="col-md-10 col-lg-10">
-			         <input name="WalkPlaceAddress" type="text" class="form-control" 
+			         <input name="WalkPlaceAddress" type="text" class="form-control-plaintext" 
 			         th:field ="*{walkPlaceAddress}" readonly>
 			       </div>
 			     </div>
@@ -84,7 +84,7 @@
      <div class="row mb-3">
        <label for="content" class="col-md-2 col-lg-2 col-form-label">소개</label>
        <div class="col-md-10 col-lg-10">
-         <textarea name="content" class="form-control" id="content" style="height: 100px"
+         <textarea name="content" class="form-control-plaintext" id="content" style="height: 100px"
           th:field="*{content}" readonly></textarea>
        </div>
      </div>

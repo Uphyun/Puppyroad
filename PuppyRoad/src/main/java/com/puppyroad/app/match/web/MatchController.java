@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.puppyroad.app.match.service.MatchService;
 import com.puppyroad.app.match.service.MatchVO;
+import com.puppyroad.app.puppy.service.PuppyService;
+import com.puppyroad.app.util.SecurityUtil;
 
 
 @Controller
@@ -56,28 +58,18 @@ public class MatchController {
 	//  등록 + 개 전체 조회 : get
 	@GetMapping("user/matchInsert")
 	public String matchDogList(MatchVO matchVO, Model model) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String userId = authentication.getName();
-		matchVO.getMemberVO().setUserId(userId);
-		
-		List<MatchVO> list = matchService.getDogList(matchVO);
-		model.addAttribute("matchDogs", list);
 		return "match/matchInsert";
 	}
 	
 	// 등록 - 처리 : post
 	@PostMapping("user/matchInsert")
 	public String matchInsertProcess(MatchVO matchVO, String puppies) {
-		System.out.println(puppies);
-		String[] test = puppies.split(",");
-		System.out.println(test);
-		
 		int bno = matchService.addMatch(matchVO);
 		String url = null;
 		if(bno > -1) {
-			//url = "redirect:matchInfo?bulletinNo=" + bno;
+			url = "redirect:matchInfo?bulletinNo=" + bno;
 		} else {
-			//url = "redirect:matchList";
+			url = "redirect:matchList";
 		}
 		return url;
 	}

@@ -52,4 +52,15 @@ $(document).ready(function(){
         stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, message: msg.value, writer: username}));
         msg.value = '';
     });
+    
+    $("#msg").on("keyup", function(e){
+		if(e.keyCode==13){
+        var msg = document.getElementById("msg");
+
+        console.log(username + ":" + msg.value);
+        stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, message: msg.value, writer: username}));
+        msg.value = '';
+		}
+    });
+    
 });
