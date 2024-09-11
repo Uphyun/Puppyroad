@@ -7,7 +7,7 @@
             <!-- Users List Table -->
             <div class="card">
                   <div class="card-header border-bottom">
-                        <h5 class="card-title mb-0">Filters</h5>
+                        <h5 class="card-title mb-0">의뢰인 목록</h5>
                         <div class="d-flex justify-content-between align-items-center row pt-4 gap-4 gap-md-0">
                               <div class="col-md-4 user_role"></div>
                               <div class="col-md-4 user_plan"></div>
@@ -35,9 +35,28 @@
                                           <div
                                                 class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-6 mb-md-0 mt-n6 mt-md-0">
                                                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
-                                                      <label><input type="search" class="form-control"
-                                                                  placeholder="Search User"
+                                                      <div class="btn-group" id="searchDrop">
+                                                            <button type="button" style="width: 180px;"
+                                                                  class="btn btn-label-primary dropdown-toggle waves-effect waves-light"
+                                                                  data-bs-toggle="dropdown" aria-expanded="false">
+                                                                  아이디
+                                                            </button>
+                                                            <ul class="dropdown-menu" style="">
+                                                                  <li><a class="dropdown-item waves-effect"
+                                                                              href="javascript:void(0);">아이디</a></li>
+                                                                  <li><a class="dropdown-item waves-effect"
+                                                                              href="javascript:void(0);">닉네임</a></li>
+                                                                  <li><a class="dropdown-item waves-effect"
+                                                                              href="javascript:void(0);">아이디 및 닉네임</a>
+                                                                  </li>
+                                                            </ul>
+                                                            <input type="hidden" id="conditionInput" value="아이디">
+                                                      </div>
+                                                      <label><input type="search" id="searchInput" class="form-control"
+                                                                  placeholder="Search"
                                                                   aria-controls="DataTables_Table_0"></label>
+                                                      <button type="button" class="btn btn-primary"
+                                                            onclick="searchMember()">검색</button>
                                                 </div>
                                           </div>
                                     </div>
@@ -119,10 +138,11 @@
                                                       <td rowspan="1" colspan="1" style="width: 116.359px;"
                                                             class="dataTables_empty">
                                                             <div class="position-relative"><select
+                                                                        onchange="changeState()"
                                                                         class="select2 form-select select2-hidden-accessible accountState"
                                                                         data-select2-id="accountState" tabindex="-1"
                                                                         aria-hidden="true"
-                                                                        data-memberCode="${member.memberCode}">
+                                                                        th:data-membercode="${member.memberCode}">
                                                                         <th:block th:if="${member.accountState == 1}">
                                                                               <option value="1" data-select2-id="2"
                                                                                     selected>정상
@@ -212,6 +232,7 @@
                                                                         <td colspan="2">
                                                                               <div class="position-relative">
                                                                                     <select id="modalAccountState"
+                                                                                          onchange="changeState()"
                                                                                           class="select2 form-select select2-hidden-accessible"
                                                                                           data-select2-id="accountState"
                                                                                           tabindex="-1"
@@ -237,48 +258,8 @@
                                                             <hr>
 
                                                             <h5 class="mb-2 pb-1">애완견 목록</h5>
-                                                            <div id="puppyList">
-                                                                  <div class="card">
-                                                                        <div class="row">
-                                                                              <div class="col-md-2">
-                                                                                    <img class="card-img card-img-left"
-                                                                                          src="/assets/admin/img/elements/9.jpg"
-                                                                                          alt="Card image">
-                                                                              </div>
-                                                                              <div class="col-md-10">
-                                                                                    <div class="card-body">
-                                                                                          <div
-                                                                                                class="table-responsive text-nowrap card-text">
-                                                                                                <table
-                                                                                                      class="table table-borderless">
-                                                                                                      <tr>
-                                                                                                            <th>이름 :
-                                                                                                            </th>
-                                                                                                            <td></td>
-                                                                                                            <th>견종 :
-                                                                                                            </th>
-                                                                                                            <td></td>
-                                                                                                            <th>성별 :
-                                                                                                            </th>
-                                                                                                            <td></td>
-                                                                                                      </tr>
-                                                                                                      <tr>
-                                                                                                            <th>나이 :
-                                                                                                            </th>
-                                                                                                            <td></td>
-                                                                                                            <th>중성화 유무 :
-                                                                                                            </th>
-                                                                                                            <td></td>
-                                                                                                            <th>질병 유무 :
-                                                                                                            </th>
-                                                                                                            <td></td>
-                                                                                                      </tr>
-                                                                                                </table>
-                                                                                          </div>
-                                                                                    </div>
-                                                                              </div>
-                                                                        </div>
-                                                                  </div>
+                                                            <div id="puppies">
+
                                                             </div>
 
                                                             <!-- close button -->
@@ -299,108 +280,7 @@
                   <!--/ View User Modal -->
             </div>
       </div>
-      <script>
-            $('.viewInfo').on("click", function () {
-                  let memberCode = $(event.target).data("membercode");
-
-                  $.ajax({
-                        type: "get",
-                        url: "/ajax/manageMember?memberCode=" + memberCode
-                  })
-                        .done(result => {
-                              $("#infoName").text(result.name);
-                              $("#infoNick").text(result.nickName);
-                              $("#infoPhone").text(oninputPhone(result.phone));
-                              $("#infoJoin").text(makeDateFormat(result.joinDate));
-                              $("#infoActivity").text(makeDateFormat(result.activityDate));
-                              $("#modalAccountState").val(result.accountState).prop("selected", true);
-                              $("#modalAccountState").data("memberCode", result.memberCode);
-                              $("#infoAddress").text(result.address);
-
-                              let puppyList = result.puppyList;
-                              $("#puppyList").html("");
-                              console.log(puppyList);
-                              puppyList.forEach(puppy => {
-                                    $("#puppyList").append(appendPuppy(puppy));
-                              })
-                        })
-                        .fail(err => console.log(err));
-            })
-
-            function makeDateFormat(date) {
-                  let beforeDate = new Date(date);
-                  let dateFormat = beforeDate.getFullYear() + "년 "
-                        + ((beforeDate.getMonth() + 1) < 10 ? "0" + (beforeDate.getMonth() + 1) : (beforeDate.getMonth() + 1)) + "월 "
-                        + (beforeDate.getDate() < 10 ? "0" + beforeDate.getDate() : beforeDate.getDate()) + "일";
-
-                  return dateFormat;
-            }
-
-            function oninputPhone(phone) {
-                  phone = phone
-                        .replace(/[^0-9]/g, '')
-                        .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
-
-                  return phone;
-            }
-
-            function appendPuppy(puppy) {
-                  let cardDiv = $("div");
-                  cardDiv.hasClass("card");
-
-                  let rowDiv = $("div");
-                  rowDiv.hasClass("row");
-
-                  //image
-                  let col2 = $("div");
-                  col2.hasClass("col-md-2");
-                  let imgTag = $("img");
-                  imgTag.hasClass("card-img card-img-left");
-                  imgTag.src = ContextPath + "/images/" + puppy.picture;
-                  col2.append(imgTag);
-
-                  rowDiv.append(col2);
-
-                  //cardBody
-                  let col10 = $("div");
-                  col10.hasClass("col-md-10");
-                  let cardBody = $("div");
-                  cardBody.hasClass("card-body");
-                  //table
-                  let tableDiv = $("div");
-                  tableDiv.hasClass("table-responsive text-nowrap card-text");
-                  let tableTag = $("table");
-                  tableTag.hasClass("table table-borderless");
-                  let tr = $("tr");
-                  tr.html(`
-                        <th>이름 : </th>
-                        <td>${puppy.dogName}</td>
-                        <th>견종 : </th>
-                        <td>${puppy.dogBreed}</td>
-                        <th>성별 : </th>
-                        <td>${puppy.gender}</td>
-                  `);
-                  //tableTag.append(tr);
-
-                  tr.html(`
-                        <th>나이 : </th>
-                        <td>${puppy.age}</td>
-                        <th>중성화 유무 : </th>
-                        <td>${puppy.neutralizationPreAbs}</td>
-                        <th>질병 유무 : </th>
-                        <td>${puppy.diseasePreAbs}</td>
-                  `);
-                  //tableTag.append(tr);
-
-                  tableDiv.append(tableTag);
-                  cardBody.append(tableDiv);
-                  col10.append(cardBody);
-                  rowDiv.append(col10);
-                  cardDiv.append(rowDiv);
-
-                  return cardDiv;
-            }
-      </script>
+      <script src="/assets/admin/js/member/manage-member.js"></script>
 </body>
 
 </html>

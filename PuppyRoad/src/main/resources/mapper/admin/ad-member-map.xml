@@ -12,14 +12,12 @@
 
 	<select id="selectMemberList" resultType="MemberVO">
 		select member_code
-		,
-		user_id
-		, nickname
-		, join_date
-		, activity_date
-		, withdraw_date
-		,
-		account_state
+				, user_id
+				, nickname
+				, join_date
+				, activity_date
+				, withdraw_date
+				, account_state
 		from member
 		where position = '의뢰인'
 		order by join_date desc
@@ -62,4 +60,35 @@
 		from	puppy
 		where	client_user_id = #{memberCode}
 	</select>
+	
+	<select id="selectSearchMemberList" resultType="MemberVO">
+		select member_code
+				, user_id
+				, nickname
+				, join_date
+				, activity_date
+				, withdraw_date
+				, account_state
+		from	member
+		where	position = '의뢰인'
+		<choose>
+			<when test="con == '아이디'">
+				and	user_id = #{member.userId}
+			</when>
+			<when test="con == '닉네임'">
+				and nickname = #{member.nickName}
+			</when>
+			<otherwise>
+				and (user_id like '%' || #{member.userId} || '%'
+				or	nickname like '%' || #{member.nickName} || '%')
+			</otherwise>
+		</choose>
+		order by join_date desc
+	</select>
+	
+	<update id="updateAccountState" parameterType="MemberVO">
+		update	member
+		set		account_state = #{accountState}
+		where	member_code = #{memberCode}
+	</update>
 </mapper>
