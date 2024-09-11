@@ -32,10 +32,10 @@ import jakarta.servlet.DispatcherType;
 
 					// "/"와 "/all" 경로에 대한 요청은 인증 없이 접근을 허용합니다.
 
-					.requestMatchers("/memberInsert", "/memberLogin", "/assets/**", "/main/**", "/login", "/idCheck", "/sendSMS","/memberJoin", "/memberFind", "/memberFindId").permitAll()
+					.requestMatchers("/memberInsert", "/memberLogin", "/assets/**", "/main/**", "/login", "/idCheck", "/sendSMS","/memberJoin", "/memberFind", "/memberFindId", "/").permitAll()
 
 					// "/user/**" 경로에 대한 요청은 "USER, ADMIN" 역할을 가진 사용자만 접근
-					.requestMatchers("/user/**").hasAnyRole("봉사자", "도그워커","의뢰인")
+					.requestMatchers("/user/**").hasAnyRole("봉사자", "도그워커","의뢰인", "관리자")
 					//.requestMatchers("/").hasRole("A1")
 					// "/admin/**" 경로에 대한 요청은 "ROLE_ADMIN" 권한을 가진 사용자만 접근
 
