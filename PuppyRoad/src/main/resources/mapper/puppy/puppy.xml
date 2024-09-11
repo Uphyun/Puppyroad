@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.puppyroad.app.puppy.mapper.PuppyMapper">
+	<insert id="insertPuppy" parameterType="PuppyVO">
+		<selectKey keyProperty="puppyCode" order="BEFORE" resultType="String">
+			SELECT NVL(MAX(TO_NUMBER(puppy_code)), 0) + 1 as "puppy_code"
+			FROM   puppy
+		</selectKey>
+		INSERT INTO puppy
+		(
+		    puppy_code
+		    , dog_name
+		    , dog_breed
+		    , age
+		    , gender
+		    , dog_size
+		    , weight
+		    , personality
+		    , neutralization_pre_abs
+		    , disease_pre_abs
+		    , note
+		    , client_user_Id
+		    , picture
+			
+		)
+		VALUES 
+		(
+
+			  LPAD(#{puppyCode},10, '0')
+		    , #{dogName}
+		    , #{dogBreed}
+		    , #{age}
+		    , #{gender}
+		    , #{dogSize}
+		    , #{weight}
+		    , #{personality}
+		    , #{neutralizationPreAbs}
+		    , #{diseasePreAbs}
+ 			, #{note}
+ 			, #{clientUserId}
+ 			, #{picture}
+
+		)
+	</insert>
+
+
+</mapper>
