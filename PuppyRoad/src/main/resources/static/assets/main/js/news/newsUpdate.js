@@ -85,11 +85,6 @@ function submitForm() {
 	let form = document.querySelector("form");
 	let formData = new FormData(form);
 
-	formData.append("title", $('input[name="title"]').val());
-	formData.append("content", $('textarea[name="content"]').val());
-	formData.append("bulletinNo", $('input[name="bulletinNo"]').val());
-	
-	
 	let title = $('input[name="title"]');
 	if (title.val() === '') {
 		alert('제목이 입력되지 않았습니다.');
@@ -125,7 +120,7 @@ function submitForm() {
 		contentType: false,
 		success: function(data) {
 			if (data.result > 0) {
-				alert("성공적으로 제출되었습니다.");
+				alert("성공적으로 수정되었습니다.");
 				location.href = "/user/newsList"
 			} else {
 				alert("등록 오류.");

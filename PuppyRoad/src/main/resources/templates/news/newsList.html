@@ -8,13 +8,13 @@
 <title>공지사항</title>
 </head>
 <body>
-	<div class="container text-center pt-60 pb-60">
+	<div class="container text-center pt-60 pb-60" id= "main">
 	<button type="button" class="btn btn-info" 
-	 th:onClick="|location.href='@{newsList}'|">공지사항</button>
+	 th:onClick="location.href='newsList'">공지사항</button>
 	<button type="button" class="btn btn-success" 
-	 th:onClick="|location.href='@{eventList}'|">이벤트</button>
+	 th:onClick="location.href='eventList'">이벤트</button>
 	 <button type="button" class="btn btn-dark float-right" 
-	 th:onClick="|location.href='@{newsInsert}'|">등록</button>
+	 th:onClick="location.href= 'newsInsert'">등록</button>
 	 <br><br>
 		<table class="table">
 			<thead>
@@ -40,6 +40,7 @@
 		</table>
 	</div>
 	<script>
+	location.href= "#main";
 	$('.title').on('click', function(event) {
 		let trTag = $(this).closest('tr');
 		let bno = trTag.children().first().text(); 
