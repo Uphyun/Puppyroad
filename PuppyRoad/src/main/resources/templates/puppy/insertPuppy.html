@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form class="card-body pt-12" name="insertForm" id="frm"
+		th:action="@{/user/insertPuppy}" method="post" th:object="${puppyVO}"
+		style="width: 400px; margin: auto">
+		<div class="user-avatar-section">
+			<div class="d-flex align-items-center flex-column">
+				
+				<div class="user-info text-center">
+					<i class="ti ti-brand-gitlab mb-2"></i>
+					<h5>댕댕이 프로필</h5>
+				</div>
+			</div>
+		</div>
+		<h5 class="pb-4 border-bottom mb-4"></h5>
+		<div class="info-container">
+			<ul class="list-unstyled mb-6">
+<!-- 			<img class="img-fluid rounded mb-4"
+					src="../../assets/img/avatars/1.png" height="120" width="120"
+					alt="User avatar"> -->
+				<li class="mb-2"><span class="h6">이름</span> <input
+					class="form-control" type="text" name="dogName"
+					th:errorclass="error-input" placeholder="댕댕이 이름"
+					 />
+					<div class="error-class" th:if="${#fields.hasErrors('dogName')}"
+						th:errors="*{dogName}"></div></li>
+				<li class="mb-2"><span class="h6">견종</span> <input
+					class="form-control" type="text" name="dogBreed"
+					th:errorclass="error-input" placeholder="말티즈, 푸들, 시츄.."
+					 />
+					<div class="error-class" th:if="${#fields.hasErrors('dogBreed')}"
+						th:errors="*{dogBreed}"></div></li>
+				<li class="mb-2"><span class="h6">나이</span> <input
+					class="form-control" type="number" name="age"
+					th:errorclass="error-input" placeholder="댕댕이 나이"  />
+					<div class="error-class" th:if="${#fields.hasErrors('age')}"
+						th:errors="*{age}"></div></li>
+				<li class="mb-2">		
+				<li class="mb-2"><span class="h6">성별</span>
+							<div class="col-xl-6">
+						<div class="card">
+							<div class="card-body" style="width: 400px; margin: auto">
+								<div class="row">
+									<div class="col-md mb-md-0 mb-5">
+										<div class="form-check custom-option custom-option-icon">
+											<label class="form-check-label custom-option-content"
+												for="mage"> <span
+												class="custom-option-body"> <i
+													class="ti ti-brand-gitlab mb-2"></i> <span
+													class="custom-option-title">남</span>
+											</span> <input name="gender" class="form-check-input"
+												type="radio" value="1" id="mage" checked>
+											</label>
+										</div>
+									</div>
+									<div class="col-md mb-md-0 mb-5">
+										<div
+											class="form-check custom-option custom-option-icon checked">
+											<label class="form-check-label custom-option-content"
+												for="wage"> <span
+												class="custom-option-body"> <i
+													class="ti ti-brand-gitlab mb-2"></i> <span
+													class="custom-option-title">여</span>
+											</span> <input name="gender" class="form-check-input"
+												type="radio" value="2" id="wage">
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="error-class" th:if="${#fields.hasErrors('gender')}"
+						th:errors="*{gender}"></div></li>
+				<li class="mb-2"><span class="h6">크기</span>
+					<div class="col-xl-6">
+						<div class="card">
+							<h5 class="card-header"></h5>
+							<div class="card-body" style="width: 400px; margin: auto">
+								<div class="row">
+									<div class="col-md mb-md-0 mb-5">
+										<div class="form-check custom-option custom-option-icon">
+											<label class="form-check-label custom-option-content"
+												for="dogSize1"> <span
+												class="custom-option-body"> <i
+													class="ti ti-brand-gitlab mb-2"></i> <span
+													class="custom-option-title">소형</span>
+											</span> <input name="dogSize" class="form-check-input"
+												type="radio" value="소형" id="dogSize1" checked="">
+											</label>
+										</div>
+									</div>
+									<div class="col-md mb-md-0 mb-5">
+										<div
+											class="form-check custom-option custom-option-icon checked">
+											<label class="form-check-label custom-option-content"
+												for="dogSize2"> <span
+												class="custom-option-body"> <i
+													class="ti ti-brand-gitlab mb-2"></i> <span
+													class="custom-option-title"> 중형 </span>
+											</span> <input name="dogSize" class="form-check-input"
+												type="radio" value="중형" id="dogSize2">
+											</label>
+										</div>
+									</div>
+									<div class="col-md">
+										<div class="form-check custom-option custom-option-icon">
+											<label class="form-check-label custom-option-content"
+												for="dogSize3"> <span
+												class="custom-option-body"> <i
+													class="ti ti-brand-gitlab mb-2"></i> <span
+													class="custom-option-title"> 대형 </span>
+											</span> <input name="dogSize" class="form-check-input"
+												type="radio" value="대형" id="dogSize3">
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div></li>
+				<li class="mb-2"><span class="h6">무게</span> <input
+					class="form-control" type="number" name="weight"
+					th:errorclass="error-input" placeholder="댕댕이 무게(kg)"
+					/>
+					<div class="error-class" th:if="${#fields.hasErrors('weight')}"
+						th:errors="*{weight}"></div></li>
+				<li class="mb-2"><span class="h6">성격</span> <textarea
+						class="form-control" name="personality" th:errorclass="error-input"
+						placeholder="댕댕이 성격"></textarea>
+					<div class="error-class" th:if="${#fields.hasErrors('personality')}"
+						th:errors="*{personality}"></div>
+				<li class="mb-2"><span class="h6">중성화유무</span>
+					<div class="col-xl-6">
+						<div class="card">
+							<div class="card-body" style="width: 400px; margin: auto">
+								<div class="row">
+									<div class="col-md mb-md-0 mb-5">
+										<div class="form-check custom-option custom-option-icon">
+											<label class="form-check-label custom-option-content"
+												for="neutralization1"> <span
+												class="custom-option-body"> <i
+													class="ti ti-brand-gitlab mb-2"></i> <span
+													class="custom-option-title">유</span>
+											</span> <input name="neutralizationPreAbs" class="form-check-input"
+												type="radio" value="0" id="neutralization1"
+												checked="">
+											</label>
+										</div>
+									</div>
+									<div class="col-md">
+										<div class="form-check custom-option custom-option-icon">
+											<label class="form-check-label custom-option-content"
+												for="neutralization2"> <span
+												class="custom-option-body"> <i
+													class="ti ti-brand-gitlab mb-2"></i> <span
+													class="custom-option-title">무</span>
+											</span> <input name="neutralizationPreAbs" class="form-check-input"
+												type="radio" value="1" id="neutralization2">
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div></li>
+				<li class="mb-2"><span class="h6">질병</span>
+					<div class="col-xl-6">
+						<div class="card">
+							<div class="card-body" style="width: 400px; margin: auto">
+								<div class="row">
+									<div class="col-md mb-md-0 mb-5">
+										<div class="form-check custom-option custom-option-icon">
+											<label class="form-check-label custom-option-content"
+												for="disease1"> <span class="custom-option-body">
+													<i class="ti ti-brand-gitlab mb-2"></i> <span
+													class="custom-option-title">유</span>
+											</span> <input name="diseasePreAbs" class="form-check-input"
+												type="radio" value="0" id="disease1">
+											</label>
+										</div>
+									</div>
+									<div class="col-md">
+										<div class="form-check custom-option custom-option-icon">
+											<label class="form-check-label custom-option-content"
+												for="disease2"> <span class="custom-option-body">
+													<i class="ti ti-brand-gitlab mb-2"></i> <span
+													class="custom-option-title">무</span>
+											</span> <input name="diseasePreAbs" class="form-check-input"
+												type="radio" value="1" id="disease2" checked>
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+			</ul>
+			<span class="h6">특이사항</span>
+			<textarea class="form-control" name="note"
+				th:errorclass="error-input" placeholder="질병 등과 관련된 특이사항을 입력해주세요"
+				></textarea>
+			<div class="error-class" th:if="${#fields.hasErrors('note')}"
+				th:errors="*{note}"></div>
+		</div>
+		<br>
+		<div class="d-flex justify-content-center">
+			<button type="submit"
+				class="btn btn-primary me-4 waves-effect waves-light"
+				data-bs-target="#editUser" data-bs-toggle="modal">저장</button>
+		</div>
+	</form>
+</body>
+<script>
+
+</script>
+</html>
