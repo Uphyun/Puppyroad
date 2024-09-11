@@ -7,15 +7,28 @@
 </head>
 
 <body>
-<br>
-<br>
-<br>
+<section class="first-section-pt">
+
+
 <div class="container">
     <div class="col-6">
         <h1>[[${room.roomName}]]</h1>
     </div>
     <div>
-        <div id="msgArea" class="col"></div>
+        <div id="msgArea" class="col">
+        	<th:block th:each="myChat : ${myChats}">
+            	<div class='col-6'>
+               		<div class='alert alert-secondary' 
+               		th:if="${#authentication.principal.username} == ${myChat.writer}">
+            			<b>[[ ${myChat.writer} ]] : [[ ${myChat.message} ]]</b>
+               		</div>
+               		<div class='alert alert-warning' 
+               		th:if="${#authentication.principal.username} != ${myChat.writer}">
+            			<b>[[ ${myChat.writer} ]] : [[ ${myChat.message} ]]</b>
+               		</div>
+               </div>
+        	</th:block>
+        </div>
         <div class="col-6">
             <div class="input-group mb-3">
                 <input type="text" id="msg" class="form-control">
@@ -27,6 +40,8 @@
     </div>
     <div class="col-6"></div>
 </div>
+
+</section>
        
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>

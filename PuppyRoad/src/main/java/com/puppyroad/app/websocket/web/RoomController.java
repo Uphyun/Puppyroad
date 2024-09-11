@@ -15,6 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.puppyroad.app.security.service.LoginMemberVO;
 import com.puppyroad.app.util.SecurityUtil;
+import com.puppyroad.app.websocket.service.ChatMessageDTO;
+import com.puppyroad.app.websocket.service.ChatMessageService;
 import com.puppyroad.app.websocket.service.ChatRoomDTO;
 import com.puppyroad.app.websocket.service.ChatRoomService;
 
@@ -26,6 +28,10 @@ public class RoomController {
 	
 	@Autowired
     private final ChatRoomService chatRoomService;
+	
+	@Autowired
+	private final ChatMessageService chatMessageService;
+	
 
     //채팅방 목록 조회
     @GetMapping("chat/rooms")
@@ -39,6 +45,7 @@ public class RoomController {
     @GetMapping("chat/myChat")
     public String myRoomList(ChatRoomDTO chatRoomDTO, Model model) {
     	String mcode = SecurityUtil.memberCode();
+    	
 		chatRoomDTO.setSender(mcode);
 		chatRoomDTO.setRecipient(mcode);
 		
@@ -67,8 +74,9 @@ public class RoomController {
     
     //채팅방 조회 : get
     @GetMapping("chat/room")
-    public void roomInfo(ChatRoomDTO chatRoomDTO, Model model){
+    public void roomInfo(ChatRoomDTO chatRoomDTO, ChatMessageDTO chatMessageDTO, Model model){
     	model.addAttribute("room", chatRoomService.getRoomInfo(chatRoomDTO));
+    	model.addAttribute("myChats", chatMessageService.getMessageList(chatMessageDTO));
     }
     
 
