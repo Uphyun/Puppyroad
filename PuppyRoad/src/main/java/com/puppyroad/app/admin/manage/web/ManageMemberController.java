@@ -45,12 +45,14 @@ public class ManageMemberController {
 	}
 	
 	@GetMapping("ajax/searchMember")
-	@ResponseBody
-	public List<MemberVO> searchMembers( MemberVO memberVO, String condition) {
+	//@ResponseBody
+	public String searchMembers(MemberVO memberVO, String condition, Model model) {
 		System.out.println(memberVO);
 		System.out.println(condition);
+		List<MemberVO> mlist = manageMemberService.getSearchMemberList(memberVO, condition);
 		
-		return manageMemberService.getSearchMemberList(memberVO, condition);
+		model.addAttribute("memberList", mlist);
+		return "admin/manage/member::#memberListBody";
 	}
 
 	//봉사인 리스트

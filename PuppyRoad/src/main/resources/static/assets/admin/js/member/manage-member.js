@@ -172,11 +172,11 @@ function searchMember() {
 		method: "get",
 		url: "/ajax/searchMember",
 		data: data,
-	})
-		.done(result => {
-			console.log(result);
-		})
-		.fail(err => console.log(err));
+		success: function(memberList) {
+			$("#memberListBody").replaceWith(memberList);
+		},
+		fail : err => console.log(err)
+	});
 }
 
 //데이터 설정

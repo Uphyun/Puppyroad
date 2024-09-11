@@ -14,7 +14,7 @@ public interface ManageMemberMapper {
 	//의뢰인 상세정보
 	public MemberVO selectMemberInfo(String memberCode);
 	//회원 리스트 검색
-	public List<MemberVO> selectSearchMemberList(@Param("member")MemberVO memberVO, @Param("con")String condition);
+	public List<MemberVO> selectSearchMemberList(@Param("memberVO")MemberVO memberVO, @Param("condition")String condition);
 	//계정 상태 업데이트
 	public int updateAccountState(MemberVO memberVO);
 }
