@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.puppyroad.app.member.service.MemberVO;
-
 import lombok.Data;
 
 @Data

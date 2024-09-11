@@ -39,6 +39,7 @@ public class RoomController {
     @GetMapping("chat/myChat")
     public String myRoomList(ChatRoomDTO chatRoomDTO, Model model) {
     	String mcode = SecurityUtil.memberCode();
+    	
 		chatRoomDTO.setSender(mcode);
 		chatRoomDTO.setRecipient(mcode);
 		
