@@ -51,7 +51,7 @@ public class NewsController {
 	}
 
 	// 이벤트 전체조회
-	@GetMapping("eventList")
+	@GetMapping("user/eventList")
 	public String eventList(NewsVO newsVO, Model model) {
 		newsVO.setBulletinType("1");
 		List<NewsVO> list = newsService.getNewsList(newsVO);

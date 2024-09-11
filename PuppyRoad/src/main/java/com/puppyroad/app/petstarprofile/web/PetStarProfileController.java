@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.puppyroad.app.petstarprofile.service.PetStarProfileVO;
 import com.puppyroad.app.petstarprofile.service.PetstarProfileService;
+import com.puppyroad.app.util.SecurityUtil;
 
 @Controller
 public class PetStarProfileController {
@@ -40,11 +41,11 @@ public class PetStarProfileController {
 	}
 	
 	// 단건 조회
-	@GetMapping("user/profileInfo")
+	@GetMapping("user/mypage")
 	public String profileInfo(PetStarProfileVO profileVO, Model model ) {
 		PetStarProfileVO findVO = profileService.getProfileInfo(profileVO);
 		model.addAttribute("profiles", findVO);
-		return "petstar/profileInfo";
+		return "petstar/mypage";
 	}
 	
 	// 등록 - 페이지
@@ -58,6 +59,7 @@ public class PetStarProfileController {
 	public String profileInsertProcess(@RequestPart MultipartFile file, PetStarProfileVO profileVO) {
 		String fileName = file.getOriginalFilename();
 		String saveName = uploadPath + fileName;
+		String mcode = SecurityUtil.memberCode();
 		
 		Path savePath = Paths.get(saveName);
 		
@@ -68,6 +70,7 @@ public class PetStarProfileController {
 		}
 		
 		profileVO.setProfilePicture(fileName);
+		profileVO.setMemberCode(mcode);
 		String result = profileService.addProfile(profileVO);
 		
 		return result;
@@ -78,7 +81,7 @@ public class PetStarProfileController {
 	public String profileUpdateForm(PetStarProfileVO profileVO, Model model) {
 		PetStarProfileVO findVO = profileService.getProfileInfo(profileVO);
 		model.addAttribute("profile", findVO);
-		return "petstar/profileUpdate";
+		return "petstar/mypage";
 	}
 	
 

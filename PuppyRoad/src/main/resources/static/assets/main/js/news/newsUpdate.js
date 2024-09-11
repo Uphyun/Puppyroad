@@ -85,11 +85,6 @@ function submitForm() {
 	let form = document.querySelector("form");
 	let formData = new FormData(form);
 
-	formData.append("title", $('input[name="title"]').val());
-	formData.append("content", $('textarea[name="content"]').val());
-	formData.append("bulletinNo", $('input[name="bulletinNo"]').val());
-	
-	
 	let title = $('input[name="title"]');
 	if (title.val() === '') {
 		alert('제목이 입력되지 않았습니다.');

@@ -10,33 +10,33 @@
 <title>공지사항 상세</title>
 </head>
 <body>
-	<div class="container text-center pt-60 pb-60">
+	<div class="container d-flex flex-column justify-content-center align-items-center pt-60 pb-60">
 		<!-- 번호 -->
-		<div class="col-md-8 mb-3 info-field">
+		<div class="col-md-8 mb-3 info-field mx-auto">
 			<div class="label">번호</div>
 			<div class="value">[[${news.bulletinNo}]]</div>
 		</div>
 
 		<!-- 제목 -->
-		<div class="col-md-8 mb-3 info-field">
+		<div class="col-md-8 mb-3 info-field mx-auto">
 			<div class="label">제목</div>
 			<div class="value">[[${news.title}]]</div>
 		</div>
 
 		<!-- 내용 -->
-		<div class="col-md-8 mb-3 info-field">
+		<div class="col-md-8 mb-3 info-field mx-auto">
 			<div class="label">내용</div>
 			<div class="value" style="white-space: pre-wrap;">[[${news.content}]]</div>
 		</div>
 
 		<!-- 등록일 -->
-		<div class="col-md-8 mb-3 info-field">
+		<div class="col-md-8 mb-3 info-field mx-auto">
 			<div class="label">등록일</div>
 			<div class="value">[[${#dates.format(news.writingDate,'yyyy년 MM월 dd일')}]]</div>
 		</div>
 
 		<!-- 첨부파일 미리보기 -->
-		<div class="col-md-8 mb-3 info-field">
+		<div class="col-md-8 mb-3 info-field mx-auto">
 			<div class="label">첨부파일</div>
 			<div class="value">
 				<div id="image_container">

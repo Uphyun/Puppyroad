@@ -5,7 +5,7 @@
 	<select id="selectProfileList" resultType="PetStarProfileVO">
 		SELECT   profile_picture
 				,gender
-				,personality
+				,info
 				,member_code
 				,nickname
 		FROM  pet_stargram_profile 		
@@ -15,7 +15,7 @@
 	<select id="selectPetStarProfileInfo" resultType="PetStarProfileVO">
 		SELECT   profile_picture
 				,gender
-				,personality
+				,info
 				,member_code
 				,nickname
 		FROM  pet_stargram_profile
@@ -27,7 +27,7 @@
 			(
 				 profile_picture
 				,gender
-				,personality
+				,info
 				,member_code
 				,nickname
 		   )
@@ -35,7 +35,7 @@
 		   (
 		   		#{profilePicture}
 		   		,#{gender}
-		   		,#{personality}
+		   		,#{info}
 		   		,#{memberCode}
 		   		,#{nickname}
 		   	)  
@@ -47,7 +47,7 @@
 		 SET
 			profile_picture = #{profilePicture}
 		   ,gender = #{gender}
-		   ,personality = #{personality}
+		   ,info = #{info}
 		   ,nickname = #{nickname}
 		WHERE member_code = #{memberCode}
 	</update>
