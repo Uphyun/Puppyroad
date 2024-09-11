@@ -67,8 +67,10 @@
 		SELECT user_id
 			  ,user_pw
 			  ,position
+			  ,member_code
+			  ,nickname
 		FROM   member
-		WHERE user_id = #{userId} 
+		WHERE user_id = #{userId}
 	</select>
 	
 	<select id="idFind" resultType="MemberVO">
@@ -109,7 +111,7 @@
 				
 	</update>
 	<delete id="memberDelete">
-	
+	<!-- UPDATE 로 변경해서 상태값 주기 -->
 		DELETE member
 		WHERE user_id = #{userId}
 	
