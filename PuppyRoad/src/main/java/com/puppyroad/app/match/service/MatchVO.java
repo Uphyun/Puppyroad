@@ -28,7 +28,5 @@ public class MatchVO {
 	private String  clientCode;               // 회원 코드
 	private String  content;
 	
-	private MemberVO memberVO;
-	
 	private List<String> puppies;
 }

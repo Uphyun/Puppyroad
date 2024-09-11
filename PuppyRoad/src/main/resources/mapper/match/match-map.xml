@@ -20,40 +20,6 @@
 	    ORDER BY bulletin_no desc
   </select>
   
-  <!-- 개 전체 리스트 -->
-  <select id="selectDogMatchList" resultType="MatchVO">
-		SELECT   a.puppy_code puppy_code,
-		         a.dog_name dog_name,
-		         a.dog_breed dog_breed,
-		         a.age age,
-		         a.gender gender,
-		         a.dog_size dog_size,
-		         a.personality personality,
-		         a.neutralization_pre_abs neutralization_pre_abs,
-		         a.disease_pre_abs disease_pre_abs
-	    FROM     puppy a JOIN member b
-	      ON     a.client_user_id = b.member_code
-	    WHERE    b.user_id = #{userId}
-	    ORDER BY puppy_code
-        
-  </select>
-  
-  <!-- 개 단건 리스트 -->
-  <select id="selectDogMatchInfo" resultType="MatchVO">
-		SELECT   puppy_code,
-		         dog_name,
-		         dog_breed,
-		         age,
-		         gender,
-		         dog_size,
-		         personality,
-		         neutralization_pre_abs,
-		         disease_pre_abs
-	    FROM     puppy
-        WHERE    puppy_code = #{puppyCode}
-        ORDER BY dog_name
-  </select>
-  
   <!-- 단건 자율매칭 -->
   <select id="selectMatchInfo" resultType="MatchVO">
 		SELECT  bulletin_no,
@@ -127,13 +93,8 @@
   	       writer = #{writer},
   	       content = #{content},
   	       matching_state = #{matchingState},
-  	       start_time = #{startTime},
-  	       end_time = #{endTime},
-  	       writing_time = #{writingTime},
-  	       animal_count = #{animalCount},
   	       walk_place_address = #{walkPlaceAddress},
-  	       matching_kind = #{matchingKind},
-  	       client_code = #{clientCode},
+  	       client_code = #{clientCode}
   	WHERE  bulletin_no = #{bulletinNo}
   </update>
   
