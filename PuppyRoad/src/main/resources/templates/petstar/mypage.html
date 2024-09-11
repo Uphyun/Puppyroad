@@ -4,106 +4,99 @@
 	layout:decorate="~{common/layouts/default_layout}"
 	layout:fragment="Content">
 <head>
+ <script type="text/javascript" src="/assets/main/js/petstar/profile.js"></script>
+ <link rel="stylesheet" href="/assets/main/css/petstar/image.css" type="text/css" />
 <meta charset="UTF-8">
-<title>마이 페이지</title>
 </head>
 
 <body>
-	<div style="display: flex; justify-content: center;">
-		<div class="col-12 col-sm-6 col-lg-4 mb-6 justify-content: center;">
-			<div class="card">
-				<div class="card-body text-center">
-					<i class="mb-4 text-heading ti ti-user ti-32px"></i>
-					<h5>닉네임</h5>
-					<button type="button" class="btn btn-primary"
-						data-bs-toggle="modal" data-bs-target="#editUser">프로필 편집
-					</button>
+	<section class="first-section-pt">
+
+		<div style="display: flex; justify-content: center;">
+			<div class="col-12 col-sm-6 col-lg-4 mb-6 justify-content: center;">
+				<div class="card">
+					<div class="card-body text-center">
+							<img id="profileImagePreview"
+									th:src="@{/images/{fileName}(fileName=${profile.profilePicture})}"
+									th:alt="${fileName}">
+						<h5 class= "mt-5">[[${profile.nickname}]]</h5>
+						<button type="button" class="btn btn-primary"
+							data-bs-toggle="modal" data-bs-target="#editUser">프로필 편집
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	
-	<!-- Edit User Modal -->
-	<div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-lg modal-simple modal-edit-user">
-			<div class="modal-content">
-				<div class="modal-body">
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-					<div class="text-center mb-6">
-						<h5>프로필 편집</h5>
-					</div>
-					
-					<form name="updateForm" id="editUserForm" method="post"
-						enctype="multipart/form-data" th:object="${profile}"
-						class="d-flex flex-column align-items-center">
-						
-						<!-- 이미지 미리보기 및 파일 선택 -->
-						<div class="col-12 col-md-5 mb-4 text-center">
-							<label for="profilePictureEdit" style="cursor: pointer;">
-								<img id="profileImagePreview"
-									th:src="@{/images/{fileName}(fileName=${fileName})}"
+
+		<!-- Edit User Modal -->
+		<div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog modal-lg modal-simple modal-edit-user">
+				<div class="modal-content">
+					<div class="modal-body">
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+						<div class="text-center mb-6">
+							<h5>프로필 편집</h5>
+						</div>
+
+						<form name="updateForm" id="editUserForm" method="post"
+							th:action="@{/user/profileUpdate}" enctype="multipart/form-data"
+							th:object="${profile}"
+							class="d-flex flex-column align-items-center">
+
+							<!-- 이미지 미리보기 및 파일 선택 -->
+							<div class="col-12 col-md-5 mb-4 text-center">
+								<label for="profilePictureEdit" style="cursor: pointer;">
+									<img id="profileImagePreview"
+									th:src="@{/images/{fileName}(fileName=${profile.profilePicture})}"
 									th:alt="${fileName}"
 									style="max-width: 100px; max-height: 100px; display: block;" />
-							</label>
-							<input type="file" class="form-control" id="profilePictureEdit"
-								name="file" accept="image/*"
-								onchange="previewImage(event);" style="display: none;" />
-						</div>
-						
-						<!-- 닉네임 입력 -->
-						<div class="col-12 col-md-5 mb-4">
-							<label class="form-label" for="modalEditUserName">닉네임</label> 
-							<input type="text" th:field="*{nickname}"
-								class="form-control" readonly />
+								</label> <input type="file" class="form-control" id="profilePictureEdit"
+									name="file" accept="image/*" onchange="previewImage(event);"
+									style="display: none;" />
+							</div>
+
+							<!-- 닉네임 입력 -->
+							<div class="col-12 col-md-5 mb-4">
+								<label class="form-label" for="modalEditUserName">닉네임</label> <input
+									type="text" class="form-control" th:field="*{nickname}"
+									readonly />
 								<p>*닉네임은 마이페이지에서 변경 가능합니다.</p>
-						</div>
+							</div>
 
-						<!-- 성별 선택 -->
-						<div class="text-light fw-medium">성별</div>
-						<div class="form-check mt-4">
-							<input name="default-radio-1" class="form-check-input"
-								type="radio" id="Radio1"  th:field="*{gender}"/> 
-							<label class="form-check-label" for="Radio1"> 남 </label>
-						</div>
-						<div class="form-check">
-							<input name="default-radio-1" class="form-check-input"
-								type="radio" id="Radio2"  th:field="*{gender}" checked /> 
-							<label class="form-check-label" for="Radio2"> 여 </label>
-						</div>
+							<!-- 성별 선택 -->
+							<div class="form-check mt-4">
+								<input name="gender" class="form-check-input" type="radio"
+									id="Radio1" value="1" th:field="*{gender}" /> <label
+									class="form-check-label" for="Radio1"> 남 </label>
+							</div>
+							<div class="form-check">
+								<input name="gender" class="form-check-input" type="radio"
+									id="Radio2" value="2" th:field="*{gender}" /> <label
+									class="form-check-label" for="Radio2"> 여 </label>
+							</div>
 
-						<!-- 자기소개 입력 -->
-						<div class="mb-5">
-							<label for="exampleFormControlTextarea1" class="form-label">자기 소개</label>
-							<textarea class="form-control" th:field="*{info}"
-								rows="3"></textarea>
-						</div>
 
-						<!-- 제출 및 취소 버튼 -->
-						<div class="col-12 text-center">
-							<button type="button" class="btn btn-primary me-3 " id="submitBtn" onclick="submitForm()">등록</button>
-							<button type="reset" class="btn btn-label-secondary"
-								data-bs-dismiss="modal" aria-label="Close">취소</button>
-						</div>
-					</form>
+							<!-- 자기소개 입력 -->
+							<div class="mb-5">
+								<label for="exampleFormControlTextarea1" class="form-label">자기
+									소개</label>
+								<textarea class="form-control" th:field="*{info}" rows="5"></textarea>
+							</div>
+
+							<!-- 제출 및 취소 버튼 -->
+							<div class="col-12 text-center">
+								<button type="submit" class="btn btn-primary me-3" onclick="return confirmSubmit()">등록</button>
+								<button type="reset" class="btn btn-label-secondary"
+									data-bs-dismiss="modal">취소</button>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
+	</section>
 	<script>
-		// 이미지 미리보기 함수
-		function previewImage(event) {
-			const reader = new FileReader();
-			const imageField = document.getElementById("profileImagePreview");
-
-			reader.onload = function () {
-				if (reader.readyState === 2) {
-					imageField.src = reader.result;
-				}
-			};
-			reader.readAsDataURL(event.target.files[0]);
-		}
 
 	</script>
 </body>

@@ -36,7 +36,7 @@ class KhsTest {
 		profileVO.setMemberCode("W240905001");
 		
 		PetStarProfileVO findVO = profileMapper.selectPetStarProfileInfo(profileVO);
-		assertEquals("활달해용", findVO.getPersonality());
+		assertEquals("활달해용", findVO.getInfo());
 	}
 
 	// 등록
@@ -45,7 +45,7 @@ class KhsTest {
 		PetStarProfileVO profileVO = new PetStarProfileVO();
 		profileVO.setProfilePicture("강아지");
 		profileVO.setGender(1);
-		profileVO.setPersonality("얌전..");
+		profileVO.setInfo("얌전..");
 		profileVO.setNickname("후추");
 		profileVO.setMemberCode("W240906002");
 		

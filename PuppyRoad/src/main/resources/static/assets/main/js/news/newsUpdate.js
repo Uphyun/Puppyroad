@@ -120,7 +120,7 @@ function submitForm() {
 		contentType: false,
 		success: function(data) {
 			if (data.result > 0) {
-				alert("성공적으로 제출되었습니다.");
+				alert("성공적으로 수정되었습니다.");
 				location.href = "/user/newsList"
 			} else {
 				alert("등록 오류.");

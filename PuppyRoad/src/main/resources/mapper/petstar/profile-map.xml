@@ -13,13 +13,14 @@
 	</select>
 	<!-- 단건조회 -->
 	<select id="selectPetStarProfileInfo" resultType="PetStarProfileVO">
-		SELECT   profile_picture
-				,gender
-				,info
-				,member_code
-				,nickname
-		FROM  pet_stargram_profile
-		WHERE member_code = #{memberCode}
+		SELECT   p.profile_picture
+				,p.gender
+				,p.info
+				,m.member_code
+				,m.nickname
+		FROM   pet_stargram_profile p JOIN  member m
+									ON	p.member_code = m.member_code
+		WHERE m.member_code = #{memberCode}
 	</select>
 	<!-- 등록 -->
 	<insert id="insertProfile" parameterType="PetStarProfileVO">

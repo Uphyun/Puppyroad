@@ -120,13 +120,13 @@ public class NewsController {
 	public Map<String, Object> newsUpdate(NewsVO newsVO, @RequestPart(required = false) MultipartFile[] files, // 파일이 없을
 			@RequestParam(value = "deletedFiles", required = false) String[] deletedFiles // 삭제할 파일 목록
 	) {
-		// 1. 기존 첨부파일 가져오기
+		// 기존 첨부파일 가져오기
 		NewsVO findVO = newsService.getNewsInfo(newsVO);
 		String existingFiles = findVO.getAttachedFile(); // 기존 파일 목록 문자열
 		List<String> fileList = (existingFiles != null && !existingFiles.isEmpty())
 				? new ArrayList<>(Arrays.asList(existingFiles.split(","))) : new ArrayList<>();
 
-		// 2. 삭제할 파일 처리
+		// 삭제할 파일 처리
 		if (deletedFiles != null && deletedFiles.length > 0) {
 			for (String fileName : deletedFiles) {
 				// 파일 시스템에서 파일 삭제
@@ -140,7 +140,7 @@ public class NewsController {
 			}
 		}
 
-		// 3. 새로운 파일 업로드 처리
+		// 새로운 파일 업로드 처리
 		if (files != null && files.length > 0) {
 			for (MultipartFile file : files) {
 				String fileName = file.getOriginalFilename();
@@ -157,14 +157,14 @@ public class NewsController {
 			}
 		}
 
-		// 4. 최종 파일 목록을 다시 NewsVO에 설정
+		// 최종 파일 목록을 다시 NewsVO에 설정
 		if (!fileList.isEmpty()) {
 			newsVO.setAttachedFile(String.join(",", fileList));
 		} else {
 			newsVO.setAttachedFile(null); // 모든 파일이 삭제된 경우 null로 처리
 		}
 
-		// 5. 게시글 수정 처리
+		// 게시글 수정 처리
 		return newsService.modifyNews(newsVO);
 	}
 
