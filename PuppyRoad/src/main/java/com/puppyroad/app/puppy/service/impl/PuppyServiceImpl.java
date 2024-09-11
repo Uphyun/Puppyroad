@@ -1,5 +1,7 @@
 package com.puppyroad.app.puppy.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,18 @@ public class PuppyServiceImpl implements PuppyService {
 		int result = puppymapper.insertPuppy(puppyVO);
 		
 		return result == 1 ? puppyVO.getPuppyCode() : "fail" ;
+	}
+
+	@Override
+	public List<PuppyVO> ListPuppy(String clientUserId) {
+		
+		return puppymapper.selectPuppy(clientUserId);
+	}
+
+	@Override
+	public PuppyVO getInfoPuppy(PuppyVO puppyVO) {
+		
+		return puppymapper.selectPuppyInfo(puppyVO);
 	}
 	
 	
