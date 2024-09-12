@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -43,14 +45,18 @@ public class RoomController {
     
     //내 채팅방 목록
     @GetMapping("chat/myChat")
-    public String myRoomList(ChatRoomDTO chatRoomDTO, Model model) {
+    public String myRoomList(ChatRoomDTO chatRoomDTO, ChatMessageDTO chatMessageDTO,Model model) {
     	String mcode = SecurityUtil.memberCode();
     	
 		chatRoomDTO.setSender(mcode);
 		chatRoomDTO.setRecipient(mcode);
 		
 		List<ChatRoomDTO> list = chatRoomService.getMyRoomList(chatRoomDTO);
-    	model.addAttribute("myList", list);   
+    	model.addAttribute("myList", list); 
+    	
+    	
+    	model.addAttribute("myChat", chatMessageService.getMessageList(chatMessageDTO));
+    	
         return "/chat/myChat";
     }
     
@@ -77,6 +83,15 @@ public class RoomController {
     public void roomInfo(ChatRoomDTO chatRoomDTO, ChatMessageDTO chatMessageDTO, Model model){
     	model.addAttribute("room", chatRoomService.getRoomInfo(chatRoomDTO));
     	model.addAttribute("myChats", chatMessageService.getMessageList(chatMessageDTO));
+    }
+    
+    //채팅 목록 가져오기 : ajax
+    @GetMapping("chat/message")
+    @ResponseBody // => AJAX
+    public List<ChatMessageDTO> getMassageList(ChatMessageDTO chatMessageDTO) {
+    	
+		return chatMessageService.getMessageList(chatMessageDTO);
+    	
     }
     
 

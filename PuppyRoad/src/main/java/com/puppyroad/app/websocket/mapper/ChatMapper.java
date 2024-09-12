@@ -9,6 +9,7 @@ public interface ChatMapper {
 	public List<ChatRoomDTO> selectRoomList();
 	// my 전체 방
 	public List<ChatRoomDTO> selectMyRoomList(ChatRoomDTO chatRoomDTO);
+	
 	// 방 추가
 	public int insertRoom(ChatRoomDTO chatRoomDTO);
 	// 단건 조회
