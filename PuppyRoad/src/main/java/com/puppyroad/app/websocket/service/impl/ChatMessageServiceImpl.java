@@ -30,6 +30,11 @@ public class ChatMessageServiceImpl implements ChatMessageService {
 		return messageMapper.insertMessage(chatMessageDTO);
 	}
 
+	@Override
+	public ChatMessageDTO getRecentMessage(ChatMessageDTO chatMessageDTO) {
+		return messageMapper.selectRecentMessage(chatMessageDTO);
+	}
+
 
 
 }
