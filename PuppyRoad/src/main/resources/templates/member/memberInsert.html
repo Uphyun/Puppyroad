@@ -385,11 +385,16 @@
       
       $("#formCheck").on("click", () => {
     	  console.log(pwck, idck, phoneCk)
-    	  if(!pwck && !idck &&!phoneCk) {
+    	  if(pwck){
+    		  alert("아이디 중복체크 해주세요");
+    	  }else if(idck){
+    		  alert("비밀번호 체크 해주세요");
+    	  }else if(phoneCk){
+    		  alert("본인인증을 진행해주세요");
+    	  }else{
     		  $("form[name='insertForm']").submit();
-    	  } else {
-    		  alert("아이디 및 비밀번호를 확인해 주세요");
     	  }
+    	  
       })
     </script>
 </body>
