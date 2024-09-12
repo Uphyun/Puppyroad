@@ -10,12 +10,13 @@
     <title>소식통 등록</title>
 </head>
 <body>
+<section class="first-section-pt">
 <div class="container text-center pt-60 pb-60">
     <form name="insertForm" id="insertForm" method="post" enctype="multipart/form-data" class="d-flex flex-column align-items-center">
         <!-- 제목 입력 -->
         <div class="col-md-8 mb-3 ">
             <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-chevron-right"></i></span>
+                <span class="input-group-text"><i class="ti ti-ballpen"></i></span>
                 <input type="text" class="form-control" name="title" placeholder="제목을 입력해주세요." required>
             </div>
         </div>
@@ -23,7 +24,7 @@
         <!-- 내용 입력 -->
         <div class="col-md-8 mb-3">
             <div class="input-group">
-                <span class="input-group-text"><i class="far fa-pencil-alt"></i></span>
+                <span class="input-group-text"><i class="ti ti-message"></i></span>
                 <textarea class="form-control" name="content" placeholder="내용을 입력해주세요." required></textarea>
             </div>
         </div>
@@ -31,7 +32,7 @@
         <!-- 파일 업로드 -->
         <div class="col-md-8 mb-3">
             <div class="input-group">
-                <span class="input-group-text"><i class="far fa-image"></i></span>
+                <span class="input-group-text"><i class="ti ti-photo-plus"></i></span>
                 <input type="file" class="form-control" id="image" onchange="addFile(this);" accept="image/*" name="files" multiple>
             </div>
             <div id="image_list" class="mt-3"></div>
@@ -51,6 +52,6 @@
         </div>
     </form>
 </div>
-
+</section>
 </body>
 </html>
