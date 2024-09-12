@@ -11,16 +11,27 @@
 	</select>
 
 	<select id="selectMemberList" resultType="MemberVO">
-		select member_code
-				, user_id
-				, nickname
-				, join_date
-				, activity_date
-				, withdraw_date
-				, account_state
-		from member
-		where position = '의뢰인'
-		order by join_date desc
+		select  b.*
+		from    (
+		        select  rownum rn
+		                , a.*
+		        from    (
+		                select member_code
+		                        , user_id
+		                        , nickname
+		                        , join_date
+		                        , activity_date
+		                        , withdraw_date
+		                        , account_state
+		                from member
+		                where position = #{position}
+		                order by join_date desc
+		                ) a
+		        <![CDATA[
+		        where   rownum <= (#{pageDTO.page} * #{pageDTO.recordSize})
+		        ]]>
+		        ) b
+		where   b.rn > #{pageDTO.offset}
 	</select>
 	
 
@@ -72,15 +83,15 @@
 		from	member
 		where	position = '의뢰인'
 		<choose>
-			<when test="con == '아이디'">
-				and	user_id = #{member.userId}
+			<when test="condition == '아이디'">
+				and	user_id like '%' || #{memberVO.userId} || '%'
 			</when>
-			<when test="con == '닉네임'">
-				and nickname = #{member.nickName}
+			<when test="condition == '닉네임'">
+				and nickname like '%' || #{memberVO.nickName} || '%'
 			</when>
 			<otherwise>
-				and (user_id like '%' || #{member.userId} || '%'
-				or	nickname like '%' || #{member.nickName} || '%')
+				and (user_id like '%' || #{memberVO.userId} || '%'
+				or	nickname like '%' || #{memberVO.nickName} || '%')
 			</otherwise>
 		</choose>
 		order by join_date desc

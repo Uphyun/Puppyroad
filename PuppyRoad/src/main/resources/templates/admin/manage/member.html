@@ -20,14 +20,16 @@
                                     <div class="col-md-2">
                                           <div class="ms-n2">
                                                 <div class="dataTables_length" id="DataTables_Table_0_length">
-                                                      <label><select name="DataTables_Table_0_length"
+                                                      <label> <select name="DataTables_Table_0_length" id="recordSize"
+                                                                  onchange="getMemberList('의뢰인')"
                                                                   aria-controls="DataTables_Table_0"
                                                                   class="form-select">
                                                                   <option value="10">10</option>
                                                                   <option value="25">25</option>
                                                                   <option value="50">50</option>
                                                                   <option value="100">100</option>
-                                                            </select></label>
+                                                            </select>
+                                                      </label>
                                                 </div>
                                           </div>
                                     </div>
@@ -38,8 +40,7 @@
                                                       <div class="btn-group" id="searchDrop">
                                                             <button type="button" style="width: 180px;"
                                                                   class="btn btn-label-primary dropdown-toggle waves-effect waves-light"
-                                                                  data-bs-toggle="dropdown" aria-expanded="false">
-                                                                  아이디
+                                                                  data-bs-toggle="dropdown" aria-expanded="false">아이디
                                                             </button>
                                                             <ul class="dropdown-menu" style="">
                                                                   <li><a class="dropdown-item waves-effect"
@@ -96,96 +97,89 @@
                                                 <th class="sorting_disabled" rowspan="1" colspan="1"
                                                       style="width: 116.359px;" aria-label="계정상태">계정상태</th>
                                           </tr>
-                                    </thead>
-                                    <tbody>
                                           <!-- <tr class="odd">
                                                 <td valign="top" colspan="9" class="dataTables_empty">Loading...</td>
                                           </tr> -->
-                                          <th:block th:each="member : ${memberList}">
-                                                <tr class="odd">
-                                                      <td rowspan="1" colspan="1" style="width: 83.5312px;"
-                                                            class="dt-checkboxes-cell">
-                                                            <input type="checkbox" class="form-check-input"
-                                                                  th:value="${member.memberCode}">
-                                                      </td>
-                                                      <td style="width: 83.5312px;" class="dataTables_empty">[[
-                                                            ${member.nickName} ]]
-                                                      </td>
-                                                      <td rowspan="1" colspan="1" style="width: 85.5312px;"
-                                                            class="dataTables_empty">[[ ${member.userId} ]]
-                                                      </td>
-                                                      <td rowspan="1" colspan="1" style="width: 111.719px;"
-                                                            class="dataTables_empty">
-                                                            [[ ${#dates.format(member.joinDate, 'yyyy-MM-dd')} ]]
-                                                      </td>
-                                                      <td rowspan="1" colspan="1" style="width: 111.719px;"
-                                                            class="dataTables_empty">
-                                                            [[ ${#dates.format(member.activityDate, 'yyyy-MM-dd')} ]]
-                                                      </td>
-                                                      <td rowspan="1" colspan="1" style="width: 111.719px;"
-                                                            class="dataTables_empty">
-                                                            [[ ${#dates.format(member.withdrawDate, 'yyyy-MM-dd')} ]]
-                                                      </td>
-                                                      <td rowspan="1" colspan="1" style="width: 116.359px;"
-                                                            class="dataTables_empty">
-                                                            <button type="button"
-                                                                  class="btn btn-primary waves-effect waves-light viewInfo"
-                                                                  data-bs-toggle="modal" data-bs-target="#viewUser"
-                                                                  th:data-memberCode="${member.memberCode}">
-                                                                  상세보기
-                                                            </button>
-                                                      </td>
-                                                      <td rowspan="1" colspan="1" style="width: 116.359px;"
-                                                            class="dataTables_empty">
-                                                            <div class="position-relative"><select
-                                                                        onchange="changeState()"
-                                                                        class="select2 form-select select2-hidden-accessible accountState"
-                                                                        data-select2-id="accountState" tabindex="-1"
-                                                                        aria-hidden="true"
-                                                                        th:data-membercode="${member.memberCode}">
-                                                                        <th:block th:if="${member.accountState == 1}">
-                                                                              <option value="1" data-select2-id="2"
-                                                                                    selected>정상
-                                                                              </option>
-                                                                              <option value="2">휴면</option>
-                                                                              <option value="3">탈퇴</option>
-                                                                        </th:block>
-                                                                        <th:block th:if="${member.accountState == 2}">
-                                                                              <option value="1" data-select2-id="2">정상
-                                                                              </option>
-                                                                              <option value="2" selected>휴면</option>
-                                                                              <option value="3">탈퇴</option>
-                                                                        </th:block>
-                                                                        <th:block th:if="${member.accountState == 3}">
-                                                                              <option value="1" data-select2-id="2">정상
-                                                                              </option>
-                                                                              <option value="2">휴면</option>
-                                                                              <option value="3" selected>탈퇴</option>
-                                                                        </th:block>
-                                                                  </select>
-                                                            </div>
-                                                      </td>
-                                                </tr>
-                                          </th:block>
+                                    </thead>
+                                    <tbody id="memberListBody">
+                                          <tr class="odd" th:each="member : ${memberList}">
+                                                <td rowspan="1" colspan="1" style="width: 83.5312px;"
+                                                      class="dt-checkboxes-cell"><input type="checkbox"
+                                                            class="form-check-input" th:value="${member.memberCode}">
+                                                </td>
+                                                <td style="width: 83.5312px;" class="dataTables_empty"
+                                                      th:text="${member.nickName}"></td>
+                                                <td rowspan="1" colspan="1" style="width: 85.5312px;"
+                                                      class="dataTables_empty" th:text="${member.userId}"></td>
+                                                <td rowspan="1" colspan="1" style="width: 111.719px;"
+                                                      class="dataTables_empty"
+                                                      th:text="${#dates.format(member.joinDate, 'yyyy-MM-dd')}">
+                                                </td>
+                                                <td rowspan="1" colspan="1" style="width: 111.719px;"
+                                                      class="dataTables_empty"
+                                                      th:text="${#dates.format(member.activityDate, 'yyyy-MM-dd')}">
+                                                </td>
+                                                <td rowspan="1" colspan="1" style="width: 111.719px;"
+                                                      class="dataTables_empty"
+                                                      th:text="${#dates.format(member.withdrawDate, 'yyyy-MM-dd')}">
+                                                </td>
+                                                <td rowspan="1" colspan="1" style="width: 116.359px;"
+                                                      class="dataTables_empty">
+                                                      <button type="button"
+                                                            class="btn btn-primary waves-effect waves-light viewInfo"
+                                                            data-bs-toggle="modal" data-bs-target="#viewUser"
+                                                            th:data-memberCode="${member.memberCode}">상세보기</button>
+                                                </td>
+                                                <td rowspan="1" colspan="1" style="width: 116.359px;"
+                                                      class="dataTables_empty">
+                                                      <div class="position-relative">
+                                                            <select onchange="changeState()"
+                                                                  class="select2 form-select select2-hidden-accessible accountState"
+                                                                  data-select2-id="accountState" tabindex="-1"
+                                                                  aria-hidden="true"
+                                                                  th:data-membercode="${member.memberCode}">
+                                                                  <th:block th:if="${member.accountState == 1}">
+                                                                        <option value="1" data-select2-id="2" selected>
+                                                                              정상</option>
+                                                                        <option value="2">휴면</option>
+                                                                        <option value="3">탈퇴</option>
+                                                                  </th:block>
+                                                                  <th:block th:if="${member.accountState == 2}">
+                                                                        <option value="1" data-select2-id="2">정상
+                                                                        </option>
+                                                                        <option value="2" selected>휴면</option>
+                                                                        <option value="3">탈퇴</option>
+                                                                  </th:block>
+                                                                  <th:block th:if="${member.accountState == 3}">
+                                                                        <option value="1" data-select2-id="2">정상
+                                                                        </option>
+                                                                        <option value="2">휴면</option>
+                                                                        <option value="3" selected>탈퇴</option>
+                                                                  </th:block>
+                                                            </select>
+                                                      </div>
+                                                </td>
+                                          </tr>
                                     </tbody>
                               </table>
 
                               <div class="row">
                                     <div class="col-sm-12 col-md-6">
                                           <div class="dataTables_info" id="DataTables_Table_0_info" role="status"
-                                                aria-live="polite">Showing 0 to 0 of 0 entries</div>
+                                                aria-live="polite">Showing 0 to 0 of 0
+                                                entries</div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                           <div class="dataTables_paginate paging_simple_numbers"
                                                 id="DataTables_Table_0_paginate">
                                                 <ul class="pagination">
                                                       <li class="paginate_button page-item previous disabled"
-                                                            id="DataTables_Table_0_previous"><a
-                                                                  aria-controls="DataTables_Table_0"
-                                                                  aria-disabled="true" role="link"
-                                                                  data-dt-idx="previous" tabindex="-1"
+                                                            id="DataTables_Table_0_previous">
+                                                            <a aria-controls="DataTables_Table_0" aria-disabled="true"
+                                                                  role="link" data-dt-idx="previous" tabindex="-1"
                                                                   class="page-link"><i
-                                                                        class="ti ti-chevron-left ti-sm"></i></a></li>
+                                                                        class="ti ti-chevron-left ti-sm"></i></a>
+                                                      </li>
                                                       <li class="paginate_button page-item next disabled"
                                                             id="DataTables_Table_0_next"><a
                                                                   aria-controls="DataTables_Table_0"
@@ -241,10 +235,8 @@
                                                                                                 data-select2-id="2"
                                                                                                 selected>정상
                                                                                           </option>
-                                                                                          <option value="2">휴면
-                                                                                          </option>
-                                                                                          <option value="3">탈퇴
-                                                                                          </option>
+                                                                                          <option value="2">휴면</option>
+                                                                                          <option value="3">탈퇴</option>
                                                                                     </select>
                                                                               </div>
                                                                         </td>
@@ -258,17 +250,14 @@
                                                             <hr>
 
                                                             <h5 class="mb-2 pb-1">애완견 목록</h5>
-                                                            <div id="puppies">
-
-                                                            </div>
+                                                            <div id="puppies"></div>
 
                                                             <!-- close button -->
                                                             <div class="col-12 mt-3 text-center">
                                                                   <button type="button"
                                                                         class="btn btn-label-secondary waves-effect"
-                                                                        data-bs-dismiss="modal" aria-label="Close">
-                                                                        닫기
-                                                                  </button>
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close">닫기</button>
                                                             </div>
                                                       </div>
                                                 </div>
