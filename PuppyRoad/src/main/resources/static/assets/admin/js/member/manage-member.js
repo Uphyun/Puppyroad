@@ -1,6 +1,33 @@
 /**
  * 
  */
+//페이지 로딩시 데이터 가져오기
+function getMemberList(position, condition = null) {
+	let recordSize = $("#recordSize").val();
+	let page = 1;
+
+
+	if (event != undefined) {
+		if (condition == "page") {
+			page = $(event.target).val();
+		}
+	}
+
+	let data = { recordSize, page, position };
+
+	$.ajax({
+		url: "/ajax/memberList",
+		method: "get",
+		data: data,
+	})
+		.done(memberList => {
+			$("#memberListBody").replaceWith(memberList);
+		})
+		.fail(err => console.log(err));
+
+}
+getMemberList('의뢰인');
+
 //회원 조회
 $('.viewInfo').on("click", function () {
 	let memberCode = $(event.target).data("membercode");
@@ -172,10 +199,10 @@ function searchMember() {
 		method: "get",
 		url: "/ajax/searchMember",
 		data: data,
-		success: function(memberList) {
+		success: function (memberList) {
 			$("#memberListBody").replaceWith(memberList);
 		},
-		fail : err => console.log(err)
+		fail: err => console.log(err)
 	});
 }
 

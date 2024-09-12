@@ -11,16 +11,27 @@
 	</select>
 
 	<select id="selectMemberList" resultType="MemberVO">
-		select member_code
-				, user_id
-				, nickname
-				, join_date
-				, activity_date
-				, withdraw_date
-				, account_state
-		from member
-		where position = '의뢰인'
-		order by join_date desc
+		select  b.*
+		from    (
+		        select  rownum rn
+		                , a.*
+		        from    (
+		                select member_code
+		                        , user_id
+		                        , nickname
+		                        , join_date
+		                        , activity_date
+		                        , withdraw_date
+		                        , account_state
+		                from member
+		                where position = #{position}
+		                order by join_date desc
+		                ) a
+		        <![CDATA[
+		        where   rownum <= (#{pageDTO.page} * #{pageDTO.recordSize})
+		        ]]>
+		        ) b
+		where   b.rn > #{pageDTO.offset}
 	</select>
 	
 
