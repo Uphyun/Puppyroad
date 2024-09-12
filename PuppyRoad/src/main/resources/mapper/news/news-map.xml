@@ -12,7 +12,7 @@
 				,bulletin_type
 		FROM  news 		
 		WHERE bulletin_type = #{bulletinType}
-		ORDER BY bulletin_no DESC
+		ORDER BY writing_date DESC
 	</select>
 	<!-- 단건조회 -->
 	<select id="selectNewsInfo" resultType="NewsVO">

@@ -6,7 +6,6 @@
 		SELECT   bulletin_no
 				,content
 				,writing_date
-				,update_date
 				,attached_file
 				,member_code
 		FROM  pet_stargram_bulletin 
@@ -18,7 +17,6 @@
 		SELECT   bulletin_no
 				,content
 				,writing_date
-				,update_date
 				,attached_file
 				,member_code
 		FROM  pet_stargram_bulletin
@@ -27,7 +25,7 @@
 	<!-- 등록 -->
 	<insert id="insertBulletin" parameterType="PetstarBulletinVO">
 		<selectKey keyProperty="bulletinNo"
-				   resultType="String"
+				   resultType="Integer"
 				   order="BEFORE">
 			   SELECT NVL(MAX(bulletin_no), 0 ) + 1
 			   FROM   pet_stargram_bulletin
@@ -38,6 +36,7 @@
 				,content
 				,writing_date
 				,attached_file
+				,member_code
 		   )
 		 VALUES
 		   (
@@ -45,6 +44,7 @@
 		   		,#{content}
 		   		,NVL(#{writingDate}, sysdate)
 		   		,to_char(#{attachedFile})
+		   		,#{memberCode}
 		   	)  
 	</insert>
 	
@@ -53,7 +53,7 @@
 		UPDATE pet_stargram_bulletin
 		 SET
 		   ,content = #{content}
-		   ,update_date = sysdate
+		   ,writing_date = sysdate
 		   ,attached_file = #{attachedFile}
 		WHERE bulletin_no = #{bulletinNo}
 	</update>
