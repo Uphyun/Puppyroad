@@ -12,7 +12,7 @@
 
 	<form class="card-body pt-12" name="insertForm" id="frm"
 		th:action="@{/user/insertPuppy}" method="post" th:object="${puppyVO}"
-		style="width: 400px; margin: auto">
+		style="width: 400px; margin: auto" enctype="multipart/form-data">
 		<div class="user-avatar-section">
 			<div class="d-flex align-items-center flex-column">
 				
@@ -25,9 +25,16 @@
 		<h5 class="pb-4 border-bottom mb-4"></h5>
 		<div class="info-container">
 			<ul class="list-unstyled mb-6">
-<!-- 			<img class="img-fluid rounded mb-4"
-					src="../../assets/img/avatars/1.png" height="120" width="120"
-					alt="User avatar"> -->
+				<li class="col-12 col-md-5 mb-4 text-center">
+								<label for="profilePictureEdit" style="cursor: pointer;">
+									<img id="profileImagePreview"
+									th:src="@{/images/{fileName}(fileName=${puppyVO.picture})}"
+									th:alt="${fileName}"
+									style="max-width: 100px; max-height: 100px; display: block;" />
+								</label> <input type="file" class="form-control" id="profilePictureEdit"
+									name="file" accept="image/*" onchange="previewImage(event);"
+									style="display: block;" />
+							</li>
 				<li class="mb-2"><span class="h6">이름</span> <input
 					class="form-control" type="text" name="dogName"
 					th:errorclass="error-input" placeholder="댕댕이 이름"
@@ -222,6 +229,18 @@
 	</section>
 </body>
 <script>
+//이미지 미리보기 함수
+function previewImage(event) {
+	const reader = new FileReader();
+	const imageField = document.getElementById("profileImagePreview");
+
+	reader.onload = function() {
+		if (reader.readyState === 2) {
+			imageField.src = reader.result;
+		}
+	};
+	reader.readAsDataURL(event.target.files[0]);
+}
 
 </script>
 </html>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.puppyroad.app.admin.manage.mapper.ManageMemberMapper;
 import com.puppyroad.app.admin.manage.service.ManageMemberService;
+import com.puppyroad.app.main.service.PageDTO;
 import com.puppyroad.app.member.service.MemberVO;
 
 @Service
@@ -18,9 +19,9 @@ public class ManageMemberServiceImpl implements ManageMemberService{
 	ManageMemberMapper manageMemberMapper;
 
 	@Override
-	public List<MemberVO> getMemberList() {
+	public List<MemberVO> getMemberList(PageDTO pageDTO, String position) {
 		// TODO Auto-generated method stub
-		return manageMemberMapper.selectMemberList();
+		return manageMemberMapper.selectMemberList(pageDTO, position);
 	}
 
 	@Override

@@ -12,8 +12,6 @@ public class PetstarBulletinVO {
 	private String content;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date writingDate;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date updateDate;
 	private String attachedFile;
 	private String memberCode;
 }
