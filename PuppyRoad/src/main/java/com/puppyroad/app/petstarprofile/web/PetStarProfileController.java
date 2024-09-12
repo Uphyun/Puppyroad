@@ -70,7 +70,6 @@ public class PetStarProfileController {
 	public String profileUpdate(PetStarProfileVO profileVO,
 	        @RequestPart(required = false) MultipartFile file, Model model) {
 
-	    // 사용자 정보를 다시 모델에 추가 (필요 시)
 	    model.addAttribute("profile", profileVO);
 
 	    // 현재 사용자의 memberCode를 가져옴

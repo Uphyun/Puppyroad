@@ -6,11 +6,11 @@
 <head>
     <link rel="stylesheet" href="/assets/main/css/news/newsUpdate.css" type="text/css" />
     <script type="text/javascript" src="/assets/main/js/news/newsUpdate.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <meta charset="UTF-8">
     <title>소식통 수정</title>
 </head>
 <body>
+<section class="first-section-pt">
 <div class="container text-center pt-60 pb-60">
     <form name="updateForm" id="updateForm" method="post"
           enctype="multipart/form-data" th:object="${news}"
@@ -19,7 +19,7 @@
         <!-- 번호 -->
         <div class="col-md-8 mb-3 ">
             <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
+                <span class="input-group-text"><i class="ti ti-list-numbers"></i></span>
                 <input type="text" class="form-control" readonly th:field="*{bulletinNo}">
             </div>
         </div>
@@ -27,7 +27,7 @@
         <!-- 제목 입력 -->
         <div class="col-md-8 mb-3 ">
             <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-chevron-right"></i></span>
+                <span class="input-group-text"><i class="ti ti-ballpen"></i></span>
                 <input type="text" class="form-control" th:field="*{title}" placeholder="제목을 입력해주세요." required>
             </div>
         </div>
@@ -35,7 +35,7 @@
         <!-- 내용 입력 -->
         <div class="col-md-8 mb-3">
             <div class="input-group">
-                <span class="input-group-text"><i class="fa fa-text-height"></i></span>
+                <span class="input-group-text"><i class="ti ti-message"></i></span>
                 <textarea class="form-control" th:field="*{content}" placeholder="내용을 입력해주세요." required></textarea>
             </div>
         </div>
@@ -43,16 +43,15 @@
         <!-- 파일 업로드 -->
         <div class="col-md-8 mb-3">
             <div class="input-group">
-                <span class="input-group-text"><i class="far fa-image"></i></span>
+                <span class="input-group-text"><i class="ti ti-photo"></i></span>
                 <input type="file" class="form-control" id="image" onchange="addFile(this);" accept="image/*" name="files" multiple>
             </div>
             <div id="image_list" class="mt-3">
                 <!-- 기존에 등록된 파일 목록 -->
                <div th:each="fileName : ${#strings.arraySplit(news.attachedFile, ',')}">
                     <div class="preview-item">
-                        <img th:src="@{/images/{fileName}(fileName=${fileName})}" alt="첨부 이미지" style="max-width: 100px; max-height: 100px; display: block;"/>
-                        <p class="name" th:text="${fileName}"></p>
-                      <a th:onclick="deleteExistingFile([[${fileName}]])"><i class="far fa-minus-square"></i></a>	
+                        <img th:src="@{/images/{fileName}(fileName=${fileName})}" alt="첨부 이미지" style="width: 100px; height: 100px; object-fit: cover; "/>
+                      <a th:onclick="deleteExistingFile([[${fileName}]])" style="display: block; margin-top: 5px;"><i class="ti ti-minus" ></i></a>	
                     </div>
                 </div>
             </div>
@@ -64,5 +63,6 @@
         </div>
     </form>
 </div>
+</section>
 </body>
 </html>

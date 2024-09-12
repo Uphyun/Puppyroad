@@ -34,11 +34,11 @@
 		   )
 		 VALUES
 		   (
-		   		#{profilePicture}
-		   		,#{gender}
-		   		,#{info}
-		   		,#{memberCode}
-		   		,#{nickname}
+       			   #{profilePicture}
+       			  ,#{gender}
+      			  ,#{info}
+      			  ,#{memberCode}
+      			  ,#{nickname}
 		   	)  
 	</insert>
 	

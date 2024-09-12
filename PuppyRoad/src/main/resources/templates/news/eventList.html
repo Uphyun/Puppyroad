@@ -8,6 +8,7 @@
 <title>공지사항</title>
 </head>
 <body>
+<section class="first-section-pt">
 	<div class="container text-center pt-60 pb-60">
 	<button type="button" class="btn btn-info" 
 	 th:onClick="|location.href='@{newsList}'|">공지사항</button>
@@ -39,6 +40,7 @@
 			</tbody>
 		</table>
 	</div>
+	</section>
 	<script>
 	$('.title').on('click', function(event) {
 		let trTag = $(this).closest('tr');
