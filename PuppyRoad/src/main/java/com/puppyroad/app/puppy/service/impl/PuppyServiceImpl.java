@@ -45,6 +45,12 @@ public class PuppyServiceImpl implements PuppyService {
 		
 		return puppymapper.updatePuppy(puppyVO);
 	}
+
+	@Override
+	public int deletePuppy(String puppyCode) {
+		// TODO Auto-generated method stub
+		return puppymapper.deletePuppy(puppyCode);
+	}
 	
 	
 	

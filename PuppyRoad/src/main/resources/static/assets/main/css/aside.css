@@ -1,0 +1,22 @@
+@charset "UTF-8";
+/* 플렉스 레이아웃 설정 */
+  .main-container {
+    display: flex;
+    width: 100%; /* 컨테이너가 화면 전체를 차지 */
+    min-height: 100vh; /* 화면 전체 높이 차지 */
+  }
+
+  aside {
+    width: 80px; /* 고정된 폭 */
+    background-color: #f4f4f4; /* 어사이드 배경색 */
+    padding: 10px;
+    box-sizing: border-box; /* 패딩을 포함한 전체 너비 계산 */
+     margin-right: 5px; /* 어사이드와 본문 사이 간격을 줄임 */
+  }
+
+  .content {
+    flex-grow: 1; /* 나머지 공간을 차지 */
+    padding: 20px;
+    background-color: #fff;
+    box-sizing: border-box; /* 패딩을 포함한 너비 계산 */
+  }

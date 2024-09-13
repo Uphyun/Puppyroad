@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.puppyroad.app.puppy.mapper.PuppyMapper">
+
 	<insert id="insertPuppy" parameterType="PuppyVO">
 		<selectKey keyProperty="puppyCode" order="BEFORE" resultType="String">
 			SELECT NVL(MAX(TO_NUMBER(puppy_code)), 0) + 1 as "puppy_code"
@@ -41,7 +42,9 @@
  			, #{picture}
 
 		)
+		
 	</insert>
+	
 	<select id="selectPuppy" resultType="puppyVO" parameterType="string">
 		SELECT 	picture
 				, client_user_Id
@@ -58,6 +61,7 @@
 		FROM    puppy
 		WHERE   client_user_Id = #{clientUserId}
 		ORDER BY puppy_code
+		
 	</select>
 	
 	<select id="selectPuppyInfo" resultType="puppyVO" parameterType="puppyVO">
@@ -76,6 +80,7 @@
 		FROM    puppy
 		WHERE   client_user_Id = #{clientUserId}
 		AND     puppy_code = #{puppyCode}
+		
 	</select>
 	
 	<update id="updatePuppy">
@@ -92,6 +97,12 @@
 		AND     puppy_code = #{puppyCode}
 		
 	</update>
+	
+	<delete id="deletePuppy">
+		DELETE puppy
+		WHERE puppy_code = #{puppyCode} 
+	
+	</delete>
 	
 
 </mapper>

@@ -4,12 +4,18 @@
 	layout:decorate="~{common/layouts/default_layout}"
 	layout:fragment="Content">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<style>
+  </style>
 </head>
 <body>
 	<section class="first-section-pt">
-		<div class="container-xxl flex-grow-1 container-p-y">
+	<div class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
+              <div class="flex-shrink-1 flex-grow-0 w-px-350 border-end container-p-x container-p-y">
+                <div th:insert="common/fragments/admin/aside :: AsideFragment"></div>
+              </div>
+
+              <div class="flex-shrink-1 flex-grow-1 container-p-x container-p-y">
+              	<div class="container-xxl flex-grow-1 container-p-y">
 			<div class="row">
 				<!-- User Sidebar -->
 				<div class="col-xl-4 col-lg-5 order-1 order-md-0">
@@ -124,6 +130,7 @@
 											<label><input type="search" class="form-control"
 												placeholder="Search Project"
 												aria-controls="DataTables_Table_1"></label>
+												<button type="button" class="btn btn-sm btn-primary waves-effect waves-light" onclick="location.href='/user/insertPuppy'">+댕댕이추가</button>
 										</div>
 									</div>
 								</div>
@@ -363,7 +370,7 @@
 				</div>
 				<!--/ User Content -->
 			</div>
-
+</div>
 			<!-- Modal -->
 			<!-- Edit User Modal -->
 			<div class="modal fade" id="editUser" tabindex="-1"
@@ -478,14 +485,21 @@
 									<div
 										class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
 								</div>
+								<div class="col-12 col-md-6 fv-plugins-icon-container">
+									<label class="form-label" for="modalEditUserLastName">성격</label> <input type="text" id="personality"
+										name="personality" class="form-control"
+										placeholder="Doe" value="Doe">
+									<div
+										class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+								</div>
 								<div class="col-12">
 								</div>
 								<div class="col-12 text-center">
-									<button type="submit"
-										class="btn btn-primary me-3 waves-effect waves-light">Submit</button>
+									<button type="button" onclick="handleSubmit()"
+										class="btn btn-primary me-3 waves-effect waves-light">저장</button>
 									<button type="reset"
 										class="btn btn-label-secondary waves-effect"
-										data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+										data-bs-dismiss="modal" aria-label="Close">취소</button>
 								</div>
 								<input type="hidden">
 							</form>
@@ -545,6 +559,11 @@
 					</div>
 				</div>
 			</div>
+              
+
+              </div>
+            </div>
+		
 			<!--/ Add New Credit Card Modal -->
 	
 			<!-- /Modal -->
