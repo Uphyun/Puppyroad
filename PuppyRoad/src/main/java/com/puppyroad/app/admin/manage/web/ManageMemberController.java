@@ -29,11 +29,14 @@ public class ManageMemberController {
 	}
 	
 	@GetMapping("ajax/memberList")
-	public String getMemberListPaging(Model model, PageDTO pageDTO, String position) {
-		List<MemberVO> memberList = manageMemberService.getMemberList(pageDTO, position);
+	public String getMemberListPaging(Model model, PageDTO pageDTO, MemberVO memberVO, String condition) {
+		List<MemberVO> memberList = manageMemberService.getMemberList(pageDTO, memberVO, condition);
+		PageDTO nowPagingDTO = new PageDTO(pageDTO.getPage(), pageDTO.getRecordSize(), manageMemberService.getMemberPage(memberVO, condition));
 		
+		System.err.println(nowPagingDTO);
 		model.addAttribute("memberList", memberList);
-		model.addAttribute("page", pageDTO);		return "admin/manage/member::#memberListBody";
+		model.addAttribute("page", pageDTO);
+		return "admin/manage/member::#memberListBody";
 	}
 	
 	@GetMapping("ajax/manageMember")

@@ -24,7 +24,19 @@
 		                        , withdraw_date
 		                        , account_state
 		                from member
-		                where position = #{position}
+		                where position = #{memberVO.position}
+						<choose>
+							<when test="condition == '아이디'">
+								and	user_id like '%' || #{memberVO.userId} || '%'
+							</when>
+							<when test="condition == '닉네임'">
+								and nickname like '%' || #{memberVO.nickName} || '%'
+							</when>
+							<otherwise>
+								and (user_id like '%' || #{memberVO.userId} || '%'
+								or	nickname like '%' || #{memberVO.nickName} || '%')
+							</otherwise>
+						</choose>
 		                order by join_date desc
 		                ) a
 		        <![CDATA[
@@ -32,6 +44,24 @@
 		        ]]>
 		        ) b
 		where   b.rn > #{pageDTO.offset}
+	</select>
+	
+	<select id="selectMemberCnt">
+		select	count(*)
+		from	member
+		where	position = #{memberVO.position}
+		<choose>
+			<when test="condition == '아이디'">
+				and	user_id like '%' || #{memberVO.userId} || '%'
+			</when>
+			<when test="condition == '닉네임'">
+				and nickname like '%' || #{memberVO.nickName} || '%'
+			</when>
+			<otherwise>
+				and (user_id like '%' || #{memberVO.userId} || '%'
+				or	nickname like '%' || #{memberVO.nickName} || '%')
+			</otherwise>
+		</choose>
 	</select>
 	
 

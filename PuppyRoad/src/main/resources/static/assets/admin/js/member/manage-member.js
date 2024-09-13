@@ -1,19 +1,19 @@
 /**
  * 
  */
+getMemberList('의뢰인', 1);
 //페이지 로딩시 데이터 가져오기
-function getMemberList(position, condition = null) {
+function getMemberList(position, page) {
+	let searchType = $("#searchTypeInput").val();
+	let keyword = $("#keywordInput").val();
 	let recordSize = $("#recordSize").val();
-	let page = 1;
+	page = page == null ? 1 : page;
 
-
-	if (event != undefined) {
-		if (condition == "page") {
-			page = $(event.target).val();
-		}
+	if (searchType == "조건 선택") {
+		searchType = null;
 	}
 
-	let data = { recordSize, page, position };
+	let data = setSearchData(recordSize, page, position, searchType, keyword);
 
 	$.ajax({
 		url: "/ajax/memberList",
@@ -21,14 +21,37 @@ function getMemberList(position, condition = null) {
 		data: data,
 	})
 		.done(memberList => {
+			console.log(memberList);
 			$("#memberListBody").replaceWith(memberList);
 		})
 		.fail(err => console.log(err));
 
 }
-getMemberList('의뢰인');
 
-//회원 조회
+//데이터 설정
+function setSearchData(recordSize, page, position, searchType, keyword) {
+	let data = { recordSize, page, position, searchType };
+	if (searchType == "아이디") {
+		data.userId = keyword;
+	} else if (searchType == "닉네임") {
+		data.nickName = keyword;
+	} else if (searchType == "아이디 및 닉네임") {
+		data.userId = keyword;
+		data.nickName = keyword;
+	} else {
+		return null;
+	}
+
+	return data;
+}
+
+//선택된 조건 설정
+$("#searchDrop a").on("click", function () {
+	$("#searchTypeInput").val($(event.target).text());
+	$("#searchDrop button").text($(event.target).text());
+})
+
+//회원 상제 조회
 $('.viewInfo').on("click", function () {
 	let memberCode = $(event.target).data("membercode");
 
@@ -184,47 +207,3 @@ function changeState() {
 			}
 		});
 }
-
-//아이디 및 닉네임 검색
-function searchMember() {
-	let condition = $("#conditionInput").val();
-	let searchIn = $("#searchInput").val();
-	let data = setSearchData(condition, searchIn);
-
-	if (data == null) {
-		return alert("검색 조건을 확인 해 주세요");
-	}
-
-	$.ajax({
-		method: "get",
-		url: "/ajax/searchMember",
-		data: data,
-		success: function (memberList) {
-			$("#memberListBody").replaceWith(memberList);
-		},
-		fail: err => console.log(err)
-	});
-}
-
-//데이터 설정
-function setSearchData(condition, searchIn) {
-	let data = { condition };
-	if (condition == "아이디") {
-		data.userId = searchIn;
-	} else if (condition == "닉네임") {
-		data.nickName = searchIn;
-	} else if (condition == "아이디 및 닉네임") {
-		data.userId = searchIn;
-		data.nickName = searchIn;
-	} else {
-		return null;
-	}
-
-	return data;
-}
-
-//선택된 조건 설정
-$("#searchDrop a").on("click", function () {
-	$("#conditionInput").val($(event.target).text());
-	$("#searchDrop button").text($(event.target).text());
-})
