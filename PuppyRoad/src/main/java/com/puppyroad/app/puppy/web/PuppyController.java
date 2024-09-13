@@ -12,12 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.puppyroad.app.petstarprofile.service.PetStarProfileVO;
 import com.puppyroad.app.puppy.service.PuppyService;
 import com.puppyroad.app.puppy.service.PuppyVO;
 import com.puppyroad.app.util.SecurityUtil;
@@ -141,6 +141,14 @@ public class PuppyController {
 		
 	}
 	//강아지 삭제
+	@PostMapping("user/deletePuppy")
+	@ResponseBody
+	public String deletePuppy(@RequestParam("puppyCode") String PuppyCode) {
+		
+		puppyservice.deletePuppy(PuppyCode);
+		
+		return "success";
+	}
 	
 	
 	

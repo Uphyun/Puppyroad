@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.puppyroad.app.dogwalker.mapper.DogWalkerMapper">
+<insert id="insertwalker">
+		INSERT INTO walker_add_info
+		(
+		      GENDER
+		    , BANK_CODE
+		    , BANK_ACCOUNT
+		    , PICTURE
+		    , WORK_WEEK
+		    , WORK_TIME
+		    , PREFERENCE_LOCATION
+		    , APPROVAL_STATE
+		    , MEMO
+		    , S_SIZE
+		    , M_SIZE
+		    , L_SIZE
+		)
+		VALUES 
+		(
+
+		    , #{gender}
+		    , #{bankCode}
+		    , #{bankAccount}
+		    , #{picture}
+		    , #{workWeek}
+		    , #{workTime}
+		    , #{preferenceLocation}
+		    , #{approvalState}
+		    , #{memo}
+		    , #{sSize}
+		    , #{mSize}
+		    , #{lSize}
+		)
+	</insert>
+	
+
+</mapper>

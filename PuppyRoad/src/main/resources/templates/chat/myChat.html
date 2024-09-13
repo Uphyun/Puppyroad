@@ -10,72 +10,49 @@
     <meta charset="UTF-8" />
 
     <!-- Favicon -->
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="/assets/admin/img/favicon/favicon.ico"
-    />
-
+    <link rel="icon" type="image/x-icon" href="/assets/admin/img/favicon/favicon.ico" />
+   
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&ampdisplay=swap"
-      rel="stylesheet"
-    />
-
+      rel="stylesheet" />
+    
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="/assets/admin/vendor/css/rtl/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="/assets/admin/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
+    
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="/assets/admin/vendor/libs/node-waves/node-waves.css" />
+    <link rel="stylesheet" href="/assets/admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="/assets/admin/vendor/libs/typeahead-js/typeahead.css" />
+    <link rel="stylesheet" href="/assets/admin/vendor/libs/fullcalendar/fullcalendar.css" />
+    <link rel="stylesheet" href="/assets/admin/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="/assets/admin/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="/assets/admin/vendor/libs/quill/editor.css" />
+    <link rel="stylesheet" href="/assets/admin/vendor/libs/@form-validation/form-validation.css" />
+    
+    <!-- Page CSS -->
+    <link rel="stylesheet" href="/assets/admin/vendor/css/pages/app-calendar.css" />
+    
+    <!-- Helpers -->
+    <script src="/assets/admin/vendor/js/helpers.js"></script>
+    <script src="/assets/admin/vendor/js/template-customizer.js"></script>
+    <script src="/assets/admin/js/config.js"></script>
+    
     <!-- Icons -->
     <link rel="stylesheet" href="/assets/admin/vendor/fonts/fontawesome.css" />
     <link rel="stylesheet" href="/assets/admin/vendor/fonts/tabler-icons.css" />
     <link rel="stylesheet" href="/assets/admin/vendor/fonts/flag-icons.css" />
-
-    <!-- Core CSS -->
-
-    <link
-      rel="stylesheet"
-      href="/assets/admin/vendor/css/rtl/core.css"
-      class="template-customizer-core-css"
-    />
-    <link
-      rel="stylesheet"
-      href="/assets/admin/vendor/css/rtl/theme-default.css"
-      class="template-customizer-theme-css"
-    />
-
     <link rel="stylesheet" href="/assets/admin/css/demo.css" />
-
-    <!-- Vendors CSS -->
-    <link
-      rel="stylesheet"
-      href="/assets/admin/vendor/libs/node-waves/node-waves.css"
-    />
-
-    <link
-      rel="stylesheet"
-      href="/assets/admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css"
-    />
-    <link
-      rel="stylesheet"
-      href="/assets/admin/vendor/libs/typeahead-js/typeahead.css"
-    />
-    <link
-      rel="stylesheet"
-      href="/assets/admin/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.css"
-    />
-
-    <!-- Page CSS -->
-
-    <link rel="stylesheet" href="/assets/admin/vendor/css/pages/app-chat.css" />
+    <link rel="stylesheet" href="/assets/admin/vendor/libs/bs-stepper/bs-stepper.css" />
 
     <!-- Helpers -->
-    <script src="/assets/admin/vendor/js/helpers.js"></script>
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-
-    <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-    <script src="/assets/admin/vendor/js/template-customizer.js"></script>
-
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="/assets/admin/js/config.js"></script>
+    <link rel="stylesheet" href="/assets/admin/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.css"/>
+    
+    <!-- Page CSS -->
+    <link rel="stylesheet" href="/assets/admin/vendor/css/pages/app-chat.css" />
   </head>
 
   <body>
@@ -101,7 +78,7 @@
                     >
                       <div class="d-flex align-items-center me-6 me-lg-0">
                         <div
-                          class="flex-shrink-0 avatar avatar-online me-4"
+                          class="flex-shrink-0 avatar me-4"
                           data-bs-toggle="sidebar"
                           data-overlay="app-overlay-ex"
                           data-target="#app-chat-sidebar-left"
@@ -155,7 +132,7 @@
                         
 	                        <li class="chat-contact-list-item mb-1 room" th:id="${room.roomId}">
 	                          <a class="d-flex align-items-center">
-	                            <div class="flex-shrink-0 avatar avatar-online">
+	                            <div class="flex-shrink-0 avatar">
 	                              <img
 	                                src="/assets/admin/img/avatars/13.png"
 	                                alt="Avatar"
@@ -173,6 +150,8 @@
 						<small class="text-muted" th:if = "${room.chattingType}==4" th:text="비활성"></small>
 	                              </div>
 	                              <small class="chat-contact-status text-truncate">[[${room.myRoomList[0].message}]]</small>
+	                              <input type="hidden" th:value="${room.recipient}" id=recipient/>
+	                              <input type="hidden" th:value="${room.sender}" id=sender/>
 	                            </div>
 	                          </a>
 	                        </li>
@@ -188,83 +167,46 @@
                   <div class="col app-chat-history">
                     <div class="chat-history-wrapper">
                       <div class="chat-history-header border-bottom">
-                        <div
-                          class="d-flex justify-content-between align-items-center"
-                        >
-                          <div
-                            class="d-flex overflow-hidden align-items-center"
-                          >
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="d-flex overflow-hidden align-items-center"  id="chatProfile">
                             <i
                               class="ti ti-menu-2 ti-lg cursor-pointer d-lg-none d-block me-4"
                               data-bs-toggle="sidebar"
                               data-overlay
-                              data-target="#app-chat-contacts"
-                            ></i>
-                            <div class="flex-shrink-0 avatar avatar-online">
+                              data-target="#app-chat-contacts"></i>
+                            <div class="flex-shrink-0 avatar">
                               <img
                                 src="/assets/admin/img/avatars/4.png"
                                 alt="Avatar"
                                 class="rounded-circle"
                                 data-bs-toggle="sidebar"
                                 data-overlay
-                                data-target="#app-chat-sidebar-right"
-                              />
+                                data-target="#app-chat-sidebar-right"/>
                             </div>
                             <div class="chat-contact-info flex-grow-1 ms-4">
                               <h6 class="m-0 fw-normal">Felecia Rower</h6>
-                              <small class="user-status text-body"
-                                >NextJS developer</small
-                              >
+                              <small class="user-status text-body">NextJS developer</small>
                             </div>
                           </div>
                           <div class="d-flex align-items-center">
-                            <i
-                              class="ti ti-phone ti-md cursor-pointer d-sm-inline-flex d-none me-1 btn btn-sm btn-text-secondary text-secondary btn-icon rounded-pill"
-                            ></i>
-                            <i
-                              class="ti ti-video ti-md cursor-pointer d-sm-inline-flex d-none me-1 btn btn-sm btn-text-secondary text-secondary btn-icon rounded-pill"
-                            ></i>
-                            <i
-                              class="ti ti-search ti-md cursor-pointer d-sm-inline-flex d-none me-1 btn btn-sm btn-text-secondary text-secondary btn-icon rounded-pill"
-                            ></i>
+                            <i class="ti ti-schedule ti-md cursor-pointer d-sm-inline-flex d-none me-1 
+                            btn btn-sm btn-text-secondary text-secondary btn-icon rounded-pill"
+	                        data-bs-toggle="offcanvas"
+	                        data-bs-target="#addEventSidebar"></i>
                             <div class="dropdown">
                               <button
                                 class="btn btn-sm btn-icon btn-text-secondary text-secondary rounded-pill dropdown-toggle hide-arrow"
                                 data-bs-toggle="dropdown"
                                 aria-expanded="true"
-                                id="chat-header-actions"
-                              >
+                                id="chat-header-actions">
                                 <i class="ti ti-dots-vertical ti-md"></i>
                               </button>
-                              <div
-                                class="dropdown-menu dropdown-menu-end"
-                                aria-labelledby="chat-header-actions"
-                              >
-                                <a
-                                  class="dropdown-item"
-                                  href="javascript:void(0);"
-                                  >View Contact</a
-                                >
-                                <a
-                                  class="dropdown-item"
-                                  href="javascript:void(0);"
-                                  >Mute Notifications</a
-                                >
-                                <a
-                                  class="dropdown-item"
-                                  href="javascript:void(0);"
-                                  >Block Contact</a
-                                >
-                                <a
-                                  class="dropdown-item"
-                                  href="javascript:void(0);"
-                                  >Clear Chat</a
-                                >
-                                <a
-                                  class="dropdown-item"
-                                  href="javascript:void(0);"
-                                  >Report</a
-                                >
+                              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="chat-header-actions">
+                                <a class="dropdown-item" href="javascript:void(0);">View Contact</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Mute Notifications</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Block Contact</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Clear Chat</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Report</a>
                               </div>
                             </div>
                           </div>
@@ -280,11 +222,9 @@
                           <input
                             class="form-control message-input border-0 me-4 shadow-none"
                             id="msg"
-                            placeholder="Type your message here..."
+                            placeholder="메세지 입력"
                           />
                           <div class="message-actions d-flex align-items-center">
-                            <i class="speech-to-text ti ti-microphone ti-md btn btn-sm btn-text-secondary btn-icon rounded-pill cursor-pointer text-heading"
-                            ></i>
                             <label for="attach-doc" class="form-label mb-0">
                               <i
                                 class="ti ti-paperclip ti-md cursor-pointer btn btn-sm btn-text-secondary btn-icon rounded-pill mx-1 text-heading"
@@ -305,112 +245,6 @@
                   </div>
                   <!-- /Chat History -->
 
-                  <!-- Sidebar Right -->
-                  <div
-                    class="col app-chat-sidebar-right app-sidebar overflow-hidden"
-                    id="app-chat-sidebar-right"
-                  >
-                    <div
-                      class="sidebar-header d-flex flex-column justify-content-center align-items-center flex-wrap px-6 pt-12"
-                    >
-                      <div
-                        class="avatar avatar-xl avatar-online chat-sidebar-avatar"
-                      >
-                        <img
-                          src="/assets/admin/img/avatars/4.png"
-                          alt="Avatar"
-                          class="rounded-circle"
-                        />
-                      </div>
-                      <h5 class="mt-4 mb-0">Felecia Rower</h5>
-                      <span>NextJS Developer</span>
-                      <i
-                        class="ti ti-x ti-lg cursor-pointer close-sidebar d-block"
-                        data-bs-toggle="sidebar"
-                        data-overlay
-                        data-target="#app-chat-sidebar-right"
-                      ></i>
-                    </div>
-                    <div class="sidebar-body p-6 pt-0">
-                      <div class="my-6">
-                        <p class="text-uppercase mb-1 text-muted">About</p>
-                        <p class="mb-0">
-                          It is a long established fact that a reader will be
-                          distracted by the readable content .
-                        </p>
-                      </div>
-                      <div class="my-6">
-                        <p class="text-uppercase mb-1 text-muted">
-                          Personal Information
-                        </p>
-                        <ul
-                          class="list-unstyled d-grid gap-4 mb-0 ms-2 py-2 text-heading"
-                        >
-                          <li class="d-flex align-items-center">
-                            <i class="ti ti-mail ti-md"></i>
-                            <span class="align-middle ms-2"
-                              >josephGreen@email.com</span
-                            >
-                          </li>
-                          <li class="d-flex align-items-center">
-                            <i class="ti ti-phone-call ti-md"></i>
-                            <span class="align-middle ms-2"
-                              >+1(123) 456 - 7890</span
-                            >
-                          </li>
-                          <li class="d-flex align-items-center">
-                            <i class="ti ti-clock ti-md"></i>
-                            <span class="align-middle ms-2"
-                              >Mon - Fri 10AM - 8PM</span
-                            >
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="my-6">
-                        <p class="text-uppercase text-muted mb-1">Options</p>
-                        <ul
-                          class="list-unstyled d-grid gap-4 ms-2 py-2 text-heading"
-                        >
-                          <li class="cursor-pointer d-flex align-items-center">
-                            <i class="ti ti-badge ti-md"></i>
-                            <span class="align-middle ms-2">Add Tag</span>
-                          </li>
-                          <li class="cursor-pointer d-flex align-items-center">
-                            <i class="ti ti-star ti-md"></i>
-                            <span class="align-middle ms-2"
-                              >Important Contact</span
-                            >
-                          </li>
-                          <li class="cursor-pointer d-flex align-items-center">
-                            <i class="ti ti-photo ti-md"></i>
-                            <span class="align-middle ms-2">Shared Media</span>
-                          </li>
-                          <li class="cursor-pointer d-flex align-items-center">
-                            <i class="ti ti-trash ti-md"></i>
-                            <span class="align-middle ms-2"
-                              >Delete Contact</span
-                            >
-                          </li>
-                          <li class="cursor-pointer d-flex align-items-center">
-                            <i class="ti ti-ban ti-md"></i>
-                            <span class="align-middle ms-2">Block Contact</span>
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="d-flex mt-6">
-                        <button
-                          class="btn btn-danger w-100"
-                          data-bs-toggle="sidebar"
-                          data-overlay
-                          data-target="#app-chat-sidebar-right"
-                        >
-                          Delete Contact<i class="ti ti-trash ti-16px ms-2"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /Sidebar Right -->
-
                   <div class="app-overlay"></div>
                 </div>
               </div>
@@ -423,6 +257,8 @@
         </div>
         <!-- / Layout page -->
       </div>
+      
+
 
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
@@ -431,7 +267,107 @@
       <div class="drag-target"></div>
     </div>
     <!-- / Layout wrapper -->
-
+    
+  <!-- Schedule Modal -->    
+  <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="card app-calendar-wrapper">
+      <div class="row g-0">
+      
+        <!-- Calendar & Modal -->
+        <div class="col app-calendar-content">
+          <div class="card shadow-none border-0">
+          </div>
+          <!-- FullCalendar Offcanvas -->
+          <div
+            class="offcanvas offcanvas-end event-sidebar"
+            tabindex="-1"
+            id="addEventSidebar"
+            aria-labelledby="addEventSidebarLabel">
+            <div class="offcanvas-header border-bottom">
+              <h5 class="offcanvas-title" id="addEventSidebarLabel">일정 조율</h5>
+              <button
+                type="button"
+                class="btn-close text-reset"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <form class="event-form pt-0" id="eventForm" onsubmit="return false">
+                <div class="mb-5">
+                  <label class="form-label" for="eventTitle">산책 장소</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="eventTitle"
+                    name="eventTitle"
+                    placeholder="산책 장소" />
+                </div>
+                <div class="mb-5">
+                  <label class="form-label" for="eventStartDate">시작 시간</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="eventStartDate"
+                    name="eventStartDate"
+                    placeholder="시작 시간" />
+                </div>
+                <div class="mb-5">
+                  <label class="form-label" for="eventEndDate">종료 시간</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="eventEndDate"
+                    name="eventEndDate"
+                    placeholder="종료 시간" />
+                </div>
+                <div class="mb-4 select2-primary">
+                  <label class="form-label" for="eventGuests">반려견 추가</label>
+                  <select
+                    class="select2 select-event-guests form-select"
+                    id="eventGuests"
+                    name="eventGuests"
+                    multiple>
+                    <option data-avatar="1.png" value="Jane Foster">대충 말티즈</option>
+                    <option data-avatar="3.png" value="Donna Frank">치와와</option>
+                    <option data-avatar="5.png" value="Gabrielle Robertson">웰시코기</option>
+                    <option data-avatar="7.png" value="Lori Spears">닥스훈트</option>
+                    <option data-avatar="9.png" value="Sandy Vega">귀여운 강아지</option>
+                    <option data-avatar="11.png" value="Cheryl May">카와이한 강아지</option>
+                  </select>
+                </div>
+                <div class="mb-5">
+                  <label class="form-label" for="eventLocation">주소</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="eventLocation"
+                    name="eventLocation"
+                    placeholder="주소" />
+                </div>
+                <div class="d-flex justify-content-sm-between justify-content-start mt-6 gap-2">
+                  <div class="d-flex">
+                    <button type="submit" id="addEventBtn" class="btn btn-primary btn-add-event me-4">
+                      Add
+                    </button>
+                    <button
+                      type="reset"
+                      class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
+                      data-bs-dismiss="offcanvas">
+                      Cancel
+                    </button>
+                  </div>
+                  <button class="btn btn-label-danger btn-delete-event d-none">Delete</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- /Calendar & Modal -->
+      </div>
+    </div>
+  </div>
+    <!-- / Schedule Modal -->
+  
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="/assets/admin/vendor/libs/jquery/jquery.js"></script>
@@ -444,16 +380,41 @@
     <script src="/assets/admin/vendor/libs/typeahead-js/typeahead.js"></script>
     <script src="/assets/admin/vendor/js/menu.js"></script>
     <!-- endbuild -->
+    
     <!-- Vendors JS -->
     <script src="/assets/admin/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.js"></script>
+    <script src="/assets/admin/vendor/libs/fullcalendar/fullcalendar.js"></script>
+    <script src="/assets/admin/vendor/libs/@form-validation/popular.js"></script>
+    <script src="/assets/admin/vendor/libs/@form-validation/bootstrap5.js"></script>
+    <script src="/assets/admin/vendor/libs/@form-validation/auto-focus.js"></script>
+    <script src="/assets/admin/vendor/libs/select2/select2.js"></script>
+    <script src="/assets/admin/vendor/libs/moment/moment.js"></script>
+    <script src="/assets/admin/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="/assets/admin/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="/assets/admin/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="/assets/admin/vendor/libs/bs-stepper/bs-stepper.js"></script>
+    
     <!-- Main JS -->
     <script src="/assets/admin/js/main.js"></script>
     <!-- Page JS -->
     <script src="/assets/admin/js/app-chat.js"></script>
-    
+    <script src="/assets/admin/js/app-calendar-events.js"></script>
+    <script src="/assets/admin/js/app-calendar.js"></script>
+
     <script src="/assets/main/js/chat/myChat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+    <!-- Page JS -->
+    <script src="/assets/admin/js/pages-pricing.js"></script>
+    <script src="/assets/admin/js/modal-create-app.js"></script>
+    <script src="/assets/admin/js/modal-add-new-cc.js"></script>
+    <script src="/assets/admin/js/modal-add-new-address.js"></script>
+    <script src="/assets/admin/js/modal-edit-user.js"></script>
+    <script src="/assets/admin/js/modal-enable-otp.js"></script>
+    <script src="/assets/admin/js/modal-share-project.js"></script>
+    <script src="/assets/admin/js/modal-two-factor-auth.js"></script>
+   
     <script th:inline="javascript">
     var username = [[${#authentication.principal.username}]];
     </script>

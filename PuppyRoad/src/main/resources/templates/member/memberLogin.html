@@ -72,7 +72,7 @@
 																	placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
 																	aria-describedby="password" /> <span
 																	class="input-group-text cursor-pointer"><i
-																	class="ti ti-eye-off"></i></span>
+																	class="ti ti-eye-off" id="testBtn"></i></span>
 															</div>
 														</div>
 														<div th:if="${error} != null">
@@ -135,7 +135,14 @@
 		</div>
 	</div>
 	<script>
-		
+	$("#testBtn").on("click",() => {
+	    if($("#password").attr("type") == "text"){
+	        $("#password").attr("type","password");
+	    }else{
+	        $("#password").attr("type","text");
+	    }
+	    
+	});
 	</script>
 </body>
 </html>

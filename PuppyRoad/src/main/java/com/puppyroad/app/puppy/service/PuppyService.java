@@ -8,4 +8,5 @@ public interface PuppyService {
 	public List<PuppyVO> ListPuppy(String clientUserId); //본인 강아지조회
 	public PuppyVO getInfoPuppy(PuppyVO puppyVO); // 단건조회
 	public int updatePuppy(PuppyVO puppyVO); // 프로필수정
+	public int deletePuppy(String puppyCode);
 }

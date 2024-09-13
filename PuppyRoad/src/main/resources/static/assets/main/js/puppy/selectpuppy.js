@@ -7,7 +7,6 @@ $(".odd").on('click', (e)=>{
 			method : "get",
 			
 		}).done((result)=>{
-	
 			
 		if (result.diseasePreAbs == 0) {
             result.diseasePreAbs = "무";
@@ -85,12 +84,14 @@ $(".odd").on('click', (e)=>{
 		        $("#modalEditUserStatus").val(result.dogSize); // 크기
 		        $("#note").val(result.note); // 노트
 		        $("#disease").val(result.diseasePreAbs).prop("selected", true); // 질병
+		        $("#personality").val(restult.personality);
 		        $("#neutralization").val(result.neutralizationPreAbs).prop("selected", true); // 질병
 			
 		})
 	}
-	
-	function previewImage(event) {
+
+//이미지 미리보기
+function previewImage(event) {
     const input = event.target;
     const reader = new FileReader();
     reader.onload = function(){
@@ -100,3 +101,31 @@ $(".odd").on('click', (e)=>{
     }
     reader.readAsDataURL(input.files[0]);
 }
+
+//삭제버튼
+function deletePuppy() {
+    let puppyCode = $("#num").val();
+    console.log(puppyCode);
+    $.ajax({
+        url: "/user/deletePuppy",
+        method: "post",
+        data: { puppyCode: puppyCode },
+        success: (result) => {
+            if (result === "success") {
+				alert("삭제성공!!")
+                window.location.href = "/user/listPuppy";  
+            }
+        },
+        error: (err) => {
+            console.error("Error deleting puppy:", err);
+        }
+    });
+}
+
+//수정완료시 alert
+function handleSubmit(event) {
+		alert("수정이 완료되었습니다!");
+		document.getElementById("editUserForm").submit();  
+}
+	
+
