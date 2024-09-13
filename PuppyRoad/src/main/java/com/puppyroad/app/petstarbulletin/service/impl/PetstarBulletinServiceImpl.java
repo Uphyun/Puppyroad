@@ -22,10 +22,16 @@ public class PetstarBulletinServiceImpl implements PetstarBulletinService {
 		this.bulletinMapper = bulletinMapper;
 	}
 	
-	// 전체 조회
+	// 전체 조회 All
 	@Override
-	public List<PetstarBulletinVO> getBulletinList(PetstarBulletinVO bulletinVO) {
-		return bulletinMapper.selectBulletinList(bulletinVO);
+	public List<PetstarBulletinVO> getAllBulletinList(PetstarBulletinVO bulletinVO) {
+		return bulletinMapper.selectAllBulletinList(bulletinVO);
+	}
+	
+	// 전체 조회 My
+	@Override
+	public List<PetstarBulletinVO> getMyBulletinList(PetstarBulletinVO bulletinVO) {
+		return bulletinMapper.selectMyBulletinList(bulletinVO);
 	}
 	
 	// 단건조회
@@ -71,5 +77,7 @@ public class PetstarBulletinServiceImpl implements PetstarBulletinService {
 	public int removeBulletin(int bno) {
 		return bulletinMapper.deleteBulletin(bno);
 	}
+
+
 	
 }

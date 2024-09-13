@@ -7,8 +7,8 @@ import java.util.Map;
 public interface InquiryService {
 	
 	// 전체 조회
-	
 	public List<InquiryVO> getInquiryList(InquiryVO inquiryVO);
+	
 	// 단건조회
 	public InquiryVO getInquiryInfo(InquiryVO inquiryVO);
 	

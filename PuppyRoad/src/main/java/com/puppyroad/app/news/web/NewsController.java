@@ -117,14 +117,13 @@ public class NewsController {
 	// 수정 - 처리
 	@PostMapping("user/newsUpdate")
 	@ResponseBody
-	public Map<String, Object> newsUpdate(NewsVO newsVO, @RequestPart(required = false) MultipartFile[] files, // 파일이 없을
-			@RequestParam(value = "deletedFiles", required = false) String[] deletedFiles // 삭제할 파일 목록
+	public Map<String, Object> newsUpdate(NewsVO newsVO, 
+			                              @RequestPart(required = false) MultipartFile[] files, // 파일이 없을
+			                              @RequestParam(value = "deletedFiles", required = false) String[] deletedFiles // 삭제할 파일 목록
 	) {
 		// 기존 첨부파일 가져오기
 		NewsVO findVO = newsService.getNewsInfo(newsVO);
-		String existingFiles = findVO.getAttachedFile(); // 기존 파일 목록 문자열
-		List<String> fileList = (existingFiles != null && !existingFiles.isEmpty())
-				? new ArrayList<>(Arrays.asList(existingFiles.split(","))) : new ArrayList<>();
+		List<String> fileList = findVO.getAttachedFileList();
 
 		// 삭제할 파일 처리
 		if (deletedFiles != null && deletedFiles.length > 0) {
@@ -134,6 +133,8 @@ public class NewsController {
 				try {
 					Files.deleteIfExists(filePath); // 파일이 존재할 경우 삭제
 					fileList.remove(fileName); // 기존 파일 목록에서 삭제된 파일 제거
+					//todo :  실제 저장된 파일 삭제
+					
 				} catch (IOException e) {
 					e.printStackTrace(); // 파일 삭제 실패 시 예외 처리
 				}
@@ -170,8 +171,9 @@ public class NewsController {
 
 	// 삭제
 	@GetMapping("user/newsDelete")
-	public String boardDelete(@RequestParam Integer no) {
+	public String newsDelete(@RequestParam Integer no) {
 		newsService.removeNews(no);
+		// todo : 삭제 시에도 저장된 파일 삭제
 		return "redirect:/user/newsList";
 	}
 }

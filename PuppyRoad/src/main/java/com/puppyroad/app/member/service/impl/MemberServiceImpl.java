@@ -46,9 +46,8 @@ public class MemberServiceImpl implements MemberService {
             PetStarProfileVO profile = new PetStarProfileVO();
             profile.setMemberCode(memberVO.getMemberCode());
             profile.setNickname(memberVO.getNickName());
-            profile.setProfilePicture(null); 
-            profile.setGender(0); 
-            profile.setInfo(""); 
+            //profile.setProfilePicture(null); 
+            //profile.setInfo(""); 
 
             profileMapper.insertProfile(profile);
             return memberVO.getMemberCode();

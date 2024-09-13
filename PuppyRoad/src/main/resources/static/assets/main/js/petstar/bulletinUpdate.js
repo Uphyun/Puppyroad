@@ -1,14 +1,16 @@
-var fileNo = 0;
-var filesArr = [];
 
+
+let fileNo = 0;
+let filesArr = [];
+let deletedFilesArr = [];
 
 
 /* 첨부파일 추가 */
 function addFile(obj) {
-	var maxFileCnt = 5;   // 첨부파일 최대 개수
-	var attFileCnt = document.querySelectorAll('.filebox').length;    // 기존 추가된 첨부파일 개수
-	var remainFileCnt = maxFileCnt - attFileCnt;    // 추가로 첨부 가능한 개수
-	var curFileCnt = obj.files.length;  // 현재 선택된 첨부파일 개수
+	let maxFileCnt = 5;   // 첨부파일 최대 개수
+	let attFileCnt = $('.filebox').length;    // 기존 추가된 첨부파일 개수
+	let remainFileCnt = maxFileCnt - attFileCnt;    // 추가로 첨부 가능한 개수
+	let curFileCnt = obj.files.length;  // 현재 선택된 첨부파일 개수
 
 	// 첨부파일 개수 확인
 	if (curFileCnt > remainFileCnt) {
@@ -16,7 +18,7 @@ function addFile(obj) {
 		return;
 	}
 
-	for (var i = 0; i < Math.min(curFileCnt, remainFileCnt); i++) {
+	for (let i = 0; i < Math.min(curFileCnt, remainFileCnt); i++) {
 		const file = obj.files[i];
 
 		// 중복된 파일이 있는지 확인
@@ -27,7 +29,7 @@ function addFile(obj) {
 
 		// 첨부파일 검증
 		if (validation(file)) {
-			var reader = new FileReader();
+			let reader = new FileReader();
 			reader.onload = function(e) {
 				filesArr.push(file);
 
@@ -50,7 +52,7 @@ function addFile(obj) {
 
 /* 첨부파일 검증 */
 function validation(file) {
-	const fileTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif'];
+	const fileTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif', 'image/jfif'];
 	if (file.name.length > 100) {
 		alert("파일명이 100자 이상인 파일은 제외되었습니다.");
 		return false;
@@ -70,12 +72,18 @@ function deleteFile(num) {
 	filesArr.splice(num, 1);
 }
 
+// 기존 첨부파일 삭제
+function deleteExistingFile(fileName) {
+    $(event.target).closest(".preview-item").remove();
+    deletedFilesArr.push(fileName);  // 삭제된 파일을 배열에 저장
+}
+
+
 /* 폼 전송 */
 function submitForm() {
-	var form = document.querySelector("form");
-	var formData = new FormData(form);
-
-
+	let form = document.querySelector("form");
+	let formData = new FormData(form);
+	
 	let content = $('textarea[name="content"]');
 	if (content.val() === '') {
 		alert('내용이 입력되지 않았습니다.');
@@ -83,21 +91,27 @@ function submitForm() {
 		event.preventDefault();
 		return;
 	}
-
-	// 삭제되지 않은 파일만 폼데이터에 담기
-	for (var i = 0; i < filesArr.length; i++) {
+	
+	
+	//  새로추가한 파일 폼데이터에 담기
+	for (let i = 0; i < filesArr.length; i++) {
 		formData.append("files", filesArr[i]);
 	}
 
+	// 삭제된 기존 파일 목록을 폼데이터에 추가
+    for (let i = 0; i < deletedFilesArr.length; i++) {
+        formData.append("deletedFiles", deletedFilesArr[i]);
+    }
+
 	$.ajax({
 		method: 'POST',
-		url: '/user/bulletinInsert',  // 실제 처리할 URL로 변경
+		url: '/user/bulletinUpdate',  // 실제 처리할 URL로 변경
 		data: formData,
 		processData: false,
 		contentType: false,
 		success: function(data) {
-			if (data > 0) {
-				alert("성공적으로 제출되었습니다.");
+			if (data.result > 0) {
+				alert("성공적으로 수정되었습니다.");
 				location.href = "/user/mypage"
 			} else {
 				alert("등록 오류.");
