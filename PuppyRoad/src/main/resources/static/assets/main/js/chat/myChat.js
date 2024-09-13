@@ -71,6 +71,29 @@ $(document).ready(function() {
 			roomId = $(this).attr('id');
 
 			$('.list-unstyled.chat-history').empty();
+			$('#chatProfile').empty();
+			
+			let chatPro = '';
+			
+			chatPro = `<i class='ti ti-menu-2 ti-lg cursor-pointer d-lg-none d-block me-4'
+                              data-bs-toggle='sidebar'
+                              data-overlay
+                              data-target='#app-chat-contacts'></i>
+                            <div class='flex-shrink-0 avatar'>
+                              <img
+                                src='/assets/admin/img/avatars/4.png'
+                                alt='Avatar'
+                                class='rounded-circle'
+                                data-bs-toggle='sidebar'
+                                data-overlay
+                                data-target='#app-chat-sidebar-right'/>
+                            </div>
+                            <div class='chat-contact-info flex-grow-1 ms-4'>
+                              <h6 class='m-0 fw-normal'>${roomId}</h6>
+                              <small class='user-status text-body'>${roomId}</small>
+                            </div>`;
+			
+			$('#chatProfile').append(chatPro);
 
 			//ajax 호출 
 			$.ajax({
