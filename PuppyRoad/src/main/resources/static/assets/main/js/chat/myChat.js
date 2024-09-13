@@ -20,7 +20,6 @@ $(document).ready(function() {
 				var writer = content.writer;
 				let app = '';
 				var message = content.message;
-				console.log(content);
 
 				if (writer === username) {
 		app = `<li class='chat-message chat-message-right'>
@@ -30,7 +29,7 @@ $(document).ready(function() {
 		 <p class='mb-0'>${message}</p>
 		 </div>
 		 <div class='text-end text-muted mt-1'>
-		 <small>${message}</small>
+		 <small></small>
 		 </div></div>
 		 <div class='user-avatar flex-shrink-0 ms-4'>
 		 <div class='avatar avatar-sm'>
@@ -47,7 +46,7 @@ $(document).ready(function() {
 		 <p class='mb-0'>${message}</p>
 		 </div>
 		 <div class='text-end text-muted mt-1'>
-		 <small>${message}</small>
+		 <small></small>
 		 </div></div>
 		 <div class='user-avatar flex-shrink-0 ms-4'>
 		 <div class='avatar avatar-sm'>
@@ -80,7 +79,6 @@ $(document).ready(function() {
 				data: { roomId }
 			})
 				.done(datas => {
-					console.log(datas);
 					for (let str in datas) {
 						let app = '';
 
@@ -93,7 +91,7 @@ $(document).ready(function() {
 					 <p class='mb-0'>${datas[str].message}</p>
 					 </div>
 					 <div class='text-end text-muted mt-1'>
-					 <small>${datas[str].outgoingDate}</small>
+					 <small></small>
 					 </div></div>
 					 <div class='user-avatar flex-shrink-0 ms-4'>
 					 <div class='avatar avatar-sm'>
@@ -109,7 +107,7 @@ $(document).ready(function() {
 					 <p class='mb-0'>${datas[str].message}</p>
 					 </div>
 					 <div class='text-end text-muted mt-1'>
-					 <small>${datas[str].outgoingDate}</small>
+					 <small></small>
 					 </div></div>
 					 <div class='user-avatar flex-shrink-0 ms-4'>
 					 <div class='avatar avatar-sm'>
