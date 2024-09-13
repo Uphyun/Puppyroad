@@ -39,20 +39,21 @@ public class PetstarBulletinController {
 		this.bulletinService = bulletinService;
 	}
 
-	// 전체 조회
+	// 전체 조회 All
 	@GetMapping("user/petstar")
-	public String bulletinList(PetstarBulletinVO bulletinVO, Model model) {
-		List<PetstarBulletinVO> list = bulletinService.getBulletinList(bulletinVO);
+	public String bulletinAllList(PetstarBulletinVO bulletinVO, Model model) {
+		List<PetstarBulletinVO> list = bulletinService.getAllBulletinList(bulletinVO);
 		model.addAttribute("bulletin", list);
 		return "petstar/petstar";
 	}
+	
 
 	// 단건조회
 	@GetMapping("user/bulletinInfo")
 	public String bulletinInfo(Integer bulletinno, PetstarBulletinVO bulletinVO, Model model) {
 		PetstarBulletinVO findVO = bulletinService.getBulletinInfo(bulletinVO);
 		model.addAttribute("bulletin", findVO);
-		return "bulletin/bulletinInfo";
+		return "petstar/bulletinInfo";
 	}
 
 	// 등록 - 페이지
@@ -101,7 +102,7 @@ public class PetstarBulletinController {
 	public String bulletinUpdateForm(PetstarBulletinVO bulletinVO, Model model) {
 		PetstarBulletinVO findVO = bulletinService.getBulletinInfo(bulletinVO);
 		model.addAttribute("bulletin", findVO);
-		return "bulletin/bulletinUpdate";
+		return "petstar/bulletinUpdate";
 	}
 
 	// 수정 - 처리
@@ -164,7 +165,7 @@ public class PetstarBulletinController {
 	@GetMapping("user/bulletinDelete")
 	public String boardDelete(@RequestParam Integer no) {
 		bulletinService.removeBulletin(no);
-		return "redirect:/user/bulletinList";
+		return "redirect:/user/mypage";
 	}
 
 }

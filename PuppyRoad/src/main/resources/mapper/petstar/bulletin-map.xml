@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.puppyroad.app.petstarbulletin.mapper.PetstarBulletinMapper">
-	<!-- 전체조회 -->
-	<select id="selectBulletinList" resultType="PetstarBulletinVO">
+	<!-- 전체조회 All -->
+	<select id="selectAllBulletinList" resultType="PetstarBulletinVO">
+		SELECT   bulletin_no
+				,content
+				,writing_date
+				,attached_file
+				,member_code
+		FROM  pet_stargram_bulletin 
+		ORDER BY writing_date DESC
+	</select>
+	
+	<!-- 전체조회 mypage -->
+		<select id="selectMyBulletinList" resultType="PetstarBulletinVO">
 		SELECT   bulletin_no
 				,content
 				,writing_date
@@ -12,6 +23,7 @@
 		WHERE member_code = #{memberCode}		
 		ORDER BY writing_date DESC
 	</select>
+	
 	<!-- 단건조회 -->
 	<select id="selectBulletinInfo" resultType="PetstarBulletinVO">
 		SELECT   bulletin_no
@@ -52,7 +64,7 @@
 	<update id="updateBulletin" parameterType="PetstarBulletinVO">
 		UPDATE pet_stargram_bulletin
 		 SET
-		   ,content = #{content}
+		    content = #{content}
 		   ,writing_date = sysdate
 		   ,attached_file = #{attachedFile}
 		WHERE bulletin_no = #{bulletinNo}

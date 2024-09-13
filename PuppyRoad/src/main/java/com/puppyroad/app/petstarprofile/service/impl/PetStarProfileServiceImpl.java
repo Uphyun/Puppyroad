@@ -20,11 +20,6 @@ public class PetStarProfileServiceImpl implements PetstarProfileService {
 		this.profileMapper = profileMapper;
 	}
 	
-	// 전체조회
-	@Override
-	public List<PetStarProfileVO> getProfileList(PetStarProfileVO profileVO) {
-		return profileMapper.selectProfileList(profileVO);
-	}
 	
 	// 단건조회
 	@Override
@@ -60,9 +55,4 @@ public class PetStarProfileServiceImpl implements PetstarProfileService {
 		return map;
 	}
 
-	//삭제
-	@Override
-	public int removeProfile(int pno) {
-		return profileMapper.deleteProfile(pno);
-	}
 }

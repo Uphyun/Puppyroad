@@ -51,11 +51,7 @@ public class NewsServiceImpl implements NewsService {
 		if(result == 1) {
 			isSuccessed = true;
 		}
-		Date today = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String updateDate = sdf.format(today);
 		
-		map.put("date", updateDate);
 		map.put("result", isSuccessed);
 		map.put("target", newsVO);
 		

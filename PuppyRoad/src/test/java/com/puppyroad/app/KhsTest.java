@@ -22,12 +22,6 @@ class KhsTest {
 	PetstarProfileMapper profileMapper;
 
 	// 전체조회
-	 //@Test
-	void profileList() {
-		 PetStarProfileVO profileVO = new PetStarProfileVO();
-		List<PetStarProfileVO> list = profileMapper.selectProfileList(profileVO);
-		assertTrue(!list.isEmpty());
-	}
 	
 	// 단건조회
 	//@Test
