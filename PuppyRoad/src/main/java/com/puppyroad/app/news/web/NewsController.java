@@ -170,7 +170,7 @@ public class NewsController {
 
 	// 삭제
 	@GetMapping("user/newsDelete")
-	public String boardDelete(@RequestParam Integer no) {
+	public String newsDelete(@RequestParam Integer no) {
 		newsService.removeNews(no);
 		return "redirect:/user/newsList";
 	}
