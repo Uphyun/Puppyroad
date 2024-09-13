@@ -3,6 +3,7 @@ package com.puppyroad.app.petstarprofile.web;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.puppyroad.app.petstarbulletin.service.PetstarBulletinService;
+import com.puppyroad.app.petstarbulletin.service.PetstarBulletinVO;
 import com.puppyroad.app.petstarprofile.service.PetStarProfileVO;
 import com.puppyroad.app.petstarprofile.service.PetstarProfileService;
 import com.puppyroad.app.util.SecurityUtil;
@@ -22,20 +25,21 @@ import com.puppyroad.app.util.SecurityUtil;
 @Controller
 public class PetStarProfileController {
 	private PetstarProfileService profileService;
+	private PetstarBulletinService bulletinService;
 
 	@Value("${file.upload.path}")
 	private String uploadPath;
 
+	
 	@Autowired
-	PetStarProfileController(PetstarProfileService profileService) {
+	PetStarProfileController(PetstarProfileService profileService,PetstarBulletinService bulletinService) {
 		this.profileService = profileService;
+		this.bulletinService = bulletinService;
 	}
 
 	// 단건 조회
 	@GetMapping("user/profile")
 	public String profileInfo(PetStarProfileVO profileVO, Model model) {
-		String mcode = SecurityUtil.memberCode();
-		profileVO.setMemberCode(mcode);
 		
 		PetStarProfileVO findVO = profileService.getProfileInfo(profileVO);
 		model.addAttribute("profiles", findVO);
@@ -44,21 +48,26 @@ public class PetStarProfileController {
 
 	// 수정 - 페이지
 	@GetMapping("user/mypage")
-	public String profileUpdateForm(PetStarProfileVO profileVO, BindingResult result, Model model) {
-		// 폼 데이터가 바인딩되면서 오류가 발생한 경우
-		if (result.hasErrors()) {
-			return "petstar/mypage";
-		}
-
+	public String profileUpdateForm(PetStarProfileVO profileVO,
+									Model model, 
+									PetstarBulletinVO bulletinVO) {
+		
 		String mcode = SecurityUtil.memberCode();
 		profileVO.setMemberCode(mcode);
+		bulletinVO.setMemberCode(mcode);
+		
 		String nick = SecurityUtil.nickname();
 		profileVO.setNickname(nick);
 
-		// profileService에서 사용자 프로필 정보를 가져옴
+		// 프로필
 		PetStarProfileVO findVO = profileService.getProfileInfo(profileVO);
 
 		// 모델에 프로필 정보를 추가하여 뷰로 전달
+		// 게시글 리스트
+		List<PetstarBulletinVO> list = bulletinService.getMyBulletinList(bulletinVO);
+		model.addAttribute("bulletin",list);
+		
+		// 프로필
 		model.addAttribute("profile", findVO);
 
 		return "petstar/mypage";
@@ -68,7 +77,14 @@ public class PetStarProfileController {
 	// 수정 - 처리
 	@PostMapping("user/profileUpdate")
 	public String profileUpdate(PetStarProfileVO profileVO,
-	        @RequestPart(required = false) MultipartFile file, Model model) {
+	                            @RequestPart(required = false) MultipartFile file, 
+	                            BindingResult result,
+	                            Model model) {
+		
+		// 폼 데이터가 바인딩되면서 오류가 발생한 경우
+		if (result.hasErrors()) {
+				return "petstar/mypage";
+			}
 
 	    model.addAttribute("profile", profileVO);
 

@@ -6,8 +6,11 @@ import java.util.Map;
 
 public interface PetstarBulletinService {
 	
-	// 전체조회
-	public List<PetstarBulletinVO> getBulletinList(PetstarBulletinVO bulletinVO);
+	// 전체조회 All
+	public List<PetstarBulletinVO> getAllBulletinList(PetstarBulletinVO bulletinVO);
+	
+	// 전체조회 My
+	public List<PetstarBulletinVO> getMyBulletinList(PetstarBulletinVO bulletinVO);
 	
 	// 단건조회
 	public PetstarBulletinVO getBulletinInfo(PetstarBulletinVO bulletinVO);

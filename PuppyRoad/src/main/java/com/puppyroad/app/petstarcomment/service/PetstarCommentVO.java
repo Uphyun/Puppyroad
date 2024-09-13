@@ -13,7 +13,5 @@ public class PetstarCommentVO {
 	private String content;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createDate;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date updateDate;
 	private int bulletinNo;
 }

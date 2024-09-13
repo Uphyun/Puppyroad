@@ -5,136 +5,162 @@
 	layout:fragment="Content">
 <head>
 <script type="text/javascript" src="/assets/main/js/petstar/profile.js"></script>
-<link rel="stylesheet" href="/assets/main/css/petstar/image.css" type="text/css" />
+<link rel="stylesheet" href="/assets/main/css/petstar/image.css"
+	type="text/css" />
 <meta charset="UTF-8">
 </head>
 
 <body>
 
 	<section class="first-section-pt">
-	
-        <!-- Flexbox로 레이아웃을 구성 -->
-        <div style="display: flex;">
 
-            <!-- Aside 메뉴 -->
-            <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme" style="flex: 0 0 250px;">
+		<!-- Flexbox로 레이아웃을 구성 -->
+		<div style="display: flex;">
 
-                <ul class="menu-inner py-1" style="text-align: center;">
-                    <!-- Apps & Pages -->
-                    <li class="menu-header small">
-                        <span class="menu-header-text" data-i18n="PetStar">펫스타 그램</span>
-                    </li>
-                    <li class="menu-item">
-                        <a href="mypage" class="menu-link">
-                            <i class="menu-icon tf-icons ti ti-user-square-rounded"></i>
-                            <div data-i18n="My PetStar">나의 펫스타</div>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="bulletinInsert" class="menu-link">
-                            <i class="menu-icon tf-icons ti ti-pencil-plus"></i>
-                            <div data-i18n="Board">글 작성하기</div>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="commentInfo" class="menu-link">
-                            <i class="menu-icon tf-icons ti ti-message"></i>
-                            <div data-i18n="Comment">나의 댓글</div>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="Like" class="menu-link">
-                            <i class="menu-icon tf-icons ti ti-heart"></i>
-                            <div data-i18n="Like">좋아요 표시한 글</div>
-                        </a>
-                    </li>
-                </ul>
+			<!-- Aside 메뉴 -->
+			<aside id="layout-menu"
+				class="layout-menu menu-vertical menu bg-menu-theme"
+				style="flex: 0 0 250px;">
 
-            </aside>
-			  <!-- End Aside -->
-			  
-            <!-- 프로필 편집 -->
-            <div class="profile-edit" style="flex-grow: 1; display: flex; justify-content: center;">
+				<ul class="menu-inner py-1" style="text-align: center;">
+					<!-- Apps & Pages -->
+					<li class="menu-header small"><span class="menu-header-text"
+						data-i18n="PetStar">펫스타 그램</span></li>
+					<li class="menu-item"><a href="mypage" class="menu-link">
+							<i class="menu-icon tf-icons ti ti-user-square-rounded"></i>
+							<div data-i18n="My PetStar">나의 펫스타</div>
+					</a></li>
+					<li class="menu-item"><a href="bulletinInsert"
+						class="menu-link"> <i
+							class="menu-icon tf-icons ti ti-pencil-plus"></i>
+							<div data-i18n="Board">글 작성하기</div>
+					</a></li>
+					<li class="menu-item"><a href="commentInfo" class="menu-link">
+							<i class="menu-icon tf-icons ti ti-message"></i>
+							<div data-i18n="Comment">나의 댓글</div>
+					</a></li>
+					<li class="menu-item"><a href="Like" class="menu-link"> <i
+							class="menu-icon tf-icons ti ti-heart"></i>
+							<div data-i18n="Like">좋아요 표시한 글</div>
+					</a></li>
+				</ul>
 
-                <div class="card" style="width: 100%; max-width: 400px;">
-                    <div class="card-body text-center">
-                        <img class="profileImagePreview"
-                            th:src="@{/images/{fileName}(fileName=${profile.profilePicture})}"
-                            th:alt="${fileName}" style="max-width: 100px; max-height: 100px;">
-                        <h5 class="mt-5">[[${profile.nickname}]]</h5>
-                        <button type="button" class="btn btn-primary"
-                            data-bs-toggle="modal" data-bs-target="#editUser">프로필 편집
-                        </button>
-                    </div>
-                </div>
-                
-            </div>
+			</aside>
+			<!-- End Aside -->
 
-        </div>
+			<!-- 프로필 편집 -->
+			<div class="profile-edit mb-5"
+				style="flex-grow: 1; display: flex; justify-content: center;">
 
-        <!-- Edit User Modal -->
-        <div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-simple modal-edit-user">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        <div class="text-center mb-6">
-                            <h5>프로필 편집</h5>
-                        </div>
+				<div class="card" style="width: 100%; max-width: 400px;">
+					<div class="card-body text-center">
+						<img class="profileImagePreview"
+							th:src="@{/images/{fileName}(fileName=${profile.profilePicture})}"
+							th:alt="${fileName}" style="max-width: 100px; max-height: 100px;">
+						<h5 class="mt-5">[[${profile.nickname}]]</h5>
+						<button type="button" class="btn btn-primary"
+							data-bs-toggle="modal" data-bs-target="#editUser">프로필 편집
+						</button>
+					</div>
+				</div>
 
-                        <form name="updateForm" id="editUserForm" method="post"
-                            th:action="@{/user/profileUpdate}" enctype="multipart/form-data"
-                            th:object="${profile}" class="d-flex flex-column align-items-center">
+			</div>
+		</div>
 
-                            <!-- 이미지 미리보기 및 파일 선택 -->
-                            <div class="col-12 col-md-5 mb-4 text-center">
-                                <label for="profilePictureEdit" style="cursor: pointer;">
-                                    <img class="profileImagePreview"
-                                        th:src="@{/images/{fileName}(fileName=${profile.profilePicture})}"
-                                        th:alt="${fileName}"
-                                        style="max-width: 100px; max-height: 100px; display: block;" />
-                                </label> 
-                                <input type="file" class="form-control" id="profilePictureEdit"
-                                    name="file" accept="image/*" onchange="previewImage(event);" style="display: none;" />
-                            </div>
+		<!-- 게시글 목록 -->
+			<div class="row gy-6">
+		<th:block th:each="info : ${bulletin}">
+				<!-- 1 -->
+				<div class="col-xl mb-md-0" >
+					<div class="card border-primary border shadow-none">
+						<div class="card-body position-relative pt-4" style="cursor: pointer;"
+							th:onClick="|location.href='@{/user/bulletinInfo(bulletinNo=${info.bulletinNo})}'|">
+							<div id="image_container" class="my-5 pt-6 text-center">
+							<img
+								th:each="fileName : ${#strings.arraySplit(info.attachedFile, ',')}"
+								th:src="@{/images/{fileName}(fileName=${fileName})}"
+								alt="첨부파일 이미지">
+							</div>
+							<p class="text-center mb-5">[[ ${info.content} ]]</p>
+							
+						</div>
+					</div>
+				</div>
+		</th:block>
+			</div>
+		<!-- End 게시글 목록 -->
 
-                            <!-- 닉네임 입력 -->
-                            <div class="col-12 col-md-5 mb-4">
-                                <label class="form-label" for="modalEditUserName">닉네임</label> 
-                                <input type="text" class="form-control" th:field="*{nickname}" readonly />
-                                <p>*닉네임은 마이페이지에서 변경 가능합니다.</p>
-                            </div>
+		<!-- Edit User Modal -->
+		<div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog modal-lg modal-simple modal-edit-user">
+				<div class="modal-content">
+					<div class="modal-body">
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+						<div class="text-center mb-6">
+							<h5>프로필 편집</h5>
+						</div>
 
-                            <!-- 성별 선택 -->
-                            <div class="form-check mt-4">
-                                <input name="gender" class="form-check-input" type="radio" id="Radio1" value="1" th:field="*{gender}" /> 
-                                <label class="form-check-label" for="Radio1"> 남 </label>
-                            </div>
-                            <div class="form-check">
-                                <input name="gender" class="form-check-input" type="radio" id="Radio2" value="2" th:field="*{gender}" /> 
-                                <label class="form-check-label" for="Radio2"> 여 </label>
-                            </div>
+						<form name="updateForm" id="editUserForm" method="post"
+							th:action="@{/user/profileUpdate}" enctype="multipart/form-data"
+							th:object="${profile}"
+							class="d-flex flex-column align-items-center">
 
-                            <!-- 자기소개 입력 -->
-                            <div class="mb-5">
-                                <label for="exampleFormControlTextarea1" class="form-label">자기 소개</label>
-                                <textarea class="form-control" th:field="*{info}" rows="5"></textarea>
-                            </div>
+							<!-- 이미지 미리보기 및 파일 선택 -->
+							<div class="col-12 col-md-5 mb-4 text-center">
+								<label for="profilePictureEdit" style="cursor: pointer;">
+									<img class="profileImagePreview"
+									th:src="@{/images/{fileName}(fileName=${profile.profilePicture})}"
+									th:alt="${fileName}"
+									style="max-width: 100px; max-height: 100px; display: block;" />
+								</label> <input type="file" class="form-control" id="profilePictureEdit"
+									name="file" accept="image/*" onchange="previewImage(event);"
+									style="display: none;" />
+							</div>
 
-                            <!-- 제출 및 취소 버튼 -->
-                            <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-primary me-3" onclick="return confirmSubmit()">등록</button>
-                                <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal">취소</button>
-                            </div>
+							<!-- 닉네임 입력 -->
+							<div class="col-12 col-md-5 mb-4">
+								<label class="form-label" for="modalEditUserName">닉네임</label> <input
+									type="text" class="form-control" th:field="*{nickname}"
+									readonly />
+								<p>*닉네임은 마이페이지에서 변경 가능합니다.</p>
+							</div>
 
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Modal -->
-		
-		
+							<!-- 성별 선택 -->
+							<div class="form-check mt-4">
+								<input name="gender" class="form-check-input" type="radio"
+									id="Radio1" value="1" th:field="*{gender}" /> <label
+									class="form-check-label" for="Radio1"> 남 </label>
+							</div>
+							<div class="form-check">
+								<input name="gender" class="form-check-input" type="radio"
+									id="Radio2" value="2" th:field="*{gender}" /> <label
+									class="form-check-label" for="Radio2"> 여 </label>
+							</div>
+
+							<!-- 자기소개 입력 -->
+							<div class="mb-5">
+								<label for="exampleFormControlTextarea1" class="form-label">자기
+									소개</label>
+								<textarea class="form-control" th:field="*{info}" rows="5"></textarea>
+							</div>
+
+							<!-- 제출 및 취소 버튼 -->
+							<div class="col-12 text-center">
+								<button type="submit" class="btn btn-primary me-3"
+									onclick="return confirmSubmit()">등록</button>
+								<button type="reset" class="btn btn-label-secondary"
+									data-bs-dismiss="modal">취소</button>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Modal -->
+
+
 	</section>
 </body>
 </html>

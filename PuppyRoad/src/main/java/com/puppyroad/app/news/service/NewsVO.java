@@ -1,6 +1,9 @@
 package com.puppyroad.app.news.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -16,4 +19,9 @@ public class NewsVO {
 	private Date writingDate;
 	private String attachedFile;
 	private String bulletinType;
+	
+	public List<String> getAttachedFileList (){
+		return (attachedFile != null && !attachedFile.isEmpty())
+				? new ArrayList<>(Arrays.asList(attachedFile.split(","))) : new ArrayList<>();
+	}
 }

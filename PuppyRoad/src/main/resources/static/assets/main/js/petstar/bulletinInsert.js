@@ -75,13 +75,6 @@ function submitForm() {
 	var form = document.querySelector("form");
 	var formData = new FormData(form);
 
-	let title = $('input[name="title"]');
-	if (title.val() === '') {
-		alert('제목이 입력되지 않았습니다.');
-		title.focus();
-		event.preventDefault();
-		return;
-	}
 
 	let content = $('textarea[name="content"]');
 	if (content.val() === '') {

@@ -29,8 +29,7 @@ $(document).ready(function() {
 		 <p class='mb-0'>${message}</p>
 		 </div>
 		 <div class='text-end text-muted mt-1'>
-		 <i class='ti ti-checks ti-16px text-success me-1'></i>
-		 <small>${message}</small>
+		 <small></small>
 		 </div></div>
 		 <div class='user-avatar flex-shrink-0 ms-4'>
 		 <div class='avatar avatar-sm'>
@@ -47,8 +46,7 @@ $(document).ready(function() {
 		 <p class='mb-0'>${message}</p>
 		 </div>
 		 <div class='text-end text-muted mt-1'>
-		 <i class='ti ti-checks ti-16px text-success me-1'></i>
-		 <small>${message}</small>
+		 <small></small>
 		 </div></div>
 		 <div class='user-avatar flex-shrink-0 ms-4'>
 		 <div class='avatar avatar-sm'>
@@ -57,6 +55,8 @@ $(document).ready(function() {
 
 		$('.list-unstyled.chat-history').append(app);
 				}
+				let bot2 = document.querySelector('.chat-history-body').scrollHeight
+				document.querySelector('.chat-history-body').scroll(0, bot2);
 
 			});
 			
@@ -67,11 +67,33 @@ $(document).ready(function() {
 
 
 		$('li.chat-contact-list-item').on('click', function() {
-			$('.chat-history-body').scrollTop($('.chat-history-body')[0].scrollHeight);
 			
 			roomId = $(this).attr('id');
 
 			$('.list-unstyled.chat-history').empty();
+			$('#chatProfile').empty();
+			
+			let chatPro = '';
+			
+			chatPro = `<i class='ti ti-menu-2 ti-lg cursor-pointer d-lg-none d-block me-4'
+                              data-bs-toggle='sidebar'
+                              data-overlay
+                              data-target='#app-chat-contacts'></i>
+                            <div class='flex-shrink-0 avatar'>
+                              <img
+                                src='/assets/admin/img/avatars/4.png'
+                                alt='Avatar'
+                                class='rounded-circle'
+                                data-bs-toggle='sidebar'
+                                data-overlay
+                                data-target='#app-chat-sidebar-right'/>
+                            </div>
+                            <div class='chat-contact-info flex-grow-1 ms-4'>
+                              <h6 class='m-0 fw-normal'>${roomId}</h6>
+                              <small class='user-status text-body'>${roomId}</small>
+                            </div>`;
+			
+			$('#chatProfile').append(chatPro);
 
 			//ajax 호출 
 			$.ajax({
@@ -80,21 +102,19 @@ $(document).ready(function() {
 				data: { roomId }
 			})
 				.done(datas => {
-
 					for (let str in datas) {
 						let app = '';
 
 						if (datas[str].writer === username) {
 
-							app = `<li class='chat-message chat-message-right'>
+					app = `<li class='chat-message chat-message-right'>
 					 <div class='d-flex overflow-hidden'>
 					 <div class='chat-message-wrapper flex-grow-1'>
 					 <div class='chat-message-text'>
 					 <p class='mb-0'>${datas[str].message}</p>
 					 </div>
 					 <div class='text-end text-muted mt-1'>
-					 <i class='ti ti-checks ti-16px text-success me-1'></i>
-					 <small>${datas[str].message}</small>
+					 <small></small>
 					 </div></div>
 					 <div class='user-avatar flex-shrink-0 ms-4'>
 					 <div class='avatar avatar-sm'>
@@ -110,8 +130,7 @@ $(document).ready(function() {
 					 <p class='mb-0'>${datas[str].message}</p>
 					 </div>
 					 <div class='text-end text-muted mt-1'>
-					 <i class='ti ti-checks ti-16px text-success me-1'></i>
-					 <small>${datas[str].message}</small>
+					 <small></small>
 					 </div></div>
 					 <div class='user-avatar flex-shrink-0 ms-4'>
 					 <div class='avatar avatar-sm'>
@@ -120,7 +139,11 @@ $(document).ready(function() {
 							$('.list-unstyled.chat-history').append(app);
 						}
 					}
-
+					document.querySelector('.chat-history-body').scroll(0, 0);
+					setTimeout(function(){
+						let bot2 = document.querySelector('.chat-history-body').scrollHeight
+						document.querySelector('.chat-history-body').scroll(0, bot2);
+					}, 30);
 				})
 				.fail(err => console.log(err))
 				
@@ -132,14 +155,11 @@ $(document).ready(function() {
 
 	$("#button-send").on("click", function(e) {
 		var msg = document.getElementById("msg");
-		
-		this.event.bind(this.element, 'scroll', function (e) { return this$1.onScroll(e); });
 
 		console.log(username + ":" + msg.value);
 		stomp.send('/pub/chat/message', {}, JSON.stringify({ roomId: roomId, message: msg.value, writer: username }));
 		msg.value = '';
 		
-		$('.chat-history-body').scrollTop($('.chat-history-body')[0].scrollHeight);
 
 	});
 

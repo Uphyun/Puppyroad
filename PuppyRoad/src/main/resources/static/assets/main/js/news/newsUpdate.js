@@ -52,7 +52,7 @@ function addFile(obj) {
 
 /* 첨부파일 검증 */
 function validation(file) {
-	const fileTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif'];
+	const fileTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif', 'image/jfif'];
 	if (file.name.length > 100) {
 		alert("파일명이 100자 이상인 파일은 제외되었습니다.");
 		return false;

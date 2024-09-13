@@ -5,8 +5,6 @@ import java.util.Map;
 
 
 public interface PetstarProfileService {
-	// 전체조회
-	public List<PetStarProfileVO> getProfileList(PetStarProfileVO profileVO);
 
 	// 단건 조회
 	public PetStarProfileVO getProfileInfo(PetStarProfileVO profileVO);
@@ -17,6 +15,4 @@ public interface PetstarProfileService {
 	// 수정
 	public Map<String, Object> modifyProfile(PetStarProfileVO profileVO);
 
-	// 삭제
-	public int removeProfile(int pno);
 }

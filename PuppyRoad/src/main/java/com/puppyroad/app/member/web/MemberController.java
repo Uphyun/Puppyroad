@@ -129,7 +129,7 @@ public class MemberController {
 	}
 	
 	//회원정보조회
-	@GetMapping("memberGetInfo")
+	@GetMapping("user/memberGetInfo")
 	public String memberGetInfo(MemberVO memberVO, Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		memberVO.setUserId(authentication.getName());
@@ -140,7 +140,7 @@ public class MemberController {
 	}
 	
 	//비밀번호체크
-	@PostMapping("checkPassword")
+	@PostMapping("user/checkPassword")
 	@ResponseBody
 	public String checkPassword(@RequestParam("userPw") String inputPw, MemberVO memberVO) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -154,7 +154,7 @@ public class MemberController {
 	}
 	
 	//회원정보수정
-	@PostMapping("memberUpdate")
+	@PostMapping("user/memberUpdate")
 	@ResponseBody
 	public String memberUpdate(@RequestBody MemberVO memberVO) {
 		System.out.println(memberVO);
@@ -164,13 +164,13 @@ public class MemberController {
 	}
 	
 	//회원탈퇴-페이지
-	@GetMapping("memberDelete")
+	@GetMapping("user/memberDelete")
 	public String memberDeletePage() {
 		return "member/memberDelete";
 	}
 	
 	//회원탈퇴-처리
-	@GetMapping("memberDeleteDone")
+	@GetMapping("user/memberDeleteDone")
 	public String memberDelete(MemberVO memberVO) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		memberVO.setUserId(authentication.getName());

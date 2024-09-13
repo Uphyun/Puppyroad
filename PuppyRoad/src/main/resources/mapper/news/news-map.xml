@@ -49,8 +49,8 @@
 		   		,#{title}
 		   		,#{content}
 		   		,#{writer}
-		   		,NVL(#{writingDate}, sysdate)
-		   		,to_char(#{attachedFile})
+		   		,sysdate
+		   		,#{attachedFile}
 		   		,#{bulletinType}
 		   	)  
 	</insert>
@@ -61,7 +61,6 @@
 		 SET
 			title = #{title}
 		   ,content = #{content}
-		   ,writing_date = sysdate
 		   ,attached_file = #{attachedFile}
 		WHERE bulletin_no = #{bulletinNo}
 	</update>
