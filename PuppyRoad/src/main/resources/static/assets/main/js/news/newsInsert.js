@@ -35,8 +35,7 @@ function addFile(obj) {
 				let htmlData = '';
 				htmlData += '<div id="file' + fileNo + '" class="filebox">';
 				htmlData += '   <img src="' + e.target.result + '" alt="' + file.name + '" style="max-width: 100px; max-height: 100px; display: block;"/>';
-				htmlData += '   <p class="name">' + file.name + '</p>';
-				htmlData += '   <a class="delete" onclick="deleteFile(' + fileNo + ');"><i class="far fa-minus-square"></i></a>';
+				htmlData += '   <a class="delete" onclick="deleteFile(' + fileNo + ');"><i class="ti ti-minus"></i></a>';
 				htmlData += '</div>';
 				$('#image_list').append(htmlData);
 				fileNo++;
@@ -76,11 +75,6 @@ function submitForm() {
 	var form = document.querySelector("form");
 	var formData = new FormData(form);
 
-	// 제목, 내용, bulletinType 수동 추가
-	formData.append("title", $('input[name="title"]').val());
-	formData.append("content", $('textarea[name="content"]').val());
-	formData.append("bulletinType", $('input[name="bulletinType"]:checked').val());
-
 	let title = $('input[name="title"]');
 	if (title.val() === '') {
 		alert('제목이 입력되지 않았습니다.');
@@ -109,6 +103,7 @@ function submitForm() {
 		processData: false,
 		contentType: false,
 		success: function(data) {
+			console.log(data);
 			if (data > 0) {
 				alert("성공적으로 제출되었습니다.");
 				location.href = "/user/newsList"

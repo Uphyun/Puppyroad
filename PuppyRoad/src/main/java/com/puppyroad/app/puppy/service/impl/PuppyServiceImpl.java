@@ -39,6 +39,12 @@ public class PuppyServiceImpl implements PuppyService {
 		
 		return puppymapper.selectPuppyInfo(puppyVO);
 	}
+
+	@Override
+	public int updatePuppy(PuppyVO puppyVO) {
+		
+		return puppymapper.updatePuppy(puppyVO);
+	}
 	
 	
 	

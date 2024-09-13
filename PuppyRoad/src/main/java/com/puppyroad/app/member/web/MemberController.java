@@ -154,7 +154,7 @@ public class MemberController {
 	}
 	
 	//회원정보수정
-	@PostMapping("ajax/memberUpdate")
+	@PostMapping("memberUpdate")
 	@ResponseBody
 	public String memberUpdate(@RequestBody MemberVO memberVO) {
 		System.out.println(memberVO);
