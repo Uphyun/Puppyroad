@@ -21690,5 +21690,8 @@
   content: "\fecf";
 }
 .ti-user:before {
-	content : "\eb4d"
+	content : "\eb4d";
+}
+.ti-schedule:before {
+	content : "\ebba";
 }
