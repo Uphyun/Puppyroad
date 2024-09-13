@@ -13,6 +13,21 @@
     WHERE     room_id = #{roomId}
     ORDER BY  chatting_code
 </select>
+
+<select id="selectRecentMessage">
+	SELECT    room_id,
+              writer,
+              message,
+              outgoing_date,
+              attached_file,
+              chatting_code
+    FROM      chatting
+    WHERE     (room_id, outgoing_date) IN (
+           SELECT room_id, MAX(outgoing_date)
+           FROM   chatting
+           GROUP BY room_id)
+    AND       room_id = #{roomId}
+</select>
  
 
  <!-- 메세지 추가 -->

@@ -53,11 +53,14 @@
 				, dog_size
 				, personality
 				, note
+				, puppy_code
+				, disease_pre_abs
 		FROM    puppy
 		WHERE   client_user_Id = #{clientUserId}
 		ORDER BY puppy_code
 	</select>
-		<select id="selectPuppyInfo" resultType="puppyVO" parameterType="puppyVO">
+	
+	<select id="selectPuppyInfo" resultType="puppyVO" parameterType="puppyVO">
 		SELECT 	picture
 				, dog_name
 				, dog_breed
@@ -67,10 +70,28 @@
 				, dog_size
 				, personality
 				, note
+				, puppy_code
+				, disease_pre_abs
+				, neutralization_pre_abs
 		FROM    puppy
 		WHERE   client_user_Id = #{clientUserId}
 		AND     puppy_code = #{puppyCode}
 	</select>
+	
+	<update id="updatePuppy">
+		UPDATE puppy
+		SET    dog_name = #{dogName}
+			 , picture = #{picture}	
+			 , age = #{age}
+			 , dog_breed = #{dogBreed}
+			 , dog_size = #{dogSize}
+			 , weight = #{weight}
+			 , personality = #{personality}
+			 , note = #{note}
+		WHERE   client_user_Id = #{clientUserId}
+		AND     puppy_code = #{puppyCode}
+		
+	</update>
 	
 
 </mapper>
