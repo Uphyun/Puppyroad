@@ -50,9 +50,6 @@
 		    	, #{intention}
 		    </if>
 			, 1
-		   
-		 
-
 		)
 	</insert>
 	

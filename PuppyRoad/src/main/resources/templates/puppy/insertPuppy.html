@@ -9,8 +9,13 @@
 </head>
 <body>
 <section class="first-section-pt">
+<div class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
+              <div class="flex-shrink-1 flex-grow-0 w-px-350 border-end container-p-x container-p-y">
+                 <div th:insert="common/fragments/admin/aside :: AsideFragment"></div>
+              </div>
 
-	<form class="card-body pt-12" name="insertForm" id="frm"
+              <div class="flex-shrink-1 flex-grow-1 container-p-x container-p-y">
+              <form class="card-body pt-12" name="insertForm" id="frm"
 		th:action="@{/user/insertPuppy}" method="post" th:object="${puppyVO}"
 		style="width: 400px; margin: auto" enctype="multipart/form-data">
 		<div class="user-avatar-section">
@@ -226,6 +231,10 @@
 				data-bs-target="#editUser" data-bs-toggle="modal">저장</button>
 		</div>
 	</form>
+              
+                <!-- Layout Demo -->
+               
+	
 	</section>
 </body>
 <script>

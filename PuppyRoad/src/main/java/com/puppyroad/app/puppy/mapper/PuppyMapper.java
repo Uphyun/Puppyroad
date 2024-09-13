@@ -10,5 +10,6 @@ public interface PuppyMapper {
 	public List<PuppyVO> selectPuppy(String clientUserId); //본인 강아지 조회
 	public PuppyVO selectPuppyInfo(PuppyVO puppyVO); //단건조회
 	public int updatePuppy(PuppyVO puppyVO); // 강아지 프로필 수정
+	public int deletePuppy(String puppyCode);
 	
 }
