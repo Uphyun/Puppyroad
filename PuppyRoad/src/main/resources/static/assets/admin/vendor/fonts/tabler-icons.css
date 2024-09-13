@@ -5718,6 +5718,10 @@
   content: "\f381";
 }
 
+.ti-chat:before {
+	content:"\eaed";
+}
+
 .ti-check:before {
   content: "\ea5e";
 }
@@ -21684,4 +21688,7 @@
 
 .ti-message-circle-2-filled:before {
   content: "\fecf";
+}
+.ti-user:before {
+	content : "\eb4d"
 }
