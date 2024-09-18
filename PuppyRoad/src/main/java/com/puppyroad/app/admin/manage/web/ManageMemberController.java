@@ -1,5 +1,6 @@
 package com.puppyroad.app.admin.manage.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,20 +24,32 @@ public class ManageMemberController {
 	
 	//의뢰인 리스트
 	@GetMapping("admin/manageMember")
-	public String manageMemberPage() {
+	public String manageMemberPage(Model model, PageDTO pageDTO, MemberVO memberVO, String condition) {
+		memberVO.setPosition("의뢰인");
+		List<MemberVO> memberList = manageMemberService.getMemberList(pageDTO, memberVO, condition);
+		
+		model.addAttribute("memberList", memberList);
 		
 		return "admin/manage/member";
 	}
 	
 	@GetMapping("ajax/memberList")
-	public String getMemberListPaging(Model model, PageDTO pageDTO, MemberVO memberVO, String condition) {
+	public String getMemberList(Model model, PageDTO pageDTO, MemberVO memberVO, String condition) {
 		List<MemberVO> memberList = manageMemberService.getMemberList(pageDTO, memberVO, condition);
+		
+		model.addAttribute("memberList", memberList);
+		
+		return "admin/manage/member::#memberListBody";
+	}
+	
+	@GetMapping("ajax/memberListPage")
+	public String getMemberListPaging(Model model, PageDTO pageDTO, MemberVO memberVO, String condition) {
 		PageDTO nowPagingDTO = new PageDTO(pageDTO.getPage(), pageDTO.getRecordSize(), manageMemberService.getMemberPage(memberVO, condition));
 		
-		System.err.println(nowPagingDTO);
-		model.addAttribute("memberList", memberList);
-		model.addAttribute("page", pageDTO);
-		return "admin/manage/member::#memberListBody";
+		System.out.println(nowPagingDTO);
+		model.addAttribute("pages", nowPagingDTO);
+		
+		return "admin/manage/member::#memberListPaging";
 	}
 	
 	@GetMapping("ajax/manageMember")

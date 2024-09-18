@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="https://www.thymeleaf.org/" layout:decorate="~{/common/layouts/admin_layout}"
       layout:fragment="Content">
+<head>
+      <link rel="stylesheet" href="/assets/admin/vender/libs/datatables-bs5/datatables-bootstrap5.css">
+</head>
 
 <body>
       <div class="container-xxl flex-grow-1 container-p-y">
@@ -8,14 +11,13 @@
             <div class="card">
                   <div class="card-header border-bottom">
                         <h5 class="card-title mb-0">의뢰인 목록</h5>
-                        <th:block th:text="${page}"></th:block>
                         <div class="d-flex justify-content-between align-items-center row pt-4 gap-4 gap-md-0">
                               <div class="col-md-4 user_role"></div>
                               <div class="col-md-4 user_plan"></div>
                               <div class="col-md-4 user_status"></div>
                         </div>
                   </div>
-                  <div class="card-datatable table-responsive" id="memberListBody">
+                  <div class="card-datatable table-responsive">
                         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                               <div class="row">
                                     <div class="col-md-2">
@@ -108,8 +110,8 @@
                                                             style="width: 116.359px;" aria-label="계정상태">계정상태</th>
                                                 </tr>
                                                 <!-- <tr class="odd">
-                                                <td valign="top" colspan="9" class="dataTables_empty">Loading...</td>
-                                          </tr> -->
+                                                      <td valign="top" colspan="9" class="dataTables_empty">Loading...</td>
+                                                </tr> -->
                                           </thead>
                                           <tbody id="memberListBody">
                                                 <tr class="odd" th:each="member : ${memberList}">
@@ -175,7 +177,7 @@
                                           </tbody>
                                     </table>
 
-                                    <div class="row">
+                                    <!-- <div class="row" id="memberListPaging" th:object=${pages}>
                                           <div class="col-sm-12 col-md-6">
                                                 <div class="dataTables_info" id="DataTables_Table_0_info" role="status"
                                                       aria-live="polite">Showing 0 to 0 of 0
@@ -185,12 +187,13 @@
                                                 <div class="dataTables_paginate paging_simple_numbers"
                                                       id="DataTables_Table_0_paginate">
                                                       <ul class="pagination">
-                                                            <th:block th:if="${!page.prev}">
-                                                                  <li class="paginate_button page-item previous disabled"
+                                                            
+                                                            <th:block th:if="${pages.prev}">
+                                                                  <li class="paginate_button page-item previous"
                                                                         id="DataTables_Table_0_previous">
                                                             </th:block>
-                                                            <th:block th:if="${page.prev}">
-                                                                  <li class="paginate_button page-item previous"
+                                                            <th:block th:if="${!pages.prev}">
+                                                                  <li class="paginate_button page-item previous disabled"
                                                                         id="DataTables_Table_0_previous">
                                                             </th:block>
                                                             <a aria-controls="DataTables_Table_0" aria-disabled="true"
@@ -198,12 +201,19 @@
                                                                   class="page-link"><i
                                                                         class="ti ti-chevron-left ti-sm"></i></a>
                                                             </li>
-                                                            <th:block th:if="${!page.next}">
-                                                                  <li class="paginate_button page-item next disabled"
+
+                                                            
+                                                             <th:block th:each="pages : ${#{numbers.sequence(pages.startPage, pages.endPage)}}">
+
+                                                             </th:block>
+
+                                                            
+                                                            <th:block th:if="${pages.next}">
+                                                                  <li class="paginate_button page-item next"
                                                                         id="DataTables_Table_0_next">
                                                             </th:block>
-                                                            <th:block th:if="${page.next}">
-                                                                  <li class="paginate_button page-item next"
+                                                            <th:block th:if="${!pages.next}">
+                                                                  <li class="paginate_button page-item next disabled"
                                                                         id="DataTables_Table_0_next">
                                                             </th:block>
                                                             <a aria-controls="DataTables_Table_0" aria-disabled="true"
@@ -213,7 +223,7 @@
                                                       </ul>
                                                 </div>
                                           </div>
-                                    </div>
+                                    </div> -->
                               </div>
                         </div>
                   </div>
@@ -294,7 +304,6 @@
                   <!--/ View User Modal -->
             </div>
       </div>
-      <script src="/assets/admin/js/member/manage-member.js"></script>
 </body>
 
 </html>
