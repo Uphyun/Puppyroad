@@ -1,0 +1,392 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
+<head>
+<script type="text/javascript"
+	src="/assets/vendor/libs/flatpickr/flatpickr.js"></script>
+<style>
+.switch-success {
+	margin-top: 10px;
+}
+</style>
+<link rel="stylesheet"
+	href="/assets/vendor/libs/flatpickr/flatpickr.css">
+</head>
+<body>
+
+	<section class="first-section-pt">
+		<div class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
+			<div
+				class="flex-shrink-1 flex-grow-0 w-px-350 border-end container-p-x container-p-y">
+				<div th:insert="common/fragments/admin/aside :: AsideFragment"></div>
+			</div>
+
+			<div class="flex-shrink-1 flex-grow-1 container-p-x container-p-y">
+				<div class="content">
+					<div class="col-md">
+						<div class="card">
+							<h5 class="card-header" style="width: 400px; margin: auto">도크워커
+								프로필 설정</h5>
+							<div class="card-body" style="width: 400px; margin: auto">
+								<form class="needs-validation" th:object="${dogWalkVO}"
+									th:action="@{/user/insertWalker}" method="post"
+									enctype="multipart/form-data" novalidate="">
+									<div class="mb-6">
+										<label for="profilePictureEdit" style="cursor: pointer;">
+											<img id="profileImagePreview"
+											th:src="@{/images/{fileName}(fileName=${dogWalkVO.picture})}"
+											th:alt="${fileName}"
+											style="max-width: 100px; max-height: 100px; display: block;" />
+										</label> <input type="file" class="form-control"
+											id="profilePictureEdit" name="file" accept="image/*"
+											onchange="previewImage(event)" style="display: block;" />
+									</div>
+									<div class="mb-6">
+										<div class="row">
+											<label class="form-label" for="bs-validation-email">성별</label>
+											<div class="col-md mb-md-0 mb-5">
+												<div class="form-check custom-option custom-option-icon">
+													<label class="form-check-label custom-option-content"
+														for="mage"> <span class="custom-option-body">
+															<i class="ti ti-brand-gitlab mb-2"></i> <span>남</span>
+													</span> <input name="gender" class="form-check-input" type="radio"
+														value="1" id="mage" th:checked="${dogWalkVO.gender == 1}">
+													</label>
+												</div>
+											</div>
+											<div class="col-md mb-md-0 mb-5">
+												<div
+													class="form-check custom-option custom-option-icon checked">
+													<label class="form-check-label custom-option-content"
+														for="wage"> <span class="custom-option-body">
+															<i class="ti ti-brand-gitlab mb-2"></i> <span>여</span>
+													</span> <input name="gender" class="form-check-input" type="radio"
+														value="2" id="wage" th:checked="${dogWalkVO.gender == 2}">
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="mb-5">
+										<label class="form-label" for="eventStartDate">근무 날짜</label>
+
+										<div>
+											<br> 
+											<!-- 요일 체크박스들 -->
+											<label class="switch switch-success">
+												<input type="checkbox" class="switch-input" value="월" name="workWeek" th:checked="${#lists.contains(workWeek, '월')}">
+												<span class="switch-toggle-slider">
+													<span class="switch-on"><i class="ti ti-check"></i></span>
+													<span class="switch-off"><i class="ti ti-x"></i></span>
+												</span>
+												<span class="switch-label">월</span>
+											</label> 
+											
+											<label class="switch switch-success">
+												<input type="checkbox" class="switch-input" value="화" name="workWeek" th:checked="${#lists.contains(workWeek, '화')}">
+												<span class="switch-toggle-slider">
+													<span class="switch-on"><i class="ti ti-check"></i></span>
+													<span class="switch-off"><i class="ti ti-x"></i></span>
+												</span>
+												<span class="switch-label">화</span>
+											</label>
+
+											<label class="switch switch-success">
+												<input type="checkbox" class="switch-input" value="수" name="workWeek" th:checked="${#lists.contains(workWeek, '수')}">
+												<span class="switch-toggle-slider">
+													<span class="switch-on"><i class="ti ti-check"></i></span>
+													<span class="switch-off"><i class="ti ti-x"></i></span>
+												</span>
+												<span class="switch-label">수</span>
+											</label>
+											<label class="switch switch-success">
+												<input type="checkbox" class="switch-input" value="목" name="workWeek" th:checked="${#lists.contains(workWeek, '목')}">
+												<span class="switch-toggle-slider">
+													<span class="switch-on"><i class="ti ti-check"></i></span>
+													<span class="switch-off"><i class="ti ti-x"></i></span>
+												</span>
+												<span class="switch-label">목</span>
+											</label>
+											<label class="switch switch-success">
+												<input type="checkbox" class="switch-input" value="금" name="workWeek" th:checked="${#lists.contains(workWeek, '금')}">
+												<span class="switch-toggle-slider">
+													<span class="switch-on"><i class="ti ti-check"></i></span>
+													<span class="switch-off"><i class="ti ti-x"></i></span>
+												</span>
+												<span class="switch-label">금</span>
+											</label>
+											<label class="switch switch-success">
+												<input type="checkbox" class="switch-input" value="토" name="workWeek" th:checked="${#lists.contains(workWeek, '토')}">
+												<span class="switch-toggle-slider">
+													<span class="switch-on"><i class="ti ti-check"></i></span>
+													<span class="switch-off"><i class="ti ti-x"></i></span>
+												</span>
+												<span class="switch-label">토</span>
+											</label>
+											<label class="switch switch-success">
+												<input type="checkbox" class="switch-input" value="일" name="workWeek" th:checked="${#lists.contains(workWeek, '일')}">
+												<span class="switch-toggle-slider">
+													<span class="switch-on"><i class="ti ti-check"></i></span>
+													<span class="switch-off"><i class="ti ti-x"></i></span>
+												</span>
+												<span class="switch-label">일</span>
+											</label>
+											<!-- 추가 요일 체크박스들... 동일한 패턴 -->
+										</div>
+									</div>
+
+									<!-- 근무 시간 체크박스들 -->
+									<label class="switch switch-success"> 
+										<input type="checkbox" class="switch-input" value="08:00-09:00" name="workTime" th:checked="${#lists.contains(workTime, '08:00-09:00')}"> 
+										<span class="switch-toggle-slider">
+											<span class="switch-on"><i class="ti ti-check"></i></span>
+											<span class="switch-off"><i class="ti ti-x"></i></span>
+										</span> 
+										<span class="switch-label">08:00 - 09:00</span>
+									</label> 
+									<label class="switch switch-success"> 
+										<input type="checkbox" class="switch-input" value="09:00-10:00" name="workTime" th:checked="${#lists.contains(workTime, '08:00-09:00')}"> 
+										<span class="switch-toggle-slider">
+											<span class="switch-on"><i class="ti ti-check"></i></span>
+											<span class="switch-off"><i class="ti ti-x"></i></span>
+										</span> 
+										<span class="switch-label">09:00 - 10:00</span>
+									</label> 
+									<label class="switch switch-success"> 
+										<input type="checkbox" class="switch-input" value="10:00-11:00" name="workTime" th:checked="${#lists.contains(workTime, '08:00-09:00')}"> 
+										<span class="switch-toggle-slider">
+											<span class="switch-on"><i class="ti ti-check"></i></span>
+											<span class="switch-off"><i class="ti ti-x"></i></span>
+										</span> 
+										<span class="switch-label">10:00 - 11:00</span>
+									</label> 
+									<label class="switch switch-success"> 
+										<input type="checkbox" class="switch-input" value="11:00-12:00" name="workTime" th:checked="${#lists.contains(workTime, '08:00-09:00')}"> 
+										<span class="switch-toggle-slider">
+											<span class="switch-on"><i class="ti ti-check"></i></span>
+											<span class="switch-off"><i class="ti ti-x"></i></span>
+										</span> 
+										<span class="switch-label">11:00 - 12:00</span>
+									</label> 
+									<label class="switch switch-success"> 
+										<input type="checkbox" class="switch-input" value="12:00-13:00" name="workTime" th:checked="${#lists.contains(workTime, '08:00-09:00')}"> 
+										<span class="switch-toggle-slider">
+											<span class="switch-on"><i class="ti ti-check"></i></span>
+											<span class="switch-off"><i class="ti ti-x"></i></span>
+										</span> 
+										<span class="switch-label">12:00 - 13:00</span>
+									</label> 
+									<label class="switch switch-success"> 
+										<input type="checkbox" class="switch-input" value="13:00-14:00" name="workTime" th:checked="${#lists.contains(workTime, '08:00-09:00')}"> 
+										<span class="switch-toggle-slider">
+											<span class="switch-on"><i class="ti ti-check"></i></span>
+											<span class="switch-off"><i class="ti ti-x"></i></span>
+										</span> 
+										<span class="switch-label">13:00 - 14:00</span>
+									</label> 
+									<label class="switch switch-success"> 
+										<input type="checkbox" class="switch-input" value="14:00-15:00" name="workTime" th:checked="${#lists.contains(workTime, '08:00-09:00')}"> 
+										<span class="switch-toggle-slider">
+											<span class="switch-on"><i class="ti ti-check"></i></span>
+											<span class="switch-off"><i class="ti ti-x"></i></span>
+										</span> 
+										<span class="switch-label">14:00 - 15:00</span>
+									</label> 
+									<label class="switch switch-success"> 
+										<input type="checkbox" class="switch-input" value="15:00-16:00" name="workTime" th:checked="${#lists.contains(workTime, '08:00-09:00')}"> 
+										<span class="switch-toggle-slider">
+											<span class="switch-on"><i class="ti ti-check"></i></span>
+											<span class="switch-off"><i class="ti ti-x"></i></span>
+										</span> 
+										<span class="switch-label">15:00 - 16:00</span>
+									</label> 
+									<label class="switch switch-success"> 
+										<input type="checkbox" class="switch-input" value="16:00-17:00" name="workTime" th:checked="${#lists.contains(workTime, '08:00-09:00')}"> 
+										<span class="switch-toggle-slider">
+											<span class="switch-on"><i class="ti ti-check"></i></span>
+											<span class="switch-off"><i class="ti ti-x"></i></span>
+										</span> 
+										<span class="switch-label">16:00 - 17:00</span>
+									</label> 
+									<label class="switch switch-success"> 
+										<input type="checkbox" class="switch-input" value="17:00-18:00" name="workTime" th:checked="${#lists.contains(workTime, '08:00-09:00')}"> 
+										<span class="switch-toggle-slider">
+											<span class="switch-on"><i class="ti ti-check"></i></span>
+											<span class="switch-off"><i class="ti ti-x"></i></span>
+										</span> 
+										<span class="switch-label">17:00 - 18:00</span>
+									</label> 
+									<label class="switch switch-success"> 
+										<input type="checkbox" class="switch-input" value="18:00-19:00" name="workTime" th:checked="${#lists.contains(workTime, '08:00-09:00')}"> 
+										<span class="switch-toggle-slider">
+											<span class="switch-on"><i class="ti ti-check"></i></span>
+											<span class="switch-off"><i class="ti ti-x"></i></span>
+										</span> 
+										<span class="switch-label">18:00 - 19:00</span>
+									</label> 
+									<label class="switch switch-success"> 
+										<input type="checkbox" class="switch-input" value="19:00-20:00" name="workTime" th:checked="${#lists.contains(workTime, '08:00-09:00')}"> 
+										<span class="switch-toggle-slider">
+											<span class="switch-on"><i class="ti ti-check"></i></span>
+											<span class="switch-off"><i class="ti ti-x"></i></span>
+										</span> 
+										<span class="switch-label">19:00 - 20:00</span>
+									</label> 
+									<label class="switch switch-success"> 
+										<input type="checkbox" class="switch-input" value="20:00-21:00" name="workTime" th:checked="${#lists.contains(workTime, '08:00-09:00')}"> 
+										<span class="switch-toggle-slider">
+											<span class="switch-on"><i class="ti ti-check"></i></span>
+											<span class="switch-off"><i class="ti ti-x"></i></span>
+										</span> 
+										<span class="switch-label">20:00 - 21:00</span>
+									</label> 
+									<label class="switch switch-success"> 
+										<input type="checkbox" class="switch-input" value="21:00-22:00" name="workTime" th:checked="${#lists.contains(workTime, '08:00-09:00')}"> 
+										<span class="switch-toggle-slider">
+											<span class="switch-on"><i class="ti ti-check"></i></span>
+											<span class="switch-off"><i class="ti ti-x"></i></span>
+										</span> 
+										<span class="switch-label">21:00 - 22:00</span>
+									</label> 
+									<!-- 추가 시간 체크박스들... 동일한 패턴 -->
+									
+									<br> 
+									<label class="form-label" for="eventStartDate">선호 애견크기</label>
+									<br>
+									<div class="switch-group">
+										<label class="switch switch-success">
+											<input type="checkbox" class="switch-input" th:checked="${dogWalkVO.sSize}">
+											<span class="switch-toggle-slider">
+												<span class="switch-on"><i class="ti ti-check"></i></span>
+												<span class="switch-off"><i class="ti ti-x"></i></span>
+											</span>
+											<span class="switch-label">소</span>
+										</label> 
+										<input class="form-control size-input" type="text" name="sSize" th:value="${dogWalkVO.sSize}">
+									</div>
+									<div class="switch-group">
+										<label class="switch switch-success">
+											<input type="checkbox" class="switch-input" th:checked="${dogWalkVO.sSize}">
+											<span class="switch-toggle-slider">
+												<span class="switch-on"><i class="ti ti-check"></i></span>
+												<span class="switch-off"><i class="ti ti-x"></i></span>
+											</span>
+											<span class="switch-label">중</span>
+										</label> 
+										<input class="form-control size-input" type="text" name="mSize" th:value="${dogWalkVO.mSize}">
+									</div>
+									<div class="switch-group">
+										<label class="switch switch-success">
+											<input type="checkbox" class="switch-input" th:checked="${dogWalkVO.sSize}">
+											<span class="switch-toggle-slider">
+												<span class="switch-on"><i class="ti ti-check"></i></span>
+												<span class="switch-off"><i class="ti ti-x"></i></span>
+											</span>
+											<span class="switch-label">대</span>
+										</label> 
+										<input class="form-control size-input" type="text" name="lSize" th:value="${dogWalkVO.lSize}">
+									</div>
+
+									<!-- 중형 크기와 대형 크기 동일한 패턴 -->
+									
+									<div class="mb-6">
+										<label class="form-label" for="bs-validation-country">은행</label>
+										<select class="form-select" id="bs-validation-country" name="bankCode" required="">
+											<option value="" th:selected="${dogWalkVO.bankCode == ''}">은행 선택</option>
+											<option value="신한은행" th:selected="${dogWalkVO.bankCode == '신한은행'}">신한은행</option>
+											<option value="국민은행" th:selected="${dogWalkVO.bankCode == '국민은행'}">국민은행</option>
+											<!-- 기타 은행 옵션 -->
+										</select>
+										<div class="valid-feedback">Looks good!</div>
+										<div class="invalid-feedback">Please select your country</div>
+									</div>
+									
+									<div class="mb-6">
+										<label class="form-label" for="bs-validation-dob">계좌번호</label>
+										<input type="text" name="bankAccount" class="form-control" id="bs-validation-dob" required="" th:value="${dogWalkVO.bankAccount}" placeholder="'-'없이 입력">
+										<div class="valid-feedback">Looks good!</div>
+										<div class="invalid-feedback">Please Enter Your DOB</div>
+									</div>
+
+									<div class="mb-6">
+										<label class="form-label" for="bs-validation-bio">자기소개</label>
+										<textarea class="form-control" name="memo" id="bs-validation-bio" rows="3" required="" placeholder="고객들에게 자신을 어필해보세요!" th:text="${dogWalkVO.memo}"></textarea>
+									</div>
+									<div class="mb-6">
+										<div class="form-check">
+											<input type="checkbox" class="form-check-input"
+												id="bs-validation-checkbox" required=""> <label
+												class="form-check-label" for="bs-validation-checkbox">개인정보
+												등록 동의</label>
+											<div class="invalid-feedback">You must agree before
+												submitting.</div>
+										</div>
+									</div>
+									<div th:if="${message}">
+										<p th:text="${message}"></p>
+									</div>
+
+									<div class="row">
+										<div class="col-12">
+											<button type="submit"
+												class="btn btn-primary waves-effect waves-light">수정</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- .content 끝 -->
+
+			</div>
+		</div>
+		<!-- 어사이드 메뉴를 외부 프래그먼트로 삽입 -->
+
+		<!-- 본문 내용 -->
+
+		</div>
+		<!-- .main-container 끝 -->
+	</section>
+
+</body>
+<script>
+	//이미지 미리보기 함수
+	function previewImage(event) {
+		const reader = new FileReader();
+		const imageField = document.getElementById("profileImagePreview");
+
+		reader.onload = function() {
+			if (reader.readyState === 2) {
+				imageField.src = reader.result;
+			}
+		};
+		reader.readAsDataURL(event.target.files[0]);
+	}	
+	
+	// Ajax로 폼 데이터를 제출하는 함수
+	$('#submitBtn').on('click', function() {
+		var formData = new FormData($('#walkerProfileForm')[0]);
+
+		$.ajax({
+			url: '/user/updateWalker',  // 서버 엔드포인트
+			type: 'POST',
+			data: formData,
+			processData: false,
+			contentType: false,
+			enctype: 'multipart/form-data',
+			success: function(response) {
+				$('#successMessage').show();  // 성공 메시지 표시
+				$('#errorMessage').hide();    // 실패 메시지 숨기기
+			},
+			error: function(error) {
+				$('#errorMessage').show();    // 실패 메시지 표시
+				$('#successMessage').hide();  // 성공 메시지 숨기기
+			}
+		});
+	});
+</script>
+</html>

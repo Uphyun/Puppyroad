@@ -86,5 +86,11 @@ public class MatchServiceImpl implements MatchService {
 		return matchMapper.selectDogMatchInfo(matchVO);
 	}
 
+	@Override
+	public List<MatchVO> myMatchingList(String writer) {
+		// TODO Auto-generated method stub
+		return matchMapper.selectMatchingBoard(writer);
+	}
+
 
 }

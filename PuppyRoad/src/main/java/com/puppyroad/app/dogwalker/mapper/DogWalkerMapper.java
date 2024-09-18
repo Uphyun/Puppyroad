@@ -6,5 +6,9 @@ public interface DogWalkerMapper {
 	
 	//도그워커 프로필등록
 	public int insertwalker(DogWalkVO dogWalkVO);
+	//도그워커 수정
+	public int updatewalker(DogWalkVO dogWalkVO);
+	//조회
+	public DogWalkVO selectWalkerInfo(String memberCode);
 
 }

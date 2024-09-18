@@ -19,4 +19,7 @@ public interface MatchService {
 	public List<MatchVO> getDogList(MatchVO matchVO);
 	// 단건 개 정보
 	public MatchVO getDogInfo(MatchVO matchVO);
+	
+	//개인매칭내역조회
+	public List<MatchVO> myMatchingList(String writer);
 }

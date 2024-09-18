@@ -9,6 +9,7 @@ import com.puppyroad.app.dogwalker.service.DogWalkerSerivce;
 
 @Service
 public class DogWalkerServiceImpl implements DogWalkerSerivce {
+	
 	private DogWalkerMapper dogWalkerMapper;
 	
 	@Autowired
@@ -21,6 +22,18 @@ public class DogWalkerServiceImpl implements DogWalkerSerivce {
 	public int walkerinsert(DogWalkVO dogWalkVO) {
 		
 		return dogWalkerMapper.insertwalker(dogWalkVO);
+	}
+
+	@Override
+	public int walkerupdate(DogWalkVO dogWalkVO) {
+		
+		return dogWalkerMapper.updatewalker(dogWalkVO);
+	}
+
+	@Override
+	public DogWalkVO walkerInfo(String memberCode) {
+		// TODO Auto-generated method stub
+		return dogWalkerMapper.selectWalkerInfo(memberCode);
 	}
 
 }

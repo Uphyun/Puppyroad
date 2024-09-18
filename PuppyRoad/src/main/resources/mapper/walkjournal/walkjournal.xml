@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.puppyroad.app.walkjournal.mapper.WalkJournalMapper">
+    <!-- WALK_JOURNAL 목록 조회 -->
+    <select id="selectAllWalkJournals" resultType="WalkJournalVO">
+        SELECT 
+            w.JOURNAL_CODE,
+            w.TITLE,
+            w.WALK_DATE,
+            w.JOURNAL_CONTENT,
+            w.PATH,
+            w.VIDEO,
+            w.JOURNAL_PREPARATION_DATE,
+            w.WALKER_CODE,
+            w.PUPPY_CODE,
+            p.DOG_NAME,
+            p.DOG_BREED,
+            p.AGE,
+            p.GENDER,
+            p.DOG_SIZE,
+            p.WEIGHT,
+            p.PERSONALITY,
+            p.NEUTRALIZATION_PRE_ABS,
+            p.DISEASE_PRE_ABS,
+            p.NOTE,
+            p.CLIENT_USER_ID,
+            p.PICTURE
+        FROM WALK_JOURNAL w
+        LEFT JOIN PUPPY p ON w.PUPPY_CODE = p.PUPPY_CODE
+    </select>
+    
+        <select id="selectOneWalkJournals" resultType="WalkJournalVO">
+        SELECT 
+            w.JOURNAL_CODE,
+            w.TITLE,
+            w.WALK_DATE,
+            w.JOURNAL_CONTENT,
+            w.PATH,
+            w.VIDEO,
+            w.JOURNAL_PREPARATION_DATE,
+            w.WALKER_CODE,
+            w.PUPPY_CODE,
+            p.DOG_NAME,
+            p.DOG_BREED,
+            p.AGE,
+            p.GENDER,
+            p.DOG_SIZE,
+            p.WEIGHT,
+            p.PERSONALITY,
+            p.NEUTRALIZATION_PRE_ABS,
+            p.DISEASE_PRE_ABS,
+            p.NOTE,
+            p.CLIENT_USER_ID,
+            p.PICTURE,
+            m.NAME,
+            m.PHONE
+        FROM WALK_JOURNAL w
+        LEFT JOIN PUPPY p ON w.PUPPY_CODE = p.PUPPY_CODE
+        LEFT JOIN MEMBER m ON w.WALKER_CODE = m.MEMBER_CODE
+        WHERE w.JOURNAL_CODE = #{journalCode}
+    </select>
+
+</mapper>

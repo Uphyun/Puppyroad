@@ -104,4 +104,26 @@
   	WHERE  bulletin_no = #{bulletinNo}
   </delete>
   
+  <!-- 매칭내역조회 -->
+  <select id="selectMatchingBoard" resultType="MatchVO">
+    SELECT 
+        BULLETIN_NO, 
+        COVER_PHOTO, 
+        TITLE, 
+        WRITER, 
+        MATCHING_STATE, 
+        START_TIME, 
+        END_TIME, 
+        WRITING_TIME, 
+        ANIMAL_COUNT, 
+        WALK_PLACE_ADDRESS, 
+        MATCHING_KIND, 
+        CLIENT_CODE, 
+        CONTENT
+    FROM 
+        MATCHING_BOARD
+    WHERE
+    	WRITER = #{writer}
+</select>
+  
 </mapper>
