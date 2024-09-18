@@ -11,8 +11,8 @@ public class DogWalkVO {
 	private String bankCode;
 	private String bankAccount;
 	private String picture;
-	private Date workWeek;
-	private Date workTime;
+	private String workWeek;
+	private String workTime;
 	private String preferenceLocation;
 	private String approvalState;
 	private String memo;

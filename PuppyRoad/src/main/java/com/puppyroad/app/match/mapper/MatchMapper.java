@@ -24,4 +24,7 @@ public interface MatchMapper {
 	public int updateMatch(@Param("match") MatchVO matchVO);
 	// 삭제
 	public int deleteMatch(int bNo);
+	
+	//매칭내역조회
+	public List<MatchVO> selectMatchingBoard(String writer);
 }

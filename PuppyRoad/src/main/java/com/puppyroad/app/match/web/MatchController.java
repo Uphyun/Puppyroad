@@ -96,6 +96,14 @@ public class MatchController {
 		return "redirect:matchList";
 	}
 	
+	//매칭
+	@GetMapping("user/myMatchingList")
+	public String myMatchingList(String wrtier, Model model) {
+		List<MatchVO> list = matchService.myMatchingList(wrtier);
+		model.addAttribute("matchs", list);
+		return "match/myMatchingList";
+	}
+	
 	
 	
 }
