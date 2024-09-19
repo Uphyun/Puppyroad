@@ -62,7 +62,6 @@ public class PetStarProfileController {
 		// 프로필
 		PetStarProfileVO findVO = profileService.getProfileInfo(profileVO);
 
-		// 모델에 프로필 정보를 추가하여 뷰로 전달
 		// 게시글 리스트
 		List<PetstarBulletinVO> list = bulletinService.getMyBulletinList(bulletinVO);
 		model.addAttribute("bulletin",list);

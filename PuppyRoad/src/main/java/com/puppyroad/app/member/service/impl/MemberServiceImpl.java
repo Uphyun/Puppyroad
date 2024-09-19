@@ -43,13 +43,14 @@ public class MemberServiceImpl implements MemberService {
 		int result = memberMapper.insertMember(memberVO);
 
         if (result == 1) {
+        	// 회원가입 성공 시 프로필 데이터 생성
             PetStarProfileVO profile = new PetStarProfileVO();
             profile.setMemberCode(memberVO.getMemberCode());
             profile.setNickname(memberVO.getNickName());
-            //profile.setProfilePicture(null); 
-            //profile.setInfo(""); 
 
             profileMapper.insertProfile(profile);
+            
+            // 회원가입
             return memberVO.getMemberCode();
         }
 
