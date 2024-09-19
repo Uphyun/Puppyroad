@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.puppyroad.app.match.mapper.MatchMapper;
 import com.puppyroad.app.match.service.MatchService;
 import com.puppyroad.app.match.service.MatchVO;
+import com.puppyroad.app.match.service.MatchingPuppyVO;
+import com.puppyroad.app.puppy.service.PuppyVO;
 
 @Service
 public class MatchServiceImpl implements MatchService {
@@ -38,7 +40,23 @@ public class MatchServiceImpl implements MatchService {
 	public int addMatch(MatchVO matchVO) {
 		// TODO 단건 등록
 		int result = matchMapper.insertMatch(matchVO);
-		return result == 1 ? matchVO.getBulletinNo() : -1;  
+		
+		if (result == 1) {
+			//인서트 성공 시 
+			MatchingPuppyVO matchingPuppyVO = new MatchingPuppyVO();
+			
+			matchingPuppyVO.setBulletinNo(matchVO.getBulletinNo());
+			matchingPuppyVO.setPuppyCode(matchVO.getClientCode());
+			
+			matchMapper.insertMatchingPuppy(matchingPuppyVO);
+			
+			return matchVO.getBulletinNo();
+		}
+		else {
+			result = -1;
+		}
+		
+		return result;
 				
 	}
 
@@ -75,21 +93,34 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
-	public List<MatchVO> getDogList(MatchVO matchVO) {
+	public List<PuppyVO> getDogList(PuppyVO puppyVO) {
 		// 개 정보 리스트
-		return matchMapper.selectDogMatchList(matchVO);
+		return matchMapper.selectDogMatchList(puppyVO);
 	}
 
 	@Override
-	public MatchVO getDogInfo(MatchVO matchVO) {
+	public PuppyVO getDogInfo(PuppyVO puppyVO) {
 		// 개 단건 정보
-		return matchMapper.selectDogMatchInfo(matchVO);
+		return matchMapper.selectDogMatchInfo(puppyVO);
 	}
 
 	@Override
 	public List<MatchVO> myMatchingList(String writer) {
 		// TODO Auto-generated method stub
 		return matchMapper.selectMatchingBoard(writer);
+	}
+
+	@Override
+	public int addMatchingPuppy(MatchingPuppyVO matchingPuppyVO) {
+		// TODO 매칭견 등록
+		int result = matchMapper.insertMatchingPuppy(matchingPuppyVO);
+		return result == 1 ? matchingPuppyVO.getBulletinNo() : -1;  
+	}
+
+	@Override
+	public List<PuppyVO> getMatchingDogList(Integer bulletinNo) {
+		// TODO 매칭견 조회
+		return matchMapper.selectMatchingDogList(bulletinNo);
 	}
 
 
