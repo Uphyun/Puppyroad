@@ -65,7 +65,6 @@
 		UPDATE pet_stargram_bulletin
 		 SET
 		    content = #{content}
-		   ,writing_date = sysdate
 		   ,attached_file = #{attachedFile}
 		WHERE bulletin_no = #{bulletinNo}
 	</update>

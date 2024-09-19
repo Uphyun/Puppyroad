@@ -4,52 +4,102 @@
 	layout:decorate="~{common/layouts/default_layout}"
 	layout:fragment="Content">
 <head>
- <script type="text/javascript" src="/assets/main/js/petstar/profile.js"></script>
- <link rel="stylesheet" href="/assets/main/css/petstar/image.css" type="text/css" />
+<script type="text/javascript" src="/assets/main/js/petstar/profile.js"></script>
+<script type="text/javascript"
+	src="/assets/main/js/petstar/commentInsert.js"></script>
+<link rel="stylesheet" href="/assets/main/css/petstar/image.css"
+	type="text/css" />
 <meta charset="UTF-8">
 </head>
 
 <body>
 	<section class="first-section-pt">
+		<div style="display: flex;">
 
-	  <!-- Flexbox로 레이아웃을 구성 -->
-        <div style="display: flex;">
-
-            <!-- Aside 메뉴 -->
+			<!-- Aside 메뉴 -->
 			<aside id="layout-menu"
 				class="layout-menu menu-vertical menu bg-menu-theme"
 				style="flex: 0 0 250px;">
-
 				<ul class="menu-inner py-1" style="text-align: center;">
 					<!-- Apps & Pages -->
 					<li class="menu-header small"><span class="menu-header-text"
 						data-i18n="PetStar">펫스타 그램</span></li>
-					<li class="menu-item"><a href="mypage" class="menu-link">
-							<i class="menu-icon tf-icons ti ti-user-square-rounded"></i>
-							<div data-i18n="My PetStar">나의 펫스타</div>
-					</a></li>
+					<li class="menu-item"><a href="mypage" class="menu-link"><i
+							class="menu-icon tf-icons ti ti-user-square-rounded"></i>
+						<div data-i18n="My PetStar">나의 펫스타</div></a></li>
 					<li class="menu-item"><a href="bulletinInsert"
-						class="menu-link"> <i
+						class="menu-link"><i
 							class="menu-icon tf-icons ti ti-pencil-plus"></i>
-							<div data-i18n="Board">글 작성하기</div>
-					</a></li>
-					<li class="menu-item"><a href="commentInfo" class="menu-link">
-							<i class="menu-icon tf-icons ti ti-message"></i>
-							<div data-i18n="Comment">나의 댓글</div>
-					</a></li>
-					<li class="menu-item"><a href="Like" class="menu-link"> <i
+						<div data-i18n="Board">글 작성하기</div></a></li>
+					<li class="menu-item"><a href="commentInfo" class="menu-link"><i
+							class="menu-icon tf-icons ti ti-message"></i>
+						<div data-i18n="Comment">나의 댓글</div></a></li>
+					<li class="menu-item"><a href="Like" class="menu-link"><i
 							class="menu-icon tf-icons ti ti-heart"></i>
-							<div data-i18n="Like">좋아요 표시한 글</div>
-					</a></li>
+						<div data-i18n="Like">좋아요 표시한 글</div></a></li>
 				</ul>
-
 			</aside>
-			  <!-- End Aside -->
-			  
-			  
-			  
-			  
-			   </div>
+			<!-- End Aside -->
+
+			<!-- 게시글 목록 -->
+			<div class="row gy-6">
+				<th:block th:each="info : ${bulletin}">
+					<!-- 1 -->
+					<div class="col-xl mb-md-0">
+						<div class="card border-primary border shadow-none">
+							<div class="card-body position-relative pt-4"
+								style="cursor: pointer;"
+								th:onClick="|location.href='@{/user/bulletinInfo(bulletinNo=${info.bulletinNo})}'|">
+								<div id="image_container" class="my-5 pt-6 text-center">
+									<img
+										th:each="fileName : ${#strings.arraySplit(info.attachedFile, ',')}"
+										th:src="@{/images/{fileName}(fileName=${fileName})}"
+										alt="첨부파일 이미지">
+								</div>
+								<p class="text-center mb-5">[[ ${info.content} ]]</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- 게시글 댓글 목록 -->
+					<div class="row gy-3 mt-4">
+						<div class="col-12">
+							<div class="card border-light">
+								<div class="card-body">
+									<div class="comment-list">
+										<div id="comments-container-[[${info.bulletinNo}]]"></div>
+										<!-- 댓글 리스트 -->
+										<th:block th:each="com : ${commentsMap[info.bulletinNo]}">
+											<div class="d-flex align-items-start mb-3">
+												<img src="/images/user1.png" class="rounded-circle"
+													alt="프로필 이미지" width="40" height="40">
+												<div class="ms-3">
+													<p class="mb-0">
+														<strong>[[ ${com.writer} ]]</strong>
+													</p>
+													<p class="mb-0 text-muted">[[ ${com.content} ]]</p>
+												</div>
+											</div>
+										</th:block>
+
+										<!-- 댓글 입력란 -->
+										<div class="d-flex align-items-center mb-3">
+											<img src="/images/default-profile.png" class="rounded-circle"
+												alt="프로필 이미지" width="40" height="40"> <input
+												type="text" class="form-control ms-3 comment-input"
+												th:attr="id='commentInput_' + ${info.bulletinNo}"
+												placeholder="댓글을 입력하세요" />
+											<button class="btn btn-primary ms-2"
+												th:onclick="submitComment([[ ${info.bulletinNo} ]])">등록</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</th:block>
+			</div>
+		</div>
 	</section>
 </body>
 </html>
