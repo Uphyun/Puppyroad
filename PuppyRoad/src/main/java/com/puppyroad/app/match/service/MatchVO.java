@@ -27,6 +27,10 @@ public class MatchVO {
 	private String  matchingKind;             // 매칭 종류
 	private String  clientCode;               // 회원 코드
 	private String  content;
+	private String  memberCode;
+	private String  nickName;
+	private String  name;
+	private String  position;
 	
 	private List<MatchingPuppyVO> puppie;
 }

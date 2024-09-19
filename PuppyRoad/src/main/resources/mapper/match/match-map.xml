@@ -114,24 +114,26 @@
   
   <!-- 매칭내역조회 -->
   <select id="selectMatchingBoard" resultType="MatchVO">
-    SELECT 
-        BULLETIN_NO, 
-        COVER_PHOTO, 
-        TITLE, 
-        WRITER, 
-        MATCHING_STATE, 
-        START_TIME, 
-        END_TIME, 
-        WRITING_TIME, 
-        ANIMAL_COUNT, 
-        WALK_PLACE_ADDRESS, 
-        MATCHING_KIND, 
-        CLIENT_CODE, 
-        CONTENT
-    FROM 
-        MATCHING_BOARD
-    WHERE
-    	WRITER = #{writer}
+  SELECT 
+    mb.BULLETIN_NO,
+    mb.TITLE,
+    mb.WRITER,
+    mb.MATCHING_STATE,
+    mb.WRITING_TIME,
+    mb.MATCHING_KIND,
+    mb.CLIENT_CODE,
+    mb.END_TIME,
+    m.MEMBER_CODE,
+    m.NICKNAME,
+    m.NAME,
+    m.position
+FROM 
+    matching_board mb
+JOIN 
+    member m ON mb.CLIENT_CODE = m.MEMBER_CODE
+WHERE 
+	m.MEMBER_CODE = #{memberCode}
+	
 </select>
 
   

@@ -112,10 +112,11 @@ public class MatchController {
 		return "redirect:/user/matchList";
 	}
 	
-	//매칭
+	//매칭내역
 	@GetMapping("user/myMatchingList")
 	public String myMatchingList(String wrtier, Model model) {
-		List<MatchVO> list = matchService.myMatchingList(wrtier);
+		String mcode = SecurityUtil.memberCode();
+		List<MatchVO> list = matchService.myMatchingList(mcode);
 		model.addAttribute("matchs", list);
 		return "match/myMatchingList";
 	}

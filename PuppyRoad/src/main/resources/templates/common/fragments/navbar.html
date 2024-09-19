@@ -83,7 +83,7 @@
             <li class="nav-item">
               <a class="nav-link fw-medium" th:href="@{/user/inquiryInsert}">문의하기</a>
             </li>
-            <th:block th:if="${auth == '관리자'}">
+            <th:block th:if="${Auth == '관리자'}">
               <li class="nav-item">
                 <a class="nav-link fw-medium" th:href="@{admin}" target="_blank">관리자 홈</a>
               </li>
@@ -94,10 +94,12 @@
         <!-- Menu wrapper: End -->
         <!-- Toolbar: Start -->
         <ul class="navbar-nav flex-row align-items-center ms-auto">
-          <li class="nav-item me-2 me-xl-1">
+
+ 		  <li class="nav-item me-2 me-xl-1">
           	<i class="ti ti-lg ti-chat" th:onclick="|location.href='@{/chat/myChat}'|" style="cursor:pointer;"></i>
           </li>
-          <li class="nav-item me-2 me-xl-1"><i class="ti ti-lg ti-user"></i></li>
+          <li class="nav-item me-2 me-xl-1"><a th:href="@{/user/memberGetInfo}"><i class="ti ti-lg ti-user"></i></a></li>
+
           <!-- Style Switcher -->
           <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-1">
             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
