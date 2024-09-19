@@ -63,6 +63,11 @@ public class RoomController {
     //신청시 매칭 채팅방 : post
     @PostMapping("matchingRoom")
     public String myRoomInsert(ChatRoomDTO chatRoomDTO, RedirectAttributes rttr){
+    	
+    	chatRoomDTO.setRoomName(null);
+    	chatRoomDTO.setRecipient(null);
+    	chatRoomDTO.setSender(null);
+    	
     	int result = chatRoomService.addRoom(chatRoomDTO);
     	if ( result == 1)
     		rttr.addFlashAttribute("myRoomNames", chatRoomDTO.getRoomName());
