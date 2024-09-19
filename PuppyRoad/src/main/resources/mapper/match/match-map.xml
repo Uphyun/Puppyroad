@@ -78,9 +78,17 @@
   
   <!-- 자율매칭의 반려견 저장 -->
   <insert id="insertMatchingPuppy" parameterType="MatchVO">
-  	INSERT INTO matching_puppy(bulletin_no,
+     <selectKey keyProperty="mpCode"
+              resultType="Integer"
+              order="BEFORE">
+			SELECT NVL(MAX(mp_code), 0) + 1
+			FROM   matching_puppy
+     </selectKey>
+  	INSERT INTO matching_puppy(mp_code,
+  							   bulletin_no,
                                puppy_code)
-    VALUES(#{bulletinNo},
+    VALUES(#{mpCode},
+           #{bulletinNo},
            #{puppyCode})
   </insert>
     

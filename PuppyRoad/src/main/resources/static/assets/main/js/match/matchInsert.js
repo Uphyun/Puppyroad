@@ -35,7 +35,7 @@ function getCheckboxValue(event)  {
 		var diseasePreAbs = div.find('#diseasePreAbs').html();
 		
 	
-		$(".first").clone().attr('id', puppyCode).insertBefore("#second").removeClass("first").show();
+		$(".first").clone().attr('id', puppyCode).insertBefore("#second").removeClass("first").addClass("road").show();
 		var div2 = $("#" + puppyCode);
 
 	div2.find('[name=dogBreed]').val(dogBreed);
@@ -54,6 +54,36 @@ function getCheckboxValue(event)  {
 
 $('#insertBtn').on("click", function(){
 	
-    $("form[name='insertForm']").submit();      
+	let title = $('input[name=title]').val();
+	let writer = $('input[name=writer]').val();
+	let walkPlaceAddress = $('input[name=walkPlaceAddress]').val();
+	let content = $('input[name=content]').val();
+	let matchingKind = '자율';
+	
+	let puppie = [];
+	$('.road').each(function(idx, item){
+		let puppyCode = $(item).attr('id');
+
+		puppie.push({puppyCode});
+	})
+	
+	let data = {title, writer, walkPlaceAddress, content, matchingKind, puppie};
+	console.log(data);
+	
+	$.ajax({
+		url : '/user/matchInsert',
+		method : 'post',
+		contentType : 'application/json',
+		data : JSON.stringify(data),
+		success: function(datas) {
+			if(datas.result = 1) {
+				alert("성공적으로 등록되었습니다.");
+				location.href="/user/matchList"
+			} else {
+				alert("등록 오류")
+			}
+		}
+	})
+	  .fail(err => console.log(err))
 });
 

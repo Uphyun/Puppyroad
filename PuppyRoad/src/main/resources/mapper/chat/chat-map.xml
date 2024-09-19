@@ -52,6 +52,12 @@
  
  <!-- 채팅방 추가 -->
 <insert id="insertRoom">
+        <selectKey keyProperty="roomId"
+                   resultType="String"
+                   order="BEFORE">
+			SELECT NVL(MAX(room_id), 0) + 1
+			FROM   chat_room
+        </selectKey>
  	INSERT INTO chat_room(
  	                      room_name,
                           room_id,

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.puppyroad.app.puppy.service.PuppyVO;
+
 import lombok.Data;
 
 @Data
@@ -26,5 +28,5 @@ public class MatchVO {
 	private String  clientCode;               // 회원 코드
 	private String  content;
 	
-	private List<String> puppies;
+	private List<MatchingPuppyVO> puppie;
 }
