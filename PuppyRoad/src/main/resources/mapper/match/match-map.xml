@@ -125,5 +125,6 @@
     WHERE
     	WRITER = #{writer}
 </select>
+
   
 </mapper>

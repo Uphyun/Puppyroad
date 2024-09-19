@@ -2,6 +2,7 @@
  * matchList.js
  */
 let puppyCode = '';
+let bulletinNo = '';
 
 const btn = document.getElementById("popBtn"); // 모달을 띄우는 버튼 요소 가져오기
 const modal = document.getElementById("modalWrap"); // 모달 창 요소 가져오기
@@ -24,19 +25,19 @@ window.onclick = function (event) {
 
 function getCheckboxValue(event)  {
   if(event.target.checked)  {
-	var div = $(event.target).closest(".abc");
-	puppyCode = div.find('#puppyCode').val();
-	var dogBreed = div.find('#dogBreed').html();
-	var personality = div.find('#personality').html();
-	var dogSize = div.find('#dogSize').html();
-	var neutralizationPreAbs = div.find('#neutralizationPreAbs').html();
-	var diseasePreAbs = div.find('#diseasePreAbs').html();
+		var div = $(event.target).closest(".abc");
+		puppyCode = div.find('#puppyCode').val();
+		
+		var dogBreed = div.find('#dogBreed').html();
+		var personality = div.find('#personality').html();
+		var dogSize = div.find('#dogSize').html();
+		var neutralizationPreAbs = div.find('#neutralizationPreAbs').html();
+		var diseasePreAbs = div.find('#diseasePreAbs').html();
+		
 	
-	$("#first").clone().attr('id', puppyCode).insertBefore("#second");
-	
-	var div2 = $("#" + puppyCode);
-	div2.find('label').remove();
-	div2.find('#popBtn').remove();
+		$(".first").clone().attr('id', puppyCode).insertBefore("#second").removeClass("first").show();
+		var div2 = $("#" + puppyCode);
+
 	div2.find('[name=dogBreed]').val(dogBreed);
 	div2.find('[name=personality]').val(personality);
 	div2.find('[name=dogSize]').val(dogSize);
@@ -47,22 +48,12 @@ function getCheckboxValue(event)  {
 	var div = $(event.target).closest(".abc");
 	puppyCode = div.find('#puppyCode').val();
 	$('#' + puppyCode).remove();
+	
   } 
 }
 
 $('#insertBtn').on("click", function(){
-  let checkedList = [];
-  
-  $("input[name=dogBox]:checked").each(function(){
-        if($(this).is(":checked")==true){
-          let pupCode = $(this).closest(".abc").find('#puppyCode').val()
-          checkedList.push(pupCode);
-        } 
-  });
-          console.log(checkedList);
-          $("#puppies").val(checkedList);
-    $("form[name='insertForm']").submit();      
-  //return checkedList;
 	
+    $("form[name='insertForm']").submit();      
 });
 
