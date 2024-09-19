@@ -32,8 +32,8 @@
 								프로필 설정</h5>
 							<div class="card-body" style="width: 400px; margin: auto">
 								<form class="needs-validation" th:object="${dogWalkVO}"
-									th:action="@{/user/insertWalker}" method="post"
-									enctype="multipart/form-data" novalidate="">
+									th:action="@{/user/updateWalker}" method="post"
+									enctype="multipart/form-data" novalidate>
 									<div class="mb-6">
 										<label for="profilePictureEdit" style="cursor: pointer;">
 											<img id="profileImagePreview"
@@ -331,7 +331,7 @@
 
 									<div class="row">
 										<div class="col-12">
-											<button type="submit"
+											<button type="submit" id="submitBtn"
 												class="btn btn-primary waves-effect waves-light">수정</button>
 										</div>
 									</div>
@@ -368,16 +368,11 @@
 	}	
 	
 	// Ajax로 폼 데이터를 제출하는 함수
-	$('#submitBtn').on('click', function() {
-		var formData = new FormData($('#walkerProfileForm')[0]);
+/* 	$('#submitBtn').on('click', function() {
 
 		$.ajax({
 			url: '/user/updateWalker',  // 서버 엔드포인트
-			type: 'POST',
-			data: formData,
-			processData: false,
-			contentType: false,
-			enctype: 'multipart/form-data',
+			method: 'POST',
 			success: function(response) {
 				$('#successMessage').show();  // 성공 메시지 표시
 				$('#errorMessage').hide();    // 실패 메시지 숨기기
@@ -387,6 +382,6 @@
 				$('#successMessage').hide();  // 성공 메시지 숨기기
 			}
 		});
-	});
+	}); */
 </script>
 </html>

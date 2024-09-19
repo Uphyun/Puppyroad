@@ -42,7 +42,9 @@
 	        GENDER = #{gender}, 
 	        BANK_CODE = #{bankCode}, 
 	        BANK_ACCOUNT = #{bankAccount}, 
+	        <if test="picture != null and picture != ''">
 	        PICTURE = #{picture}, 
+	        </if>
 	        WORK_WEEK = #{workWeek}, 
 	        WORK_TIME = #{workTime}, 
 	        PREFERENCE_LOCATION = #{preferenceLocation}, 
@@ -72,7 +74,7 @@
         MEMBER_CODE
     FROM walker_add_info
     WHERE MEMBER_CODE = #{memberCode}
-</select>
+</select>	
 	
 
 </mapper>

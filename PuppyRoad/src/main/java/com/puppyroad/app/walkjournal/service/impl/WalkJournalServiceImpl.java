@@ -31,4 +31,16 @@ public class WalkJournalServiceImpl implements WalkJournalService {
 		
 		return walkJournalMapper.selectOneWalkJournals(walkJournalVO);
 	}
+
+	@Override
+	public List<WalkJournalVO> dogWalkJournalList(WalkJournalVO walkJournalV) {
+		
+		return walkJournalMapper.dogWalkJournals(walkJournalV);
+	}
+
+	@Override
+	public WalkJournalVO dogWalkJournalGetInfo(WalkJournalVO walkJournalV) {
+		
+		return walkJournalMapper.dogSelectOneWalkJournals(walkJournalV);
+	}
 }//end

@@ -28,6 +28,7 @@ import jakarta.validation.Valid;
 public class PuppyController {
 	
 	private PuppyService puppyservice;
+	
 	//private SecurityUtil securityUtil;
 	@Value("${file.upload.path}")
 	private String uploadPath;
@@ -48,7 +49,8 @@ public class PuppyController {
 	
 	//강아지 프로필 등록 - 처리
 	@PostMapping("user/insertPuppy")
-	public String insertPuppyProcess(@Valid PuppyVO puppyVO, BindingResult bindingResult, Model model,
+	public String insertPuppyProcess(@Valid PuppyVO puppyVO, 
+			                         BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes, @RequestPart(required = false) MultipartFile file) {
 		 // 파일이 있는 경우에만 업로드 처리
 	    if (file != null && !file.isEmpty()) {
@@ -66,23 +68,23 @@ public class PuppyController {
 	        }
 	    } 
 
-	    // 프로필 처리
-	    
+	    // 프로필 처리	    
 		String mcode = SecurityUtil.memberCode();
 		puppyVO.setClientUserId(mcode);
 		System.out.println(puppyVO.getClientUserId());
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("puppyVO", puppyVO);
 			return "puppy/insertPuppy";
-		}else {
-			String addPuppy = puppyservice.addPuppy(puppyVO);
-			if(addPuppy.equals("fail")) {
-				return "redirect:puppy/puppyInsert";
-			}else {
-				redirectAttributes.addFlashAttribute("successMsg", "댕댕이 정상 등록 완료!");
-				return "redirect:/user/listPuppy"; 
-			}
 		}
+		
+		String addPuppy = puppyservice.addPuppy(puppyVO);
+		if(addPuppy.equals("fail")) {
+			return "redirect:puppy/puppyInsert";
+		}else {
+			redirectAttributes.addFlashAttribute("successMsg", "댕댕이 정상 등록 완료!");
+			return "redirect:/user/listPuppy"; 
+		}
+		
 	}
 	//강아지 리스트
 	@GetMapping("user/listPuppy")
@@ -103,16 +105,13 @@ public class PuppyController {
 	
 	//강아지 수정
 	@PostMapping("user/updatePuppy")
-	public String updatePuppy(PuppyVO puppyVO, Model model, @RequestPart(required = false) MultipartFile file) {
+	public String updatePuppy(PuppyVO puppyVO,  
+			                  @RequestPart(required = false) MultipartFile file) {
 		
-		model.addAttribute("profile", puppyVO);
 		
 		String mcode = SecurityUtil.memberCode();
 		puppyVO.setClientUserId(mcode);
 		
-		  // 기존 첨부파일 가져오기
-	    PuppyVO findVO = puppyservice.getInfoPuppy(puppyVO);
-
 	    // 파일이 있는 경우에만 업로드 처리
 	    if (file != null && !file.isEmpty()) {
 	        String fileName = file.getOriginalFilename();
@@ -128,6 +127,8 @@ public class PuppyController {
 	            e.printStackTrace(); // 파일 업로드 실패 처리
 	        }
 	    } else {
+	    	// 기존 첨부파일 가져오기
+	    	PuppyVO findVO = puppyservice.getInfoPuppy(puppyVO);
 	        // 파일이 없으면 기존 이미지를 사용
 	        puppyVO.setPicture(findVO.getPicture());
 	    }
