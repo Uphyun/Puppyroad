@@ -32,15 +32,11 @@
 					</div>
 				</div>
 				<hr />
-					
-			   	  <div id="first">
-					<div class="row mb-3">
-						<div class="col-2">
 							<label for="dogInfo" class="col-form-label">반려견 정보</label>
-							<div>
-								<button type="button" class="my_btn" id="popBtn">불러오기</button>
-							</div>
-						</div>
+							<button type="button" class="my_btn" id="popBtn">불러오기</button>
+				<hr/>					
+			   	  <div class="first" id="first" style="display:none;">
+					<div class="row mb-3">
 						<div class="col-2">
 							<img src="/assets/main/img/logo.png" alt="puppyImg" />
 						</div>
@@ -78,7 +74,7 @@
 					<label for="WalkPlaceAddress"
 						class="col-md-2 col-lg-2 col-form-label">산책 장소</label>
 					<div class="col-md-10 col-lg-10">
-						<input name="WalkPlaceAddress" type="text" class="form-control" />
+						<input name="walkPlaceAddress" type="text" class="form-control" />
 					</div>
 				</div>
 				<hr />
@@ -90,7 +86,6 @@
 							style="height: 100px"></textarea>
 					</div>
 				</div>
-				<input type="hidden" name="puppies" id="puppies">
 				<div class="text-right">
 				    <button type="button" class="btn btn-secondary" 
 						th:onclick="|location.href='@{/user/matchList}'|">목록

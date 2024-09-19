@@ -33,39 +33,40 @@
      </div>
      
      <hr/>
-     
-				<div class="row mb-3">
-
-					<div class="col-2">
 						<label for="dogInfo" class="col-form-label">반려견 정보</label>
-					</div>
+	<hr/>
+     
+				<div class="row mb-3" th:each="matchDog : ${matchingDog}">
 					<div class="col-2">
 						<img src="/assets/main/img/logo.png" alt="puppyImg">
 					</div>
 					<div class="col-8">
 						<div class="row">
-
+							<div class="col-md-6 pb-2 col-lg-4">
+								<input name="dogName" type="text" class="form-control"
+									placeholder="견명" th:value="${matchDog.dogName}" readonly>
+							</div>
 							<div class="col-md-6 pb-2 col-lg-4">
 								<input name="dogBreed" type="text" class="form-control"
-									placeholder="견종" readonly>
+									placeholder="견종" th:value="${matchDog.dogBreed}" readonly>
 							</div>
 							<div class="col-md-6 pb-2 col-lg-4">
 								<input name="personality" type="text" class="form-control"
-									placeholder="성격" readonly>
-							</div>
-							<div class="col-md-6 pb-2 col-lg-4">
-								<input name="dogSize" type="text" class="form-control"
-									placeholder="견종 크기" readonly>
+									placeholder="성격" th:value="${matchDog.personality}" readonly>
 							</div>
 						</div>
 						<div class="row">
+							<div class="col-md-6 pb-2 col-lg-4">
+								<input name="dogSize" type="text" class="form-control"
+									placeholder="견종 크기" th:value="${matchDog.dogSize}" readonly>
+							</div>
 							<div class="col-md-6 col-lg-4">
 								<input name="neutralizationPreAbs" type="text"
-									class="form-control" placeholder="중성화 유무" readonly>
+									class="form-control" th:value="${matchDog.neutralizationPreAbs}" placeholder="중성화 유무" readonly>
 							</div>
 							<div class="col-md-6 col-lg-4">
 								<input name="diseasePreAbs" type="text" class="form-control"
-									placeholder="질병 유무" readonly>
+									placeholder="질병 유무" th:value="${matchDog.diseasePreAbs}" readonly>
 							</div>
 						</div>
 					</div>
@@ -89,7 +90,7 @@
        </div>
      </div>
           <hr/>
-     <div class="text-right">
+     <div>
 	    <button type="button" class="btn btn-secondary" 
 			th:onclick="|location.href='@{/user/matchList}'|">목록
 		</button>
@@ -101,8 +102,8 @@
 			th:onclick="|location.href='@{/user/matchDelete(bulletinNo=${match.bulletinNo})}'|"
 			th:if="${#authentication.principal.username} == *{writer}">삭제
 		</button>
-		<button type="button" class="btn btn-primary" id="appBtn"
-		 th:if="${#authentication.principal.username} != *{writer}">
+		<button type="button" class="btn btn-primary" id="appBtn"  onclick='application(event)'
+		 	th:if="${#authentication.principal.username} != *{writer}">
 			신청
 		</button>
      </div>

@@ -22,6 +22,7 @@ import com.puppyroad.app.websocket.service.ChatMessageService;
 import com.puppyroad.app.websocket.service.ChatRoomDTO;
 import com.puppyroad.app.websocket.service.ChatRoomService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -61,11 +62,17 @@ public class RoomController {
     }
     
     //신청시 매칭 채팅방 : post
-    @PostMapping("matchingRoom")
-    public String myRoomInsert(ChatRoomDTO chatRoomDTO, RedirectAttributes rttr){
-    	int result = chatRoomService.addRoom(chatRoomDTO);
-    	if ( result == 1)
-    		rttr.addFlashAttribute("myRoomNames", chatRoomDTO.getRoomName());
+    @PostMapping("user/matchChat")
+    public String myRoomInsert(ChatRoomDTO chatRoomDTO, RedirectAttributes rttr, HttpServletRequest req){
+    	String mcode = SecurityUtil.memberCode();
+    	String title = req.getParameter("title");
+    	String writer = req.getParameter("writer");
+    	
+    	chatRoomDTO.setSender(mcode);
+    	chatRoomDTO.setRecipient(writer);
+    	chatRoomDTO.setRoomName(title);
+    	
+    	chatRoomService.addRoom(chatRoomDTO);
     	return "redirect:/chat/myChat";
     }
 

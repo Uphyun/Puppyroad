@@ -36,48 +36,45 @@
 				</div>
 				<hr />
 
-				<div class="row mb-3">
-
-					<div class="col-2">
-						<label for="dogInfo" class="col-form-label">반려견 정보</label>
-						<div class="">
+			   	  <div class="first" id="first" style="display:none;">
+					<div class="row mb-3">
+						<div class="col-2">
+							<img src="/assets/main/img/logo.png" alt="puppyImg" />
+						</div>
+						<div class="col-8">
+							<div class="row">
+								<div class="col-md-6 pb-2 col-lg-4">
+									<input name="dogBreed" type="text" class="form-control"
+										placeholder="견종" readonly />
+								</div>
+								<div class="col-md-6 pb-2 col-lg-4">
+									<input name="personality" type="text" class="form-control"
+										placeholder="성격" readonly />
+								</div>
+								<div class="col-md-6 pb-2 col-lg-4">
+									<input name="dogSize" type="text" class="form-control"
+										placeholder="견종 크기" readonly />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6 col-lg-4">
+									<input name="neutralizationPreAbs" type="text"
+										class="form-control" placeholder="중성화 유무" readonly />
+								</div>
+								<div class="col-md-6 col-lg-4">
+									<input name="diseasePreAbs" type="text" class="form-control"
+										placeholder="질병 유무" readonly />
+								</div>
+							</div>
+						</div>
+					</div>
+					<hr />
+				  </div>
+							<label for="dogInfo" class="col-form-label">반려견 정보</label>
 							<button type="button" class="my_btn" id="popBtn">불러오기</button>
-						</div>
-					</div>
-					<div class="col-2">
-						<img src="/assets/main/img/logo.png" alt="puppyImg">
-					</div>
-					<div class="col-8">
-						<div class="row">
+				<hr/>			
 
-							<div class="col-md-6 pb-2 col-lg-4">
-								<input name="dogBreed" type="text" class="form-control"
-									placeholder="견종" readonly>
-							</div>
-							<div class="col-md-6 pb-2 col-lg-4">
-								<input name="personality" type="text" class="form-control"
-									placeholder="성격" readonly>
-							</div>
-							<div class="col-md-6 pb-2 col-lg-4">
-								<input name="dogSize" type="text" class="form-control"
-									placeholder="견종 크기" readonly>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 col-lg-4">
-								<input name="neutralizationPreAbs" type="text"
-									class="form-control" placeholder="중성화 유무" readonly>
-							</div>
-							<div class="col-md-6 col-lg-4">
-								<input name="diseasePreAbs" type="text" class="form-control"
-									placeholder="질병 유무" readonly>
-							</div>
-						</div>
-					</div>
-				</div>
-				<hr />
-
-				<div class="row mb-3">
+				<div class="row mb-3"  id="second">
 					<label for="WalkPlaceAddress"
 						class="col-md-2 col-lg-2 col-form-label">산책 장소</label>
 					<div class="col-md-10 col-lg-10">

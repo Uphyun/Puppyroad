@@ -1,46 +1,8 @@
 /*
  * matchList.js
  */
-
-const context = $('meta[name="contextPath"]').attr('value');
-$("#updateBtn").on("click", updateAjax);
-
-function updateAjax(event) {
-  // 보낼 데이터 가져오기
-  let dataObj = getFormData();
-  // AJAX
-  $.ajax("matchUpdate", {
-    type: "post",
-    contentType: "application/json",
-    data: JSON.stringify(dataObj),
-  })
-    .done((data) => {
-      if (data.result) {
-        alert("정상적으로 수정되었습니다");
-		let bno = $('#bulletinNo').val();
-		let url = context + '/user/matchInfo?bulletinNo=' + bno;
-		location.href = url;
-      } else {
-        alert("수정이 실패하였습니다");
-      }
-    })
-    .fail((err) => {
-      console.log(err);
-    });
-}
-
-function getFormData() {
-  let formAry = $('form[name="updateForm"]').serializeArray();
-  let formObj = {};
-  $.each(formAry, function (idx, tag) {
-    formObj[tag.name] = tag.value;
-  });
-
-  return formObj;
-}
-
-
 let puppyCode = '';
+let bulletinNo = '';
 
 const btn = document.getElementById("popBtn"); // 모달을 띄우는 버튼 요소 가져오기
 const modal = document.getElementById("modalWrap"); // 모달 창 요소 가져오기
@@ -73,7 +35,7 @@ function getCheckboxValue(event)  {
 		var diseasePreAbs = div.find('#diseasePreAbs').html();
 		
 	
-		$(".first").clone().attr('id', puppyCode).insertBefore("#second").removeClass("first").show();
+		$(".first").clone().attr('id', puppyCode).insertBefore("#second").removeClass("first").addClass("road").show();
 		var div2 = $("#" + puppyCode);
 
 	div2.find('[name=dogBreed]').val(dogBreed);
@@ -89,3 +51,39 @@ function getCheckboxValue(event)  {
 	
   } 
 }
+
+$('#insertBtn').on("click", function(){
+	
+	let title = $('input[name=title]').val()
+	let writer = $('input[name=writer]').val()
+	let walkPlaceAddress = $('input[name=walkPlaceAddress]').val()
+	let content = $('input[name=content]').val()
+	let matchingKind = '실시간';
+	
+	let puppie = [];
+	$('.road').each(function(idx, item){
+		let puppyCode = $(item).attr('id');
+
+		puppie.push({puppyCode});
+	})
+	
+	let data = {title, writer, walkPlaceAddress, content, matchingKind, puppie};
+	console.log(data);
+	
+	$.ajax({
+		url : '/user/matchInsert',
+		method : 'post',
+		contentType : 'application/json',
+		data : JSON.stringify(data),
+		success: function(datas) {
+			if(datas.result = 1) {
+				alert("성공적으로 등록되었습니다.");
+				location.href="/user/map"
+			} else {
+				alert("등록 오류")
+			}
+		}
+	})
+	  .fail(err => console.log(err))
+});
+
