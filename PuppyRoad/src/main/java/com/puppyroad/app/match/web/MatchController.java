@@ -41,9 +41,13 @@ public class MatchController {
 
 	// real 전체조회 : get
 	@GetMapping("user/realMatch")
-	public String realMatch(Model model) {
-		List<MatchVO> list = matchService.getMatchList();
-		model.addAttribute("matchs", list);
+	public String RealDogList(PuppyVO puppyVO, Model model) {
+		String mcode = SecurityUtil.memberCode();
+		puppyVO.setClientUserId(mcode);
+		
+		List<PuppyVO> list = matchService.getDogList(puppyVO);
+		model.addAttribute("matchDogs", list);
+		
 		return "match/realMatch";
 	}
 	
@@ -74,22 +78,22 @@ public class MatchController {
 	
 	// 등록 - 처리 : post
 	@PostMapping("user/matchInsert")
-	public String matchInsertProcess(MatchVO matchVO, MatchingPuppyVO matchingPuppyVO) {
+	@ResponseBody
+	public int matchInsertProcess(@RequestBody MatchVO matchVO) {
+		System.err.println(matchVO);
 		int bno = matchService.addMatch(matchVO);
-		
-		String url = null;
-		if(bno > -1) {
-			url = "redirect:matchInfo?bulletinNo=" + bno;
-		} else {
-			url = "redirect:matchList";
-		}
-		return url;
+		return bno;
 	}
 	
 	// 수정 - 페이지
 	@GetMapping("user/matchUpdate")
-	public String matchUpdateForm(MatchVO matchVO, Model model) {
+	public String matchUpdateForm(MatchVO matchVO, PuppyVO puppyVO, Model model) {
 		MatchVO findVO = matchService.getMatchInfo(matchVO);
+		String mcode = SecurityUtil.memberCode();
+		puppyVO.setClientUserId(mcode);
+		
+		List<PuppyVO> list = matchService.getDogList(puppyVO);
+		model.addAttribute("matchDogs", list);
 		model.addAttribute("match", findVO);
 		return "match/matchUpdate";
 	}
@@ -105,7 +109,7 @@ public class MatchController {
 	@GetMapping("user/matchDelete")
 	public String matchDelete(Integer bulletinNo) {
 		matchService.removeMatch(bulletinNo);
-		return "redirect:matchList";
+		return "redirect:/user/matchList";
 	}
 	
 	//매칭

@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class MatchingPuppyVO {
+	private Integer mpCode;
 	private Integer bulletinNo;
 	private String  puppyCode;
 

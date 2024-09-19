@@ -43,14 +43,13 @@ public class MatchServiceImpl implements MatchService {
 		
 		if (result == 1) {
 			//인서트 성공 시 
-			MatchingPuppyVO matchingPuppyVO = new MatchingPuppyVO();
+			for(MatchingPuppyVO matchingPuppyVO : matchVO.getPuppie()) {
+				matchingPuppyVO.setBulletinNo(matchVO.getBulletinNo());
+				
+				matchMapper.insertMatchingPuppy(matchingPuppyVO);
+			}		
 			
-			matchingPuppyVO.setBulletinNo(matchVO.getBulletinNo());
-			matchingPuppyVO.setPuppyCode(matchVO.getClientCode());
-			
-			matchMapper.insertMatchingPuppy(matchingPuppyVO);
-			
-			return matchVO.getBulletinNo();
+			result = 1;
 		}
 		else {
 			result = -1;
