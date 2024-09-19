@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.puppyroad.app.util.SecurityUtil;
 import com.puppyroad.app.walkjournal.service.WalkJournalService;
 import com.puppyroad.app.walkjournal.service.WalkJournalVO;
 
@@ -41,6 +42,29 @@ public class WalkJournalController {
 		model.addAttribute("result", result);
 		
 		return "walkJournal/walkJournalInfo";
+	}
+	
+	//도그워커 산책일지 조회
+	@GetMapping("user/dogwalkJournalList")
+	public String dogwalkJournalList(WalkJournalVO walkJournalVO, Model model) {
+		String mcode = SecurityUtil.memberCode();
+		walkJournalVO.setWalkerCode(mcode);
+		List<WalkJournalVO> list = walkJournalService.dogWalkJournalList(walkJournalVO);
+		
+		model.addAttribute("list", list);
+		
+		return "walkJournal/dogWalkJournalList"; 
+	}
+	
+	//산책일지 단건조회
+	@GetMapping("user/dogwalkJournalGetInfo")
+	public String dogWalkJournalGetInfo(WalkJournalVO walkJournalVO, Model model) {
+		String mcode = SecurityUtil.memberCode();
+		walkJournalVO.setWalkerCode(mcode);
+		WalkJournalVO result = walkJournalService.dogWalkJournalGetInfo(walkJournalVO);
+		model.addAttribute("result", result);
+		
+		return "walkJournal/dogWalkJournalInfo";
 	}
 	
 	
