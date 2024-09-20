@@ -9,12 +9,11 @@
 <link rel="stylesheet" href="/assets/main/css/match/matchInfo.css"
 	type="text/css" />
 
-<title>matchInfo</title>
 </head>
 <body>
 	<section class="first-section-pt">
 		<div class="container pt-3">
-			<h4>전문가매칭</h4>
+			<h4>대리 매칭</h4>
 			<hr />
 			<form name="InfoForm" th:object="${assi}">
 				<div class="row mb-3">
@@ -30,35 +29,36 @@
 				<div class="row mb-3">
 					<label for="dogInfo" class="col-form-label">도그워커 정보</label>
 					<div class="col-2">
-						<img src="/assets/main/img/logo.png" alt="puppyImg">
+						<img src="picture" alt="puppyImg">
 					</div>
-					<div class="col-8">
+					<div class="col-8" th:each="walk : ${walker}">
 						<div class="row">
 							<div class="col-md-6 pb-2 col-lg-4">
-								<input name="dogName" type="text" class="form-control"
-									placeholder="주소" value="주소 : " readonly>
+								<input name="preferenceLocation" type="text" class="form-control"
+									placeholder="선호 장소" th:value="${walk.preferenceLocation}" readonly>
 							</div>
 							<div class="col-md-6 pb-2 col-lg-4">
-								<input name="dogBreed" type="text" class="form-control"
-									placeholder="근무요일" value="근무요일 : " readonly>
+								<input name="workWeek" type="text" class="form-control"
+									placeholder="workWeek" th:value="${walk.workWeek}" readonly>
 							</div>
 							<div class="col-md-6 pb-2 col-lg-4">
-								<input name="personality" type="text" class="form-control"
-									placeholder="성별" value="성별 : " readonly>
+								<input name="gender" type="text" class="form-control"
+									placeholder="gender" th:value="${walk.gender}" readonly>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6 pb-2 col-lg-4">
-								<input name="dogSize" type="text" class="form-control"
-									placeholder="은행 및 계좌" value="OO은행 : 계좌" readonly>
+								<input name="bankCode" type="text" class="form-control"
+									placeholder="bankCode" th:value="${walk.bankCode}" readonly>
 							</div>
 							<div class="col-md-6 col-lg-4">
-								<input name="neutralizationPreAbs" type="text"
-									class="form-control" value="나이 : " placeholder="나이" readonly>
+								<input name="bankAccount" type="text"
+									class="form-control" th:value="${walk.bankAccount}" 
+									placeholder="bankAccount" readonly>
 							</div>
 							<div class="col-md-6 col-lg-4">
-								<input name="diseasePreAbs" type="text" class="form-control"
-									placeholder="자격증 및 수상내역" value="" readonly>
+								<input name="workTime" type="text" class="form-control"
+									placeholder="workTime" th:value="${walk.workTime}" readonly>
 							</div>
 						</div>
 					</div>
