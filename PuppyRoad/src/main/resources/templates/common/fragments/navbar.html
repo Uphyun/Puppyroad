@@ -83,7 +83,7 @@
             <li class="nav-item">
               <a class="nav-link fw-medium" th:href="@{/user/inquiryInsert}">문의하기</a>
             </li>
-            <th:block th:if="${Auth == '관리자'}">
+            <th:block th:if="${auth == '관리자'}">
               <li class="nav-item">
                 <a class="nav-link fw-medium" th:href="@{admin}" target="_blank">관리자 홈</a>
               </li>

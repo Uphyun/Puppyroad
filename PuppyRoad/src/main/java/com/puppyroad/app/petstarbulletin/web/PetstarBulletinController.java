@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +23,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.puppyroad.app.petstarbulletin.service.PetstarBulletinService;
 import com.puppyroad.app.petstarbulletin.service.PetstarBulletinVO;
+import com.puppyroad.app.petstarcomment.service.PetstarCommentService;
+import com.puppyroad.app.petstarcomment.service.PetstarCommentVO;
+import com.puppyroad.app.petstarprofile.service.PetStarProfileVO;
+import com.puppyroad.app.petstarprofile.service.PetstarProfileService;
 import com.puppyroad.app.util.SecurityUtil;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,23 +35,40 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class PetstarBulletinController {
 	private PetstarBulletinService bulletinService;
+	private PetstarCommentService commentService;
+	private PetstarProfileService profileService;
 
 	@Value("${file.upload.path}")
 	private String uploadPath;
 
 	@Autowired
-	PetstarBulletinController(PetstarBulletinService bulletinService) {
+	PetstarBulletinController(PetstarBulletinService bulletinService, PetstarCommentService commentService,
+			PetstarProfileService profileService) {
 		this.bulletinService = bulletinService;
+		this.commentService = commentService;
 	}
 
 	// 전체 조회 All
 	@GetMapping("user/petstar")
-	public String bulletinAllList(PetstarBulletinVO bulletinVO, Model model) {
-		List<PetstarBulletinVO> list = bulletinService.getAllBulletinList(bulletinVO);
-		model.addAttribute("bulletin", list);
-		return "petstar/petstar";
+	public String bulletinAllList(PetstarBulletinVO bulletinVO,
+								PetstarCommentVO commentVO,
+								PetStarProfileVO profileVO,
+								Model model) {
+	    // 게시글 목록 조회
+	    List<PetstarBulletinVO> list = bulletinService.getAllBulletinList(bulletinVO);
+	    model.addAttribute("bulletin", list);
+
+	    // 게시글 번호별 댓글 목록 조회
+	    Map<Integer, List<PetstarCommentVO>> commentsMap = new HashMap<>();
+	    for (PetstarBulletinVO bulletin : list) {
+	        List<PetstarCommentVO> comments = commentService.getCommentList(bulletin.getBulletinNo());
+	        commentsMap.put(bulletin.getBulletinNo(), comments);
+	    }
+	    model.addAttribute("commentsMap", commentsMap); 
+
+	    return "petstar/petstar";
 	}
-	
+
 
 	// 단건조회
 	@GetMapping("user/bulletinInfo")
@@ -68,7 +90,7 @@ public class PetstarBulletinController {
 	public int bulletinInsertProcess(@RequestPart MultipartFile[] files, PetstarBulletinVO bulletinVO) {
 		String mcode = SecurityUtil.memberCode();
 		bulletinVO.setMemberCode(mcode);
-		
+
 		List<String> imageList = new ArrayList<>();
 
 		for (MultipartFile file : files) {

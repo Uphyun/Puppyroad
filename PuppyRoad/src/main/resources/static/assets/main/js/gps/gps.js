@@ -302,7 +302,6 @@ function deg2rad(deg) {
 
 //매칭종료
 function stopMatcing(matchCode) {
-    $(event.currentTarget).children().eq(1)
     console.log("stop : " + matchCode)
     $.ajax({
         method: "get",
