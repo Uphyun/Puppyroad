@@ -55,23 +55,26 @@
         <selectKey keyProperty="roomId"
                    resultType="String"
                    order="BEFORE">
-			SELECT NVL(MAX(room_id), 0) + 1
+			SELECT NVL(MAX(to_number(room_id, 'xxxxxxxxxx')), 0) + 1
 			FROM   chat_room
         </selectKey>
  	INSERT INTO chat_room(
+ 						  room_id,
  	                      room_name,
-                          room_id,
-                          recipient,
                           created_date,
                           chatting_type,
-                          sender)
+                          sender,
+                          recipient)
     VALUES(
+           LPAD(LTRIM(to_char(#{roomId}, 'xxxxxxxxxx')), 10, '0'),
            #{roomName},
-           #{roomId},
-           #{recipient},
-           #{createdDate},
+           sysdate,
            #{chattingType},
-           #{sender})
+           #{sender},
+             ( SELECT member_code
+               FROM   member
+               WHERE  user_id = #{recipient} ) 
+           )
 </insert>
   
   <!-- 채팅방 조회 -->
