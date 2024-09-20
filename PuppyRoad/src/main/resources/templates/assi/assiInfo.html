@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+<meta name="contextPath" th:value="${contextPath}">
+<link rel="stylesheet" href="/assets/main/css/match/matchInfo.css"
+	type="text/css" />
+
+<title>matchInfo</title>
+</head>
+<body>
+	<section class="first-section-pt">
+		<div class="container pt-3">
+			<h4>전문가매칭</h4>
+			<hr />
+			<form name="InfoForm" th:object="${assi}">
+				<div class="row mb-3">
+					<label for="title" class="col-md-2 col-lg-2 col-form-label">이름</label>
+					<div class="col-md-10 col-lg-10">
+						<input name="title" type="text" class="form-control-plaintext"
+							th:field="*{title}" readonly>
+					</div>
+				</div>
+
+				<hr />
+
+				<div class="row mb-3">
+					<label for="dogInfo" class="col-form-label">도그워커 정보</label>
+					<div class="col-2">
+						<img src="/assets/main/img/logo.png" alt="puppyImg">
+					</div>
+					<div class="col-8">
+						<div class="row">
+							<div class="col-md-6 pb-2 col-lg-4">
+								<input name="dogName" type="text" class="form-control"
+									placeholder="주소" value="주소 : " readonly>
+							</div>
+							<div class="col-md-6 pb-2 col-lg-4">
+								<input name="dogBreed" type="text" class="form-control"
+									placeholder="근무요일" value="근무요일 : " readonly>
+							</div>
+							<div class="col-md-6 pb-2 col-lg-4">
+								<input name="personality" type="text" class="form-control"
+									placeholder="성별" value="성별 : " readonly>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 pb-2 col-lg-4">
+								<input name="dogSize" type="text" class="form-control"
+									placeholder="은행 및 계좌" value="OO은행 : 계좌" readonly>
+							</div>
+							<div class="col-md-6 col-lg-4">
+								<input name="neutralizationPreAbs" type="text"
+									class="form-control" value="나이 : " placeholder="나이" readonly>
+							</div>
+							<div class="col-md-6 col-lg-4">
+								<input name="diseasePreAbs" type="text" class="form-control"
+									placeholder="자격증 및 수상내역" value="" readonly>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr />
+
+				<div class="row mb-3">
+					<label for="WalkPlaceAddress"
+						class="col-md-2 col-lg-2 col-form-label">가격 설정</label>
+					<div class="col-md-10 col-lg-10">
+						<input name="WalkPlaceAddress" type="text"
+							class="form-control-plaintext" th:field="*{walkPlaceAddress}"
+							readonly>
+					</div>
+				</div>
+				<hr />
+
+				<div class="row mb-3">
+					<label for="content" class="col-md-2 col-lg-2 col-form-label">소개</label>
+					<div class="col-md-10 col-lg-10">
+						<textarea name="content" class="form-control-plaintext"
+							id="content" style="height: 100px" th:field="*{content}" readonly></textarea>
+					</div>
+				</div>
+				<hr />
+				<div>
+					<button type="button" class="btn btn-secondary"
+						th:onclick="|location.href='@{/user/assiList}'|">목록</button>
+					<button type="button" class="btn btn-warning" id="modifyBtn"
+						th:onclick="|location.href='@{/user/assiUpdate(bulletinNo=${assi.bulletinNo})}'|"
+						th:if="${#authentication.principal.username} == *{writer}">수정
+					</button>
+					<button type="button" class="btn btn-danger"
+						th:onclick="|location.href='@{/user/assiDelete(bulletinNo=${assi.bulletinNo})}'|"
+						th:if="${#authentication.principal.username} == *{writer}">삭제
+					</button>
+					<button type="button" class="btn btn-primary" id="appBtn"
+						onclick='application(event)'
+						th:if="${#authentication.principal.username} != *{writer}">
+						신청</button>
+				</div>
+			</form>
+		</div>
+	</section>
+	<script type="text/javascript" src="/assets/main/js/match/matchInfo.js"></script>
+</body>
+</html>
