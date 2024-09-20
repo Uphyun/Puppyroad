@@ -8,7 +8,7 @@ function previewImage(event) {
 		reader.onload = function(e) {
 			imageField.attr("src", e.target.result);
 		};
-		reader.readAsDataURL(event.target.files[0]); 
+		reader.readAsDataURL(event.target.files[0]);
 	}
 }
 
@@ -24,4 +24,43 @@ function confirmDelete(bulletinNo) {
 }
 
 
-// 가로 
+// 가로 드래그 스크롤
+window.onload = function() {
+    const dragSlider = document.querySelector('.scroll-container');
+    if (!dragSlider) {
+        console.error('Element with class "scroll-container" not found!');
+        return;
+    }
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    dragSlider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        dragSlider.classList.add('active');
+        startX = e.pageX - dragSlider.offsetLeft;
+        scrollLeft = dragSlider.scrollLeft;
+        dragSlider.style.cursor = 'grabbing';
+    });
+
+    dragSlider.addEventListener('mouseleave', () => {
+        isDown = false;
+        dragSlider.classList.remove('active');
+        dragSlider.style.cursor = 'grab';
+    });
+
+    dragSlider.addEventListener('mouseup', () => {
+        isDown = false;
+        dragSlider.classList.remove('active');
+        dragSlider.style.cursor = 'grab';
+    });
+
+    dragSlider.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - dragSlider.offsetLeft;
+        const walk = (x - startX) * 2;  // 드래그 속도 조절
+        dragSlider.scrollLeft = scrollLeft - walk;
+    });
+};

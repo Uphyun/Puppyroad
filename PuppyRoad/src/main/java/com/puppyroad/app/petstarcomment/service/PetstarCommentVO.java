@@ -14,4 +14,5 @@ public class PetstarCommentVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createDate;
 	private int bulletinNo;
+	private String profilePicture;
 }
