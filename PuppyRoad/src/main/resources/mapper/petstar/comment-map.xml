@@ -3,13 +3,18 @@
 <mapper namespace="com.puppyroad.app.petstarcomment.mapper.PetstarCommentMapper">
 	<!-- 전체조회 -->
 	<select id="selectCommentList" resultType="PetstarCommentVO">
-		SELECT   comment_code
-				,writer
-				,content
-				,created_date
-				,bulletin_no
-		FROM  pet_stargram_comment 
-		WHERE bulletin_no = #{bulletinNo}
+		SELECT   c.comment_code
+				,c.writer
+				,c.content
+				,c.created_date
+				,c.bulletin_no
+				,p.profile_picture
+		FROM  pet_stargram_comment c JOIN pet_stargram_bulletin b
+		                                ON c.bulletin_no = b.bulletin_no
+		                              JOIN pet_stargram_profile p
+		                                ON b.member_code = p.member_code
+		WHERE c.bulletin_no = #{bulletinNo}
+		ORDER BY c.comment_code DESC
 	</select>
 	
 	<!-- 등록 -->

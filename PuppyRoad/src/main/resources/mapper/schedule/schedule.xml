@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.puppyroad.app.schedule.mapper.ScheduleMapper">
+	<select id="ScheduleList" resultType="ScheduleVO"
+		parameterType="ScheduleVO">
+		SELECT  s.WALK_TIME,
+				m.name,
+				p.DOG_NAME,
+				mb.start_time,
+				mb.end_time,
+				s.WALK_FARE,
+				s.address,
+				m.phone,
+				s.walk_path,
+				s.APPROVAL_STATE,
+				w.work_week,
+				w.work_time
+		FROM    schedule s JOIN walker_add_info w
+			 			     ON s.walker_code = w.member_code
+					       JOIN puppy p
+					         ON s.puppy_name = p.dog_name
+			               JOIN matching_board mb
+			                 ON s.walker_code = mb.writer
+			               JOIN member m
+			                 ON s.client_name = m.name
+		WHERE s.walker_code = #{walkerCode}
+	</select>
+	<update id="ScheduleUpdate" >
+	
+	UPDATE  schedule
+	SET 	holiday_start = #{holidayStart} ,
+	    	holiday_end = #{holidayEnd}
+	WHERE   walker_code = #{walkerCode}
+	
+	</update>
+
+</mapper>
