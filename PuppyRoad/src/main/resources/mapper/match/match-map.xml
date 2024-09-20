@@ -17,6 +17,7 @@
 		 		matching_kind,
 		 		client_code
 	    FROM    matching_board
+	    WHERE   matching_kind = '자율'
 	    ORDER BY bulletin_no desc
   </select>
   
