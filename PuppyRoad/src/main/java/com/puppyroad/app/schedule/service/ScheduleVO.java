@@ -17,6 +17,13 @@ public class ScheduleVO {
 	private Date holidayStart;
 	private Date holidayEnd;
 	private Integer approvalState;
+	private String name;
+	private String dogName;
+	private Date startTime;
+	private Date endTime;
+	private String phone;
+	private String workWeek;
+	private String workTime;
 	
 
 }
