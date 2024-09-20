@@ -10,11 +10,15 @@ async function sendPay() {
         switch (response.event) {
             case 'issued':
                 // 가상계좌 입금 완료 처리
-                break
+                registPayInfo(response);
+                console.log("가상계좌 처리 완료");
+                console.log(response);
+                break;
             case 'done':
+                console.log("결제 처리 완료");
                 console.log(response);
                 // 결제 완료 처리
-                break
+                break;
             case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
                 console.log(response.receipt_id);
                 /**
@@ -31,7 +35,7 @@ async function sendPay() {
                  * // requestServerConfirm(); //예시) 서버 승인을 할 수 있도록  API를 호출한다. 서버에서는 재고확인과 로직 검증 후 서버승인을 요청한다.
                  * Bootpay.destroy(); //결제창을 닫는다.
                  */
-                break
+                break;
         }
     } catch (e) {
         // 결제 진행중 오류 발생
@@ -43,11 +47,11 @@ async function sendPay() {
             case 'cancel':
                 // 사용자가 결제창을 닫을때 호출
                 console.log(e.message);
-                break
+                break;
             case 'error':
                 // 결제 승인 중 오류 발생시 호출
                 console.log(e.error_code);
-                break
+                break;
         }
     }
 }
@@ -57,10 +61,10 @@ async function sendPay() {
 function payForm(price = 100, times = 30, user = { userId: 'admin', name: "관리자", phone: "01011112222", email: "alscjf2738@naver.com" }) {
     getEndDate();
     const data = {
-        "application_id": "59a4d323396fa607cbe75de4",
+        "application_id": "66e29ba8692d0516c36e4b2a",
         "price": price,
-        "order_name": "도그워커 비용",
-        "order_id": "0001",
+        "order_name": "산책 '" + times + "'분",
+        "order_id": "0000",
         //"pg": "다날",
         //"method": "카드",
         "tax_free": 0,
@@ -73,7 +77,7 @@ function payForm(price = 100, times = 30, user = { userId: 'admin', name: "관�
         "items": [
             {
                 "id": "item_id",
-                "name": "산책 '" + times + "'분",
+                "name": "도그워커 비용",
                 "qty": 1,
                 "price": price
             }
@@ -84,7 +88,8 @@ function payForm(price = 100, times = 30, user = { userId: 'admin', name: "관�
             "escrow": false,
             "deposit_expiration": getEndDate(),
             "test_deposit": true,    //가상계좌 모의입금
-            "show_close_button": true
+            "show_close_button": true,
+            "common_event_webhook": true
         }
     }
 
@@ -110,4 +115,8 @@ function getEndDate() {
     console.log(endDate);
 
     return endDate;
+}
+
+function registPayInfo(response) {
+
 }

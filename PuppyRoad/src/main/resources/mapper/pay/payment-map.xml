@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.puppyroad.app.payment.mapper.PaymentMapper">
+
+	<select id="selectMatchInfo" parameterType="MatchVO" resultType="MatchVO">
+		select	bulletin_no
+			  , writer
+			  , client_code
+			  , start_time
+			  , end_time
+		from	matching_board
+		where	bulletin_no = #{bulletinNo}
+	</select>
+
+	<insert id="insertPayInfo" parameterType="PaymentVO">
+		insert into payment( payment_code
+							, sender
+							, recipient
+							, price
+							, order_name
+							, method
+							, requested_at
+							, status)
+		values	( #{paymentCode}
+				, #{sender}
+				, #{recipient}
+				, #{price}
+				, #{orderName}
+				, #{method}
+				, sysdate
+				, #{status} )
+	</insert>
+	
+	<insert id="insertAddVbankInfo" parameterType="VbankVO">
+		insert into add_vbank ( payment_code
+								, bank_code
+								, bank_name
+								, bank_account
+								, bank_username
+								, expired_at )
+		values( #{paymentCode}
+				, #{bankCode}
+				, #{bankName}
+				, #{bankAccount}
+				, #{bankUsername}
+				, #{expiredAt} )	
+	</insert>
+
+</mapper>

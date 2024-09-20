@@ -1,14 +1,35 @@
 package com.puppyroad.app.schedule.service.impl;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
-public class ScheduleServiceImpl {
-	@GetMapping("user/schedule")
-	public String schedule() {
-		return "schedule/schedule";
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.puppyroad.app.schedule.mapper.ScheduleMapper;
+import com.puppyroad.app.schedule.service.ScheduleService;
+import com.puppyroad.app.schedule.service.ScheduleVO;
+
+import lombok.AllArgsConstructor;
+
+@Service
+@AllArgsConstructor
+public class ScheduleServiceImpl implements ScheduleService {
+	
+	private ScheduleMapper scheduleMapper;
+	
+	@Override
+	public List<ScheduleVO> scheduleList(ScheduleVO scheduleVO) {
+		
+		return scheduleMapper.ScheduleList(scheduleVO);
 	}
+
+	@Override
+	public int ScheduleUpdate(ScheduleVO scheduleVO) {
+		
+		return scheduleMapper.ScheduleUpdate(scheduleVO);
+	}
+	
+
 	
 
 }

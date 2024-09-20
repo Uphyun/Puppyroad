@@ -251,6 +251,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Init FullCalendar
     // ------------------------------------------------
     let calendar = new Calendar(calendarEl, {
+		
+	  events: '/user/scheduleListprocess',
       initialView: 'dayGridMonth',
       events: fetchEvents,
       plugins: [dayGridPlugin, interactionPlugin, listPlugin, timegridPlugin],
