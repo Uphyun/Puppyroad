@@ -31,6 +31,7 @@
 		<java.version>21</java.version>
 	</properties>
 	<dependencies>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -94,11 +95,6 @@
 			<groupId>com.github.ulisesbocchio</groupId>
 			<artifactId>jasypt-spring-boot-starter</artifactId>
 			<version>3.0.5</version>
-		</dependency>
-		<dependency>
-			<groupId>com.example</groupId>
-			<artifactId>app</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<!--
 		https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-websocket -->
