@@ -5,7 +5,7 @@
 	layout:fragment="Content">
 <head>
 <script type="text/javascript" src="/assets/main/js/petstar/profile.js"></script>
-<link rel="stylesheet" href="/assets/main/css/petstar/image.css"
+<link rel="stylesheet" href="/assets/main/css/petstar/scroll.css"
 	type="text/css" />
 <meta charset="UTF-8">
 </head>
@@ -35,7 +35,7 @@
 							class="menu-icon tf-icons ti ti-pencil-plus"></i>
 							<div data-i18n="Board">글 작성하기</div>
 					</a></li>
-					<li class="menu-item"><a href="commentInfo" class="menu-link">
+					<li class="menu-item"><a href="commentList" class="menu-link">
 							<i class="menu-icon tf-icons ti ti-message"></i>
 							<div data-i18n="Comment">나의 댓글</div>
 					</a></li>
@@ -68,26 +68,23 @@
 		</div>
 
 		<!-- 게시글 목록 -->
-			<div class="row gy-6">
-		<th:block th:each="info : ${bulletin}">
-				<!-- 1 -->
-				<div class="col-xl mb-md-0" >
-					<div class="card border-primary border shadow-none">
-						<div class="card-body position-relative pt-4" style="cursor: pointer;"
-							th:onClick="|location.href='@{/user/bulletinInfo(bulletinNo=${info.bulletinNo})}'|">
-							<div id="image_container" class="my-5 pt-6 text-center">
+		<div class="scroll-container">
+			<th:block th:each="info : ${bulletin}">
+				<div class="card">
+					<div class="card-body"
+						th:onClick="|location.href='@{/user/bulletinInfo(bulletinNo=${info.bulletinNo})}'|">
+						<div id="image_container" class="my-5 text-center">
 							<img
 								th:each="fileName : ${#strings.arraySplit(info.attachedFile, ',')}"
 								th:src="@{/images/{fileName}(fileName=${fileName})}"
-								alt="첨부파일 이미지">
-							</div>
-							<p class="text-center mb-5">[[ ${info.content} ]]</p>
-							
+								th:alt="${fileName}">
 						</div>
+						<p>[[ ${info.content} ]]</p>
 					</div>
 				</div>
-		</th:block>
-			</div>
+			</th:block>
+		</div>
+
 		<!-- End 게시글 목록 -->
 
 		<!-- Edit User Modal -->

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.data.repository.query.Param;
 
 import com.puppyroad.app.match.service.MatchVO;
+import com.puppyroad.app.match.service.MatchingPuppyVO;
+import com.puppyroad.app.puppy.service.PuppyVO;
 
 
 public interface MatchMapper {
@@ -12,9 +14,14 @@ public interface MatchMapper {
 	public List<MatchVO> selectMatchList();
 	
 	// 개 전체 조회
-	public List<MatchVO> selectDogMatchList(MatchVO matchVO);
+	public List<PuppyVO> selectDogMatchList(PuppyVO puppyVO);
 	// 개 단건 조회
-	public MatchVO selectDogMatchInfo(MatchVO matchVO);
+	public PuppyVO selectDogMatchInfo(PuppyVO puppyVO);
+	
+	// 매칭견 등록
+	public int insertMatchingPuppy(MatchingPuppyVO matchingPuppyVO);
+	// 매칭견 조회
+	public List<PuppyVO> selectMatchingDogList(Integer bulletinNo);
 	
 	// 단건 조회
 	public MatchVO selectMatchInfo(MatchVO matchVO);
@@ -24,4 +31,7 @@ public interface MatchMapper {
 	public int updateMatch(@Param("match") MatchVO matchVO);
 	// 삭제
 	public int deleteMatch(int bNo);
+	
+	//매칭내역조회
+	public List<MatchVO> selectMatchingBoard(String writer);
 }

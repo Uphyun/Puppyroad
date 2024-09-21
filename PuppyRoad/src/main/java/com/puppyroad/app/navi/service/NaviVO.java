@@ -16,5 +16,6 @@ public class NaviVO {
 	private String puppyCode;
 	private String journalCode;
 	private String scheduleCode;
+	private int matchCode;
 	private List<NaviVO> cNavi;
 }

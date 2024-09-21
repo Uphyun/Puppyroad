@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.puppyroad.app.assi.mapper.AssiMapper">
+  <!-- 전체 자율매칭 -->
+  <select id="selectAssiList" resultType="AssiVO">
+		SELECT  bulletin_no,
+		 		cover_photo,
+		 		title,
+		 		writer,
+		 		content,
+		 		matching_state,
+		 		start_time,
+		 		end_time,
+		 		writing_time,
+		 		animal_count,
+		 		walk_place_address,
+		 		matching_kind,
+		 		client_code
+	    FROM    matching_board
+	    WHERE   matching_kind = '대리'
+	    ORDER BY bulletin_no desc
+	    
+  </select>
+  
+  <!-- 단건 조회 -->
+  <select id="selectAssiInfo" resultType="AssiVO">
+		SELECT  bulletin_no,
+		 		cover_photo,
+		 		title,
+		 		writer,
+		 		content,
+		 		matching_state,
+		 		start_time,
+		 		end_time,
+		 		writing_time,
+		 		animal_count,
+		 		walk_place_address,
+		 		matching_kind,
+		 		client_code
+	    FROM    matching_board
+	    WHERE   bulletin_no = #{bulletinNo}
+  </select>
+  
+  <!-- 단건 도그워커 프로필 조회 -->
+  <select id="selectWalkerInfo" resultType="WalkerAddInfoVO">
+  		SELECT 
+				member_code,
+				gender,
+				bank_code,
+				bank_account,
+				picture,
+				work_week,
+				work_time,
+				preference_location,
+				approval_state,
+				memo,
+				s_size,
+				m_size,
+				l_size
+  		FROM    walker_add_info
+  		WHERE   member_code = ( SELECT member_code
+  		                        FROM   member
+  		                        Where  user_id = #{writer} )
+  </select>
+</mapper>

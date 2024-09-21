@@ -2,38 +2,79 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.puppyroad.app.dogwalker.mapper.DogWalkerMapper">
 <insert id="insertwalker">
-		INSERT INTO walker_add_info
-		(
-		      GENDER
-		    , BANK_CODE
-		    , BANK_ACCOUNT
-		    , PICTURE
-		    , WORK_WEEK
-		    , WORK_TIME
-		    , PREFERENCE_LOCATION
-		    , APPROVAL_STATE
-		    , MEMO
-		    , S_SIZE
-		    , M_SIZE
-		    , L_SIZE
-		)
-		VALUES 
-		(
-
-		    , #{gender}
-		    , #{bankCode}
-		    , #{bankAccount}
-		    , #{picture}
-		    , #{workWeek}
-		    , #{workTime}
-		    , #{preferenceLocation}
-		    , #{approvalState}
-		    , #{memo}
-		    , #{sSize}
-		    , #{mSize}
-		    , #{lSize}
-		)
+ INSERT INTO walker_add_info 
+  		( 
+		    GENDER, 
+		    BANK_CODE, 
+		    BANK_ACCOUNT,
+		    PICTURE,
+		    WORK_WEEK, 
+		    WORK_TIME, 
+		    PREFERENCE_LOCATION,
+		    APPROVAL_STATE,
+		    MEMO,
+		    S_SIZE, 
+		    M_SIZE, 
+		    L_SIZE,
+		    MEMBER_CODE 
+        ) 
+  VALUES 
+	  (
+		#{gender}, 
+		#{bankCode}, 
+		#{bankAccount}, 
+		#{picture},
+		#{workWeek}, 
+	    #{workTime}, 
+	    #{preferenceLocation}, 
+	    #{approvalState}, 
+	    #{memo}, 
+	    #{sSize}, 
+	    #{mSize}, 
+	    #{lSize},
+	    #{memberCode}
+	  )
 	</insert>
+	
+	<update id="updatewalker" parameterType="DogWalkVO">
+    UPDATE walker_add_info
+    SET
+	        GENDER = #{gender}, 
+	        BANK_CODE = #{bankCode}, 
+	        BANK_ACCOUNT = #{bankAccount}, 
+	        <if test="picture != null and picture != ''">
+	        PICTURE = #{picture}, 
+	        </if>
+	        WORK_WEEK = #{workWeek}, 
+	        WORK_TIME = #{workTime}, 
+	        PREFERENCE_LOCATION = #{preferenceLocation}, 
+	        APPROVAL_STATE = #{approvalState}, 
+	        MEMO = #{memo}, 
+	        S_SIZE = #{sSize}, 
+	        M_SIZE = #{mSize}, 
+	        L_SIZE = #{lSize}
+	        
+    WHERE 	MEMBER_CODE = #{memberCode}
+</update>
+
+<select id="selectWalkerInfo" parameterType="String" resultType="com.puppyroad.app.dogwalker.service.DogWalkVO">
+    SELECT 
+        GENDER, 
+        BANK_CODE, 
+        BANK_ACCOUNT, 
+        PICTURE, 
+        WORK_WEEK, 
+        WORK_TIME, 
+        PREFERENCE_LOCATION, 
+        APPROVAL_STATE, 
+        MEMO, 
+        S_SIZE, 
+        M_SIZE, 
+        L_SIZE, 
+        MEMBER_CODE
+    FROM walker_add_info
+    WHERE MEMBER_CODE = #{memberCode}
+</select>	
 	
 
 </mapper>

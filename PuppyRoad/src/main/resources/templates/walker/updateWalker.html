@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
+<head>
+<script type="text/javascript"
+	src="/assets/vendor/libs/flatpickr/flatpickr.js"></script>
+<style>
+.switch-success {
+	margin-top: 10px;
+}
+</style>
+<link rel="stylesheet"
+	href="/assets/vendor/libs/flatpickr/flatpickr.css">
+</head>
+<body>
+
+	<section class="first-section-pt">
+		<div class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
+			<div
+				class="flex-shrink-1 flex-grow-0 w-px-350 border-end container-p-x container-p-y">
+				<div th:insert="common/fragments/admin/aside :: AsideFragment"></div>
+			</div>
+
+			<div class="flex-shrink-1 flex-grow-1 container-p-x container-p-y">
+				<div class="content">
+					<div class="col-md">
+						<div class="card">
+							<h5 class="card-header" style="width: 400px; margin: auto">도크워커
+								프로필 설정</h5>
+							<div class="card-body" style="width: 400px; margin: auto">
+								<form class="needs-validation" th:object="${dogWalkVO}"
+									th:action="@{/user/updateWalker}" method="post"
+									enctype="multipart/form-data" novalidate="">
+									<div class="mb-6">
+										<label for="profilePictureEdit" style="cursor: pointer;">
+											<img id="profileImagePreview"
+											th:src="@{/images/{fileName}(fileName=${dogWalkVO.picture})}"
+											th:alt="${fileName}"
+											style="max-width: 100px; max-height: 100px; display: block;" />
+										</label> <input type="file" class="form-control"
+											id="profilePictureEdit" name="file" accept="image/*"
+											onchange="previewImage(event)" style="display: block;" />
+									</div>
+									<div class="mb-6">
+										<div class="row">
+											<label class="form-label" for="bs-validation-email">성별</label>
+											<div class="col-md mb-md-0 mb-5">
+												<div class="form-check custom-option custom-option-icon">
+													<label class="form-check-label custom-option-content"
+														for="mage"> <span class="custom-option-body">
+															<i class="ti ti-brand-gitlab mb-2"></i> <span>남</span>
+													</span> <input name="gender" class="form-check-input" type="radio"
+														value="1" id="mage" checked>
+													</label>
+												</div>
+											</div>
+											<div class="col-md mb-md-0 mb-5">
+												<div
+													class="form-check custom-option custom-option-icon checked">
+													<label class="form-check-label custom-option-content"
+														for="wage"> <span class="custom-option-body">
+															<i class="ti ti-brand-gitlab mb-2"></i> <span>여</span>
+													</span> <input name="gender" class="form-check-input" type="radio"
+														value="2" id="wage">
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div
+										class="mb-5 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid">
+										<label class="form-label" for="eventStartDate"><font
+											style="vertical-align: inherit;"><font
+												style="vertical-align: inherit;">근무 날짜</font></font></label>
+
+										<div>
+											<br> <label class="switch switch-success"> <input
+												type="checkbox" class="switch-input" checked="" value="월"
+												name="workWeek"> <span class="switch-toggle-slider">
+													<span class="switch-on"> <i class="ti ti-check"></i>
+												</span> <span class="switch-off"> <i class="ti ti-x"></i>
+												</span>
+											</span> <span class="switch-label">월</span>
+											</label> <label class="switch switch-success"> <input
+												type="checkbox" class="switch-input" checked="" value="화"
+												name="workWeek"> <span class="switch-toggle-slider">
+													<span class="switch-on"> <i class="ti ti-check"></i>
+												</span> <span class="switch-off"> <i class="ti ti-x"></i>
+												</span>
+											</span> <span class="switch-label">화</span>
+											</label> <label class="switch switch-success"> <input
+												type="checkbox" class="switch-input" checked="" value="수"
+												name="workWeek"> <span class="switch-toggle-slider">
+													<span class="switch-on"> <i class="ti ti-check"></i>
+												</span> <span class="switch-off"> <i class="ti ti-x"></i>
+												</span>
+											</span> <span class="switch-label">수</span>
+											</label> <label class="switch switch-success"> <input
+												type="checkbox" class="switch-input" checked="" value="목"
+												name="workWeek"> <span class="switch-toggle-slider">
+													<span class="switch-on"> <i class="ti ti-check"></i>
+												</span> <span class="switch-off"> <i class="ti ti-x"></i>
+												</span>
+											</span> <span class="switch-label">목</span>
+											</label> <br> <label class="switch switch-success"> <input
+												type="checkbox" class="switch-input" checked="" value="금"
+												name="workWeek"> <span class="switch-toggle-slider">
+													<span class="switch-on"> <i class="ti ti-check"></i>
+												</span> <span class="switch-off"> <i class="ti ti-x"></i>
+												</span>
+											</span> <span class="switch-label">금</span>
+											</label> <label class="switch switch-success"> <input
+												type="checkbox" class="switch-input" checked="" value="토"
+												name="workWeek"> <span class="switch-toggle-slider">
+													<span class="switch-on"> <i class="ti ti-check"></i>
+												</span> <span class="switch-off"> <i class="ti ti-x"></i>
+												</span>
+											</span> <span class="switch-label">토</span>
+											</label> <label class="switch switch-success"> <input
+												type="checkbox" class="switch-input" checked="" value="일"
+												name="workWeek"> <span class="switch-toggle-slider">
+													<span class="switch-on"> <i class="ti ti-check"></i>
+												</span> <span class="switch-off"> <i class="ti ti-x"></i>
+												</span>
+											</span> <span class="switch-label">일</span>
+											</label>
+										</div>
+									</div>
+									<!--  -->
+									<label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="08:00-09:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">08:00 - 09:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="09:00-10:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">09:00 - 10:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="10:00-11:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">10:00 - 11:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="11:00-12:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">11:00 - 12:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="12:00-13:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">12:00 - 13:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="13:00-14:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">13:00 - 14:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="14:00-15:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">14:00 - 15:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="15:00-16:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">15:00 - 16:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="17:00-18:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">17:00 - 18:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="18:00-19:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">18:00 - 19:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="19:00-20:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">19:00 - 20:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="20:00-21:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">20:00 - 21:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="21:00-22:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">21:00 - 22:00</span>
+									</label> <br> <label class="form-label" for="eventStartDate">
+										<font style="vertical-align: inherit;"> <font
+											style="vertical-align: inherit;">선호 애견크기</font>
+									</font>
+									</label> <br>
+									<div class="switch-group">
+										<label class="switch switch-success"> <input
+											type="checkbox" class="switch-input" checked=""> <span
+											class="switch-toggle-slider"> <span class="switch-on">
+													<i class="ti ti-check"></i>
+											</span> <span class="switch-off"> <i class="ti ti-x"></i>
+											</span>
+										</span> <span class="switch-label">소</span>
+										</label> <input class="form-control size-input" type="text"
+											name="sSize">
+									</div>
+
+									<div class="switch-group">
+										<label class="switch switch-success"> <input
+											type="checkbox" class="switch-input" checked=""> <span
+											class="switch-toggle-slider"> <span class="switch-on">
+													<i class="ti ti-check"></i>
+											</span> <span class="switch-off"> <i class="ti ti-x"></i>
+											</span>
+										</span> <span class="switch-label">중</span>
+										</label> <input class="form-control size-input" name="mSize"
+											type="text">
+									</div>
+
+									<div class="switch-group">
+										<label class="switch switch-success"> <input
+											type="checkbox" class="switch-input" checked> <span
+											class="switch-toggle-slider"> <span class="switch-on">
+													<i class="ti ti-check"></i>
+											</span> <span class="switch-off"> <i class="ti ti-x"></i>
+											</span>
+										</span> <span class="switch-label">대</span>
+										</label> <input class="form-control size-input" name="lSize"
+											type="text">
+									</div>
+
+
+
+									<div class="mb-6">
+										<label class="form-label" for="bs-validation-country">은행</label>
+										<select class="form-select" id="bs-validation-country"
+											name="bankCode" required="">
+											<option value="">은행 선택</option>
+											<option value="신한은행">신한은행</option>
+											<option value="국민은행">국민은행</option>
+											<option value="하나은행">하나은행</option>
+											<option value="농협">농협</option>
+											<option value="카카오뱅크">카카오뱅크</option>
+										</select>
+										<div class="valid-feedback">Looks good!</div>
+										<div class="invalid-feedback">Please select your country</div>
+									</div>
+									<div class="mb-6">
+										<label class="form-label" for="bs-validation-dob">계좌번호</label>
+										<input type="text" name="bankAccount"
+											class="form-control flatpickr-validation flatpickr-input"
+											id="bs-validation-dob" required="" placeholder="'-'없이 입력">
+										<div class="valid-feedback">Looks good!</div>
+										<div class="invalid-feedback">Please Enter Your DOB</div>
+									</div>
+
+									<div class="mb-6">
+										<label class="form-label" for="bs-validation-bio">자기소개</label>
+										<textarea class="form-control" name="memo"
+											id="bs-validation-bio" rows="3" required=""
+											placeholder="고객들에게 자신을 어필해보세요!"></textarea>
+									</div>
+									<div class="mb-6">
+										<div class="form-check">
+											<input type="checkbox" class="form-check-input"
+												id="bs-validation-checkbox" required=""> <label
+												class="form-check-label" for="bs-validation-checkbox">개인정보
+												등록 동의</label>
+											<div class="invalid-feedback">You must agree before
+												submitting.</div>
+										</div>
+									</div>
+									<div th:if="${message}">
+										<p th:text="${message}"></p>
+									</div>
+
+									<div class="row">
+										<div class="col-12">
+											<button type="submit"
+												class="btn btn-primary waves-effect waves-light">저장</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- .content 끝 -->
+
+			</div>
+		</div>
+		<!-- 어사이드 메뉴를 외부 프래그먼트로 삽입 -->
+
+		<!-- 본문 내용 -->
+
+		</div>
+		<!-- .main-container 끝 -->
+	</section>
+
+</body>
+<script>
+	//이미지 미리보기 함수
+	function previewImage(event) {
+		const reader = new FileReader();
+		const imageField = document.getElementById("profileImagePreview");
+
+		reader.onload = function() {
+			if (reader.readyState === 2) {
+				imageField.src = reader.result;
+			}
+		};
+		reader.readAsDataURL(event.target.files[0]);
+	}
+</script>
+</html>

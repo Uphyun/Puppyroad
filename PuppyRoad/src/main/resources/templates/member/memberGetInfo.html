@@ -4,82 +4,89 @@
 	layout:decorate="~{common/layouts/default_layout}"
 	layout:fragment="Content">
 <head>
-<meta charset="UTF-8">
+<script type="text/javascript"
+	src="/assets/vendor/libs/flatpickr/flatpickr.js"></script>
+<style>
+.switch-success {
+	margin-top: 10px;
+}
+</style>
+<link rel="stylesheet"
+	href="/assets/vendor/libs/flatpickr/flatpickr.css">
 </head>
 <body>
-	<div style="width: 500px; margin: auto">
-		<h3 class="box-title">내 정보 수정</h3>
-		<div class="comment-form">
-			<form name="updateForm" th:object="${list}" id="memberUpdate">
 
-				<div class="input-group input-group-two textarea mb-20">
-					<input th:field="*{userId}" readonly>
-					<div class="icon">
-						<i class="fas fa-user"></i>
-					</div>
-				</div>
-				<div class="input-group input-group-two mb-20">
+	<section class="first-section-pt">
+			<div class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
+			<div class="flex-shrink-1 flex-grow-0 w-px-350 border-end container-p-x container-p-y">
+				<div th:insert="common/fragments/admin/aside :: AsideFragment"></div>
+			</div>
+	<form style="margin:auto;">
+		<div class="card mb-6" >
+                    <h5 class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">회원 정보</font></font></h5>
+                    <div class="card-body">
+                      <div class="mb-4 row">
+                        <label for="html5-text-input" class="col-md-2 col-form-label"><font><font>아이디</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control" type="text" th:value="${list.userId}" id="html5-text-input" readonly>
+                        </div>
+                      </div>
+                      <div class="mb-4 row">
+                        <label for="html5-password-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">비밀번호</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control" type="password" th:value="${list.userPw}" id="html5-password-input">
+                        </div>
+                      </div>
+                      <div class="mb-4 row">
+                        <label for="html5-search-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">이름</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control" type="search" th:value="${list.name}" id="html5-search-input" readonly><div style="font-size:0.5;">*개명시 문의하기를 통하여 변경해주세요</div>
+                        </div>
+                      </div>
+                      <div class="mb-4 row">
+                        <label for="html5-email-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">이메일</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control" type="email"  th:value="${list.email}" id="html5-email-input">
+                        </div>
+                      </div>
+                      <div class="mb-4 row">
+                        <label for="html5-url-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">닉네임</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control" type="url"  th:value="${list.nickName}" id="html5-url-input">
+                        </div>
+                      </div>
+                      <div class="mb-4 row">
+                        <label for="html5-tel-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">핸드폰</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control" type="tel"  th:value="${list.phone}" id="html5-tel-input">
+                        </div>
+                      </div>
+                      <div class="mb-4 row">
+                        <label for="html5-number-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">직함</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control" type="text" th:value="${list.position}" id="html5-number-input">
+                        </div>
+                      </div>
+                      <div class="mb-4 row">
+                        <label for="html5-datetime-local-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">가입날짜</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control" type="text" th:value="${#dates.format(list.joinDate, 'yyyy/MM/dd HH:mm')}" id="html5-datetime-local-input">
+                        </div>
+                      </div>
+                      <div class="mb-4 row">
+                        <label for="html5-datetime-local-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">주소</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control" type="text" th:value="${list.address}" id="html5-datetime-local-input">
+                        </div>
+                      </div>
+                      
+                  <button type="submit" style="margin:auto" class="btn btn-primary waves-effect waves-light" id="updateBtn">저장</button>
+                  </div>
+             </div>
+             </form>
+             </div>
+	</section>
 
-					<div class="icon">
-						<i class="fas fa-user" id="pwUpdate"></i>
-					</div>
-				</div>
-				<div class="input-group input-group-two mb-20">
-					<input th:field="*{name}" type="text" placeholder="Enter your name">
-					<div class="icon">
-						<i class="fas fa-user"></i>
-					</div>
-				</div>
-				<div class="input-group input-group-two mb-20">
-					<input th:field="*{nickName}" type="text"
-						placeholder="Enter your Nickname">
-					<div class="icon">
-						<i class="fas fa-pen"></i>
-					</div>
-				</div>
-				<div class="input-group input-group-two mb-20">
-					<input th:field="*{email}" type="email"
-						placeholder="Type your Website....">
-					<div class="icon">
-						<i class="fas fa-pen"></i>
-					</div>
-				</div>
-				<div class="input-group input-group-two mb-20">
-					<input th:field="*{address}" type="text"
-						placeholder="Type your Website....">
-					<div class="icon">
-						<i class="fas fa-user"></i>
-					</div>
-				</div>
-				<div class="input-group input-group-two mb-20">
-					<input th:field="*{phone}" type="text"
-						placeholder="Type your Name....">
-					<div class="icon">
-						<i class="fas fa-pen"></i>
-					</div>
-				</div>
-				<div class="input-group input-group-two mb-20">
-					<input th:field="*{position}" type="text" readonly>
-					<div class="icon">
-						<i class="fas fa-user"></i>
-					</div>
-				</div>
-				<div class="input-group  mt-30">
-					<button id="updateBtn" type="button" style="margin: auto"
-						class="main-btn btn-filled">
-						<i class="far fa-comments"></i> 저장
-					</button>
-				</div>
-				<div class="input-group  mt-30">
-				<a href="@{/memberDelete}">
-					<button id="deleteBtn" type="button" style="margin: auto"
-						class="main-btn btn-filled">
-						<i class="far fa-comments"></i> 탈퇴하기
-					</button></a>
-				</div>
-			</form>
-		</div>
-	</div>
 </body>
 <script>
 	$("#updateBtn").on('click', (e)=>{

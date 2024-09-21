@@ -7,9 +7,9 @@
 <script type="text/javascript"
 	src="/assets/vendor/libs/flatpickr/flatpickr.js"></script>
 <style>
- .switch-success{
- 	margin-top:10px;
- }
+.switch-success {
+	margin-top: 10px;
+}
 </style>
 <link rel="stylesheet"
 	href="/assets/vendor/libs/flatpickr/flatpickr.css">
@@ -30,11 +30,18 @@
 							<h5 class="card-header" style="width: 400px; margin: auto">도크워커
 								프로필 설정</h5>
 							<div class="card-body" style="width: 400px; margin: auto">
-								<form class="needs-validation" novalidate="">
+								<form class="needs-validation" th:object="${dogWalkVO}"
+									th:action="@{/user/insertWalker}" method="post"
+									enctype="multipart/form-data" novalidate="">
 									<div class="mb-6">
-										<label class="form-label" for="bs-validation-upload-file">프로필사진첨부</label>
-										<input type="file" class="form-control"
-											id="bs-validation-upload-file" required="">
+										<label for="profilePictureEdit" style="cursor: pointer;">
+											<img id="profileImagePreview"
+											th:src="@{/images/{fileName}(fileName=${dogWalkVO.picture})}"
+											th:alt="${fileName}"
+											style="max-width: 100px; max-height: 100px; display: block;" />
+										</label> <input type="file" class="form-control"
+											id="profilePictureEdit" name="file" accept="image/*"
+											onchange="previewImage(event)" style="display: block;" />
 									</div>
 									<div class="mb-6">
 										<div class="row">
@@ -66,301 +73,226 @@
 										class="mb-5 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid">
 										<label class="form-label" for="eventStartDate"><font
 											style="vertical-align: inherit;"><font
-												style="vertical-align: inherit;">근무 날짜</font></font></label> 
-												
-										<div>	
-										  <br>
-										<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked="" value="월" name="월"> 
-										<span class="switch-toggle-slider"> <span class="switch-on">
-													<i class="ti ti-check"></i>
-											</span> <span class="switch-off"> <i class="ti ti-x"></i>
-											</span>
-										</span> 
-										<span class="switch-label">월</span>
-										</label> 
-										<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked="" value="화" name="화"> 
-										<span class="switch-toggle-slider"> 
-											<span class="switch-on">
-													<i class="ti ti-check"></i>
-											</span> 
-											<span class="switch-off"> 
-													<i class="ti ti-x"></i>
-											</span>
-										</span> <span class="switch-label">화</span>
-										</label> <label class="switch switch-success"> <input
-											type="checkbox" class="switch-input" checked="" value="수" name="수"> <span
-											class="switch-toggle-slider"> <span class="switch-on">
-													<i class="ti ti-check"></i>
-											</span> <span class="switch-off"> <i class="ti ti-x"></i>
-											</span>
-										</span> <span class="switch-label">수</span>
-										</label> <label class="switch switch-success"> <input
-											type="checkbox" class="switch-input" checked="" value="목" name="목"> <span
-											class="switch-toggle-slider"> <span class="switch-on">
-													<i class="ti ti-check"></i>
-											</span> <span class="switch-off"> <i class="ti ti-x"></i>
-											</span>
-										</span> <span class="switch-label">목</span>
-										</label> <br><label class="switch switch-success"> <input
-											type="checkbox" class="switch-input" checked="" value="금" name="금"> 
-											
-											<span
-											class="switch-toggle-slider"> <span class="switch-on">
-													<i class="ti ti-check"></i>
-											</span> <span class="switch-off"> <i class="ti ti-x"></i>
-											</span>
-										</span> <span class="switch-label">금</span>
-										</label> <label class="switch switch-success"> <input
-											type="checkbox" class="switch-input" checked="" value="토" name="토"> <span
-											class="switch-toggle-slider"> <span class="switch-on">
-													<i class="ti ti-check"></i>
-											</span> <span class="switch-off"> <i class="ti ti-x"></i>
-											</span>
-										</span> <span class="switch-label">토</span>
-										</label> <label class="switch switch-success"> <input
-											type="checkbox" class="switch-input" checked="" value="일" name="일"> <span
-											class="switch-toggle-slider"> <span class="switch-on">
-													<i class="ti ti-check"></i>
-											</span> <span class="switch-off"> <i class="ti ti-x"></i>
-											</span>
-										</span> <span class="switch-label">일</span>
-										</label>
-									</div>
+												style="vertical-align: inherit;">근무 날짜</font></font></label>
+
+										<div>
+											<br> <label class="switch switch-success"> <input
+												type="checkbox" class="switch-input" checked="" value="월"
+												name="workWeek"> <span class="switch-toggle-slider">
+													<span class="switch-on"> <i class="ti ti-check"></i>
+												</span> <span class="switch-off"> <i class="ti ti-x"></i>
+												</span>
+											</span> <span class="switch-label">월</span>
+											</label> <label class="switch switch-success"> <input
+												type="checkbox" class="switch-input" checked="" value="화"
+												name="workWeek"> <span class="switch-toggle-slider">
+													<span class="switch-on"> <i class="ti ti-check"></i>
+												</span> <span class="switch-off"> <i class="ti ti-x"></i>
+												</span>
+											</span> <span class="switch-label">화</span>
+											</label> <label class="switch switch-success"> <input
+												type="checkbox" class="switch-input" checked="" value="수"
+												name="workWeek"> <span class="switch-toggle-slider">
+													<span class="switch-on"> <i class="ti ti-check"></i>
+												</span> <span class="switch-off"> <i class="ti ti-x"></i>
+												</span>
+											</span> <span class="switch-label">수</span>
+											</label> <label class="switch switch-success"> <input
+												type="checkbox" class="switch-input" checked="" value="목"
+												name="workWeek"> <span class="switch-toggle-slider">
+													<span class="switch-on"> <i class="ti ti-check"></i>
+												</span> <span class="switch-off"> <i class="ti ti-x"></i>
+												</span>
+											</span> <span class="switch-label">목</span>
+											</label> <br> <label class="switch switch-success"> <input
+												type="checkbox" class="switch-input" checked="" value="금"
+												name="workWeek"> <span class="switch-toggle-slider">
+													<span class="switch-on"> <i class="ti ti-check"></i>
+												</span> <span class="switch-off"> <i class="ti ti-x"></i>
+												</span>
+											</span> <span class="switch-label">금</span>
+											</label> <label class="switch switch-success"> <input
+												type="checkbox" class="switch-input" checked="" value="토"
+												name="workWeek"> <span class="switch-toggle-slider">
+													<span class="switch-on"> <i class="ti ti-check"></i>
+												</span> <span class="switch-off"> <i class="ti ti-x"></i>
+												</span>
+											</span> <span class="switch-label">토</span>
+											</label> <label class="switch switch-success"> <input
+												type="checkbox" class="switch-input" checked="" value="일"
+												name="workWeek"> <span class="switch-toggle-slider">
+													<span class="switch-on"> <i class="ti ti-check"></i>
+												</span> <span class="switch-off"> <i class="ti ti-x"></i>
+												</span>
+											</span> <span class="switch-label">일</span>
+											</label>
+										</div>
 									</div>
 									<!--  -->
-									<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked=""> 
-											<span class="switch-toggle-slider"> 
-												<span class="switch-on">
-													<i class="ti ti-check"></i>
-												 </span> 
-											    <span class="switch-off">
-											    	 <i class="ti ti-x"></i>
-												</span>
-											</span> 
-											<span class="switch-label">06:00 - 07:00</span>
-									</label>
-									<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked> 
-											<span class="switch-toggle-slider"> 
-												<span class="switch-on">
-													<i class="ti ti-check"></i>
-												 </span> 
-											    <span class="switch-off">
-											    	 <i class="ti ti-x"></i>
-												</span>
-											</span> 
-											<span class="switch-label">07:00 - 08:00</span>
-									</label>
-																		<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked=""> 
-											<span class="switch-toggle-slider"> 
-												<span class="switch-on">
-													<i class="ti ti-check"></i>
-												 </span> 
-											    <span class="switch-off">
-											    	 <i class="ti ti-x"></i>
-												</span>
-											</span> 
-											<span class="switch-label">08:00 - 09:00</span>
-									</label>
-																		<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked=""> 
-											<span class="switch-toggle-slider"> 
-												<span class="switch-on">
-													<i class="ti ti-check"></i>
-												 </span> 
-											    <span class="switch-off">
-											    	 <i class="ti ti-x"></i>
-												</span>
-											</span> 
-											<span class="switch-label">09:00 - 10:00</span>
-									</label>
-									<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked=""> 
-											<span class="switch-toggle-slider"> 
-												<span class="switch-on">
-													<i class="ti ti-check"></i>
-												 </span> 
-											    <span class="switch-off">
-											    	 <i class="ti ti-x"></i>
-												</span>
-											</span> 
-											<span class="switch-label">10:00 - 11:00</span>
-									</label>
-									<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked=""> 
-											<span class="switch-toggle-slider"> 
-												<span class="switch-on">
-													<i class="ti ti-check"></i>
-												 </span> 
-											    <span class="switch-off">
-											    	 <i class="ti ti-x"></i>
-												</span>
-											</span> 
-											<span class="switch-label">11:00 - 12:00</span>
-									</label>
-																		<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked=""> 
-											<span class="switch-toggle-slider"> 
-												<span class="switch-on">
-													<i class="ti ti-check"></i>
-												 </span> 
-											    <span class="switch-off">
-											    	 <i class="ti ti-x"></i>
-												</span>
-											</span> 
-											<span class="switch-label">12:00 - 13:00</span>
-									</label>
-									<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked=""> 
-											<span class="switch-toggle-slider"> 
-												<span class="switch-on">
-													<i class="ti ti-check"></i>
-												 </span> 
-											    <span class="switch-off">
-											    	 <i class="ti ti-x"></i>
-												</span>
-											</span> 
-											<span class="switch-label">13:00 - 14:00</span>
-									</label>
-																		<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked=""> 
-											<span class="switch-toggle-slider"> 
-												<span class="switch-on">
-													<i class="ti ti-check"></i>
-												 </span> 
-											    <span class="switch-off">
-											    	 <i class="ti ti-x"></i>
-												</span>
-											</span> 
-											<span class="switch-label">14:00 - 15:00</span>
-									</label>
-																		<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked=""> 
-											<span class="switch-toggle-slider"> 
-												<span class="switch-on">
-													<i class="ti ti-check"></i>
-												 </span> 
-											    <span class="switch-off">
-											    	 <i class="ti ti-x"></i>
-												</span>
-											</span> 
-											<span class="switch-label">15:00 - 16:00</span>
-									</label>
-									<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked=""> 
-											<span class="switch-toggle-slider"> 
-												<span class="switch-on">
-													<i class="ti ti-check"></i>
-												 </span> 
-											    <span class="switch-off">
-											    	 <i class="ti ti-x"></i>
-												</span>
-											</span> 
-											<span class="switch-label">17:00 - 18:00</span>
-									</label>
-									
-							
-									<label class="switch switch-success"> <input type="checkbox" class="switch-input" checked=""> <span class="switch-toggle-slider"> <span class="switch-on">
+									<label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="08:00-09:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">08:00 - 09:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="09:00-10:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">09:00 - 10:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="10:00-11:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">10:00 - 11:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="11:00-12:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">11:00 - 12:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="12:00-13:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">12:00 - 13:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="13:00-14:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">13:00 - 14:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="14:00-15:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">14:00 - 15:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="15:00-16:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">15:00 - 16:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="17:00-18:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">17:00 - 18:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="18:00-19:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">18:00 - 19:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="19:00-20:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">19:00 - 20:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="20:00-21:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">20:00 - 21:00</span>
+									</label> <label class="switch switch-success"> <input
+										type="checkbox" class="switch-input" value="21:00-22:00"
+										name="workTime" checked=""> <span
+										class="switch-toggle-slider"> <span class="switch-on">
+												<i class="ti ti-check"></i>
+										</span> <span class="switch-off"> <i class="ti ti-x"></i>
+										</span>
+									</span> <span class="switch-label">21:00 - 22:00</span>
+									</label> <br> <label class="form-label" for="eventStartDate">
+										<font style="vertical-align: inherit;"> <font
+											style="vertical-align: inherit;">선호 애견크기</font>
+									</font>
+									</label> <br>
+									<div class="switch-group">
+										<label class="switch switch-success"> <input
+											type="checkbox" class="switch-input" checked=""> <span
+											class="switch-toggle-slider"> <span class="switch-on">
 													<i class="ti ti-check"></i>
 											</span> <span class="switch-off"> <i class="ti ti-x"></i>
 											</span>
-										</span> 
-										<span class="switch-label">18:00 - 19:00</span>
-										</label>
-									<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked=""> 
-											<span class="switch-toggle-slider"> 
-												<span class="switch-on">
+										</span> <span class="switch-label">소</span>
+										</label> <input class="form-control size-input" type="text"
+											name="sSize">
+									</div>
+
+									<div class="switch-group">
+										<label class="switch switch-success"> <input
+											type="checkbox" class="switch-input" checked=""> <span
+											class="switch-toggle-slider"> <span class="switch-on">
 													<i class="ti ti-check"></i>
-												 </span> 
-											    <span class="switch-off">
-											    	 <i class="ti ti-x"></i>
-												</span>
-											</span> 
-											<span class="switch-label">19:00 - 20:00</span>
-									</label>
-									<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked=""> 
-											<span class="switch-toggle-slider"> 
-												<span class="switch-on">
+											</span> <span class="switch-off"> <i class="ti ti-x"></i>
+											</span>
+										</span> <span class="switch-label">중</span>
+										</label> <input class="form-control size-input" name="mSize"
+											type="text">
+									</div>
+
+									<div class="switch-group">
+										<label class="switch switch-success"> <input
+											type="checkbox" class="switch-input" checked> <span
+											class="switch-toggle-slider"> <span class="switch-on">
 													<i class="ti ti-check"></i>
-												 </span> 
-											    <span class="switch-off">
-											    	 <i class="ti ti-x"></i>
-												</span>
-											</span> 
-											<span class="switch-label">20:00 - 21:00</span>
-									</label>
-									<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked=""> 
-											<span class="switch-toggle-slider"> 
-												<span class="switch-on">
-													<i class="ti ti-check"></i>
-												 </span> 
-											    <span class="switch-off">
-											    	 <i class="ti ti-x"></i>
-												</span>
-											</span> 
-											<span class="switch-label">21:00 - 22:00</span>
-									</label>
-									<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked=""> 
-											<span class="switch-toggle-slider"> 
-												<span class="switch-on">
-													<i class="ti ti-check"></i>
-												 </span> 
-											    <span class="switch-off">
-											    	 <i class="ti ti-x"></i>
-												</span>
-											</span> 
-											<span class="switch-label">22:00 - 23:00</span>
-									</label>
-									<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked=""> 
-											<span class="switch-toggle-slider"> 
-												<span class="switch-on">
-													<i class="ti ti-check"></i>
-												 </span> 
-											    <span class="switch-off">
-											    	 <i class="ti ti-x"></i>
-												</span>
-											</span> 
-											<span class="switch-label">23:00 - 24:00</span>
-									</label>
-									<label class="switch switch-success"> 
-										<input type="checkbox" class="switch-input" checked=""> 
-											<span class="switch-toggle-slider"> 
-												<span class="switch-on">
-													<i class="ti ti-check"></i>
-												 </span> 
-											    <span class="switch-off">
-											    	 <i class="ti ti-x"></i>
-												</span>
-											</span> 
-											<span class="switch-label">00:00 - 01:00</span>
-									</label>
-									
+											</span> <span class="switch-off"> <i class="ti ti-x"></i>
+											</span>
+										</span> <span class="switch-label">대</span>
+										</label> <input class="form-control size-input" name="lSize"
+											type="text">
+									</div>
+
+
+
 									<div class="mb-6">
 										<label class="form-label" for="bs-validation-country">은행</label>
 										<select class="form-select" id="bs-validation-country"
-											required="">
+											name="bankCode" required="">
 											<option value="">은행 선택</option>
-											<option value="usa">신한은행</option>
-											<option value="uk">국민은행</option>
-											<option value="france">하나은행</option>
-											<option value="australia">농협</option>
-											<option value="spain">카카오뱅크</option>
+											<option value="신한은행">신한은행</option>
+											<option value="국민은행">국민은행</option>
+											<option value="하나은행">하나은행</option>
+											<option value="농협">농협</option>
+											<option value="카카오뱅크">카카오뱅크</option>
 										</select>
 										<div class="valid-feedback">Looks good!</div>
 										<div class="invalid-feedback">Please select your country</div>
 									</div>
 									<div class="mb-6">
 										<label class="form-label" for="bs-validation-dob">계좌번호</label>
-										<input type="text"
+										<input type="text" name="bankAccount"
 											class="form-control flatpickr-validation flatpickr-input"
 											id="bs-validation-dob" required="" placeholder="'-'없이 입력">
 										<div class="valid-feedback">Looks good!</div>
@@ -369,19 +301,24 @@
 
 									<div class="mb-6">
 										<label class="form-label" for="bs-validation-bio">자기소개</label>
-										<textarea class="form-control" id="bs-validation-bio"
-											name="bs-validation-bio" rows="3" required="" placeholder="고객들에게 자신을 어필해보세요!"></textarea>
+										<textarea class="form-control" name="memo"
+											id="bs-validation-bio" rows="3" required=""
+											placeholder="고객들에게 자신을 어필해보세요!"></textarea>
 									</div>
 									<div class="mb-6">
 										<div class="form-check">
 											<input type="checkbox" class="form-check-input"
 												id="bs-validation-checkbox" required=""> <label
-												class="form-check-label" for="bs-validation-checkbox">개인정보 등록 동의</label>
+												class="form-check-label" for="bs-validation-checkbox">개인정보
+												등록 동의</label>
 											<div class="invalid-feedback">You must agree before
 												submitting.</div>
 										</div>
 									</div>
-	
+									<div th:if="${message}">
+										<p th:text="${message}"></p>
+									</div>
+
 									<div class="row">
 										<div class="col-12">
 											<button type="submit"
@@ -406,4 +343,18 @@
 	</section>
 
 </body>
+<script>
+	//이미지 미리보기 함수
+	function previewImage(event) {
+		const reader = new FileReader();
+		const imageField = document.getElementById("profileImagePreview");
+
+		reader.onload = function() {
+			if (reader.readyState === 2) {
+				imageField.src = reader.result;
+			}
+		};
+		reader.readAsDataURL(event.target.files[0]);
+	}
+</script>
 </html>

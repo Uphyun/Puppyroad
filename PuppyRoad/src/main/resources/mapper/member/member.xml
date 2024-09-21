@@ -4,7 +4,7 @@
 	<insert id="insertMember">
 		<selectKey keyProperty="memberCode" order="BEFORE"
 		resultType="string">
-			SELECT nvl(max(to_number(substr(member_code, -3))), 0) + 1 as "member_code"
+			SELECT  case when #{position} = '의뢰인' then 'M' else 'W' end  || to_char(sysdate, 'yyMMdd') || LPAD((nvl(max(to_number(substr(member_code, -3))), 0) + 1), 3, 0)     as member_code
 			FROM member
             WHERE substr(member_code, 2, 6) = to_char(sysdate, 'yymmdd')
 		</selectKey>
@@ -31,10 +31,10 @@
 		(
 			<choose>
 			  <when test="position == '의뢰인'">
-				'M' || to_char(sysdate, 'yyMMdd') || LPAD(#{memberCode}, 3, 0)
+				#{memberCode}
 			  </when>
 		      <otherwise>
-				'W' || to_char(sysdate, 'yyMMdd') || LPAD(#{memberCode}, 3, 0)
+				#{memberCode}
 		      </otherwise>
 			</choose>
 		    , #{userId}

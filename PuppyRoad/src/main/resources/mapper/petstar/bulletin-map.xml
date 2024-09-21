@@ -3,12 +3,14 @@
 <mapper namespace="com.puppyroad.app.petstarbulletin.mapper.PetstarBulletinMapper">
 	<!-- 전체조회 All -->
 	<select id="selectAllBulletinList" resultType="PetstarBulletinVO">
-		SELECT   bulletin_no
-				,content
-				,writing_date
-				,attached_file
-				,member_code
-		FROM  pet_stargram_bulletin 
+		SELECT   b.bulletin_no
+				,b.content
+				,b.writing_date
+				,b.attached_file
+				,b.member_code
+				,p.profile_picture
+		FROM  pet_stargram_bulletin b JOIN pet_stargram_profile p
+										ON b.member_code = p.member_code
 		ORDER BY writing_date DESC
 	</select>
 	
@@ -65,7 +67,6 @@
 		UPDATE pet_stargram_bulletin
 		 SET
 		    content = #{content}
-		   ,writing_date = sysdate
 		   ,attached_file = #{attachedFile}
 		WHERE bulletin_no = #{bulletinNo}
 	</update>

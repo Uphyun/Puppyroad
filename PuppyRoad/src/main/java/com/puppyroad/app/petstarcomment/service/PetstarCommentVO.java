@@ -8,10 +8,11 @@ import lombok.Data;
 
 @Data
 public class PetstarCommentVO {
-	private String commentCode;
+	private int commentCode;
 	private String writer;
 	private String content;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createDate;
 	private int bulletinNo;
+	private String profilePicture;
 }

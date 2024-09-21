@@ -4,7 +4,7 @@
 
 	<insert id="insertPuppy" parameterType="PuppyVO">
 		<selectKey keyProperty="puppyCode" order="BEFORE" resultType="String">
-			SELECT NVL(MAX(TO_NUMBER(puppy_code)), 0) + 1 as "puppy_code"
+			SELECT NVL(MAX(TO_NUMBER(puppy_code)), 0) + 1 as puppy_code
 			FROM   puppy
 		</selectKey>
 		INSERT INTO puppy

@@ -2,8 +2,9 @@
  * 
  */
 getMemberList('의뢰인', 1);
+new DataTable("#DataTables_Table_0");
 //페이지 로딩시 데이터 가져오기
-function getMemberList(position, page) {
+async function getMemberList(position, page) {
 	let searchType = $("#searchTypeInput").val();
 	let keyword = $("#keywordInput").val();
 	let recordSize = $("#recordSize").val();
@@ -12,19 +13,30 @@ function getMemberList(position, page) {
 	if (searchType == "조건 선택") {
 		searchType = null;
 	}
-
 	let data = setSearchData(recordSize, page, position, searchType, keyword);
 
-	$.ajax({
-		url: "/ajax/memberList",
-		method: "get",
-		data: data,
-	})
-		.done(memberList => {
-			console.log(memberList);
-			$("#memberListBody").replaceWith(memberList);
-		})
-		.fail(err => console.log(err));
+	// $.ajax({
+	// 	url: "/ajax/memberList",
+	// 	method: "get",
+	// 	data: data,
+	// })
+	// 	.done(memberList => {
+	// 		//console.log(memberList);
+	// 		$("#memberListBody").replaceWith(memberList);
+	// 	})
+	// 	.fail(err => console.log(err));
+
+	// let pages = await $.ajax({
+	// 		url: "/ajax/memberListPage",
+	// 		method: "get",
+	// 		data: data,
+	// 	})
+	// 	// .done(pages => {
+	// 	// 	console.log(pages);
+	// 	// 	$("#memberListPaging").replaceWith(pages);
+	// 	// })
+	// 	// .fail(err => console.log(err));
+	// console.log(pages);
 
 }
 
