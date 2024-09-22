@@ -31,12 +31,17 @@ public class MatchController {
 		return "match/match";
 	}
 	
-	// 전체조회 : get
+	// 전체조회 : 페이지
 	@GetMapping("user/matchList")
 	public String matchList(Model model) {
-		List<MatchVO> list = matchService.getMatchList();
-		model.addAttribute("matchs", list);
 		return "match/matchList";
+	}
+	
+	// 전체조회 : AJAX
+	@GetMapping("user/matchListAjax")
+    @ResponseBody // => AJAX
+	public List<MatchVO> matchListAjax() {
+		return matchService.getMatchList();
 	}
 
 	// real 전체조회 : get
