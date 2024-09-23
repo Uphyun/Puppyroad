@@ -42,10 +42,12 @@ public class PetstarBulletinController {
 	private String uploadPath;
 
 	@Autowired
-	PetstarBulletinController(PetstarBulletinService bulletinService, PetstarCommentService commentService,
+	PetstarBulletinController(PetstarBulletinService bulletinService,
+			PetstarCommentService commentService,
 			PetstarProfileService profileService) {
 		this.bulletinService = bulletinService;
 		this.commentService = commentService;
+		this.profileService = profileService;
 	}
 
 	// 전체 조회 All
@@ -54,17 +56,25 @@ public class PetstarBulletinController {
 								PetstarCommentVO commentVO,
 								PetStarProfileVO profileVO,
 								Model model) {
+		
+		String mcode = SecurityUtil.memberCode();
+		profileVO.setMemberCode(mcode);
+		
+		// 펫스타 프로필
+		PetStarProfileVO findVO = profileService.getProfileInfo(profileVO);
+		model.addAttribute("profiles", findVO);
+		
 	    // 게시글 목록 조회
 	    List<PetstarBulletinVO> list = bulletinService.getAllBulletinList(bulletinVO);
 	    model.addAttribute("bulletin", list);
 
 	    // 게시글 번호별 댓글 목록 조회
-	    Map<Integer, List<PetstarCommentVO>> commentsMap = new HashMap<>();
+	    Map<Integer, List<PetstarCommentVO>> map = new HashMap<>();
 	    for (PetstarBulletinVO bulletin : list) {
 	        List<PetstarCommentVO> comments = commentService.getCommentList(bulletin.getBulletinNo());
-	        commentsMap.put(bulletin.getBulletinNo(), comments);
+	        map.put(bulletin.getBulletinNo(), comments);
 	    }
-	    model.addAttribute("commentsMap", commentsMap); 
+	    model.addAttribute("commentsMap", map); 
 
 	    return "petstar/petstar";
 	}
@@ -73,6 +83,9 @@ public class PetstarBulletinController {
 	// 단건조회
 	@GetMapping("user/bulletinInfo")
 	public String bulletinInfo(Integer bulletinno, PetstarBulletinVO bulletinVO, Model model) {
+		String mcode = SecurityUtil.memberCode();
+		bulletinVO.setMemberCode(mcode);
+		
 		PetstarBulletinVO findVO = bulletinService.getBulletinInfo(bulletinVO);
 		model.addAttribute("bulletin", findVO);
 		return "petstar/bulletinInfo";

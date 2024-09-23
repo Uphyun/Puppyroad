@@ -1,13 +1,27 @@
-$(document).ready(function() {
-    // 엔터키로 댓글 등록 처리
-    $(document).on('keypress', '.comment-input', function(e) {
-        if (e.which === 13) { 
-            e.preventDefault(); 
-            const bulletinId = $(this).attr('id').split('_')[1]; // bulletinNo 추출
-            submitComment(bulletinId);
-        }
-    });
-});
+// 이미지 미리보기 함수
+function previewImage(event) {
+	const reader = new FileReader();
+	const imageField = $(".profileImagePreview");
+
+	// 파일이 있는지 확인하고 읽기
+	if (event.target.files && event.target.files[0]) {
+		reader.onload = function(e) {
+			imageField.attr("src", e.target.result);
+		};
+		reader.readAsDataURL(event.target.files[0]);
+	}
+}
+
+function confirmSubmit() {
+	return confirm('정말로 수정하시겠습니까?');
+}
+
+// 단건조회 삭제
+function confirmDelete(bulletinNo) {
+	if (confirm("정말로 삭제하시겠습니까?")) {
+		location.href = '/user/bulletinDelete?no=' + bulletinNo;
+	}
+}
 
 function submitComment(bulletinId) {
 	let commentContent = $('#commentInput_' + bulletinId).val(); // 댓글 내용 가져오기
@@ -31,8 +45,7 @@ function submitComment(bulletinId) {
 				// 댓글 등록 후 입력창 초기화
 				$('#commentInput_' + bulletinId).val('');
 
-			
-				/*location.reload()*/
+				location.reload()
 			} else {
 				alert("댓글 등록에 실패했습니다.");
 			}
@@ -42,4 +55,24 @@ function submitComment(bulletinId) {
 		}
 	});
 }
+
+$(document).ready(function() {
+	window.showAllComments = function(bulletinNo) {
+		const $commentList = $('#commentList_' + bulletinNo);
+		const $moreCommentsBtn = $('#moreCommentsBtn_' + bulletinNo);
+
+		console.log('commentList:', $commentList);
+		console.log('moreCommentsBtn:', $moreCommentsBtn);
+
+		if ($commentList.length && $moreCommentsBtn.length) {
+			$commentList.addClass('expanded');  // 전체 댓글 표시
+
+			// 강제로 브라우저 리렌더링
+			$commentList[0].offsetHeight;
+
+			$moreCommentsBtn.hide();  // 더보기 버튼 숨김
+		}
+	}
+});
+
 

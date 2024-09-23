@@ -46,4 +46,5 @@ public class MemberVO {
 	private int accountState;
 	
 	private List<PuppyVO> puppyList;
+	private int price;
 }

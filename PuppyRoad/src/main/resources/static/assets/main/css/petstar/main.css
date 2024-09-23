@@ -1,0 +1,33 @@
+/* 리스트 */
+#image_container {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-top: 10px;
+	flex-wrap: wrap;
+}
+
+#image_container img {
+	max-width: 100px;
+	max-height: 100px;
+	object-fit: cover;
+	border-radius: 4px;
+	border: 1px solid #ced4da;
+}
+
+#image_list {
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
+	flex-wrap: wrap;
+}
+
+#image_list img {
+	max-width: 100px;
+	max-height: 100px;
+	object-fit: cover;
+	border-radius: 4px;
+	border: 1px solid #ced4da;
+}
+
+

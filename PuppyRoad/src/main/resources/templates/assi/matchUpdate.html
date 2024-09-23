@@ -1,39 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org/"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{common/layouts/default_layout}"
-      layout:fragment="Content">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <meta name="contextPath" th:value="${contextPath}">
-<link rel="stylesheet" href="/assets/main/css/match/matchInsert.css" type="text/css" />
-
+<link rel="stylesheet" href="/assets/main/css/match/matchInsert.css"
+	type="text/css" />
+<title>matchUpdate</title>
 </head>
 <body>
 	<section class="first-section-pt">
 		<div class="container justify-content-center">
-			<h4>실시간 매칭</h4>
+			<h4>매칭 수정</h4>
 			<hr />
-			<form name="insertForm" th:action="@{/user/matchInsert}" method="post">
+			<form name="updateForm" th:object="${match}">
+
 				<div class="row mb-3">
 					<label for="title" class="col-md-2 col-lg-2 col-form-label">제목</label>
 					<div class="col-md-10 col-lg-10">
-						<input name="title" type="text" class="form-control" />
+						<input name="bulletinNo" type="hidden" th:field="*{bulletinNo}">
+						<input name="title" type="text" class="form-control"
+							th:field="*{title}">
 					</div>
 				</div>
 				<hr />
-				
+
 				<div class="row mb-3">
-					<label for="title" class="col-md-2 col-lg-2 col-form-label">작성자</label>
+					<label for="writer" class="col-md-2 col-lg-2 col-form-label">작성자</label>
 					<div class="col-md-10 col-lg-10">
-						<input name="writer" type="text" class="form-control" 
-						th:value="${#authentication.principal.username}" readonly>
+						<input name="writer" type="text" class="form-control"
+							th:field="*{writer}">
 					</div>
 				</div>
 				<hr />
-							<label for="dogInfo" class="col-form-label">반려견 정보</label>
-							<button type="button" class="my_btn" id="popBtn">불러오기</button>
-				<hr/>					
+
 			   	  <div class="first" id="first" style="display:none;">
 					<div class="row mb-3">
 						<div class="col-2">
@@ -68,12 +70,18 @@
 					</div>
 					<hr />
 				  </div>
+							<label for="dogInfo" class="col-form-label">반려견 정보</label>
+							<button type="button" class="my_btn" id="popBtn">불러오기</button>
+				<hr/>			
 
-				<div class="row mb-3" id="second">
+				<div class="row mb-3"  id="second">
 					<label for="WalkPlaceAddress"
 						class="col-md-2 col-lg-2 col-form-label">산책 장소</label>
 					<div class="col-md-10 col-lg-10">
-						<input name="walkPlaceAddress" type="text" class="form-control" />
+						<input name="WalkPlaceAddress" type="text" class="form-control"
+							th:field="*{walkPlaceAddress}"> <input
+							name="matchingState" type="hidden" th:field="*{matchingState}">
+						<input name="clientCode" type="hidden" th:field="*{clientCode}">
 					</div>
 				</div>
 				<hr />
@@ -82,19 +90,13 @@
 					<label for="content" class="col-md-2 col-lg-2 col-form-label">소개</label>
 					<div class="col-md-10 col-lg-10">
 						<textarea name="content" class="form-control" id="content"
-							style="height: 100px"></textarea>
+							style="height: 100px" th:field="*{content}"></textarea>
 					</div>
 				</div>
-				<div class="text-right">
-				    <button type="button" class="btn btn-secondary" 
-						th:onclick="|location.href='@{/user/matchList}'|">목록
-					</button>
-					<button type = "button" class="btn btn-primary" id="insertBtn">
-						등록
-					</button>
+				<div class="center">
+					<button type="button" class="btn btn-primary" id="updateBtn">저장</button>
 				</div>
 			</form>
-
 			<!--====== 모달 띄우기 ======-->
 			<div id="modalWrap">
 				<!-- 모달 창을 감싸는 div -->
@@ -115,7 +117,8 @@
 								<th:block th:each="matchDog : ${matchDogs}">
 									<div class="row mb-3 abc">
 										<div class="col-2">
-											<input type="checkbox" class="checkBox" name="dogBox" onclick='getCheckboxValue(event)'>
+											<input type="checkbox" class="checkBox" name="dogBox"
+												onclick='getCheckboxValue(event)'>
 										</div>
 										<div class="col-2">
 											<img src="/assets/main/img/logo.png" alt="puppyImg" />
@@ -123,25 +126,32 @@
 										<div class="col-8">
 											<div class="row">
 												<div class="col-md-6 pb-2 col-lg-4">
-													<input id="puppyCode" th:value="${matchDog.puppyCode}" type="hidden"/>
-													<h5 id="dogName" class="form-control">[[ ${matchDog.dogName} ]]</h5>
+													<input id="puppyCode" th:value="${matchDog.puppyCode}"
+														type="hidden" />
+													<h5 id="dogName" class="form-control">[[
+														${matchDog.dogName} ]]</h5>
 												</div>
 												<div class="col-md-6 pb-2 col-lg-4">
-													<h5 id="dogBreed" class="form-control">[[ ${matchDog.dogBreed} ]]</h5>
+													<h5 id="dogBreed" class="form-control">[[
+														${matchDog.dogBreed} ]]</h5>
 												</div>
 												<div class="col-md-6 pb-2 col-lg-4">
-													<h5 id="personality" class="form-control">[[ ${matchDog.personality} ]]</h5>
+													<h5 id="personality" class="form-control">[[
+														${matchDog.personality} ]]</h5>
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-md-6 pb-2 col-lg-4">
-													<h5 id="dogSize" class="form-control">[[ ${matchDog.dogSize} ]]</h5>
+													<h5 id="dogSize" class="form-control">[[
+														${matchDog.dogSize} ]]</h5>
 												</div>
 												<div class="col-md-6 col-lg-4">
-													<h5 id="neutralizationPreAbs" class="form-control">[[ ${matchDog.neutralizationPreAbs} ]]</h5>
+													<h5 id="neutralizationPreAbs" class="form-control">[[
+														${matchDog.neutralizationPreAbs} ]]</h5>
 												</div>
 												<div class="col-md-6 col-lg-4">
-													<h5 id="diseasePreAbs" class="form-control">[[ ${matchDog.diseasePreAbs} ]]</h5>
+													<h5 id="diseasePreAbs" class="form-control">[[
+														${matchDog.diseasePreAbs} ]]</h5>
 												</div>
 											</div>
 										</div>
@@ -156,6 +166,7 @@
 			<!--====== 모달 끝 ======-->
 		</div>
 	</section>
-<script type="text/javascript" src="/assets/main/js/match/realMatch.js"></script>
+	<script type="text/javascript"
+		src="/assets/main/js/match/matchUpdate.js"></script>
 </body>
 </html>

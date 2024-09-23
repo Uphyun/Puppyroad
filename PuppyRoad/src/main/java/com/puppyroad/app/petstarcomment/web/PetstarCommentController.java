@@ -4,6 +4,7 @@ package com.puppyroad.app.petstarcomment.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,4 +32,10 @@ public class PetstarCommentController {
 		return commentService.addComment(commentVO);
 	}
 	
+	// 나의 댓글 조회
+	@GetMapping("user/commentList")
+	public String commentList(PetstarCommentVO commentVO) {
+		
+		return "petstar/commentList" ;
+	}
 }

@@ -14,4 +14,5 @@ public class PetstarBulletinVO {
 	private Date writingDate;
 	private String attachedFile;
 	private String memberCode;
+	private String profilePicture;
 }

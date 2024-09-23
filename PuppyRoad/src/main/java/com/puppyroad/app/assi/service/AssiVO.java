@@ -1,16 +1,13 @@
-package com.puppyroad.app.match.service;
+package com.puppyroad.app.assi.service;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
-import com.puppyroad.app.member.service.MemberVO;
 
 import lombok.Data;
 
 @Data
-public class MatchVO {
+public class AssiVO {
 	private Integer bulletinNo;
 	private String  coverPhoto;
 	private String  title;
@@ -31,8 +28,8 @@ public class MatchVO {
 	private String  nickName;
 	private String  name;
 	private String  position;
-	
-	private List<MatchingPuppyVO> puppie;
-	private MemberVO walker;
-	private MemberVO client;
+	private String  walkerUserId;
+	private Integer dayFare;
+	private Integer regularityFare;
+
 }
