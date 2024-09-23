@@ -44,7 +44,8 @@ public class PaymentController {
 		System.err.println("커스텀");
 		System.err.println(paymentVO);
 		System.err.println(vbankVO);
-		return paymentService.addPayInfo(paymentVO, vbankVO);
+		//return paymentService.addPayInfo(paymentVO, vbankVO);
+		return null;
 	}
 
 	//가상계좌 업그레이드
@@ -54,9 +55,8 @@ public class PaymentController {
 		System.err.println("페이백");
 		System.err.println(paymentVO);
 		System.err.println(vbank_data);
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = paymentService.addPayInfo(paymentVO, vbank_data);
 		
-		map.put("success", true);
 		return map;
 	}
 }

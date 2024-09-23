@@ -69,9 +69,16 @@ async function sendPay() {
 
 
 //부트페이 결제 폼(통합결제)
-function payForm(user = { userId: 'admin', name: "관리자", phone: "01011112222", email: "alscjf2738@naver.com" }) {
+function payForm() {
     let price = $("#total").text().replace(',', '');
     let times = $("#times").text();
+    let user = {
+        userId : $("#billings-userId").val(),
+        name : $("#billings-uname").val(),
+        phone : $("#billings-phone").val(),
+        email : $("#billings-email").val()
+    };
+
     const data = {
         "application_id": "66e29ba8692d0516c36e4b2a",
         "price": price,
@@ -104,7 +111,7 @@ function payForm(user = { userId: 'admin', name: "관리자", phone: "0101111222
             "common_event_webhook": true
         }
     }
-
+    console.log(data)
     return data;
 }
 
