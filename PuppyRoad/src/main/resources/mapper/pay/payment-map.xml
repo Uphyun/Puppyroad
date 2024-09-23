@@ -40,6 +40,10 @@
 	
 	<!-- 결제최초내역 입력 -->
 	<insert id="insertPayInfo" parameterType="PaymentVO">
+	<selectKey keyProperty="paymentCode" order="BEFORE" resultType="String">
+		select	nvl(max(to_number(payment_code, 'xxxxxxxxxx')), 0) + 1
+		from	payment
+	</selectKey>
 		insert into payment( payment_code
 							, sender
 							, recipient
@@ -48,7 +52,7 @@
 							, method
 							, requested_at
 							, status)
-		values	( #{paymentCode}
+		values	( LPAD(LTRIM(to_char(#{paymentCode}, 'xxxxxxxxxx')), 10, '0')
 				, #{sender}
 				, #{recipient}
 				, #{price}
