@@ -9,12 +9,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.puppyroad.app.match.service.MatchService;
+import com.puppyroad.app.match.service.MatchVO;
+import com.puppyroad.app.member.service.MemberService;
+import com.puppyroad.app.member.service.MemberVO;
+import com.puppyroad.app.puppy.service.PuppyVO;
 import com.puppyroad.app.security.service.LoginMemberVO;
 import com.puppyroad.app.util.SecurityUtil;
 import com.puppyroad.app.websocket.service.ChatMessageDTO;
@@ -35,7 +41,9 @@ public class RoomController {
 	@Autowired
 	private final ChatMessageService chatMessageService;
 	
-
+	@Autowired
+	private final MatchService matchService;
+	
     //채팅방 목록 조회
     @GetMapping("chat/rooms")
     public ModelAndView roomList(){
@@ -46,17 +54,20 @@ public class RoomController {
     
     //내 채팅방 목록
     @GetMapping("chat/myChat")
-    public String myRoomList(ChatRoomDTO chatRoomDTO, ChatMessageDTO chatMessageDTO,Model model) {
+    public String myRoomList(ChatRoomDTO chatRoomDTO, ChatMessageDTO chatMessageDTO,Model model, PuppyVO puppyVO) {
     	String mcode = SecurityUtil.memberCode();
     	
 		chatRoomDTO.setSender(mcode);
 		chatRoomDTO.setRecipient(mcode);
+		puppyVO.setClientUserId(mcode);
 		
 		List<ChatRoomDTO> list = chatRoomService.getMyRoomList(chatRoomDTO);
     	model.addAttribute("myList", list); 
     	
-    	
     	model.addAttribute("myChat", chatMessageService.getMessageList(chatMessageDTO));
+    	
+    	List<PuppyVO> dogs = matchService.getDogList(puppyVO);
+    	model.addAttribute("myDogs", dogs);
     	
         return "/chat/myChat";
     }
@@ -93,14 +104,19 @@ public class RoomController {
     	model.addAttribute("myChats", chatMessageService.getMessageList(chatMessageDTO));
     }
     
-    //채팅 목록 가져오기 : ajax
+    //채팅 목록 가져오기 : AJAX
     @GetMapping("chat/message")
     @ResponseBody // => AJAX
     public List<ChatMessageDTO> getMassageList(ChatMessageDTO chatMessageDTO) {
-    	
 		return chatMessageService.getMessageList(chatMessageDTO);
-    	
     }
     
+    //채팅방 도시 가져오기 : AJAX
+    @GetMapping("chat/address")
+    @ResponseBody // => AJAX
+    public List<MatchVO> getAddress(MatchVO matchVO) {
+		return matchService.getIdList(matchVO);
+    	
+    }
 
 }

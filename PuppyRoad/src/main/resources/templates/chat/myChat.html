@@ -130,7 +130,7 @@
                         
                         <th:block th:each="room: ${myList}">
                         
-	                        <li class="chat-contact-list-item mb-1 room" th:id="${room.roomId}">
+	                        <li class="chat-contact-list-item mb-1 room" th:id="${room.roomId}" th:name="${room.recipient}">
 	                          <a class="d-flex align-items-center">
 	                            <div class="flex-shrink-0 avatar">
 	                              <img
@@ -144,9 +144,9 @@
 	                                <h6 class="chat-contact-name text-truncate m-0 fw-normal">
 	                                  [[${room.roomName}]]
 	                                </h6>
-	                    <small class="text-muted" th:if = "${room.chattingType}==1" th:text="자율매칭"></small>
-						<small class="text-muted" th:if = "${room.chattingType}==2" th:text="실시간매칭"></small>
-						<small class="text-muted" th:if = "${room.chattingType}==3" th:text="대리매칭"></small>
+	                    <small class="text-muted" th:if = "${room.chattingType}==1" th:text="매칭중"></small>
+						<small class="text-muted" th:if = "${room.chattingType}==2" th:text="매칭예약"></small>
+						<small class="text-muted" th:if = "${room.chattingType}==3" th:text="매칭완료"></small>
 						<small class="text-muted" th:if = "${room.chattingType}==4" th:text="비활성"></small>
 	                              </div>
 	                              <small class="chat-contact-status text-truncate">[[${room.myRoomList[0].message}]]</small>
@@ -292,15 +292,25 @@
                 aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-              <form class="event-form pt-0" id="eventForm" onsubmit="return false">
+              <form class="event-form pt-0" id="eventForm">
                 <div class="mb-5">
-                  <label class="form-label" for="eventTitle">산책 장소</label>
+                  <label class="form-label" for="walkPlaceAddress">도시</label>
+                  <input
+                  	readonly
+                    type="text"
+                    class="form-control"
+                    id="walkPlaceAddress"
+                    name="walkPlaceAddress"
+                    placeholder="도시" />
+                </div>
+                <div class="mb-5">
+                  <label class="form-label" for="eventTitle">소개</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="eventTitle"
-                    name="eventTitle"
-                    placeholder="산책 장소" />
+                    id="content"
+                    name="content"
+                    placeholder="소개" />
                 </div>
                 <div class="mb-5">
                   <label class="form-label" for="eventStartDate">시작 시간</label>
@@ -324,36 +334,25 @@
                   <label class="form-label" for="eventGuests">반려견 추가</label>
                   <select
                     class="select2 select-event-guests form-select"
-                    id="eventGuests"
-                    name="eventGuests"
+                    id="myDogs"
+                    name="myDogs"
                     multiple>
-                    <option data-avatar="1.png" value="Jane Foster">대충 말티즈</option>
-                    <option data-avatar="3.png" value="Donna Frank">치와와</option>
-                    <option data-avatar="5.png" value="Gabrielle Robertson">웰시코기</option>
-                    <option data-avatar="7.png" value="Lori Spears">닥스훈트</option>
-                    <option data-avatar="9.png" value="Sandy Vega">귀여운 강아지</option>
-                    <option data-avatar="11.png" value="Cheryl May">카와이한 강아지</option>
+                    <th:block th:each="dogs : ${myDogs}" >
+	                    <option>[[${dogs.dogName}]]</option>
+	                </th:block>
                   </select>
                 </div>
-                <div class="mb-5">
-                  <label class="form-label" for="eventLocation">주소</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="eventLocation"
-                    name="eventLocation"
-                    placeholder="주소" />
-                </div>
+                
                 <div class="d-flex justify-content-sm-between justify-content-start mt-6 gap-2">
                   <div class="d-flex">
-                    <button type="submit" id="addEventBtn" class="btn btn-primary btn-add-event me-4">
-                      Add
+                    <button type="button" id="addSchedul" class="btn btn-primary btn-add-event me-4">
+                      신청
                     </button>
                     <button
                       type="reset"
                       class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
                       data-bs-dismiss="offcanvas">
-                      Cancel
+                      취소
                     </button>
                   </div>
                   <button class="btn btn-label-danger btn-delete-event d-none">Delete</button>
@@ -399,7 +398,7 @@
     <!-- Page JS -->
     <script src="/assets/admin/js/app-chat.js"></script>
     <script src="/assets/admin/js/app-calendar-events.js"></script>
-    <script src="/assets/admin/js/app-calendar.js"></script>
+    <script src="/assets/main/js/chat/app-calendar.js"></script>
 
     <script src="/assets/main/js/chat/myChat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>

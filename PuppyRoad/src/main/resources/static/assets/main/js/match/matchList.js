@@ -53,14 +53,12 @@ $(function () {
 
   if (dt_category_list_table.length) {
     var dt_category = dt_category_list_table.DataTable({
-      processing: true,
-      serverSide: true,
+      //processing: true,
+      //serverSide: true,
       ajax: { 
 		url: "/user/matchListAjax",
         type: 'GET',
-        data: function(datas) { 
-			console.log(datas);
-		}
+        dataSrc: ''
       },
       columns: [
         { data: 'bulletinNo' },
@@ -75,17 +73,16 @@ $(function () {
         {
           // 번호
           targets: 0, // 몇번째 컬럼
-          responsivePriority: 1, // 반응형에서 사용되는 순서 값
+          //responsivePriority: 1, // 반응형에서 사용되는 순서 값
           render: function (data, type, full, meta) { // data: 데이터
             var $bulletinNo = full['bulletinNo'];
-            console.log($bulletinNo);
             return '<div class="">' + $bulletinNo + '</div>';
           }
         },
         {
           // 제목
           targets: 1,
-          responsivePriority: 2,
+          //responsivePriority: 2,
           render: function (data, type, full, meta) {
             var $title = full['title'];
             return '<div class="">' + $title + '</div>';
@@ -94,7 +91,7 @@ $(function () {
         {
           // 장소
           targets: 2,
-          responsivePriority: 3,
+          //responsivePriority: 3,
           render: function (data, type, full, meta) {
             var $walkPlaceAddress = full['walkPlaceAddress'];
             return '<div class="text-sm-end">' + $walkPlaceAddress + '</div>';
@@ -103,7 +100,7 @@ $(function () {
         {
           // 매칭상태
           targets: 3,
-          responsivePriority: 4,
+          //responsivePriority: 4,
           render: function (data, type, full, meta) {
             var $matchingState = full['matchingState'];
             return '<div class="text-sm-end">' + $matchingState + '</div>';
@@ -112,7 +109,7 @@ $(function () {
         {
           // 작성자
           targets: 4,
-          responsivePriority: 5,
+          //responsivePriority: 5,
           render: function (data, type, full, meta) {
             var $writer = full['writer'];
             return '<div class="text-sm-end">' + $writer + '</div>';
@@ -121,7 +118,7 @@ $(function () {
         {
           // 작성시간
           targets: 5,
-          responsivePriority: 6,
+          //responsivePriority: 6,
           render: function (data, type, full, meta) {
             var $writingTime = full['writingTime'];
             return '<div class="text-sm-end">' + $writingTime + '</div>';
@@ -129,7 +126,7 @@ $(function () {
         },
       ],
       
-      order: [2, 'desc'], //set any columns order asc/desc
+      order: [0, 'desc'], //[0]번째컬럼 내림차순
       dom:
         '<"card-header d-flex flex-wrap py-0 flex-column flex-sm-row"' +
         '<f>' +
@@ -139,24 +136,24 @@ $(function () {
         '<"col-sm-12 col-md-6"i>' +
         '<"col-sm-12 col-md-6"p>' +
         '>',
-      lengthMenu: [7, 10, 20, 50, 100], // 페이징 7, 10, 20, 50, 100
+      lengthChange: false,
+      lengthMenu: [10], // 페이징  10
       language: {
         sLengthMenu: '_MENU_',
         search: '',
-        searchPlaceholder: '제목 검색',
+        searchPlaceholder: '검색',
         paginate: {
           next: '<i class="ti ti-chevron-right ti-sm"></i>',
           previous: '<i class="ti ti-chevron-left ti-sm"></i>'
         }
       },
-      // Button for offcanvas
+      // 작성버튼
       buttons: [
         {
           text: '<i class="ti ti-plus ti-xs me-0 me-sm-2"></i><span class="d-none d-sm-inline-block">작성하기</span>',
           className: 'add-new btn btn-primary ms-2 waves-effect waves-light',
           attr: {
-            'data-bs-toggle': 'offcanvas',
-            'data-bs-target': '#offcanvasEcommerceCategoryList'
+            'onclick': "location.href='/user/matchInsert'"
           }
         }
       ],
@@ -193,9 +190,22 @@ $(function () {
           }
         }
       }
-    });
+    });//dataTables 끝
     $('.dt-action-buttons').addClass('pt-0');
     $('.dataTables_filter').addClass('me-3 mb-sm-6 mb-0 ps-0');
+    
+    // dataTables row 클릭이벤트
+    $('.datatables-category-list').on('click', 'tbody tr',function () {
+	    var row = dt_category.row($(this)).data();
+		location.href = '/user/matchInfo?bulletinNo=' + row.bulletinNo;
+		
+	});
+	
+    // dataTables 검색필터 추가
+    $('#categoryFilter').on('change', function() {
+    	dt_category.columns(2).search(this.value).draw(); // 3번째 col인 지역
+	});
+	dt_category.draw();
   }
   // Filter form control to default size
   // ? setTimeout used for multilingual table initialization
@@ -206,6 +216,7 @@ $(function () {
     $('.dataTables_length .form-select').addClass('ms-0');
   }, 300);
 });
+
 
 //For form validation
 (function () {

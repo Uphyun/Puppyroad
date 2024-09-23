@@ -85,7 +85,8 @@ public class MatchController {
 	@PostMapping("user/matchInsert")
 	@ResponseBody
 	public int matchInsertProcess(@RequestBody MatchVO matchVO) {
-		System.err.println(matchVO);
+		String mcode = SecurityUtil.memberCode();
+		matchVO.setWriter(mcode);
 		int bno = matchService.addMatch(matchVO);
 		return bno;
 	}
@@ -117,7 +118,7 @@ public class MatchController {
 		return "redirect:/user/matchList";
 	}
 	
-	//매칭내역
+	// 매칭내역
 	@GetMapping("user/myMatchingList")
 	public String myMatchingList(String wrtier, Model model) {
 		String mcode = SecurityUtil.memberCode();
@@ -126,6 +127,6 @@ public class MatchController {
 		return "match/myMatchingList";
 	}
 	
-	
+	// 
 	
 }

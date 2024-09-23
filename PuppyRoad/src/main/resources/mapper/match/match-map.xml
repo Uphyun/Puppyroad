@@ -137,5 +137,24 @@ WHERE
 	
 </select>
 
+  <!-- 단건 아이디 기준 대리 매칭-->
+  <select id="selectIdList" resultType="MatchVO">
+		SELECT  bulletin_no,
+		 		cover_photo,
+		 		title,
+		 		writer,
+		 		content,
+		 		matching_state,
+		 		start_time,
+		 		end_time,
+		 		writing_time,
+		 		animal_count,
+		 		walk_place_address,
+		 		matching_kind,
+		 		client_code
+	    FROM    matching_board
+        WHERE   writer = #{writer}
+        AND     matching_kind = '대리'
+  </select>
   
 </mapper>
