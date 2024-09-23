@@ -2,13 +2,16 @@
  * 
  */
 getMemberList('의뢰인', 1);
-new DataTable("#DataTables_Table_0");
+// $(document).ready( function() {
+// 	$('#manageTable').DataTable();
+// });
 //페이지 로딩시 데이터 가져오기
 async function getMemberList(position, page) {
-	let searchType = $("#searchTypeInput").val();
-	let keyword = $("#keywordInput").val();
-	let recordSize = $("#recordSize").val();
-	page = page == null ? 1 : page;
+	$('#manageTable').DataTable();
+	// let searchType = $("#searchTypeInput").val();
+	// let keyword = $("#keywordInput").val();
+	// let recordSize = $("#recordSize").val();
+	// page = page == null ? 1 : page;
 
 	if (searchType == "조건 선택") {
 		searchType = null;

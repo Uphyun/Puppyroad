@@ -87,7 +87,7 @@
                     ]]</span></h6>
               </div>
               <div class="d-grid mt-5">
-                <button class="btn btn-success waves-effect waves-light" onclick="sendPay()">
+                <button class="btn btn-success waves-effect waves-light" th:onclick="|sendPay({userId : #{}})|">
                   <span class="me-2">결제하기</span>
                 </button>
               </div>
