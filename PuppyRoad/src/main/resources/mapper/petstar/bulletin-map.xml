@@ -9,6 +9,7 @@
 				,b.attached_file
 				,b.member_code
 				,p.profile_picture
+				,p.nickname
 		FROM  pet_stargram_bulletin b JOIN pet_stargram_profile p
 										ON b.member_code = p.member_code
 		ORDER BY writing_date DESC

@@ -12,7 +12,9 @@ public class PetstarCommentVO {
 	private String writer;
 	private String content;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date createDate;
+	private Date createdDate;
 	private int bulletinNo;
 	private String profilePicture;
+	private String memberCode;
+	private String nickName;
 }

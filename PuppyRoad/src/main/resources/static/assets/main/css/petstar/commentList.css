@@ -40,3 +40,14 @@
 	border: 1px solid #ced4da;
 }
 
+
+#layout-menu {
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh; /* 전체 화면 높이 */
+    background-color: #f8f9fa;
+    overflow-y: auto; /* 내용이 많아지면 스크롤 */
+}
+
+
