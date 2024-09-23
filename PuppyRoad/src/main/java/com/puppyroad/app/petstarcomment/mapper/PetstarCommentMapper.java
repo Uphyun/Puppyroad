@@ -9,6 +9,9 @@ public interface PetstarCommentMapper {
 	// 전체 조회
 	public List<PetstarCommentVO> selectCommentList(int bno);
 	
+	// 전체 조회 My
+	public List<PetstarCommentVO> selectMyCommentList(PetstarCommentVO commentVO);
+	
 	// 단건 조회
 	public PetstarCommentVO selectCommentInfo(PetstarCommentVO commentVO);
 	
@@ -16,5 +19,5 @@ public interface PetstarCommentMapper {
 	public int insertComment(PetstarCommentVO commentVO);
 	
 	// 삭제
-	public int deleteComment(int cno);
+	public int deleteComment(int no);
 }

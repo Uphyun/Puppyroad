@@ -56,23 +56,11 @@ function submitComment(bulletinId) {
 	});
 }
 
-$(document).ready(function() {
-	window.showAllComments = function(bulletinNo) {
-		const $commentList = $('#commentList_' + bulletinNo);
-		const $moreCommentsBtn = $('#moreCommentsBtn_' + bulletinNo);
-
-		console.log('commentList:', $commentList);
-		console.log('moreCommentsBtn:', $moreCommentsBtn);
-
-		if ($commentList.length && $moreCommentsBtn.length) {
-			$commentList.addClass('expanded');  // 전체 댓글 표시
-
-			// 강제로 브라우저 리렌더링
-			$commentList[0].offsetHeight;
-
-			$moreCommentsBtn.hide();  // 더보기 버튼 숨김
-		}
-	}
-});
-
+window.showAllComments = function(bulletinNo) {
+    const hiddenComments = document.querySelectorAll('#commentList_' + bulletinNo + ' .hidden-comment');
+    hiddenComments.forEach(function(comment) {
+        comment.style.display = 'flex';  // 숨겨진 댓글을 보이게 하면서 동일한 레이아웃 유지
+    });
+    document.getElementById('moreCommentsBtn_' + bulletinNo).style.display = 'none';  // 더보기 버튼 숨기기
+};
 
