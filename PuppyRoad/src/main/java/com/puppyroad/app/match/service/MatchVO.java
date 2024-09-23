@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.puppyroad.app.puppy.service.PuppyVO;
+import com.puppyroad.app.member.service.MemberVO;
 
 import lombok.Data;
 
@@ -33,4 +33,6 @@ public class MatchVO {
 	private String  position;
 	
 	private List<MatchingPuppyVO> puppie;
+	private MemberVO walker;
+	private MemberVO client;
 }
