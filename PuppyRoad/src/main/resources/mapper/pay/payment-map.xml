@@ -2,7 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.puppyroad.app.payment.mapper.PaymentMapper">
 
-	<select id="selectMatchInfo" parameterType="MatchVO" resultType="MatchVO">
+	<!-- 결제정보 -->
+	<resultMap type="MatchVO" id="payInfo">
+		<id column="writer" property="writer" />
+		<id column="client_code" property="clientCode"/>
+		<association property="walker" column="writer" javaType="MemberVO" select="selectWalkerInfo"></association>
+		<association property="client" column="client_code" javaType="MemberVO" select="selectClientInfo"></association>
+	</resultMap>
+
+	<select id="selectMatchInfo" parameterType="MatchVO" resultMap="payInfo">
 		select	bulletin_no
 			  , writer
 			  , client_code
@@ -11,7 +19,26 @@
 		from	matching_board
 		where	bulletin_no = #{bulletinNo}
 	</select>
-
+	
+	<select id="selectWalkerInfo" resultType="MemberVO">
+		select	m.name
+				, i.price
+		from	member m join walker_add_info i
+						on m.member_code = i.member_code
+		where	m.member_code = #{writer}
+	</select>
+	
+	<select id="selectClientInfo" resultType="MemberVO">
+		select   user_id
+			   , name
+			   , email
+			   , phone
+		from	member
+		where	member_code = #{clientCode}
+	</select>
+	
+	
+	<!-- 결제최초내역 입력 -->
 	<insert id="insertPayInfo" parameterType="PaymentVO">
 		insert into payment( payment_code
 							, sender
@@ -31,6 +58,7 @@
 				, #{status} )
 	</insert>
 	
+	<!-- 가상계좌 정보 입력 -->
 	<insert id="insertAddVbankInfo" parameterType="VbankVO">
 		insert into add_vbank ( payment_code
 								, bank_code
