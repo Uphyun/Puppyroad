@@ -40,15 +40,26 @@
 			</aside>
 			<!-- End Aside -->
 
-			<!-- 게시글 목록 -->
-			<div class="row gy-6">
+			<!-- 게시글과 댓글 목록 그리드 -->
+			<div class="post-comment-grid">
 				<th:block th:each="info : ${bulletin}">
-					<!-- 게시글 -->
-					<div class="col-xl mb-md-0">
+					<div class="post-comment-item">
+						<!-- 게시글 -->
 						<div class="card border-primary border shadow-none">
 							<div class="card-body position-relative pt-4"
 								style="cursor: pointer;"
 								th:onClick="|location.href='@{/user/bulletinInfo(bulletinNo=${info.bulletinNo})}'|">
+								<div class="author-info">
+									<!-- 프로필 이미지 -->
+									<img
+										th:src="@{/images/{fileName}(fileName=${info.profilePicture})}"
+										class="rounded-circle" alt="프로필 이미지" width="40" height="40">
+									<!-- 닉네임 -->
+									<p class="author-name">[[ ${info.nickName} ]]</p>
+									<!-- 작성 날짜 -->
+									<p class="post-date">[[${#dates.format(info.writingDate,'yyyy년 MM월 dd일')} ]]</p>
+								</div>
+
 								<div id="image_container" class="my-5 pt-6 text-center">
 									<img
 										th:each="fileName : ${#strings.arraySplit(info.attachedFile, ',')}"
@@ -58,61 +69,52 @@
 								<p class="text-center mb-5">[[ ${info.content} ]]</p>
 							</div>
 						</div>
-					</div>
 
-					<!-- 게시글 댓글 목록 -->
-					<div class="row gy-3 mt-4">
-						<div class="col-12">
-							<div class="card border-light">
-								<div class="card-body">
-									<div class="comment-list"
-										th:attr="id='commentList_' + ${info.bulletinNo}">
-										<!-- 댓글 리스트, 기본적으로 3개만 표시 -->
-										<th:block
-											th:each="com, stat : ${commentsMap[info.bulletinNo]}"
-											th:if="${stat.index < 3}">
-											<div class="d-flex align-items-start mb-3">
-												<img
-													th:src="@{/images/{fileName}(fileName=${com.profilePicture})}"
-													class="rounded-circle" alt="프로필 이미지" width="40" height="40">
-												<div class="ms-3">
-													<p class="mb-0">
-														<strong>[[ ${com.writer} ]]</strong>
-													</p>
-													<p class="mb-0 text-muted">[[ ${com.content} ]]</p>
-												</div>
-											</div>
-										</th:block>
-
-									</div>
-
-									<!-- 댓글 더보기 버튼 -->
-									<button class="btn btn-link"
-										th:if="${commentsMap[info.bulletinNo].size() > 3}"
-										th:attr="id='moreCommentsBtn_' + ${info.bulletinNo}"
-										th:onclick="showAllComments([[ ${info.bulletinNo} ]])">댓글
-										더보기</button>
-
-									<!-- 댓글 입력란 -->
-									<div class="d-flex align-items-center mb-3">
-										<img
-											th:src="@{/images/{fileName}(fileName=${profiles.profilePicture})}"
-											class="rounded-circle" alt="프로필 이미지" width="40" height="40">
-										<input type="text" class="form-control ms-3 comment-input"
-											th:attr="id='commentInput_' + ${info.bulletinNo}"
-											placeholder="댓글을 입력하세요">
-										<button class="btn btn-primary ms-2"
-											th:onclick="submitComment([[ ${info.bulletinNo} ]])">등록</button>
-											
+						<!-- 게시글 댓글 목록 -->
+						<div class="comment-list"
+							th:attr="id='commentList_' + ${info.bulletinNo}">
+							<th:block th:each="com, stat : ${commentsMap[info.bulletinNo]}">
+								<div th:class="${stat.index < 3 ? '' : 'hidden-comment'}"
+									th:style="${stat.index >= 3 ? 'display: none;' : ''}"
+									class="comment-item d-flex align-items-start mb-3">
+									<img
+										th:src="@{/images/{fileName}(fileName=${com.profilePicture})}"
+										class="rounded-circle" alt="프로필 이미지" width="40" height="40">
+									<div class="comment-content ms-3">
+										<p class="mb-0">
+											<strong>[[ ${com.writer} ]]</strong>
+										</p>
+										<p class="mb-0 text-muted">[[ ${com.content} ]]</p>
 									</div>
 								</div>
+							</th:block>
+
+							<!-- 댓글 더보기 버튼 -->
+							<br>
+							<p>댓글 개수: [[ ${commentsMap[info.bulletinNo].size()} ]]</p>
+							<button class="btn btn-link"
+								th:if="${commentsMap[info.bulletinNo].size() > 3}"
+								th:attr="id='moreCommentsBtn_' + ${info.bulletinNo}"
+								th:onclick="showAllComments([[ ${info.bulletinNo} ]])">댓글
+								더보기</button>
+
+							<!-- 댓글 입력란 -->
+							<div class="d-flex align-items-center mb-3">
+								<img
+									th:src="@{/images/{fileName}(fileName=${profiles.profilePicture})}"
+									class="rounded-circle" alt="프로필 이미지" width="40" height="40">
+								<input type="text" class="form-control ms-3 comment-input"
+									th:attr="id='commentInput_' + ${info.bulletinNo}"
+									placeholder="댓글을 입력하세요">
+								<button class="btn btn-primary ms-2"
+									th:onclick="submitComment([[ ${info.bulletinNo} ]])">등록</button>
 							</div>
 						</div>
 					</div>
 				</th:block>
 			</div>
-
 		</div>
 	</section>
+
 </body>
 </html>

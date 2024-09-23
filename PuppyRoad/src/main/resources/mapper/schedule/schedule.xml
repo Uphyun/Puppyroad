@@ -15,7 +15,11 @@
 				s.walk_path,
 				s.APPROVAL_STATE,
 				w.work_week,
-				w.work_time
+				w.work_time,
+				s.holiday_start,
+				s.holiday_end,
+				s.schedule_title,
+				s.client_name
 		FROM    schedule s JOIN walker_add_info w
 			 			     ON s.walker_code = w.member_code
 					       JOIN puppy p
@@ -30,9 +34,33 @@
 	
 	UPDATE  schedule
 	SET 	holiday_start = #{holidayStart} ,
-	    	holiday_end = #{holidayEnd}
+	    	holiday_end = #{holidayEnd} ,
+	    	schedule_title = #{scheduleTitle}
 	WHERE   walker_code = #{walkerCode}
 	
 	</update>
+	<insert id="ScheduleInsert">
+		<selectKey keyProperty="scheduleCode" order="BEFORE"
+			resultType="string">
+			    SELECT to_char(nvl(max(to_number(schedule_code)), 0) + 1) as schedule_code
+		    	FROM schedule
+		</selectKey>
+	insert into schedule
+		(
+			schedule_code, 
+			walker_code, 
+			holiday_start, 
+			holiday_end
+		)
+	values 
+		(
+			#{scheduleCode}, 
+			#{walkerCode}, 
+			#{holidayStart}, 
+			#{holidayEnd}
+		)
+	</insert>
+	
+
 
 </mapper>

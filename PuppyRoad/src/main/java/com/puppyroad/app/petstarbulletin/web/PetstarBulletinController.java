@@ -42,8 +42,7 @@ public class PetstarBulletinController {
 	private String uploadPath;
 
 	@Autowired
-	PetstarBulletinController(PetstarBulletinService bulletinService,
-			PetstarCommentService commentService,
+	PetstarBulletinController(PetstarBulletinService bulletinService, PetstarCommentService commentService,
 			PetstarProfileService profileService) {
 		this.bulletinService = bulletinService;
 		this.commentService = commentService;
@@ -52,42 +51,50 @@ public class PetstarBulletinController {
 
 	// 전체 조회 All
 	@GetMapping("user/petstar")
-	public String bulletinAllList(PetstarBulletinVO bulletinVO,
-								PetstarCommentVO commentVO,
-								PetStarProfileVO profileVO,
-								Model model) {
-		
+	public String bulletinAllList(PetstarBulletinVO bulletinVO, PetstarCommentVO commentVO, PetStarProfileVO profileVO,
+			Model model) {
+
 		String mcode = SecurityUtil.memberCode();
 		profileVO.setMemberCode(mcode);
-		
+
+		String nick = SecurityUtil.nickname();
+		bulletinVO.setNickName(nick);
+
 		// 펫스타 프로필
 		PetStarProfileVO findVO = profileService.getProfileInfo(profileVO);
 		model.addAttribute("profiles", findVO);
-		
-	    // 게시글 목록 조회
-	    List<PetstarBulletinVO> list = bulletinService.getAllBulletinList(bulletinVO);
-	    model.addAttribute("bulletin", list);
 
-	    // 게시글 번호별 댓글 목록 조회
-	    Map<Integer, List<PetstarCommentVO>> map = new HashMap<>();
-	    for (PetstarBulletinVO bulletin : list) {
-	        List<PetstarCommentVO> comments = commentService.getCommentList(bulletin.getBulletinNo());
-	        map.put(bulletin.getBulletinNo(), comments);
-	    }
-	    model.addAttribute("commentsMap", map); 
+		// 게시글 목록 조회
+		List<PetstarBulletinVO> list = bulletinService.getAllBulletinList(bulletinVO);
+		model.addAttribute("bulletin", list);
 
-	    return "petstar/petstar";
+		// 게시글 번호별 댓글 목록 조회
+		Map<Integer, List<PetstarCommentVO>> map = new HashMap<>();
+		for (PetstarBulletinVO bulletin : list) {
+			List<PetstarCommentVO> comments = commentService.getCommentList(bulletin.getBulletinNo());
+			map.put(bulletin.getBulletinNo(), comments);
+		}
+		model.addAttribute("commentsMap", map);
+
+		return "petstar/petstar";
 	}
-
 
 	// 단건조회
 	@GetMapping("user/bulletinInfo")
-	public String bulletinInfo(Integer bulletinno, PetstarBulletinVO bulletinVO, Model model) {
+	public String bulletinInfo(Integer bulletinno,
+								PetstarBulletinVO bulletinVO,
+								PetstarCommentVO commentVO,
+								Model model) {
+		
 		String mcode = SecurityUtil.memberCode();
 		bulletinVO.setMemberCode(mcode);
-		
+
 		PetstarBulletinVO findVO = bulletinService.getBulletinInfo(bulletinVO);
 		model.addAttribute("bulletin", findVO);
+
+
+
+		model.addAttribute("loggedInMemberCode", mcode); // 로그인된 사용자의 memberCode 추가
 		return "petstar/bulletinInfo";
 	}
 
@@ -198,7 +205,7 @@ public class PetstarBulletinController {
 
 	// 삭제
 	@GetMapping("user/bulletinDelete")
-	public String boardDelete(@RequestParam Integer no) {
+	public String bulletinDelete(@RequestParam Integer no) {
 		bulletinService.removeBulletin(no);
 		return "redirect:/user/mypage";
 	}

@@ -31,13 +31,26 @@ function test(){
 	datas = JSON.parse(datas)
 	console.log(typeof datas);
 	for(let res of datas){
-		
+		console.log(datas);
 		newData.push({
 			start : res.startTime,
+			end : res.endTime,
 			title : res.clientName,
+			dogName : res.dogName,
+			walkFare : res.walkFare,
+			address : res.address,
+			phone : res.phone,
 			extendedProps: {
       			calendar: 'Business'
-    }
+   			 }
+			});
+		newData.push({
+			title : res.scheduleTitle,
+			start : res.holidayStart,
+			end : res.holidayEnd,
+			extendedProps: {
+      			calendar: 'Personal'
+   			 }
 			});
 	
 	}

@@ -10,7 +10,7 @@ async function sendPay() {
         switch (response.event) {
             case 'issued':
                 // 가상계좌 입금 완료 처리
-                registPayInfo(response);
+                registPayInfo(response.data);
                 console.log("가상계좌 처리 완료");
                 console.log(response);
                 break;
@@ -58,8 +58,9 @@ async function sendPay() {
 
 
 //부트페이 결제 폼(통합결제)
-function payForm(price = 100, times = 30, user = { userId: 'admin', name: "관리자", phone: "01011112222", email: "alscjf2738@naver.com" }) {
-    getEndDate();
+function payForm(user = { userId: 'admin', name: "관리자", phone: "01011112222", email: "alscjf2738@naver.com" }) {
+    let price = $("#total").text().replace(',', '');
+    let times = $("#times").text();
     const data = {
         "application_id": "66e29ba8692d0516c36e4b2a",
         "price": price,
@@ -76,7 +77,7 @@ function payForm(price = 100, times = 30, user = { userId: 'admin', name: "관�
         },
         "items": [
             {
-                "id": "item_id",
+                "id": "0000",
                 "name": "도그워커 비용",
                 "qty": 1,
                 "price": price
@@ -106,17 +107,22 @@ function getEndDate() {
     let minutes = today.getMinutes();
     let seconds = today.getSeconds();
 
-    let endDate = `${year}-
-                    ${month > 10 ? month : '0' + month}-
-                    ${date > 10 ? date : '0' + date} 
-                    ${hours > 10 ? hours : '0' + hours}:
-                    ${minutes > 10 ? minutes : '0' + minutes}:
-                    ${seconds > 10 ? seconds : '0' + seconds}`;
+    let endDate = `${year}-${month > 10 ? month : '0' + month}-${date > 10 ? date : '0' + date} ${hours > 10 ? hours : '0' + hours}:${minutes > 10 ? minutes : '0' + minutes}:${seconds > 10 ? seconds : '0' + seconds}`;
     console.log(endDate);
 
     return endDate;
 }
 
-function registPayInfo(response) {
-
+function registPayInfo(data) {
+    let sender;
+    let recipient;
+    let datas = {
+        method: data.method,
+        orderName: data.order_name,
+        price: data.price,
+        requestedAt: data.requested_at,
+        bankAccount: data.bank_account,
+        bankCode: data.bank_code,
+        bankName: data.bank_name,
+    }
 }

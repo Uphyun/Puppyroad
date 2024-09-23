@@ -3,6 +3,7 @@ package com.puppyroad.app.schedule.web;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,11 +22,12 @@ public class ScheduleController {
 	
 	@GetMapping("user/scheduleListprocess")
 	@ResponseBody
-	public List<ScheduleVO> scheduleList(ScheduleVO scheduleVO) {
+	public List<ScheduleVO> scheduleList(ScheduleVO scheduleVO, Model model) {
 		
 		String mcode = SecurityUtil.memberCode();
 		scheduleVO.setWalkerCode(mcode);
 		List<ScheduleVO> list = scheduleService.scheduleList(scheduleVO);
+		model.addAttribute("lists", list);
 		return list;
 	}
 	
@@ -42,6 +44,14 @@ public class ScheduleController {
 		String mcode = SecurityUtil.memberCode();
 		scheduleVO.setWalkerCode(mcode);
 		return scheduleService.ScheduleUpdate(scheduleVO);
+	}
+	
+	@PostMapping("/user/scheduleInsert")
+	@ResponseBody
+	public int scheduleInsert(ScheduleVO scheduleVO) {
+		String mcode = SecurityUtil.memberCode();
+		scheduleVO.setWalkerCode(mcode);
+		return scheduleService.Scheduleinsert(scheduleVO);
 	}
 	
 }

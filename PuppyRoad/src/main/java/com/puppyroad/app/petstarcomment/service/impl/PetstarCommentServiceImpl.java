@@ -24,6 +24,12 @@ public class PetstarCommentServiceImpl implements PetstarCommentService {
 		return commentMapper.selectCommentList(bno);
 	}
 	
+	// My 전체 조회
+	@Override
+	public List<PetstarCommentVO> getMyCommentList(PetstarCommentVO commentVO) {
+		return commentMapper.selectMyCommentList(commentVO);
+	}
+	
 	// 등록
 	@Override
 	public int addComment(PetstarCommentVO commentVO) {
@@ -39,8 +45,10 @@ public class PetstarCommentServiceImpl implements PetstarCommentService {
 
 	// 삭제
 	@Override
-	public int removeComment(int cno) {
-		return commentMapper.deleteComment(cno);
+	public int removeComment(int no) {
+		return commentMapper.deleteComment(no);
 	}
+
+	
 
 }
