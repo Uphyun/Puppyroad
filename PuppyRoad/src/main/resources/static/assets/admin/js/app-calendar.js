@@ -36,6 +36,10 @@ document.addEventListener('DOMContentLoaded', function () {
       btnDeleteEvent = document.querySelector('.btn-delete-event'),
       btnCancel = document.querySelector('.btn-cancel'),
       eventTitle = document.querySelector('#eventTitle'),
+      //제발
+      eventDogName = $('#eventDogName'),
+      eventWalkFare = $('#eventWalkFare'),
+      eventPhone = $('#eventPhone'),
       eventStartDate = document.querySelector('#eventStartDate'),
       eventEndDate = document.querySelector('#eventEndDate'),
       eventUrl = document.querySelector('#eventURL'),
@@ -145,10 +149,13 @@ document.addEventListener('DOMContentLoaded', function () {
         inline: true
       });
     }
-
+//바보
     // Event click function
     function eventClick(info) {
       eventToUpdate = info.event;
+      console.log(info.event);
+      console.log(eventDogName.val());
+      console.log(eventLabel);
       if (eventToUpdate.url) {
         info.jsEvent.preventDefault();
         window.open(eventToUpdate.url, '_blank');
@@ -156,12 +163,13 @@ document.addEventListener('DOMContentLoaded', function () {
       bsAddEventSidebar.show();
       // For update event set offcanvas title text: Update Event
       if (offcanvasTitle) {
-        offcanvasTitle.innerHTML = 'Update Event';
+        offcanvasTitle.innerHTML = '고객상세정보';
       }
       btnSubmit.innerHTML = 'Update';
       btnSubmit.classList.add('btn-update-event');
       btnSubmit.classList.remove('btn-add-event');
       btnDeleteEvent.classList.remove('d-none');
+      $('.addHide').show();
 
       eventTitle.value = eventToUpdate.title;
       start.setDate(eventToUpdate.start, true, 'Y-m-d');
@@ -170,8 +178,8 @@ document.addEventListener('DOMContentLoaded', function () {
         ? end.setDate(eventToUpdate.end, true, 'Y-m-d')
         : end.setDate(eventToUpdate.start, true, 'Y-m-d');
       eventLabel.val(eventToUpdate.extendedProps.calendar).trigger('change');
-      eventToUpdate.extendedProps.location !== undefined
-        ? (eventLocation.value = eventToUpdate.extendedProps.location)
+      eventToUpdate.extendedProps.address !== undefined
+        ? (eventLocation.value = eventToUpdate.extendedProps.address)
         : null;
       eventToUpdate.extendedProps.guests !== undefined
         ? eventGuests.val(eventToUpdate.extendedProps.guests).trigger('change')
@@ -179,6 +187,16 @@ document.addEventListener('DOMContentLoaded', function () {
       eventToUpdate.extendedProps.description !== undefined
         ? (eventDescription.value = eventToUpdate.extendedProps.description)
         : null;
+       eventToUpdate.extendedProps.dogName !== undefined
+        ? eventDogName.val(eventToUpdate.extendedProps.dogName).trigger('change')
+        : null;
+       eventToUpdate.extendedProps.walkFare !== undefined
+        ? eventWalkFare.val(eventToUpdate.extendedProps.walkFare).trigger('change')
+        : null;
+       eventToUpdate.extendedProps.phone !== undefined
+        ? eventPhone.val(eventToUpdate.extendedProps.phone).trigger('change')
+        : null;
+      
 
       // // Call removeEvent function
       // btnDeleteEvent.addEventListener('click', e => {
@@ -252,7 +270,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // ------------------------------------------------
     let calendar = new Calendar(calendarEl, {
 		
-	  events: '/user/scheduleListprocess',
       initialView: 'dayGridMonth',
       events: fetchEvents,
       plugins: [dayGridPlugin, interactionPlugin, listPlugin, timegridPlugin],
@@ -272,6 +289,7 @@ document.addEventListener('DOMContentLoaded', function () {
       direction: direction,
       initialDate: new Date(),
       navLinks: true, // can click day/week names to navigate views
+      
       eventClassNames: function ({ event: calendarEvent }) {
         const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
         // Background Color
@@ -448,8 +466,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // Add new event
     // ------------------------------------------------
     btnSubmit.addEventListener('click', e => {
+		
       if (btnSubmit.classList.contains('btn-add-event')) {
         if (isFormValid) {
+			
+
+			
           let newEvent = {
             id: calendar.getEvents().length + 1,
             title: eventTitle.value,
@@ -462,12 +484,21 @@ document.addEventListener('DOMContentLoaded', function () {
               location: eventLocation.value,
               guests: eventGuests.val(),
               calendar: eventLabel.val(),
-              description: eventDescription.value
             }
           };
-          if (eventUrl.value) {
-            newEvent.url = eventUrl.value;
-          }
+          
+          $.ajax({
+					url:"/user/scheduleInsert",
+					method:"post",
+					async:false,
+					data:{
+						holidayStart : newEvent.start,
+						holidayEnd : newEvent.end,
+						schduleTitle : newEvent.title 
+					}
+					}).responseText;
+			
+    
           if (allDaySwitch.checked) {
             newEvent.allDay = true;
           }
@@ -483,20 +514,34 @@ document.addEventListener('DOMContentLoaded', function () {
             title: eventTitle.value,
             start: eventStartDate.value,
             end: eventEndDate.value,
+            dogName : eventDogName.value,
             url: eventUrl.value,
             extendedProps: {
               location: eventLocation.value,
               guests: eventGuests.val(),
               calendar: eventLabel.val(),
-              description: eventDescription.value
             },
+
             display: 'block',
             allDay: allDaySwitch.checked ? true : false
           };
 
-          updateEvent(eventData);
-          bsAddEventSidebar.hide();
-        }
+	          $.ajax({
+						url:"/user/scheduleUpdate",
+						method:"post",
+						async:false,
+						data:{
+							holidayStart : eventData.start,
+							holidayEnd : eventData.end,
+							schduleTitle : eventData.title,
+							dogName : eventData.dogName
+						}
+						}).responseText;
+	
+	          updateEvent(eventData);
+	          bsAddEventSidebar.hide();
+        	
+       }
       }
     });
 
@@ -510,14 +555,18 @@ document.addEventListener('DOMContentLoaded', function () {
     // Reset event form inputs values
     // ------------------------------------------------
     function resetValues() {
+	
+	  $('.addHide').hide();
+	
       eventEndDate.value = '';
-      eventUrl.value = '';
       eventStartDate.value = '';
+      eventDogName.val('').trigger('change');
       eventTitle.value = '';
       eventLocation.value = '';
       allDaySwitch.checked = false;
       eventGuests.val('').trigger('change');
-      eventDescription.value = '';
+      eventWalkFare.val('').trigger('change');
+      eventPhone.val('').trigger('change');
     }
 
     // When modal hides reset input values

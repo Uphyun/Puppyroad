@@ -4,8 +4,9 @@
 
 	<insert id="insertPuppy" parameterType="PuppyVO">
 		<selectKey keyProperty="puppyCode" order="BEFORE" resultType="String">
-			SELECT NVL(MAX(TO_NUMBER(puppy_code)), 0) + 1 as puppy_code
-			FROM   puppy
+			select  nvl(max(to_number(substr(puppy_code, -6), 'xxxxxx')), 0) + 1
+		    from    puppy
+		    where   substr(puppy_code, 1, 7) = 'D' || to_char(sysdate, 'yyMMdd')
 		</selectKey>
 		INSERT INTO puppy
 		(
@@ -27,7 +28,7 @@
 		VALUES 
 		(
 
-			  LPAD(#{puppyCode},10, '0')
+			'D' || to_char(sysdate, 'yyMMdd') || LPAD(LTRIM(to_char(#{puppyCode}, 'xxxxxx')), 6, '0'),
 		    , #{dogName}
 		    , #{dogBreed}
 		    , #{age}
