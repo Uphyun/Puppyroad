@@ -38,6 +38,7 @@ public class LoginMemberVO implements UserDetails {
 		// TODO Auto-generated method stub
 		return memberVO.getUserId();
 	}
+	
 
 	@Override
 	public boolean isAccountNonExpired() { //계정 패스워드 만료여부

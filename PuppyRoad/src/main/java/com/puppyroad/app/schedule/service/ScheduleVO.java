@@ -2,6 +2,8 @@ package com.puppyroad.app.schedule.service;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -14,7 +16,9 @@ public class ScheduleVO {
 	private String address;
 	private String walkPath;
 	private String walkerCode;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date holidayStart;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date holidayEnd;
 	private Integer approvalState;
 	private String name;
@@ -24,6 +28,7 @@ public class ScheduleVO {
 	private String phone;
 	private String workWeek;
 	private String workTime;
+	private String scheduleTitle;
 	
 
 }
