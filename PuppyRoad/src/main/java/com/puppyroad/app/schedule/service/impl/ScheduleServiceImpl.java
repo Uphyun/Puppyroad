@@ -28,6 +28,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 		
 		return scheduleMapper.ScheduleUpdate(scheduleVO);
 	}
+
+	@Override
+	public int Scheduleinsert(ScheduleVO scheduleVO) {
+		
+		return scheduleMapper.ScheduleInsert(scheduleVO);
+	}
 	
 
 	
