@@ -3,6 +3,11 @@
  */
 $(document).ready(function() {
 	let roomId = '';
+	let writer = '';
+	
+	//calender 30분주기
+	$('.flatpickr-minute').attr("step", 30);
+	
 	
 	var sockJs = new SockJS("/stomp/chat");
 	//1. SockJS를 내부에 들고있는 stomp를 내어줌
@@ -69,6 +74,7 @@ $(document).ready(function() {
 		$('li.chat-contact-list-item').on('click', function() {
 			
 			roomId = $(this).attr('id');
+			writer = $(this).attr('name');
 
 			$('.list-unstyled.chat-history').empty();
 			$('#chatProfile').empty();
@@ -147,6 +153,27 @@ $(document).ready(function() {
 				})
 				.fail(err => console.log(err))
 				
+			$.ajax({
+				url: '/chat/address',
+				method: 'get',
+				data: { writer }
+			})
+			  .done( datas => {
+				$('#walkPlaceAddress').val('');
+				let address = datas[0].walkPlaceAddress
+				let content = datas[0].content
+				let startDate = datas[0].startTime
+				let endDate = datas[0].endTime
+				
+				$('#walkPlaceAddress').val(address);
+				$('#content').val(content);
+				$('#eventStartDate').val(startDate);
+				$('#eventEndDate').val(endDate);
+				
+				
+				
+			  });
+			
 		});
 
 	});
@@ -162,6 +189,39 @@ $(document).ready(function() {
 		
 
 	});
+	
+	/**$("#addSchedul").on("click", function(e) {
+		
+	let writer = $('input[name=writer]').val();
+	let walkPlaceAddress = $('input[name=walkPlaceAddress]').val();
+	let content = $('input[name=content]').val();
+	let matchingKind = '대리';
+	
+	let puppy = [];
+	$('').each(function(idx, item){
+		let puppyCode = $().attr();
+		
+		puppy.push({puppyCode});
+	})
+		
+	let data = {writer, walkPlaceAddress, content, matchingKind, puppy}
+	console.log(data);
+		
+		$.ajax({
+			url: '/user/matchUpdate',
+			method: 'post',
+			contentType : 'application/json',
+			data: 'JSON.stringify(data)',
+			success: function(datas) {
+				if(datas.result = 1) {
+					alert("성공적으로 등록되었습니다.");
+				} else {
+					alert("등록 오류")
+				}
+			}
+		})
+		  .fail(err => console.log(err))
+	}) */
 
 
 });

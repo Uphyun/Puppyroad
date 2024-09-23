@@ -74,6 +74,25 @@
                 <!-- Category List Table -->
                 <div class="card">
                   <div class="card-datatable table-responsive">
+                    <!-- Create the drop down filter -->
+					<div class="col-md-4"
+					style="margin-bottom: 8px; padding-left: 0px">
+					    <div class="category-filter input-group">
+					        <div class="input-group-prepend">
+					            <label class="input-group-text" for="categoryFilter">도시명</label>
+					        </div>
+					        <select id="categoryFilter" class="form-control">
+					            <option value="">모두</option>
+					            <option value="서울">서울</option>
+					            <option value="부산">부산</option>
+					            <option value="대구">대구</option>
+					            <option value="대전">대전</option>
+					            <option value="광주">광주</option>
+					            <option value="울산">울산</option>
+					        </select>
+					    </div>
+					</div>
+					<!-- drop down filter end -->
                     <table class="datatables-category-list table border-top">
                       <thead>
                         <tr>

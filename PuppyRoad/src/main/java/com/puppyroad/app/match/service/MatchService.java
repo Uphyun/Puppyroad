@@ -30,4 +30,7 @@ public interface MatchService {
 	
 	//매칭견 조회
 	public List<PuppyVO> getMatchingDogList(Integer bulletinNo);
+	
+	//대리조회
+	public List<MatchVO> getIdList(MatchVO matchVO);
 }
