@@ -37,4 +37,8 @@ public interface MatchMapper {
 	
 	//단건 대리기준조회
 	public List<MatchVO> selectIdList(MatchVO matchVO);
+	
+	// 채팅견 등록
+	public int insertChatPuppy(MatchingPuppyVO matchingPuppyVO);
+
 }

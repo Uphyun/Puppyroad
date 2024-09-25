@@ -1,63 +1,173 @@
 /**
  * 
  */
-getMemberList('의뢰인', 1);
+getMemberList('의뢰인', 'manageTable');
 // $(document).ready( function() {
 // 	$('#manageTable').DataTable();
 // });
 //페이지 로딩시 데이터 가져오기
-async function getMemberList(position, page) {
-	$('#manageTable').DataTable();
-	// let searchType = $("#searchTypeInput").val();
-	// let keyword = $("#keywordInput").val();
-	// let recordSize = $("#recordSize").val();
-	// page = page == null ? 1 : page;
+function getMemberList(position, tableId) {
+	let dt_memberTable = $('#' + tableId);
 
-	if (searchType == "조건 선택") {
-		searchType = null;
+	if (dt_memberTable.length) {
+		let dt_members = dt_memberTable.DataTable({	//dataTable시작
+
+			//데이터 가져오기
+			ajax: {
+				url: "/ajax/memberList?position=" + position,
+				type: 'GET',
+				dataSrc: ''
+			},
+
+			// 데이터 설정
+			columns: [
+				{ data: 'memberCode' },
+				{ data: 'nickName' },
+				{ data: 'userId' },
+				{ data: 'joinDate' },
+				{ data: 'activityDate' },
+				{ data: 'withdrawDate' },
+				{ data: 'accountState' },
+			],
+
+			//각 컬럼 데이터 삽입
+			columnDefs: [
+				{	//1번째 체크박스
+					targets: 0,
+					//responsivePriority: 1,
+					render: function (data, type, full, meta) {
+						let $memberCode = full['memberCode'];
+						return '<input type="checkbox" class="form-check-input" value="' + $memberCode + '"/>';
+					}
+				},
+				{	//2번째 닉네임
+					targets: 1,
+					//responsivePriority: 2,
+					render: function (data, type, full, meta) {
+						let $nickName = full['nickName'];
+						return $nickName;
+					}
+				},
+				{	//3번째 아이디
+					targets: 2,
+					//responsivePriority: 3,
+					render: function (data, type, full, meta) {
+						let $userId = full['userId'];
+						return $userId;
+					}
+				},
+				{	//4번째 가입날짜
+					targets: 3,
+					//responsivePriority: 4,
+					render: function (data, type, full, meta) {
+						let $joinDate = full['joinDate'];
+						return $joinDate;
+					}
+				},
+				{	//5번째 활동날짜
+					targets: 4,
+					//responsivePriority: 5,
+					render: function (data, type, full, meta) {
+						let $activityDate = full['activityDate'];
+						return $activityDate;
+					}
+				},
+				{	//6번째 활동날짜
+					targets: 5,
+					//responsivePriority: 6,
+					render: function (data, type, full, meta) {
+						let $withdrawDate = full['withdrawDate'];
+						return $withdrawDate;
+					}
+				},
+				{	//7번째 상세보기
+					targets: 6,
+					//responsivePriority: 7,
+					render: function (data, type, full, meta) {
+						let $memberCode = full['memberCode'];
+						return '<button type="button" class="btn btn-primary waves-effect waves-light viewInfo" data-bs-toggle="modal" data-bs-target="#viewUser" data-memberCode="' + $memberCode + '">상세보기</button>';
+					}
+				},
+				{	//7번째 상세보기
+					targets: 6,
+					//responsivePriority: 7,
+					render: function (data, type, full, meta) {
+						let $memberCode = full['memberCode'];
+						return `<div class="position-relative">
+									<select onchange="changeState()"
+										class="select2 form-select select2-hidden-accessible accountState"
+										data-select2-id="accountState" tabindex="-1"
+										aria-hidden="true" data-membercode="${$memberCode}">
+										<th:block th:if="${$accountState == 1}">
+											<option value="1" data-select2-id="2" selected>정상</option>
+											<option value="2">휴면</option>
+											<option value="3">탈퇴</option>
+										</th:block>
+										<th:block th:if="${$accountState == 2}">
+											<option value="1" data-select2-id="2">정상</option>
+											<option value="2" selected>휴면</option>
+											<option value="3">탈퇴</option>
+										</th:block>
+										<th:block th:if="${$accountState == 3}">
+											<option value="1" data-select2-id="2">정상</option>
+											<option value="2">휴면</option>
+											<option value="3" selected>탈퇴</option>
+										</th:block>
+									</select>
+								</div>`;
+					}
+				},
+			],	//데이터삽입 끝
+
+			//order: [0, 'desc'],	//[0]번째 컬럼 내림차순
+			//dom:'',	//?
+			lengthChange: false,
+			lengthMenu: [10],		//페이징 10
+			language: {
+				sLengthMenu: '_MENU_',
+				search: '',
+				searchPlaceholder: '아이디 및 닉네임 검색',
+				paginate: {
+					next: '<i class="ti ti-chevron-right ti-sm"></i>',
+					previous: '<i class="ti ti-chevron-left ti-sm"></i>'
+				}
+			},
+			responsive: {
+				details: {
+					/**
+					display: $.fn.dataTable.Responsive.display.modal({
+						header: function (row) {
+							var data = row.data();
+							return 'Details of ' + data['categories'];
+						}
+					}), */
+					type: 'column',
+					renderer: function (api, rowIdx, columns) {
+						var data = $.map(columns, function (col, i) {
+							return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
+								? '<tr data-dt-row="' +
+								col.rowIndex +
+								'" data-dt-column="' +
+								col.columnIndex +
+								'">' +
+								'<td> ' +
+								col.title +
+								':' +
+								'</td> ' +
+								'<td class="ps-0">' +
+								col.data +
+								'</td>' +
+								'</tr>'
+								: '';
+						}).join('');
+
+						return data ? $('<table class="table"/><tbody />').append(data) : false;
+					}
+				}
+			}
+
+		});		//dataTable끝
 	}
-	let data = setSearchData(recordSize, page, position, searchType, keyword);
-
-	// $.ajax({
-	// 	url: "/ajax/memberList",
-	// 	method: "get",
-	// 	data: data,
-	// })
-	// 	.done(memberList => {
-	// 		//console.log(memberList);
-	// 		$("#memberListBody").replaceWith(memberList);
-	// 	})
-	// 	.fail(err => console.log(err));
-
-	// let pages = await $.ajax({
-	// 		url: "/ajax/memberListPage",
-	// 		method: "get",
-	// 		data: data,
-	// 	})
-	// 	// .done(pages => {
-	// 	// 	console.log(pages);
-	// 	// 	$("#memberListPaging").replaceWith(pages);
-	// 	// })
-	// 	// .fail(err => console.log(err));
-	// console.log(pages);
-
-}
-
-//데이터 설정
-function setSearchData(recordSize, page, position, searchType, keyword) {
-	let data = { recordSize, page, position, searchType };
-	if (searchType == "아이디") {
-		data.userId = keyword;
-	} else if (searchType == "닉네임") {
-		data.nickName = keyword;
-	} else if (searchType == "아이디 및 닉네임") {
-		data.userId = keyword;
-		data.nickName = keyword;
-	} else {
-		return null;
-	}
-
-	return data;
 }
 
 //선택된 조건 설정

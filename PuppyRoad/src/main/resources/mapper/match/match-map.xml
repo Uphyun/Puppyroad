@@ -92,16 +92,34 @@
            #{bulletinNo},
            #{puppyCode})
   </insert>
+  
+  <!-- 대리매칭의 반려견 저장 -->
+  <insert id="insertChatPuppy" parameterType="MatchingPuppyVO">
+     <selectKey keyProperty="mpCode"
+              resultType="Integer"
+              order="BEFORE">
+			SELECT NVL(MAX(mp_code), 0) + 1
+			FROM   matching_puppy
+     </selectKey>
+  	INSERT INTO matching_puppy(mp_code,
+  							   bulletin_no,
+                               puppy_code)
+    VALUES(#{mpCode},
+           #{bulletinNo},
+           #{puppyCode})
+  </insert>
     
   <!-- 자율수정 -->
   <update id="updateMatch" parameterType="MatchVO">
   	UPDATE matching_board
   	SET
-  	       cover_photo = #{coverPhoto},
   	       title = #{title},
   	       writer = #{writer},
   	       content = #{content},
   	       matching_state = #{matchingState},
+  	       matching_kind = #{matchingKind},
+  	       start_time = #{startTime},
+  	       end_time = #{endTime},
   	       walk_place_address = #{walkPlaceAddress},
   	       client_code = #{clientCode}
   	WHERE  bulletin_no = #{bulletinNo}
