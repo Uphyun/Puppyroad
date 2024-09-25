@@ -10,9 +10,20 @@ async function sendPay() {
         switch (response.event) {
             case 'issued':
                 // 가상계좌 입금 완료 처리
-                registPayInfo(response.data);
-                console.log("가상계좌 처리 완료");
                 console.log(response);
+                $.ajax({
+                    url : '/ajax/pay',
+                    method: 'post',
+                    contentType : 'application/json',
+                    data : JSON.stringify(data)
+                })
+                    .done(result => {
+						console.log(result);
+                        if(result.isInfo) {
+                            console.log("가상계좌 처리 완료");
+                        }
+                    })
+                    .fail(err => console.log(err));
                 break;
             case 'done':
                 console.log("결제 처리 완료");
@@ -58,9 +69,16 @@ async function sendPay() {
 
 
 //부트페이 결제 폼(통합결제)
-function payForm(user = { userId: 'admin', name: "관리자", phone: "01011112222", email: "alscjf2738@naver.com" }) {
+function payForm() {
     let price = $("#total").text().replace(',', '');
     let times = $("#times").text();
+    let user = {
+        userId : $("#billings-userId").val(),
+        name : $("#billings-uname").val(),
+        phone : $("#billings-phone").val(),
+        email : $("#billings-email").val()
+    };
+
     const data = {
         "application_id": "66e29ba8692d0516c36e4b2a",
         "price": price,
@@ -93,7 +111,7 @@ function payForm(user = { userId: 'admin', name: "관리자", phone: "0101111222
             "common_event_webhook": true
         }
     }
-
+    console.log(data)
     return data;
 }
 
