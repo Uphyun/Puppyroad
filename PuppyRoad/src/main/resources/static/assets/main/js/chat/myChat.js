@@ -2,6 +2,9 @@
  * myChat.js
  */
 $(document).ready(function() {
+	
+	let bulletinNo = '';
+	let title = '';
 	let roomId = '';
 	let writer = '';
 	
@@ -73,6 +76,8 @@ $(document).ready(function() {
 
 		$('li.chat-contact-list-item').on('click', function() {
 			
+			title = $(this).find('h6').attr('id');
+			bulletinNo = $(this).find('h6').attr('name');
 			roomId = $(this).attr('id');
 			writer = $(this).attr('name');
 
@@ -190,21 +195,22 @@ $(document).ready(function() {
 
 	});
 	
-	/**$("#addSchedul").on("click", function(e) {
+	$("#addSchedul").on("click", function(e) {
 		
-	let writer = $('input[name=writer]').val();
+	let startTime =	$("input[name='eventStartDate']").val()
+	let endTime = $("input[name='eventEndDate']").val()
 	let walkPlaceAddress = $('input[name=walkPlaceAddress]').val();
 	let content = $('input[name=content]').val();
 	let matchingKind = '대리';
 	
 	let puppy = [];
-	$('').each(function(idx, item){
-		let puppyCode = $().attr();
+	$('.select2-selection__choice').each(function(idx, item){
+		let puppyCode = $(item).attr("title");
 		
 		puppy.push({puppyCode});
 	})
 		
-	let data = {writer, walkPlaceAddress, content, matchingKind, puppy}
+	let data = {bulletinNo, title, writer, walkPlaceAddress, startTime, endTime, content, matchingKind}
 	console.log(data);
 		
 		$.ajax({
@@ -214,14 +220,14 @@ $(document).ready(function() {
 			data: 'JSON.stringify(data)',
 			success: function(datas) {
 				if(datas.result = 1) {
-					alert("성공적으로 등록되었습니다.");
+					alert("성공적으로 신청되었습니다.");
 				} else {
-					alert("등록 오류")
+					alert("신청 오류")
 				}
 			}
 		})
 		  .fail(err => console.log(err))
-	}) */
+	}) 
 
 
 });

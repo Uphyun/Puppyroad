@@ -79,10 +79,12 @@ public class RoomController {
     	String title = req.getParameter("title");
     	String writer = req.getParameter("writer");
     	String type = req.getParameter("chattingType");
+    	int no = Integer.parseInt(req.getParameter("bulletinNo"));
     	
     	chatRoomDTO.setSender(mcode);
     	chatRoomDTO.setRecipient(writer);
     	chatRoomDTO.setRoomName(title);
+    	chatRoomDTO.setMatchNo(no);
     	
     	int result = chatRoomService.addRoom(chatRoomDTO);
     	return "redirect:/chat/myChat";

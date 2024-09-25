@@ -19,9 +19,9 @@ public class ManageMemberServiceImpl implements ManageMemberService{
 	ManageMemberMapper manageMemberMapper;
 
 	@Override
-	public List<MemberVO> getMemberList(PageDTO pageDTO, MemberVO memberVO, String condition) {
+	public List<MemberVO> getMemberList(MemberVO memberVO) {
 		// TODO Auto-generated method stub
-		return manageMemberMapper.selectMemberList(pageDTO, memberVO, condition);
+		return manageMemberMapper.selectMemberList(memberVO);
 	}
 
 	@Override
