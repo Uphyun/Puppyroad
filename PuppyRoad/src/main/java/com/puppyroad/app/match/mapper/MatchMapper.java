@@ -40,5 +40,6 @@ public interface MatchMapper {
 	
 	// 채팅견 등록
 	public int insertChatPuppy(MatchingPuppyVO matchingPuppyVO);
+	
 
 }

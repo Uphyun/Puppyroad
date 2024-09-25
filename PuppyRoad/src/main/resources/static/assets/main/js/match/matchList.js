@@ -94,7 +94,7 @@ $(function () {
           //responsivePriority: 3,
           render: function (data, type, full, meta) {
             var $walkPlaceAddress = full['walkPlaceAddress'];
-            return '<div class="text-sm-end">' + $walkPlaceAddress + '</div>';
+            return '<div class="">' + $walkPlaceAddress + '</div>';
           }
         },
         {
@@ -103,6 +103,17 @@ $(function () {
           //responsivePriority: 4,
           render: function (data, type, full, meta) {
             var $matchingState = full['matchingState'];
+            
+            if($matchingState == 1){
+				$matchingState = '매칭중';
+			} else if($matchingState == 2){
+				$matchingState = '매칭예약';
+			} else if($matchingState == 3){
+				$matchingState = '매칭완료';
+			} else {
+				$matchingState = '비활성화';
+			}
+            
             return '<div class="text-sm-end">' + $matchingState + '</div>';
           }
         },
@@ -121,7 +132,7 @@ $(function () {
           //responsivePriority: 6,
           render: function (data, type, full, meta) {
             var $writingTime = full['writingTime'];
-            return '<div class="text-sm-end">' + $writingTime + '</div>';
+            return '<div class="text-sm-end">' + moment($writingTime).format('YYYY년MM월DD일') + '</div>';
           }
         },
       ],
