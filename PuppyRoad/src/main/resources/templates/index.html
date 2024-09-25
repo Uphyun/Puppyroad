@@ -2,6 +2,7 @@
 <html xmlns:th="https://www.thymeleaf.org/"
 	layout:decorate="~{common/layouts/default_layout}"
 	layout:fragment="Content">
+<link rel="stylesheet" href="/assets/admin/css/main.css" type="text/css" />
 <body>
 
 	<!-- Hero: Start -->
@@ -9,48 +10,96 @@
 	<!-- Hero: End -->
 	<section class="first-section-pt">
 		<!-- Main -->
-      <section id="landingFeatures" class="section-py landing-features">
-        <div class="container">
-          <h4 class="text-center mb-1">
-            <span class="position-relative fw-extrabold z-1"
-              >강아지 산책!
-            </span>
-          </h4>
-          <div class="features-icon-wrapper row gx-0 gy-6 g-sm-12">
-            <div class="col-lg-4 col-sm-6 text-center features-icon-box">
-              <div class="text-center mb-4">
-                <img src="/assets/admin/img/main/park.jpg" alt="laptop charging" />
-              </div>
-              <h5 class="mb-2">자율 매칭</h5>
-              <p class="features-icon-description">
-                Code structure that all developers will easily understand and fall in love with.
-              </p>
-            </div>
-            
-            <div class="col-lg-4 col-sm-6 text-center features-icon-box">
-              <div class="text-center mb-4">
-                <img src="/assets/admin/img/main/walk1.jpg" alt="transition up" />
-              </div>
-              <h5 class="mb-2">실시간 매칭</h5>
-              <p class="features-icon-description">
-                Free updates for the next 12 months, including new demos and features.
-              </p>
-            </div>
-            
-            <div class="col-lg-4 col-sm-6 text-center features-icon-box">
-              <div class="text-center mb-4">
-                <img src="/assets/admin/img/main/walk2.jpg" alt="edit" />
-              </div>
-              <h5 class="mb-2">대리 매칭</h5>
-              <p class="features-icon-description">
-                Start your project quickly without having to remove unnecessary features.
-              </p>
-            </div>
-            
-          </div>
-        </div>
-      </section>
+		<div class="container background">
+			<h4 class="text-center mb-1">
+				<span class="position-relative fw-extrabold z-1">강아지 산책! </span>
+			</h4>
+			<div class="features-icon-wrapper row gx-0 gy-6 g-sm-12">
+				<div class="col-lg-4 col-sm-6 text-center  features-icon-box"
+					th:onClick="location.href='user/matchList'"
+					style="cursor: pointer;">
+					<img src="/assets/admin/img/main/match.png" alt="자율 매칭" />
+					<h5 class="mb-2">자율 매칭</h5>
+					<p class="features-icon-description">
+						게시판 양식에 맞는 글을 작성 후<br> 원하는 사람과 산책♡
+					</p>
+				</div>
+
+				<div class="col-lg-4 col-sm-6 text-center features-icon-box"
+					th:onClick="location.href='user/realMatch'"
+					style="cursor: pointer;">
+					<img src="/assets/admin/img/main/map.png" alt="실시간 매칭" />
+					<h5 class="mb-2">실시간 매칭</h5>
+					<p class="features-icon-description">
+						현재 위치에서 가까운 사람과 <br> 산책 매칭♡
+					</p>
+				</div>
+
+				<div class="col-lg-4 col-sm-6 text-center features-icon-box"
+					th:onClick="location.href='user/assiList'" style="cursor: pointer;">
+					<img src="/assets/admin/img/main/walk2.png" alt="대리 매칭" />
+					<h5 class="mb-2">대리 매칭</h5>
+					<p class="features-icon-description">산책 전문가가 나 대신 산책♡</p>
+				</div>
+			</div>
+		</div>
+
+
+
+		<section id="landingTeam" class="section-py landing-team">
+			<div class="container">
+				<h4 class="text-center mb-1">
+					<span class="position-relative fw-extrabold z-1">믿고 맡길 수 있는!</span>
+				</h4>
+				<div class="row gy-12 mt-2">
+					<div class="col-lg-3 col-sm-6">
+						<div class="card mt-3 mt-lg-0 shadow-none">
+							<div
+								class="bg-label-primary border border-bottom-0 border-label-primary position-relative team-image-box">
+								<img src="/assets/admin/img/main/walker1.png"
+									alt="human image" />
+							</div>
+							<div
+								class="card-body border border-top-0 border-label-primary text-center">
+								<h5 class="card-title mb-0">전문 교육 수료한</h5>
+								<p class="text-muted mb-0">dog walker</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-6">
+						<div class="card mt-3 mt-lg-0 shadow-none">
+							<div
+								class="bg-label-info border border-bottom-0 border-label-info ">
+								<img src="/assets/admin/img/main/walker2.png"
+									alt="human image" />
+							</div>
+							<div
+								class="card-body border border-top-0 border-label-info text-center">
+								<h5 class="card-title mb-0">산책 경력</h5>
+								<p class="text-muted mb-0">5년 이상</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-6">
+						<div class="card mt-3 mt-lg-0 shadow-none">
+							<div
+								class="bg-label-danger border border-bottom-0 border-label-danger">
+								<img src="/assets/admin/img/main/walker3.png"
+									alt="human image" />
+							</div>
+							<div
+								class="card-body border border-top-0 border-label-danger text-center">
+								<h5 class="card-title mb-0">엄격한 심사로</h5>
+								<p class="text-muted mb-0">지원자 선별</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
 	</section>
+
+
 </body>
 </html>
