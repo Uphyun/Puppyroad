@@ -31,18 +31,6 @@ public class ManageMemberServiceImpl implements ManageMemberService{
 	}
 
 	@Override
-	public List<MemberVO> getSearchMemberList(MemberVO memberVO, String condition) {
-		
-		return manageMemberMapper.selectSearchMemberList(memberVO, condition);
-	}
-	
-	@Override
-	public int getMemberPage(MemberVO memberVO, String condition) {
-		
-		return manageMemberMapper.selectMemberCnt(memberVO, condition);
-	};
-
-	@Override
 	public Map<String, Object> updateAccountState(MemberVO memberVO) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean isSuccess = false;
