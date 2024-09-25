@@ -8,7 +8,8 @@
               recipient,
               created_date,
               chatting_type,
-              sender
+              sender,
+              match_no
     FROM      chat_room
     ORDER BY  created_date
 </select>
@@ -25,7 +26,8 @@
               recipient,
               created_date,
               chatting_type,
-              sender
+              sender,
+              match_no
     FROM      chat_room
     WHERE     recipient = #{recipient}
     OR        sender = #{sender}
@@ -64,14 +66,16 @@
                           created_date,
                           chatting_type,
                           sender,
-                          recipient)
+                          recipient,
+                          match_no)
     VALUES(
            LPAD(LTRIM(to_char(#{roomId}, 'xxxxxxxxxx')), 10, '0'),
            #{roomName},
            sysdate,
            #{chattingType},
            #{sender},
-           #{recipient} 
+           #{recipient},
+           #{matchNo} 
            )
 </insert>
   
@@ -82,7 +86,8 @@
               recipient,
               created_date,
               chatting_type,
-              sender
+              sender,
+              match_no
     FROM      chat_room
     WHERE     room_id = #{roomId}
 </select>

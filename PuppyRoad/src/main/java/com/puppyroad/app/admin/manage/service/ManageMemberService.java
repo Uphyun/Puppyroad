@@ -8,7 +8,7 @@ import com.puppyroad.app.member.service.MemberVO;
 
 public interface ManageMemberService {
 	//회원 리스트
-	public List<MemberVO> getMemberList(PageDTO pageDTO, MemberVO memberVO, String condition);
+	public List<MemberVO> getMemberList(MemberVO memberVO);
 	//의뢰인 상세정보
 	public MemberVO getMemberInfo(String memberCode);
 	//회원 검색
