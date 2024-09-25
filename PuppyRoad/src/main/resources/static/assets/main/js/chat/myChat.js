@@ -3,6 +3,7 @@
  */
 $(document).ready(function() {
 	
+	let puppyCode = '';
 	let bulletinNo = '';
 	let title = '';
 	let roomId = '';
@@ -205,14 +206,13 @@ $(document).ready(function() {
 	let matchingState = 2;
 	
 	let puppy = [];
-	$('.select2-selection__choice').each(function(idx, item){
-		let puppyCode = $(item).attr("title");
+	$('.select2').find(':selected').each(function(idx, item){
+		puppyCode = $(item).data("value");
 		
-		puppy.push({puppyCode});
+		puppy.push({bulletinNo, puppyCode});
 	})
 		
 	let data = {bulletinNo, title, writer, walkPlaceAddress, startTime, endTime, content, matchingKind, matchingState}
-		console.log(data);
 		console.log(puppy);
 		
 		$.ajax({
@@ -230,15 +230,17 @@ $(document).ready(function() {
 		  .fail(err => console.log(err))
 		  
 		  
-		 $.ajax({
-			url: '/user/chatDogInsert',
-			method: 'post',
-			data: puppy,
+		$.ajax({
+			url : '/user/chatDogInsert?bulletinNo=' + bulletinNo,
+			method : 'post',
+			contentType : 'application/json',
+			data : JSON.stringify(puppy),
 			success: function(datas) {
 				console.log(datas.result);
-			} 
-		 })
-		   .fail(err => console.log(err));
+				location.href = '/user/pay?bulletinNo=' + bulletinNo;
+			}
+		})
+		  .fail(err => console.log(err))
 	
 	
 	

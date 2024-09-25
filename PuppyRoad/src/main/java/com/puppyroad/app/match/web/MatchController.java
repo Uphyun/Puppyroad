@@ -91,6 +91,15 @@ public class MatchController {
 		return bno;
 	}
 	
+	// 채팅견 등록 - post
+	@PostMapping("user/chatDogInsert")
+	@ResponseBody
+	public int chatDogInsert(@RequestBody List<MatchingPuppyVO> matchingPuppyVO) {
+		int bno = matchService.addChatPuppy(matchingPuppyVO);
+		
+		return bno;
+	}
+	
 	// 수정 - 페이지
 	@GetMapping("user/matchUpdate")
 	public String matchUpdateForm(MatchVO matchVO, PuppyVO puppyVO, Model model) {
@@ -107,6 +116,7 @@ public class MatchController {
 	@PostMapping("user/matchUpdate")
 	@ResponseBody // AJAX
 	public Map<String, Object> matchUpdate(MatchVO matchVO){
+		matchVO.setClientCode(SecurityUtil.memberCode());
 		return matchService.modifyMatch(matchVO);
 		
 	}

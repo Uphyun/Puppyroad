@@ -128,6 +128,15 @@ public class MatchServiceImpl implements MatchService {
 		return matchMapper.selectIdList(matchVO);
 	}
 
+	@Override
+	public int addChatPuppy(List<MatchingPuppyVO> list) {
+		// TODO 채팅견 등록
+		for(MatchingPuppyVO matchingPuppyVO: list) {
+			matchMapper.insertChatPuppy(matchingPuppyVO);
+		}
+		return 1;  
+	}
+
 
 
 }
