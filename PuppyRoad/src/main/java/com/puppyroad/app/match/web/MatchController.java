@@ -106,10 +106,11 @@ public class MatchController {
 	// 수정 - 처리
 	@PostMapping("user/matchUpdate")
 	@ResponseBody // AJAX
-	public Map<String, Object> matchUpdate(@RequestBody MatchVO matchVO){
+	public Map<String, Object> matchUpdate(MatchVO matchVO){
 		return matchService.modifyMatch(matchVO);
 		
 	}
+	
 	
 	// 삭제 - 처리
 	@GetMapping("user/matchDelete")

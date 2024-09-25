@@ -202,6 +202,7 @@ $(document).ready(function() {
 	let walkPlaceAddress = $('input[name=walkPlaceAddress]').val();
 	let content = $('input[name=content]').val();
 	let matchingKind = '대리';
+	let matchingState = 2;
 	
 	let puppy = [];
 	$('.select2-selection__choice').each(function(idx, item){
@@ -210,14 +211,14 @@ $(document).ready(function() {
 		puppy.push({puppyCode});
 	})
 		
-	let data = {bulletinNo, title, writer, walkPlaceAddress, startTime, endTime, content, matchingKind}
-	console.log(data);
+	let data = {bulletinNo, title, writer, walkPlaceAddress, startTime, endTime, content, matchingKind, matchingState}
+		console.log(data);
+		console.log(puppy);
 		
 		$.ajax({
 			url: '/user/matchUpdate',
 			method: 'post',
-			contentType : 'application/json',
-			data: 'JSON.stringify(data)',
+			data: data,
 			success: function(datas) {
 				if(datas.result = 1) {
 					alert("성공적으로 신청되었습니다.");
@@ -227,6 +228,21 @@ $(document).ready(function() {
 			}
 		})
 		  .fail(err => console.log(err))
+		  
+		  
+		 $.ajax({
+			url: '/user/chatDogInsert',
+			method: 'post',
+			data: puppy,
+			success: function(datas) {
+				console.log(datas.result);
+			} 
+		 })
+		   .fail(err => console.log(err));
+	
+	
+	
+	
 	}) 
 
 
