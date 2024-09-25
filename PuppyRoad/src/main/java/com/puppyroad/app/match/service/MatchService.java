@@ -33,4 +33,6 @@ public interface MatchService {
 	
 	//대리조회
 	public List<MatchVO> getIdList(MatchVO matchVO);
+	
+
 }

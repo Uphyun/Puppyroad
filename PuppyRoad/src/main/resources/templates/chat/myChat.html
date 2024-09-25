@@ -141,7 +141,7 @@
 	                            <div class="chat-contact-info flex-grow-1 ms-4">
 	                              <div
 	                                class="d-flex justify-content-between align-items-center">
-	                                <h6 class="chat-contact-name text-truncate m-0 fw-normal">
+	                                <h6 class="chat-contact-name text-truncate m-0 fw-normal" th:id="${room.roomName}"  th:name="${room.matchNo}">
 	                                  [[${room.roomName}]]
 	                                </h6>
 	                    <small class="text-muted" th:if = "${room.chattingType}==1" th:text="매칭중"></small>
