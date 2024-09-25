@@ -156,6 +156,8 @@ public class MemberController {
 		System.out.println(memberVO);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		memberVO.setUserId(authentication.getName());
+		String password = passwordEncoder.encode(memberVO.getUserPw());
+		memberVO.setUserPw(password);
 		return memberService.memberUpdate(memberVO);
 	}
 	

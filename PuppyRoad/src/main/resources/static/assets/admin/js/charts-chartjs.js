@@ -40,95 +40,99 @@
     chartListItem.height = chartListItem.dataset.height;
   });
 
-  // Bar Chart
+  // Bar Chart 데이터
   // --------------------------------------------------------------------
+
   const barChart = document.getElementById('barChart');
-  if (barChart) {
-    const barChartVar = new Chart(barChart, {
-      type: 'bar',
-      data: {
-        labels: [
-          '7/12',
-          '8/12',
-          '9/12',
-          '10/12',
-          '11/12',
-          '12/12',
-          '13/12',
-          '14/12',
-          '15/12',
-          '16/12',
-          '17/12',
-          '18/12',
-          '19/12'
-        ],
-        datasets: [
-          {
-            data: [275, 90, 190, 205, 125, 85, 55, 87, 127, 150, 230, 280, 190],
-            backgroundColor: cyanColor,
-            borderColor: 'transparent',
-            maxBarThickness: 15,
-            borderRadius: {
-              topRight: 15,
-              topLeft: 15
-            }
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: {
-          duration: 500
-        },
-        plugins: {
-          tooltip: {
-            rtl: isRtl,
-            backgroundColor: cardColor,
-            titleColor: headingColor,
-            bodyColor: legendColor,
-            borderWidth: 1,
-            borderColor: borderColor
-          },
-          legend: {
-            display: false
-          }
-        },
-        scales: {
-          x: {
-            grid: {
-              color: borderColor,
-              drawBorder: false,
-              borderColor: borderColor
+
+$.ajax({
+    url:'/user/salesChartInfoProcess',
+    method: 'GET',
+    dataType: 'json'
+}).done((res) => {
+ 	console.log(res);
+    const labels = res.map(item => `${item.month}월`); 
+    let datas = [];
+    const data = res.map(item => item.price); 
+    console.log(data, "data");
+    const maxval = Math.max(...data);
+    const maxValue = Math.ceil(maxval/10000) * 10000;
+
+    if (barChart) {
+        const barChartVar = new Chart(barChart, {
+            type: 'bar',
+            data: {
+                labels: labels,  
+                datasets: [
+                    {
+                        data: data,  
+                        backgroundColor: cyanColor,
+                        borderColor: 'transparent',
+                        maxBarThickness: 15,
+                        borderRadius: {
+                            topRight: 15,
+                            topLeft: 15
+                        }
+                    }
+                ]
             },
-            ticks: {
-              color: labelColor
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 8000
+                },
+                plugins: {
+                    tooltip: {
+                        rtl: isRtl,
+                        backgroundColor: cardColor,
+                        titleColor: headingColor,
+                        bodyColor: legendColor,
+                        borderWidth: 1,
+                        borderColor: borderColor
+                    },
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            color: borderColor,
+                            drawBorder: false,
+                            borderColor: borderColor
+                        },
+                        ticks: {
+                            color: labelColor
+                        }
+                    },
+                    y: {
+                        min: 0,
+                        max: maxValue,
+                        grid: {
+                            color: borderColor,
+                            drawBorder: false,
+                            borderColor: borderColor
+                        },
+                        ticks: {
+                            stepSize: maxValue/10,
+                            color: labelColor
+                        }
+                    }
+                }
             }
-          },
-          y: {
-            min: 0,
-            max: 400,
-            grid: {
-              color: borderColor,
-              drawBorder: false,
-              borderColor: borderColor
-            },
-            ticks: {
-              stepSize: 100,
-              color: labelColor
-            }
-          }
-        }
-      }
-    });
-  }
+        });
+    }
+});
 
   // Horizontal Bar Chart
   // --------------------------------------------------------------------
 
   const horizontalBarChart = document.getElementById('horizontalBarChart');
+
   if (horizontalBarChart) {
     const horizontalBarChartVar = new Chart(horizontalBarChart, {
+		
       type: 'bar',
       data: {
         labels: ['MON', 'TUE', 'WED ', 'THU', 'FRI', 'SAT', 'SUN'],

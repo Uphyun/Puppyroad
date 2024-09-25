@@ -16,5 +16,13 @@
 	WHERE  RECIPIENT = #{recipient}
 </select>
 
+<select id="salesChartList" resultType="SalesVO">
+	SELECT sum(PRICE) as price
+		   ,(TO_CHAR(PURCHASED_AT, 'yy/MM')) as month
+	FROM   PAYMENT
+	WHERE  RECIPIENT = #{recipient}
+    group by (TO_CHAR(PURCHASED_AT, 'yy/MM'))
+    order by 2 asc
+</select>
 
 </mapper>

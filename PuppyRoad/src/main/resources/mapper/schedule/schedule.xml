@@ -22,11 +22,11 @@
 				s.client_name
 		FROM    schedule s JOIN walker_add_info w
 			 			     ON s.walker_code = w.member_code
-					       JOIN puppy p
+					       LEFT JOIN puppy p
 					         ON s.puppy_name = p.dog_name
 			               JOIN matching_board mb
 			                 ON s.walker_code = mb.writer
-			               JOIN member m
+			               LEFT JOIN member m
 			                 ON s.client_name = m.name
 		WHERE s.walker_code = #{walkerCode}
 	</select>

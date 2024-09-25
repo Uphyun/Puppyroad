@@ -20,6 +20,8 @@ public class ScheduleController {
 	
 	private ScheduleService scheduleService;
 	
+	
+	//일정표 전체조회
 	@GetMapping("user/scheduleListprocess")
 	@ResponseBody
 	public List<ScheduleVO> scheduleList(ScheduleVO scheduleVO, Model model) {
