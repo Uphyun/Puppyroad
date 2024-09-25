@@ -48,15 +48,16 @@
                       <div class="mb-4 row">
                         <label for="html5-password-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">비밀번호</font></font></label>
                         <div class="col-md-10">
-                          <input class="form-control" name="userPw" type="password" value="*********" >
+                          <input class="form-control" id="nowPwck" name="userPw" type="password" value="*********" >
                           <button id="pwckBtn" type="button" class="btn btn-primary waves-effect waves-light">비밀번호변경</button>
                         </div>
                       </div>
                       <div class="mb-4 row" id="pwckDiv" style="display:none;">
                         <label for="html5-password-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">비밀번호확인</font></font></label>
                         <div class="col-md-10">
-                          <input class="form-control" name="userPwck" type="password" value="*********" id="html5-password-input">
-                          <button id="pwckAlr" type="button" class="btn btn-primary waves-effect waves-light">비밀번호확인</button>
+                          <input class="form-control" name="userPw" type="password" placeholder="새 비밀번호" id="html5-password-input">
+                          <input class="form-control" name="userPwck" type="password" placeholder="새 비밀번호확인" id="html5-password-input">
+                          <button id="pwckAlr" type="button" class="btn btn-primary waves-effect waves-light">비밀번호변경</button>
                         </div>
                       </div>
                       <div class="mb-4 row">
@@ -210,6 +211,28 @@ function getFormData() {
 
     return datas;
 }
- </script>d
+
+$("#nowPwck").on('click', function(e) {
+	
+		let userPw = $("#nowPwck").val();
+		$.ajax({
+			url: "checkPassword",
+			method: "POST",
+			data: { userPw: userPw }
+		}).done((result) => {
+			if (result === "비밀번호일치") {
+				alert("비밀번호 확인 완료");
+				pwck = true;
+			} else {
+				alert("비밀번호가 일치하지 않습니다.");
+				pwck = false;
+			}
+		}).fail((error) => {
+			console.error(error.responseText);
+			alert("비밀번호 확인 중 오류가 발생했습니다.");
+		});
+	
+});
+ </script>
 </body>
 </html>

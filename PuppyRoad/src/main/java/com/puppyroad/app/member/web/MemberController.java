@@ -149,6 +149,12 @@ public class MemberController {
 		}
 	}
 	
+	//정보확인하기
+	@GetMapping("user/checkDetail")
+	public String checkDetail() {
+		return "member/checkDetail";
+	}
+	
 	//회원정보수정
 	@PostMapping("user/memberUpdate")
 	@ResponseBody
