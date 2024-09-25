@@ -17,8 +17,12 @@
 			<button type="button" class="btn btn-success"
 				th:onClick="location.href='eventList'">이벤트</button>
 			<!-- 등록 이동 (관리자만)-->
-			<button type="button" class="btn btn-dark float-right"
-				th:onClick="location.href= 'newsInsert'">등록</button>
+			<th:block th:if="${auth == '관리자'}">
+				<div class="text-right">
+					<button type="button" class="btn btn-dark"
+						th:onClick="|location.href='@{newsInsert}'|">등록</button>
+				</div>
+			</th:block>
 			<table class="table mt-6">
 				<thead class="table-light">
 					<tr>
