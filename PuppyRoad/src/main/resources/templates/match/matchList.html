@@ -73,11 +73,13 @@
               <div class="app-ecommerce-category">
                 <!-- Category List Table -->
                 <div class="container justify-content-center">
-                <div class="card">
+		      <h4>자율 매칭</h4>
+                <div class="card p-2">
                   <div class="card-datatable table-responsive">
+                  
                     <!-- Create the drop down filter -->
-					<div class="col-md-4"
-					style="margin-bottom: 8px; padding-left: 0px">
+					<div class="col-md-6" id="cityFilter" 
+					style="margin-left: 0px; padding-left: 0px;">
 					    <div class="category-filter input-group">
 					        <div class="input-group-prepend">
 					            <label class="input-group-text" for="categoryFilter">도시명</label>
@@ -94,15 +96,16 @@
 					    </div>
 					</div>
 					<!-- drop down filter end -->
+					
                     <table class="datatables-category-list table border-top">
                       <thead>
                         <tr>
-                          <th>No.</th>
+                          <th class="text-sm-center">No.</th>
                           <th>제목</th>
                           <th class="text-nowrap text-sm-end">지역</th>
-                          <th class="text-nowrap text-sm-end">매칭상태 &nbsp;</th>
+                          <th class="text-nowrap text-sm-center">매칭상태 &nbsp;</th>
                           <th class="text-nowrap text-sm-end">작성자</th>
-                          <th class="text-lg-center">작성시간</th>
+                          <th class="text-sm-center">작성시간</th>
                         </tr>
                       </thead>
                     </table>

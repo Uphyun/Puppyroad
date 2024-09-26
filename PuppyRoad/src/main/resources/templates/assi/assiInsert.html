@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org/"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{common/layouts/default_layout}"
-      layout:fragment="Content">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
 <head>
-<meta charset="UTF-8">
-<meta name="contextPath" th:value="${contextPath}">
-<link rel="stylesheet" href="/assets/main/css/match/matchInsert.css" type="text/css" />
-
+<meta charset="UTF-8" />
+<meta name="contextPath" th:value="${contextPath}" />
+<link rel="stylesheet" href="/assets/main/css/match/matchInsert.css"
+	type="text/css" />
+<title>matchInsert</title>
 </head>
 <body>
 	<section class="first-section-pt">
-		<div class="container justify-content-center pb-3">
-			<h4>실시간 매칭</h4>
+		<div class="container justify-content-center">
+			<h4>대리매칭 등록</h4>
 			<hr />
 			<form name="insertForm" th:action="@{/user/matchInsert}" method="post">
 				<div class="row mb-3">
@@ -31,13 +32,11 @@
 					</div>
 				</div>
 				<hr />
-							<label for="dogInfo" class="col-form-label">반려견 정보</label>
-							<button type="button" class="my_btn" id="popBtn">불러오기</button>
-				<hr/>					
-			   	  <div class="first" id="first" style="display:none;">
+			   	  <div class="first" id="first">
 					<div class="row mb-3">
+						<label for="dogInfo" class="col-form-label">도그워커 정보</label>
 						<div class="col-2">
-							<img name="puppyImage2" src="/assets/main/img/logo.png" alt="puppyImg" />
+							<img src="/assets/main/img/logo.png" alt="puppyImg" />
 						</div>
 						<div class="col-8">
 							<div class="row">
@@ -70,7 +69,7 @@
 				  </div>
 				
 				<div class="row mb-3" id="second">
-					<label class="col-md-2 col-lg-2 col-form-label" for="eventGuests">지역</label>
+					<label class="col-md-2 col-lg-2 col-form-label" for="eventGuests">반려견 추가</label>
 					  <div class="col-md-10 col-lg-10">
 		                  <select
 		                    class="select2 select-event-guests form-select"
@@ -103,71 +102,10 @@
 					</button>
 				</div>
 			</form>
-
-			<!--====== 모달 띄우기 ======-->
-			<div id="modalWrap">
-				<!-- 모달 창을 감싸는 div -->
-				<div class="modal-content">
-					<!-- Modal Header -->
-					<div class="modal-header">
-						<button type="button" class="close popup-trigger" id="closeBtn">
-							&times;</button>
-					</div>
-					<!-- Modal body -->
-					<div class="modal-body">
-						<div class="modal-inner">
-							<h3 class="title">내 반려견 정보</h3>
-							<p>체크박스를 눌러서 반려견 정보를 불러오세요!</p>
-
-							<form>
-								<hr />
-								<th:block th:each="matchDog : ${matchDogs}">
-									<div class="row mb-3 abc">
-										<div class="col-2">
-											<input type="checkbox" class="checkBox" name="dogBox" onclick='getCheckboxValue(event)'>
-										</div>
-										<div class="col-2">
-											<img name="puppyImage"
-											th:src="@{/images/{fileName}(fileName=${matchDog.picture})}" alt="puppyImg" />
-										</div>
-										<div class="col-8">
-											<div class="row">
-												<div class="col-md-6 pb-2 col-lg-4">
-													<input id="puppyCode" th:value="${matchDog.puppyCode}" type="hidden"/>
-													<h5 id="dogName" class="form-control">[[ ${matchDog.dogName} ]]</h5>
-												</div>
-												<div class="col-md-6 pb-2 col-lg-4">
-													<h5 id="dogBreed" class="form-control">[[ ${matchDog.dogBreed} ]]</h5>
-												</div>
-												<div class="col-md-6 pb-2 col-lg-4">
-													<h5 id="personality" class="form-control">[[ ${matchDog.personality} ]]</h5>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-6 pb-2 col-lg-4">
-													<h5 id="dogSize" class="form-control">[[ ${matchDog.dogSize} ]]</h5>
-												</div>
-												<div class="col-md-6 col-lg-4">
-													<h5 id="neutralizationPreAbs" class="form-control">[[ ${matchDog.neutralizationPreAbs} ]]</h5>
-												</div>
-												<div class="col-md-6 col-lg-4">
-													<h5 id="diseasePreAbs" class="form-control">[[ ${matchDog.diseasePreAbs} ]]</h5>
-												</div>
-											</div>
-										</div>
-									</div>
-									<hr />
-								</th:block>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--====== 모달 끝 ======-->
 		</div>
 	</section>
 	<script src="/assets/admin/vendor/libs/select2/select2.js"></script>
 	<script type="text/javascript"
-		src="/assets/main/js/match/realMatch.js"></script>
+		src="/assets/main/js/match/matchInsert.js"></script>
 </body>
 </html>

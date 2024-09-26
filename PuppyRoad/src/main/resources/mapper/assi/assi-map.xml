@@ -3,21 +3,22 @@
 <mapper namespace="com.puppyroad.app.assi.mapper.AssiMapper">
   <!-- 전체 자율매칭 -->
   <select id="selectAssiList" resultType="AssiVO">
-		SELECT  bulletin_no,
-		 		cover_photo,
-		 		title,
-		 		writer,
-		 		content,
-		 		matching_state,
-		 		start_time,
-		 		end_time,
-		 		writing_time,
-		 		animal_count,
-		 		walk_place_address,
-		 		matching_kind,
-		 		client_code
-	    FROM    matching_board
-	    WHERE   matching_kind = '대리'
+        SELECT  mb.bulletin_no,
+		 		mb.cover_photo,
+		 		mb.title,
+		 		m.nickname as "writer",
+		 		mb.content,
+		 		mb.matching_state,
+		 		mb.start_time,
+		 		mb.end_time,
+		 		mb.writing_time,
+		 		mb.animal_count,
+		 		mb.walk_place_address,
+		 		mb.matching_kind,
+		 		mb.client_code
+	    FROM    matching_board mb join member m
+	    							on mb.writer = m.member_code
+	    WHERE   mb.matching_kind = '대리'
 	    ORDER BY bulletin_no desc
 	    
   </select>
