@@ -70,7 +70,7 @@
 
 		<div class="container-xxl flex-grow-1 container-p-y">
 			<!-- Invoice List Widget -->
-			<div>
+			<div class="text-sm-end pb-2">
 				<button type="button" class="btn btn-primary"
 					th:onclick="|location.href='@{/user/assiInsert}'|">작성하기
 				</button>
@@ -94,7 +94,7 @@
 									<span>[[${assi.content}]]</span>
 								</div>
 								<div class="col-sm-3">
-									<h6>[[${assi.writer}]]</h6>
+									<h6>별점 : </h6>
 									<span>[[${assi.writer}]]</span>
 								</div>
 								<hr>

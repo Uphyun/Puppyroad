@@ -12,7 +12,8 @@
 		         dog_size,
 		         personality,
 		         neutralization_pre_abs,
-		         disease_pre_abs
+		         disease_pre_abs,
+		         picture
 	    FROM     puppy
 	    WHERE    client_user_id = #{clientUserId}
 	    ORDER BY puppy_code

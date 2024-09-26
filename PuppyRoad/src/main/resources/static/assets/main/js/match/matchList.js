@@ -73,6 +73,7 @@ $(function () {
         {
           // 번호
           targets: 0, // 몇번째 컬럼
+          width: '5%',
           //responsivePriority: 1, // 반응형에서 사용되는 순서 값
           render: function (data, type, full, meta) { // data: 데이터
             var $bulletinNo = full['bulletinNo'];
@@ -82,10 +83,11 @@ $(function () {
         {
           // 제목
           targets: 1,
+          width: '40%',
           //responsivePriority: 2,
           render: function (data, type, full, meta) {
             var $title = full['title'];
-            return '<div class="">' + $title + '</div>';
+            return '<div class="text-nowrap">' + $title + '</div>';
           }
         },
         {
@@ -94,7 +96,7 @@ $(function () {
           //responsivePriority: 3,
           render: function (data, type, full, meta) {
             var $walkPlaceAddress = full['walkPlaceAddress'];
-            return '<div class="">' + $walkPlaceAddress + '</div>';
+            return '<div class="text-sm-end">' + $walkPlaceAddress + '</div>';
           }
         },
         {
@@ -114,7 +116,7 @@ $(function () {
 				$matchingState = '비활성화';
 			}
             
-            return '<div class="text-sm-end">' + $matchingState + '</div>';
+            return '<div class="text-sm-center">' + $matchingState + '</div>';
           }
         },
         {
@@ -132,21 +134,22 @@ $(function () {
           //responsivePriority: 6,
           render: function (data, type, full, meta) {
             var $writingTime = full['writingTime'];
-            return '<div class="text-sm-end">' + moment($writingTime).format('YYYY년MM월DD일') + '</div>';
+            return '<div class="text-sm-center">' + moment($writingTime).format('YYYY년MM월DD일') + '</div>';
           }
         },
       ],
       
       order: [0, 'desc'], //[0]번째컬럼 내림차순
       dom:
-        '<"card-header d-flex flex-wrap py-0 flex-column flex-sm-row"' +
-        '<f>' +
-        '<"d-flex justify-content-center justify-content-md-end align-items-baseline"<"dt-action-buttons d-flex justify-content-center flex-md-row align-items-baseline"lB>>' +
-        '>t' +
-        '<"row mx-1"' +
-        '<"col-sm-12 col-md-6"i>' +
-        '<"col-sm-12 col-md-6"p>' +
-        '>',
+        `<'card-header d-flex flex-wrap py-0 flex-column flex-sm-row'
+        <'filter3 col-md-6'>
+        <'d-flex justify-content-center justify-content-md-end align-items-baseline'<'dt-action-buttons d-flex justify-content-center flex-md-row align-items-baseline'lB>>
+        >t
+        <'row mx-1'
+        <'col-sm-6 col-md-4'>
+        <'d-flex justify-content-center'p>
+        <'col-sm-6 col-md-4'>
+        >`,
       lengthChange: false,
       lengthMenu: [10], // 페이징  10
       language: {
@@ -168,39 +171,6 @@ $(function () {
           }
         }
       ],
-      // For responsive popup
-      responsive: {
-        details: {
-          display: $.fn.dataTable.Responsive.display.modal({
-            header: function (row) {
-              var data = row.data();
-              return 'Details of ' + data['categories'];
-            }
-          }),
-          type: 'column',
-          renderer: function (api, rowIdx, columns) {
-            var data = $.map(columns, function (col, i) {
-              return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-                ? '<tr data-dt-row="' +
-                    col.rowIndex +
-                    '" data-dt-column="' +
-                    col.columnIndex +
-                    '">' +
-                    '<td> ' +
-                    col.title +
-                    ':' +
-                    '</td> ' +
-                    '<td class="ps-0">' +
-                    col.data +
-                    '</td>' +
-                    '</tr>'
-                : '';
-            }).join('');
-
-            return data ? $('<table class="table"/><tbody />').append(data) : false;
-          }
-        }
-      }
     });//dataTables 끝
     $('.dt-action-buttons').addClass('pt-0');
     $('.dataTables_filter').addClass('me-3 mb-sm-6 mb-0 ps-0');
@@ -211,6 +181,9 @@ $(function () {
 		location.href = '/user/matchInfo?bulletinNo=' + row.bulletinNo;
 		
 	});
+	
+	
+	$('.filter3').append($('#cityFilter'));
 	
     // dataTables 검색필터 추가
     $('#categoryFilter').on('change', function() {
