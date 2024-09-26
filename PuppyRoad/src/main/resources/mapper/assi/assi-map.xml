@@ -143,5 +143,16 @@
 		        #{clientCode})
   </insert>
   
+  <update id="updateAssiInfo" parameterType="AssiVO">
+  	UPDATE matching_board
+  	SET
+  	       title = #{title},
+  	       content = #{content},
+  	       matching_state = #{matchingState},
+  	       walk_place_address = #{walkPlaceAddress},
+  	       client_code = #{clientCode}
+  	WHERE  bulletin_no = #{bulletinNo}
+  </update>
+  
 
 </mapper>

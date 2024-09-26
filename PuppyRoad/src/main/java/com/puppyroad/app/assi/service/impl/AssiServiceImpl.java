@@ -50,4 +50,11 @@ public class AssiServiceImpl implements AssiService{
 		return result;
 	}
 
+	@Override
+	public int modifyAssiInfo(AssiVO assiVO) {
+		// TODO 수정
+		int result = assiMapper.updateAssiInfo(assiVO);
+		return result;
+	}
+
 }

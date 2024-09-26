@@ -19,5 +19,7 @@ public interface AssiMapper {
 	
 	// 대리 등록
 	public int insertAssiInfo(AssiVO assiVO);
+	// 대리 수정
+	public int updateAssiInfo(AssiVO assiVO);
 
 }
