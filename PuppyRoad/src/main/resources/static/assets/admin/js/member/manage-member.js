@@ -72,7 +72,7 @@ function getMemberList(position, tableId) {
 						return $activityDate;
 					}
 				},
-				{	//6번째 활동날짜
+				{	//6번째 탈퇴날짜
 					targets: 5,
 					//responsivePriority: 6,
 					render: function (data, type, full, meta) {
@@ -88,11 +88,12 @@ function getMemberList(position, tableId) {
 						return '<button type="button" class="btn btn-primary waves-effect waves-light viewInfo" data-bs-toggle="modal" data-bs-target="#viewUser" data-memberCode="' + $memberCode + '">상세보기</button>';
 					}
 				},
-				{	//7번째 상세보기
-					targets: 6,
+				{	//8번째 계정상태
+					targets: 7,
 					//responsivePriority: 7,
 					render: function (data, type, full, meta) {
 						let $memberCode = full['memberCode'];
+						let $accountState = full['accountState'];
 						return `<div class="position-relative">
 									<select onchange="changeState()"
 										class="select2 form-select select2-hidden-accessible accountState"
