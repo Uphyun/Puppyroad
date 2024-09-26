@@ -10,6 +10,12 @@
 		and		matching_kind = '실시간'
 	</select>
 	
+	<select id="selectPuppyList">
+		select	puppy_code
+		from	matching_puppy
+		where	bulletin_no = #{bulleinNo}
+	</select>
+	
 	<select id="setCallDogNavi" statementType="CALLABLE" parameterType="NaviVO" resultMap="dogNavi">
 		{
 			call navi_dogmap_prod(
@@ -48,12 +54,14 @@
 	</insert>
 	
 	<select id="getMatchingList">
-		select  x
-			  , y
-			  , match_code
-		from	navi
-		where	substr(navi_code, 1, 1) = 'M'
-		and		match_code != #{matchCode}
+		select  n.x
+			  , n.y
+			  , n.match_code
+		from	navi n join matching_board mb
+						on n.match_code = mb.bulletin_no
+		where	substr(n.navi_code, 1, 1) = 'M'
+		and		n.match_code != #{matchCode}
+		and		mb.matching_kind = '실시간'
 	</select>
 	
 	<delete id="deleteMatchingInfo">
