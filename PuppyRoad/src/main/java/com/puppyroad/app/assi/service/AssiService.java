@@ -16,5 +16,7 @@ public interface AssiService {
 	public WalkerAddInfoVO getMyWalkerInfo(String mcode);
 	// 대리 등록
 	public int addAssiInfo(AssiVO assiVO);
+	// 대리 수정
+	public int modifyAssiInfo(AssiVO assiVO);
 
 }
