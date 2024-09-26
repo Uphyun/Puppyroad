@@ -236,7 +236,6 @@ $(document).ready(function() {
 			contentType : 'application/json',
 			data : JSON.stringify(puppy),
 			success: function(datas) {
-				console.log(datas.result);
 				location.href = '/user/pay?bulletinNo=' + bulletinNo;
 			}
 		})

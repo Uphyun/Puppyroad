@@ -15,6 +15,7 @@ import com.puppyroad.app.assi.service.AssiService;
 import com.puppyroad.app.assi.service.AssiVO;
 import com.puppyroad.app.assi.service.WalkerAddInfoVO;
 import com.puppyroad.app.match.service.MatchService;
+import com.puppyroad.app.util.SecurityUtil;
 
 @Controller
 public class AssiController {
@@ -51,16 +52,24 @@ public class AssiController {
 	
 	// 등록 - get
 	@GetMapping("user/assiInsert")
-	public String assiInsertForm() {
+	public String assiInsertForm(Model model) {
+		String mcode = SecurityUtil.memberCode();
+		WalkerAddInfoVO findVO = assiService.getMyWalkerInfo(mcode);
+		
+		model.addAttribute("myPro" ,findVO);
+		
 		return "assi/assiInsert";
 	}
 	
 	// 등록 - post
 	@PostMapping("user/assiInsert")
 	@ResponseBody
-	public int assiInsertProcess() {
+	public int assiInsertProcess(AssiVO assiVO) {
+		String mcode = SecurityUtil.memberCode();
+		assiVO.setWriter(mcode);
+		int bno = assiService.addAssiInfo(assiVO);
 		
-		return 1;
+		return bno;
 	}
 	
 	// 수정 - get

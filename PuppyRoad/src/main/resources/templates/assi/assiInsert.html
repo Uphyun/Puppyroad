@@ -8,14 +8,13 @@
 <meta name="contextPath" th:value="${contextPath}" />
 <link rel="stylesheet" href="/assets/main/css/match/matchInsert.css"
 	type="text/css" />
-<title>matchInsert</title>
 </head>
 <body>
 	<section class="first-section-pt">
 		<div class="container justify-content-center">
 			<h4>대리매칭 등록</h4>
 			<hr />
-			<form name="insertForm" th:action="@{/user/matchInsert}" method="post">
+			<form name="insertForm" th:action="@{/user/assiInsert}" method="post">
 				<div class="row mb-3">
 					<label for="title" class="col-md-2 col-lg-2 col-form-label">제목</label>
 					<div class="col-md-10 col-lg-10">
@@ -25,7 +24,7 @@
 				<hr />
 				
 				<div class="row mb-3">
-					<label for="title" class="col-md-2 col-lg-2 col-form-label">작성자</label>
+					<label for="writer" class="col-md-2 col-lg-2 col-form-label">작성자</label>
 					<div class="col-md-10 col-lg-10">
 						<input name="writer" type="text" class="form-control" 
 						th:value="${#authentication.principal.username}" readonly>
@@ -33,58 +32,57 @@
 				</div>
 				<hr />
 			   	  <div class="first" id="first">
-					<div class="row mb-3">
+					<div class="row mb-3" th:each="myPr : ${myPro}">
 						<label for="dogInfo" class="col-form-label">도그워커 정보</label>
 						<div class="col-2">
-							<img src="/assets/main/img/logo.png" alt="puppyImg" />
+							<img src="${picture}" alt="dogWalkerImg" />
 						</div>
 						<div class="col-8">
 							<div class="row">
 								<div class="col-md-6 pb-2 col-lg-4">
-									<input name="dogBreed" type="text" class="form-control"
-										placeholder="견종" readonly />
+									<input name="gender" type="text" class="form-control"
+										placeholder="성별" th:value="${myPr.gender}" />
 								</div>
 								<div class="col-md-6 pb-2 col-lg-4">
-									<input name="personality" type="text" class="form-control"
-										placeholder="성격" readonly />
+									<input name="bankCode" type="text" class="form-control"
+										placeholder="은행" th:value="${myPr.bankCode}"/>
 								</div>
 								<div class="col-md-6 pb-2 col-lg-4">
-									<input name="dogSize" type="text" class="form-control"
-										placeholder="견종 크기" readonly />
+									<input name="bankAccount" type="text" class="form-control"
+										placeholder="계좌 번호" th:value="${myPr.bankAccount}"/>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-6 col-lg-4">
-									<input name="neutralizationPreAbs" type="text"
-										class="form-control" placeholder="중성화 유무" readonly />
+									<input name="workWeek" type="text"
+										class="form-control" placeholder="근무 요일" th:value="${myPr.workWeek}"/>
 								</div>
 								<div class="col-md-6 col-lg-4">
-									<input name="diseasePreAbs" type="text" class="form-control"
-										placeholder="질병 유무" readonly />
+									<input name="price" type="text" class="form-control"
+										placeholder="희망 요금" th:value="${myPr.price}"/>
 								</div>
+
+								  <div class="col-md-6 col-lg-4">
+					                  <select
+					                    class="select2 select-event-guests form-select"
+					                    id="walkPlaceAddress"
+					                    name="walkPlaceAddress">
+						                  <option value="서울">서울</option>
+						                  <option value="부산">부산</option>
+						                  <option value="대구">대구</option>
+						                  <option value="대전">대전</option>
+						                  <option value="광주">광주</option>
+						                  <option value="울산">울산</option>
+					                  </select>
+				                  </div>
+
 							</div>
 						</div>
 					</div>
 					<hr />
 				  </div>
 				
-				<div class="row mb-3" id="second">
-					<label class="col-md-2 col-lg-2 col-form-label" for="eventGuests">반려견 추가</label>
-					  <div class="col-md-10 col-lg-10">
-		                  <select
-		                    class="select2 select-event-guests form-select"
-		                    id="walkPlaceAddress"
-		                    name="walkPlaceAddress">
-			                  <option value="서울">서울</option>
-			                  <option value="부산">부산</option>
-			                  <option value="대구">대구</option>
-			                  <option value="대전">대전</option>
-			                  <option value="광주">광주</option>
-			                  <option value="울산">울산</option>
-		                  </select>
-	                  </div>
-					</div>
-				<hr />
+
 
 				<div class="row mb-3">
 					<label for="content" class="col-md-2 col-lg-2 col-form-label">소개</label>
@@ -106,6 +104,6 @@
 	</section>
 	<script src="/assets/admin/vendor/libs/select2/select2.js"></script>
 	<script type="text/javascript"
-		src="/assets/main/js/match/matchInsert.js"></script>
+		src="/assets/main/js/assi/assiInsert.js"></script>
 </body>
 </html>

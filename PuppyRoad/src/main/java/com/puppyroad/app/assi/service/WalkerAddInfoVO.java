@@ -19,5 +19,6 @@ public class WalkerAddInfoVO {
 	private Integer sSize;
 	private Integer mSize;
 	private Integer lSize;
+	private Integer price;
 
 }
