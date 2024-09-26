@@ -69,7 +69,7 @@ public class RoomController {
     	List<PuppyVO> dogs = matchService.getDogList(puppyVO);
     	model.addAttribute("myDogs", dogs);
     	
-        return "/chat/myChat";
+        return "chat/myChat";
     }
     
     //신청시 매칭 채팅방 : post

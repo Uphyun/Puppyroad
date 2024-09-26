@@ -34,6 +34,7 @@ function getMemberList(position, tableId) {
 			columnDefs: [
 				{	//1번째 체크박스
 					targets: 0,
+					searchable: false,
 					//responsivePriority: 1,
 					render: function (data, type, full, meta) {
 						let $memberCode = full['memberCode'];
@@ -58,6 +59,7 @@ function getMemberList(position, tableId) {
 				},
 				{	//4번째 가입날짜
 					targets: 3,
+					searchable: false,
 					//responsivePriority: 4,
 					render: function (data, type, full, meta) {
 						let $joinDate = full['joinDate'];
@@ -66,6 +68,7 @@ function getMemberList(position, tableId) {
 				},
 				{	//5번째 활동날짜
 					targets: 4,
+					searchable: false,
 					//responsivePriority: 5,
 					render: function (data, type, full, meta) {
 						let $activityDate = full['activityDate'];
@@ -74,6 +77,7 @@ function getMemberList(position, tableId) {
 				},
 				{	//6번째 탈퇴날짜
 					targets: 5,
+					searchable: false,
 					//responsivePriority: 6,
 					render: function (data, type, full, meta) {
 						let $withdrawDate = full['withdrawDate'];
@@ -82,6 +86,7 @@ function getMemberList(position, tableId) {
 				},
 				{	//7번째 상세보기
 					targets: 6,
+					searchable: false,
 					//responsivePriority: 7,
 					render: function (data, type, full, meta) {
 						let $memberCode = full['memberCode'];
@@ -90,40 +95,20 @@ function getMemberList(position, tableId) {
 				},
 				{	//8번째 계정상태
 					targets: 7,
+					searchable: false,
 					//responsivePriority: 7,
 					render: function (data, type, full, meta) {
 						let $memberCode = full['memberCode'];
 						let $accountState = full['accountState'];
-						return `<div class="position-relative">
-									<select onchange="changeState()"
-										class="select2 form-select select2-hidden-accessible accountState"
-										data-select2-id="accountState" tabindex="-1"
-										aria-hidden="true" data-membercode="${$memberCode}">
-										<th:block th:if="${$accountState == 1}">
-											<option value="1" data-select2-id="2" selected>정상</option>
-											<option value="2">휴면</option>
-											<option value="3">탈퇴</option>
-										</th:block>
-										<th:block th:if="${$accountState == 2}">
-											<option value="1" data-select2-id="2">정상</option>
-											<option value="2" selected>휴면</option>
-											<option value="3">탈퇴</option>
-										</th:block>
-										<th:block th:if="${$accountState == 3}">
-											<option value="1" data-select2-id="2">정상</option>
-											<option value="2">휴면</option>
-											<option value="3" selected>탈퇴</option>
-										</th:block>
-									</select>
-								</div>`;
+						return setStateColumn($accountState, $memberCode);
 					}
 				},
 			],	//데이터삽입 끝
 
 			//order: [0, 'desc'],	//[0]번째 컬럼 내림차순
 			//dom:'',	//?
-			lengthChange: false,
-			lengthMenu: [10],		//페이징 10
+			displayLength: 5,
+			lengthMenu: [5, 10, 25, 50, 75, 100],		//페이징 5
 			language: {
 				sLengthMenu: '_MENU_',
 				search: '',
@@ -176,6 +161,43 @@ $("#searchDrop a").on("click", function () {
 	$("#searchTypeInput").val($(event.target).text());
 	$("#searchDrop button").text($(event.target).text());
 })
+
+function setStateColumn(state, code) {
+	if (state == 1) {
+		return `<div class="position-relative">
+					<select onchange="changeState()"
+						class="select2 form-select select2-hidden-accessible accountState"
+						data-select2-id="accountState" tabindex="-1"
+						aria-hidden="true" data-membercode="${code}">
+							<option value="1" data-select2-id="2" selected>정상</option>
+							<option value="2">휴면</option>
+							<option value="3">탈퇴</option>
+					</select>
+				</div>`;
+	} else if (state == 2) {
+		return `<div class="position-relative">
+					<select onchange="changeState()"
+						class="select2 form-select select2-hidden-accessible accountState"
+						data-select2-id="accountState" tabindex="-1"
+						aria-hidden="true" data-membercode="${code}">
+							<option value="1" data-select2-id="2">정상</option>
+							<option value="2" selected>휴면</option>
+							<option value="3">탈퇴</option>
+					</select>
+				</div>`;
+	} else if (state == 3) {
+		return `<div class="position-relative">
+					<select onchange="changeState()"
+						class="select2 form-select select2-hidden-accessible accountState"
+						data-select2-id="accountState" tabindex="-1"
+						aria-hidden="true" data-membercode="${code}">
+							<option value="1" data-select2-id="2">정상</option>
+							<option value="2">휴면</option>
+							<option value="3" selected>탈퇴</option>
+					</select>
+				</div>`;
+	}
+}
 
 //회원 상제 조회
 $('.viewInfo').on("click", function () {
