@@ -59,8 +59,8 @@ $('#insertBtn').on("click", function(){
 	let title = $('input[name=title]').val();
 	let writer = $('input[name=writer]').val();
 	let walkPlaceAddress = $("#walkPlaceAddress option:selected").val();
-	let content = $('input[name=content]').val();
-	let matchingKind = '대리';
+	let content = $('[name=content]').val();
+	let matchingKind = '실시간';
 	
 	let puppie = [];
 	$('.road').each(function(idx, item){

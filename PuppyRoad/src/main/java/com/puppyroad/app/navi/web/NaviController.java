@@ -25,12 +25,14 @@ public class NaviController {
 	NaviService naviService;
 
 	@GetMapping("user/map")
-	public String mapPage(Model model) {
+	public String mapPage(Model model, String bulletinNo) {
 		String memberCode = SecurityUtil.memberCode();
 		
 		log.info(memberCode);
 		
 		model.addAttribute("bulletinNo", naviService.getBoardNo(memberCode));
+		model.addAttribute("puppyList", naviService.getPuppyList(bulletinNo));
+		
 		return "map/map";
 	}
 	

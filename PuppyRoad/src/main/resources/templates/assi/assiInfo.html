@@ -12,97 +12,98 @@
 </head>
 <body>
 	<section class="first-section-pt">
-		<div class="container pt-3">
-			<h4>대리 매칭</h4>
+		<div class="container justify-content-center">
+			<h4>대리매칭 조회</h4>
 			<hr />
-			<form name="InfoForm" th:object="${assi}">
+			<form name="insertForm"  th:each="assi : ${assi}" >
 				<div class="row mb-3">
-					<label for="title" class="col-md-2 col-lg-2 col-form-label">이름</label>
+					<label for="title" class="col-md-2 col-lg-2 col-form-label">제목</label>
 					<div class="col-md-10 col-lg-10">
-						<input type="hidden" th:field="*{bulletinNo}"/>
-						<input name="title" type="text" class="form-control-plaintext"
-							th:field="*{title}" readonly>
-						<input name="writer" type="hidden" class="form-control-plaintext"
-							th:field="*{writer}" readonly>
+						<input name="title" type="text" class="form-control  border-0" 
+						th:value="${assi.title}" readonly/>
 					</div>
 				</div>
-
 				<hr />
-
+				
 				<div class="row mb-3">
-					<label for="dogInfo" class="col-form-label">도그워커 정보</label>
-					<div class="col-2">
-						<img src="picture" alt="puppyImg">
+					<label for="title" class="col-md-2 col-lg-2 col-form-label">작성자</label>
+					<div class="col-md-10 col-lg-10">
+						<input name="writer" type="text" class="form-control  border-0" 
+						th:value="${assi.writer}" readonly>
 					</div>
-					<div class="col-8" th:each="walk : ${walker}">
-						<div class="row">
-							<div class="col-md-6 pb-2 col-lg-4">
-								<input name="preferenceLocation" type="text" class="form-control"
-									placeholder="선호 장소" th:value="${walk.preferenceLocation}" readonly>
+				</div>
+				<hr />
+			   	  <div class="first" id="first">
+					<div class="row mb-3">
+						<label for="dogInfo" class="col-form-label">도그워커 정보</label>
+						<div class="col-2">
+							<img src="${picture}" alt="dogWalkerImg" />
+						</div>
+						<div class="col-8">
+							<div class="row">
+								<div class="col-md-6 pb-2 col-lg-4">
+									<input name="gender" type="text" class="form-control"
+										th:if="${assi.gender}==1"
+										placeholder="성별" value="성별 : 남자" readonly/>
+									<input name="gender" type="text" class="form-control"
+										th:if="${assi.gender}==2"
+										placeholder="성별" value="성별 : 여자" readonly/>
+								</div>
+								<div class="col-md-6 pb-2 col-lg-4">
+									<input name="bankCode" type="text" class="form-control"
+										placeholder="은행" th:value="${assi.bankCode}" readonly/>
+								</div>
+								<div class="col-md-6 pb-2 col-lg-4">
+									<input name="bankAccount" type="text" class="form-control"
+										placeholder="계좌 번호" th:value="${assi.bankAccount}" readonly/>
+								</div>
 							</div>
-							<div class="col-md-6 pb-2 col-lg-4">
-								<input name="workWeek" type="text" class="form-control"
-									placeholder="workWeek" th:value="${walk.workWeek}" readonly>
-							</div>
-							<div class="col-md-6 pb-2 col-lg-4">
-								<input name="gender" type="text" class="form-control"
-									placeholder="gender" th:value="${walk.gender}" readonly>
+							<div class="row">
+								<div class="col-md-6 col-lg-4">
+									<input name="workWeek" type="text"
+										class="form-control" placeholder="근무 요일" th:value="${assi.workWeek}" readonly/>
+								</div>
+								<div class="col-md-6 col-lg-4">
+									<input name="price" type="text" class="form-control"
+										placeholder="희망 요금" th:value="${assi.price}" readonly/>
+								</div>
+
+								  <div class="col-md-6 col-lg-4">
+									<input name="walkPlaceAddress" type="text" class="form-control"
+										placeholder="지역" th:value="${assi.walkPlaceAddress}" readonly/>
+				                  </div>
+
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-6 pb-2 col-lg-4">
-								<input name="bankCode" type="text" class="form-control"
-									placeholder="bankCode" th:value="${walk.bankCode}" readonly>
-							</div>
-							<div class="col-md-6 col-lg-4">
-								<input name="bankAccount" type="text"
-									class="form-control" th:value="${walk.bankAccount}" 
-									placeholder="bankAccount" readonly>
-							</div>
-							<div class="col-md-6 col-lg-4">
-								<input name="workTime" type="text" class="form-control"
-									placeholder="workTime" th:value="${walk.workTime}" readonly>
-							</div>
-						</div>
 					</div>
-				</div>
-				<hr />
+					<hr />
+				  </div>
+				
 
-				<div class="row mb-3">
-					<label for="WalkPlaceAddress"
-						class="col-md-2 col-lg-2 col-form-label">가격 설정</label>
-					<div class="col-md-10 col-lg-10">
-						<input name="WalkPlaceAddress" type="text"
-							class="form-control-plaintext" th:field="*{walkPlaceAddress}"
-							readonly>
-					</div>
-				</div>
-				<hr />
 
 				<div class="row mb-3">
 					<label for="content" class="col-md-2 col-lg-2 col-form-label">소개</label>
 					<div class="col-md-10 col-lg-10">
-						<textarea name="content" class="form-control-plaintext"
-							id="content" style="height: 100px" th:field="*{content}" readonly></textarea>
+						<textarea name="content" class="form-control border-0" id="content"
+							style="height: 100px" readonly></textarea>
 					</div>
 				</div>
-				<hr />
-				<div>
-					<button type="button" class="btn btn-secondary"
-						th:onclick="|location.href='@{/user/assiList}'|">목록</button>
-					<button type="button" class="btn btn-warning" id="modifyBtn"
-						th:onclick="|location.href='@{/user/assiUpdate(bulletinNo=${assi.bulletinNo})}'|"
-						th:if="${#authentication.principal.memberVO.memberCode} == *{writer}">수정
-					</button>
-					<button type="button" class="btn btn-danger"
-						th:onclick="|location.href='@{/user/assiDelete(bulletinNo=${assi.bulletinNo})}'|"
-						th:if="${#authentication.principal.memberVO.memberCode} == *{writer}">삭제
-					</button>
-					<button type="button" class="btn btn-primary" id="appBtn"
-						onclick='application(event)'
-						th:if="${#authentication.principal.memberVO.memberCode} != *{writer}">
-						신청</button>
-				</div>
+     <div>
+	    <button type="button" class="btn btn-secondary" 
+			th:onclick="|location.href='@{/user/matchList}'|">목록
+		</button>
+        <button type="button" class="btn btn-warning" id="modifyBtn"
+            th:onclick="|location.href='@{/user/matchUpdate(bulletinNo=${match.bulletinNo})}'|"
+            th:if="${#authentication.principal.memberVO.nickName} == *{writer}">수정
+        </button>
+		<button type="button" class="btn btn-danger"
+			th:onclick="|location.href='@{/user/matchDelete(bulletinNo=${match.bulletinNo})}'|"
+			th:if="${#authentication.principal.memberVO.nickName} == *{writer}">삭제
+		</button>
+		<button type="button" class="btn btn-primary" id="appBtn"  onclick='application(event)'
+		 	th:if="${#authentication.principal.memberVO.nickName} != *{writer}">신청 
+		</button>
+     </div>
 			</form>
 		</div>
 	</section>

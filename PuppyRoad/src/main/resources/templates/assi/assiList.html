@@ -72,6 +72,7 @@
 			<!-- Invoice List Widget -->
 			<div class="text-sm-end pb-2">
 				<button type="button" class="btn btn-primary"
+				    th:if="${#authentication.principal.memberVO.position} == '도그워커'"
 					th:onclick="|location.href='@{/user/assiInsert}'|">작성하기
 				</button>
 			</div>
@@ -87,31 +88,30 @@
 							<div class="col-sm-8">
 							  <div class="row">
 								<div class="col-sm-2" id="img">
-									<img src="assets/main/img/logo.png" alt="image">
+									<img th:src="@{/images/{fileName}(fileName=${assi.picture})}" alt="image">
 								</div>
 								<div class="col-sm-3">
 									<h6>[[${assi.writer}]] 도그워커</h6>
-									<span>[[${assi.content}]]</span>
+									<span>[[${assi.title}]]</span>
 								</div>
 								<div class="col-sm-3">
-									<h6>별점 : </h6>
-									<span>[[${assi.writer}]]</span>
+									<h6>[[${assi.workWeek}]] </h6>
+									<span>[[${assi.content}]]</span>
 								</div>
 								<hr>
 							  </div>
 								<div class="row">
 									<div class="col-sm-3">
-										<h6>중형견 이하 : 30분 [[${assi.writer}]]원</h6>
-										<h6>대형견 : 30분 [[${assi.writer}]]원</h6>
+										<h6>반려견 30분 산책</h6>
+										<h6>[[${assi.price}]]원</h6>
 									</div>
 									<div class="col-sm-3" id="anne">
-										<h6>※15kg이하 소중형견</h6>
-										<h6>15초과 대형견</h6>
+										<h6>※시간에 유의하세요!</h6>
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-3">
-								<img src="assets/main/img/logo.png" alt="image">
+								<img th:src="@{/images/{fileName}(fileName=${assi.coverPhoto})}" alt="image">
 							</div>
 						</div>
 					</div>

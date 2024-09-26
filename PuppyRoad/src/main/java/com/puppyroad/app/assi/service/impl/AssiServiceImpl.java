@@ -37,4 +37,17 @@ public class AssiServiceImpl implements AssiService{
 
 	}
 
+	@Override
+	public WalkerAddInfoVO getMyWalkerInfo(String mcode) {
+		// TODO 내 프로필 조회
+		return assiMapper.selectmyWalkerInfo(mcode);
+	}
+
+	@Override
+	public int addAssiInfo(AssiVO assiVO) {
+		// TODO 등록
+		int result = assiMapper.insertAssiInfo(assiVO);
+		return result;
+	}
+
 }
