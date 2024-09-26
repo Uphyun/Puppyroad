@@ -104,6 +104,17 @@
 		WHERE puppy_code = #{puppyCode} 
 	
 	</delete>
+	<select id="payList" resultType="PaymentVO" parameterType="String">
+		SELECT  
+				recipient,
+		        TO_CHAR(price, 'FM999,999,999,999') AS price,
+		        method,
+		        purchased_at,
+		        status
+	    FROM    payment
+	    where sender = #{sender}
+	    order by purchased_at DESC
+	</select>
 	
 
 </mapper>

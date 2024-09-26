@@ -127,5 +127,35 @@ function handleSubmit(event) {
 		alert("수정이 완료되었습니다!");
 		document.getElementById("editUserForm").submit();  
 }
+
+//페이지 랜더링시 결제내역리스트
+$(document).ready(function(){
+	$.ajax({
+		url: '/user/payList',
+		method: 'GET'
+		
+	}).done((result)=>{
+		console.log(result);
+		for(let res of result){
+			console.log(res.recipient);
+			$('.payList').append(
+			`<li class="timeline-item timeline-item-transparent"><span
+									class="timeline-point timeline-point-primary"></span>
+									<div class="timeline-event">
+										<div class="timeline-header mb-3">
+											<h6 class="mb-0">도그워커 : ${res.recipient}</h6>
+											<small class="text-muted">결제일 : ${res.purchasedAt}</small>
+										</div>
+										<p class="mb-2">Invoices have been paid to the company</p>
+										<div class="d-flex align-items-center mb-2">
+											<div class="badge bg-lighter rounded d-flex align-items-center">
+												 <span class="h6 mb-0 text-body">결제방식 : ${res.method}, 가격 : ${res.price}원</span>
+											</div>
+										</div>
+									</div>
+								</li>`)
+		}
+	})
+})
 	
 
