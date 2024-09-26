@@ -16,11 +16,11 @@ public class MatchVO {
 	private String  title;
 	private String  writer;
 	private Integer matchingState;           // 매칭상태
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date    startTime;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date    endTime;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date    writingTime;
 	private Integer animalCount;
 	private String  walkPlaceAddress;         // 산책장소

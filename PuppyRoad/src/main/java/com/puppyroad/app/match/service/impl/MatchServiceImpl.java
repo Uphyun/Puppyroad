@@ -122,5 +122,21 @@ public class MatchServiceImpl implements MatchService {
 		return matchMapper.selectMatchingDogList(bulletinNo);
 	}
 
+	@Override
+	public List<MatchVO> getIdList(MatchVO matchVO) {
+		// TODO 대리매칭에 id로 단건 조회
+		return matchMapper.selectIdList(matchVO);
+	}
+
+	@Override
+	public int addChatPuppy(List<MatchingPuppyVO> list) {
+		// TODO 채팅견 등록
+		for(MatchingPuppyVO matchingPuppyVO: list) {
+			matchMapper.insertChatPuppy(matchingPuppyVO);
+		}
+		return 1;  
+	}
+
+
 
 }

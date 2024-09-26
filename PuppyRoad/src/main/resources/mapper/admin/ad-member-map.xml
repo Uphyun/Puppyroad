@@ -19,40 +19,9 @@
 		        , withdraw_date
 		        , account_state
 		from member
-		where position = #{memberVO.position}
-		<choose>
-			<when test="condition == '아이디'">
-				and	user_id like '%' || #{memberVO.userId} || '%'
-			</when>
-			<when test="condition == '닉네임'">
-				and nickname like '%' || #{memberVO.nickName} || '%'
-			</when>
-			<otherwise>
-				and (user_id like '%' || #{memberVO.userId} || '%'
-				or	nickname like '%' || #{memberVO.nickName} || '%')
-			</otherwise>
-		</choose>
+		where position = #{position}
 		order by join_date desc
 	</select>
-	
-	<select id="selectMemberCnt">
-		select	count(*)
-		from	member
-		where	position = #{memberVO.position}
-		<choose>
-			<when test="condition == '아이디'">
-				and	user_id like '%' || #{memberVO.userId} || '%'
-			</when>
-			<when test="condition == '닉네임'">
-				and nickname like '%' || #{memberVO.nickName} || '%'
-			</when>
-			<otherwise>
-				and (user_id like '%' || #{memberVO.userId} || '%'
-				or	nickname like '%' || #{memberVO.nickName} || '%')
-			</otherwise>
-		</choose>
-	</select>
-	
 
 	
 	<resultMap type="MemberVO" id="adminMemberInfo">
@@ -89,31 +58,6 @@
 				, note
 		from	puppy
 		where	client_user_id = #{memberCode}
-	</select>
-	
-	<select id="selectSearchMemberList" resultType="MemberVO">
-		select member_code
-				, user_id
-				, nickname
-				, join_date
-				, activity_date
-				, withdraw_date
-				, account_state
-		from	member
-		where	position = '의뢰인'
-		<choose>
-			<when test="condition == '아이디'">
-				and	user_id like '%' || #{memberVO.userId} || '%'
-			</when>
-			<when test="condition == '닉네임'">
-				and nickname like '%' || #{memberVO.nickName} || '%'
-			</when>
-			<otherwise>
-				and (user_id like '%' || #{memberVO.userId} || '%'
-				or	nickname like '%' || #{memberVO.nickName} || '%')
-			</otherwise>
-		</choose>
-		order by join_date desc
 	</select>
 	
 	<update id="updateAccountState" parameterType="MemberVO">

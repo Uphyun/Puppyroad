@@ -24,32 +24,16 @@ public class ManageMemberController {
 	
 	//의뢰인 리스트
 	@GetMapping("admin/manageMember")
-	public String manageMemberPage(Model model, PageDTO pageDTO, MemberVO memberVO, String condition) {
-		memberVO.setPosition("의뢰인");
-		List<MemberVO> memberList = manageMemberService.getMemberList(pageDTO, memberVO, condition);
-		
-		model.addAttribute("memberList", memberList);
+	public String manageMemberPage() {
 		
 		return "admin/manage/member";
 	}
 	
 	@GetMapping("ajax/memberList")
-	public String getMemberList(Model model, PageDTO pageDTO, MemberVO memberVO, String condition) {
-		List<MemberVO> memberList = manageMemberService.getMemberList(pageDTO, memberVO, condition);
+	@ResponseBody
+	public List<MemberVO> getMemberList(MemberVO memberVO) {
 		
-		model.addAttribute("memberList", memberList);
-		
-		return "admin/manage/member::#memberListBody";
-	}
-	
-	@GetMapping("ajax/memberListPage")
-	public String getMemberListPaging(Model model, PageDTO pageDTO, MemberVO memberVO, String condition) {
-		PageDTO nowPagingDTO = new PageDTO(pageDTO.getPage(), pageDTO.getRecordSize(), manageMemberService.getMemberPage(memberVO, condition));
-		
-		System.out.println(nowPagingDTO);
-		model.addAttribute("pages", nowPagingDTO);
-		
-		return "admin/manage/member::#memberListPaging";
+		return manageMemberService.getMemberList(memberVO);
 	}
 	
 	@GetMapping("ajax/manageMember")
@@ -65,15 +49,6 @@ public class ManageMemberController {
 		System.out.println(memberVO);
 		
 		return manageMemberService.updateAccountState(memberVO);
-	}
-	
-	@GetMapping("ajax/searchMember")
-	//@ResponseBody
-	public String searchMembers(MemberVO memberVO, String condition, Model model) {
-		List<MemberVO> mlist = manageMemberService.getSearchMemberList(memberVO, condition);
-		
-		model.addAttribute("memberList", mlist);
-		return "admin/manage/member::#memberListBody";
 	}
 
 	//봉사인 리스트

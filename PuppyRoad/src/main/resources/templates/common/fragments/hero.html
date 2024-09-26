@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	th:fragment="HeroFragment">
+	
 <body>
+
 	<section id="hero-animation">
 		<div id="landingHero"
 			class="section-py landing-hero position-relative">
-			<img src="/assets/admin/img/front-pages/backgrounds/hero-bg.png"
-				alt="hero background"
-				class="position-absolute top-0 start-50 translate-middle-x object-fit-cover w-100 h-100"
-				data-speed="1" />
+			  <video autoplay muted loop playsinline
+                class="position-absolute top-0 start-50 translate-middle-x object-fit-cover w-100 h-100"
+                data-speed="1">
+                <source src="/assets/admin/vidieos/dog3.mp4" type="video/mp4">
+                 <source src="/assets/admin/vidieos/dog3.webm" type="video/webm">
+            </video>
 			<div class="container">
 				<div class="hero-text-box text-center position-relative">
 					<h1 class="text-primary hero-title display-6 fw-extrabold">전문
 						도그워커가 돌봐드려요</h1>
-					<h2 class="hero-sub-title h6 mb-6">
-						나와 내 반려동물을 위한 산책서비스
-					</h2>
+					<h2 class="hero-sub-title h6 mb-6">나와 내 반려동물을 위한 산책서비스</h2>
 					<div class="landing-hero-btn d-inline-block position-relative">
 						<span
-							class="hero-btn-item position-absolute d-none d-md-flex fw-medium"> 
-						</span> <a href="/user/assiList" class="btn btn-primary btn-lg">지금 시작하기</a>
+							class="hero-btn-item position-absolute d-none d-md-flex fw-medium">
+						</span> <a href="/user/assiList" class="btn btn-primary btn-lg">지금
+							시작하기</a>
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 		<div class="landing-hero-blank"></div>

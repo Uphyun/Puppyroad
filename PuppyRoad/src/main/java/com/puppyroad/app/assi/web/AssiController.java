@@ -52,7 +52,6 @@ public class AssiController {
 	// 등록 - get
 	@GetMapping("user/assiInsert")
 	public String assiInsertForm() {
-		
 		return "assi/assiInsert";
 	}
 	

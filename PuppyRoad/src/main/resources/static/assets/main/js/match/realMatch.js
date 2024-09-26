@@ -28,6 +28,7 @@ function getCheckboxValue(event)  {
 		var div = $(event.target).closest(".abc");
 		puppyCode = div.find('#puppyCode').val();
 		
+		var picture = div.find('[name=puppyImage]').attr("src");
 		var dogBreed = div.find('#dogBreed').html();
 		var personality = div.find('#personality').html();
 		var dogSize = div.find('#dogSize').html();
@@ -38,6 +39,7 @@ function getCheckboxValue(event)  {
 		$(".first").clone().attr('id', puppyCode).insertBefore("#second").removeClass("first").addClass("road").show();
 		var div2 = $("#" + puppyCode);
 
+	div2.find('[name=puppyImage2]').attr("src", picture);
 	div2.find('[name=dogBreed]').val(dogBreed);
 	div2.find('[name=personality]').val(personality);
 	div2.find('[name=dogSize]').val(dogSize);
@@ -54,11 +56,11 @@ function getCheckboxValue(event)  {
 
 $('#insertBtn').on("click", function(){
 	
-	let title = $('input[name=title]').val()
-	let writer = $('input[name=writer]').val()
-	let walkPlaceAddress = $('input[name=walkPlaceAddress]').val()
-	let content = $('input[name=content]').val()
-	let matchingKind = '실시간';
+	let title = $('input[name=title]').val();
+	let writer = $('input[name=writer]').val();
+	let walkPlaceAddress = $("#walkPlaceAddress option:selected").val();
+	let content = $('input[name=content]').val();
+	let matchingKind = '대리';
 	
 	let puppie = [];
 	$('.road').each(function(idx, item){

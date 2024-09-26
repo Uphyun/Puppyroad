@@ -42,13 +42,17 @@ public class PaymentServiceImpl implements PaymentService{
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean isInfo = false;
 		boolean isAddInfo = false;
+		boolean isTrue = false;
 		
 		if(paymentMapper.insertPayInfo(paymentVO) == 1) {
 			isInfo = true;
 		}
 		
-		if(vbankVO != null) {
+		System.err.println("코드 확인 >>> " + paymentVO.getPaymentCode());
+		
+		if(vbankVO.getBankAccount() != null) {
 			vbankVO.setPaymentCode(paymentVO.getPaymentCode());
+			isTrue = true;
 			if(paymentMapper.insertAddVbankInfo(vbankVO) == 1) {
 				isAddInfo = true;
 			}
@@ -58,6 +62,7 @@ public class PaymentServiceImpl implements PaymentService{
 		map.put("isAddInfo", isAddInfo);
 		map.put("info", paymentVO);
 		map.put("addInfo", vbankVO);
+		map.put("success", isTrue);
 		
 		return map;
 	}

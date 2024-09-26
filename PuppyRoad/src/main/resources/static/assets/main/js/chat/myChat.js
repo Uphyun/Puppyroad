@@ -2,7 +2,16 @@
  * myChat.js
  */
 $(document).ready(function() {
+	
+	let puppyCode = '';
+	let bulletinNo = '';
+	let title = '';
 	let roomId = '';
+	let writer = '';
+	
+	//calender 30분주기
+	$('.flatpickr-minute').attr("step", 30);
+	
 	
 	var sockJs = new SockJS("/stomp/chat");
 	//1. SockJS를 내부에 들고있는 stomp를 내어줌
@@ -68,7 +77,10 @@ $(document).ready(function() {
 
 		$('li.chat-contact-list-item').on('click', function() {
 			
+			title = $(this).find('h6').attr('id');
+			bulletinNo = $(this).find('h6').attr('name');
 			roomId = $(this).attr('id');
+			writer = $(this).attr('name');
 
 			$('.list-unstyled.chat-history').empty();
 			$('#chatProfile').empty();
@@ -147,6 +159,27 @@ $(document).ready(function() {
 				})
 				.fail(err => console.log(err))
 				
+			$.ajax({
+				url: '/chat/address',
+				method: 'get',
+				data: { writer }
+			})
+			  .done( datas => {
+				$('#walkPlaceAddress').val('');
+				let address = datas[0].walkPlaceAddress
+				let content = datas[0].content
+				let startDate = datas[0].startTime
+				let endDate = datas[0].endTime
+				
+				$('#walkPlaceAddress').val(address);
+				$('#content').val(content);
+				$('#eventStartDate').val(startDate);
+				$('#eventEndDate').val(endDate);
+				
+				
+				
+			  });
+			
 		});
 
 	});
@@ -162,6 +195,57 @@ $(document).ready(function() {
 		
 
 	});
+	
+	$("#addSchedul").on("click", function(e) {
+		
+	let startTime =	$("input[name='eventStartDate']").val()
+	let endTime = $("input[name='eventEndDate']").val()
+	let walkPlaceAddress = $('input[name=walkPlaceAddress]').val();
+	let content = $('input[name=content]').val();
+	let matchingKind = '대리';
+	let matchingState = 2;
+	
+	let puppy = [];
+	$('.select2').find(':selected').each(function(idx, item){
+		puppyCode = $(item).data("value");
+		
+		puppy.push({bulletinNo, puppyCode});
+	})
+		
+	let data = {bulletinNo, title, writer, walkPlaceAddress, startTime, endTime, content, matchingKind, matchingState}
+		console.log(puppy);
+		
+		$.ajax({
+			url: '/user/matchUpdate',
+			method: 'post',
+			data: data,
+			success: function(datas) {
+				if(datas.result = 1) {
+					alert("성공적으로 신청되었습니다.");
+				} else {
+					alert("신청 오류")
+				}
+			}
+		})
+		  .fail(err => console.log(err))
+		  
+		  
+		$.ajax({
+			url : '/user/chatDogInsert?bulletinNo=' + bulletinNo,
+			method : 'post',
+			contentType : 'application/json',
+			data : JSON.stringify(puppy),
+			success: function(datas) {
+				console.log(datas.result);
+				location.href = '/user/pay?bulletinNo=' + bulletinNo;
+			}
+		})
+		  .fail(err => console.log(err))
+	
+	
+	
+	
+	}) 
 
 
 });

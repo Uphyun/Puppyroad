@@ -3,6 +3,7 @@
  */
 'use strict';
 
+
 (function () {
   // Color Variables
   const purpleColor = '#836AF9',

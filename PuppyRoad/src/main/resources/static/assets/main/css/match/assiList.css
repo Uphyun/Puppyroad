@@ -17,3 +17,9 @@
     border-radius: 30px;
 }
 
+h4 {
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}

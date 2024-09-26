@@ -28,6 +28,14 @@ public interface MatchService {
 	//매칭견 등록
 	public int addMatchingPuppy(MatchingPuppyVO matchingPuppyVO);
 	
+	//채팅견 등록
+	public int addChatPuppy(List<MatchingPuppyVO> matchingPuppyVO);
+	
 	//매칭견 조회
 	public List<PuppyVO> getMatchingDogList(Integer bulletinNo);
+	
+	//대리조회
+	public List<MatchVO> getIdList(MatchVO matchVO);
+	
+
 }

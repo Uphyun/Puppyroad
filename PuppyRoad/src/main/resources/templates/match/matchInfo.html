@@ -12,13 +12,14 @@
 </head>
 <body>
 <section class="first-section-pt">
-<div class="container pt-3">
+<div class="container pt-3 pb-3">
 <h4>자율매칭</h4>
 <hr/>
    <form name="InfoForm" th:object="${match}">
      <div class="row mb-3">
        <label for="title" class="col-md-2 col-lg-2 col-form-label">제목</label>
        <div class="col-md-10 col-lg-10">
+       	 <input name="bulletinNo" type="hidden" th:field="*{bulletinNo}"/>
          <input name="title" type="text" class="form-control-plaintext" th:field="*{title}" readonly>
        </div>
      </div>
@@ -38,7 +39,7 @@
      
 				<div class="row mb-3" th:each="matchDog : ${matchingDog}">
 					<div class="col-2">
-						<img src="/assets/main/img/logo.png" alt="puppyImg">
+						<img src="${matchDog.picture}" alt="puppyImg">
 					</div>
 					<div class="col-8">
 						<div class="row">
@@ -96,15 +97,14 @@
 		</button>
         <button type="button" class="btn btn-warning" id="modifyBtn"
             th:onclick="|location.href='@{/user/matchUpdate(bulletinNo=${match.bulletinNo})}'|"
-            th:if="${#authentication.principal.username} == *{writer}">수정
+            th:if="${#authentication.principal.memberVO.memberCode} == *{writer}">수정
         </button>
 		<button type="button" class="btn btn-danger"
 			th:onclick="|location.href='@{/user/matchDelete(bulletinNo=${match.bulletinNo})}'|"
-			th:if="${#authentication.principal.username} == *{writer}">삭제
+			th:if="${#authentication.principal.memberVO.memberCode} == *{writer}">삭제
 		</button>
 		<button type="button" class="btn btn-primary" id="appBtn"  onclick='application(event)'
-		 	th:if="${#authentication.principal.username} != *{writer}">
-			신청
+		 	th:if="${#authentication.principal.memberVO.memberCode} != *{writer}">신청
 		</button>
      </div>
    </form>

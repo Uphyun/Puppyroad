@@ -34,4 +34,12 @@ public interface MatchMapper {
 	
 	//매칭내역조회
 	public List<MatchVO> selectMatchingBoard(String writer);
+	
+	//단건 대리기준조회
+	public List<MatchVO> selectIdList(MatchVO matchVO);
+	
+	// 채팅견 등록
+	public int insertChatPuppy(MatchingPuppyVO matchingPuppyVO);
+	
+
 }

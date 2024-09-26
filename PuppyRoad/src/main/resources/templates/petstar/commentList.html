@@ -4,7 +4,7 @@
 	layout:decorate="~{common/layouts/default_layout}"
 	layout:fragment="Content">
 <head>
-<script type="text/javascript" src="/assets/main/js/petstar/profile.js"></script>
+<script type="text/javascript" src="/assets/main/js/petstar/.js"></script>
 <script type="text/javascript"
 	src="/assets/main/js/petstar/commentInsert.js"></script>
 <link rel="stylesheet" href="/assets/main/css/petstar/image.css"
@@ -15,44 +15,94 @@
 <body>
 	<section class="first-section-pt">
 
-		<!-- Flexbox로 레이아웃을 구성 -->
-		<div style="display: flex;">
-
-			<!-- Aside 메뉴 -->
-			<aside id="layout-menu"
-				class="layout-menu menu-vertical menu bg-menu-theme"
-				style="flex: 0 0 250px;">
-
-				<ul class="menu-inner py-1" style="text-align: center;">
-					<!-- Apps & Pages -->
-					<li class="menu-header small"><span class="menu-header-text"
-						data-i18n="PetStar">펫스타 그램</span></li>
-					<li class="menu-item"><a href="mypage" class="menu-link">
-							<i class="menu-icon tf-icons ti ti-user-square-rounded"></i>
-							<div data-i18n="My PetStar">나의 펫스타</div>
-					</a></li>
-					<li class="menu-item"><a href="bulletinInsert"
-						class="menu-link"> <i
-							class="menu-icon tf-icons ti ti-pencil-plus"></i>
-							<div data-i18n="Board">글 작성하기</div>
-					</a></li>
-					<li class="menu-item"><a href="commentList" class="menu-link">
-							<i class="menu-icon tf-icons ti ti-message"></i>
-							<div data-i18n="Comment">나의 댓글</div>
-					</a></li>
-					<li class="menu-item"><a href="Like" class="menu-link"> <i
-							class="menu-icon tf-icons ti ti-heart"></i>
-							<div data-i18n="Like">좋아요 표시한 글</div>
-					</a></li>
-				</ul>
-
-			</aside>
-			<!-- End Aside -->
-
-			
 
 
+		<!-- Aside 메뉴 -->
+		<div class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
+			<div
+				class="flex-shrink-1 flex-grow-0 w-px-350 border-end container-p-x container-p-y">
+				<div class="layout-example-sidebar layout-example-content-inner">
+					<aside id="layout-menu"
+						class="layout-menu menu-vertical menu bg-menu-theme"
+						style="flex: 0 0 250px;">
+
+						<ul class="menu-inner py-1" style="text-align: center;">
+							<!-- Apps & Pages -->
+							<li class="menu-header small"><span class="menu-header-text"
+								data-i18n="PetStar">펫스타 그램</span></li>
+							<li class="menu-item"><a href="mypage" class="menu-link">
+									<i class="menu-icon tf-icons ti ti-user-square-rounded"></i>
+									<div data-i18n="My PetStar">나의 펫스타</div>
+							</a></li>
+							<li class="menu-item"><a href="bulletinInsert"
+								class="menu-link"> <i
+									class="menu-icon tf-icons ti ti-pencil-plus"></i>
+									<div data-i18n="Board">글 작성하기</div>
+							</a></li>
+							<li class="menu-item"><a href="commentList"
+								class="menu-link"> <i
+									class="menu-icon tf-icons ti ti-message"></i>
+									<div data-i18n="Comment">나의 댓글</div>
+							</a></li>
+						</ul>
+
+					</aside>
+					<!-- End Aside -->
+				</div>
+			</div>
+
+			<div class="flex-shrink-1 flex-grow-1 container-p-x container-p-y">
+				<!-- 댓글 목록 -->
+				<div class="table-responsive text-nowrap">
+					<table class="table">
+						<thead class="table-light">
+							<tr>
+								<th>댓글 작성날짜</th>
+								<th>댓글 내용</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody class="table-border-bottom-0">
+							<th:block th:each="info : ${com}">
+								<tr>
+									<td>[[${#dates.format(info.createdDate,'yyyy년 MM월 dd일')}]]</td>
+									<td>[[ ${info.content} ]]</td>
+									<td>
+										<div class="dropdown">
+											<button type="button"
+												class="btn p-0 dropdown-toggle hide-arrow"
+												data-bs-toggle="dropdown">
+												<i class="ti ti-dots-vertical"></i>
+											</button>
+											<div class="dropdown-menu">
+
+												<a class="dropdown-item"
+													th:href="@{/user/bulletinInfo(bulletinNo=${info.bulletinNo})}">
+													<i class="ti ti-share-3"></i>해당 게시글 이동
+												</a> <a class="dropdown-item" href="#"
+													th:onClick="|confirmDelete(${info.commentCode})|"> <i
+													class="ti ti-trash me-1"></i>삭제
+												</a>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
 		</div>
+
+
+
+
+
+
+
+
+
 	</section>
 </body>
 </html>

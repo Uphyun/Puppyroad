@@ -15,4 +15,5 @@ public class PetstarBulletinVO {
 	private String attachedFile;
 	private String memberCode;
 	private String profilePicture;
+	private String nickName;
 }

@@ -19,9 +19,9 @@ public class ManageMemberServiceImpl implements ManageMemberService{
 	ManageMemberMapper manageMemberMapper;
 
 	@Override
-	public List<MemberVO> getMemberList(PageDTO pageDTO, MemberVO memberVO, String condition) {
+	public List<MemberVO> getMemberList(MemberVO memberVO) {
 		// TODO Auto-generated method stub
-		return manageMemberMapper.selectMemberList(pageDTO, memberVO, condition);
+		return manageMemberMapper.selectMemberList(memberVO);
 	}
 
 	@Override
@@ -29,18 +29,6 @@ public class ManageMemberServiceImpl implements ManageMemberService{
 
 		return manageMemberMapper.selectMemberInfo(memberCode);
 	}
-
-	@Override
-	public List<MemberVO> getSearchMemberList(MemberVO memberVO, String condition) {
-		
-		return manageMemberMapper.selectSearchMemberList(memberVO, condition);
-	}
-	
-	@Override
-	public int getMemberPage(MemberVO memberVO, String condition) {
-		
-		return manageMemberMapper.selectMemberCnt(memberVO, condition);
-	};
 
 	@Override
 	public Map<String, Object> updateAccountState(MemberVO memberVO) {

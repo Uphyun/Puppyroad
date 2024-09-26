@@ -85,8 +85,18 @@ public class MatchController {
 	@PostMapping("user/matchInsert")
 	@ResponseBody
 	public int matchInsertProcess(@RequestBody MatchVO matchVO) {
-		System.err.println(matchVO);
+		String mcode = SecurityUtil.memberCode();
+		matchVO.setWriter(mcode);
 		int bno = matchService.addMatch(matchVO);
+		return bno;
+	}
+	
+	// 채팅견 등록 - post
+	@PostMapping("user/chatDogInsert")
+	@ResponseBody
+	public int chatDogInsert(@RequestBody List<MatchingPuppyVO> matchingPuppyVO) {
+		int bno = matchService.addChatPuppy(matchingPuppyVO);
+		
 		return bno;
 	}
 	
@@ -105,10 +115,12 @@ public class MatchController {
 	// 수정 - 처리
 	@PostMapping("user/matchUpdate")
 	@ResponseBody // AJAX
-	public Map<String, Object> matchUpdate(@RequestBody MatchVO matchVO){
+	public Map<String, Object> matchUpdate(MatchVO matchVO){
+		matchVO.setClientCode(SecurityUtil.memberCode());
 		return matchService.modifyMatch(matchVO);
 		
 	}
+	
 	
 	// 삭제 - 처리
 	@GetMapping("user/matchDelete")
@@ -117,7 +129,7 @@ public class MatchController {
 		return "redirect:/user/matchList";
 	}
 	
-	//매칭내역
+	// 매칭내역
 	@GetMapping("user/myMatchingList")
 	public String myMatchingList(String wrtier, Model model) {
 		String mcode = SecurityUtil.memberCode();
@@ -126,6 +138,6 @@ public class MatchController {
 		return "match/myMatchingList";
 	}
 	
-	
+	// 
 	
 }

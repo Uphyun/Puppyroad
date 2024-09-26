@@ -19,8 +19,11 @@
 				<div class="row mb-3">
 					<label for="title" class="col-md-2 col-lg-2 col-form-label">이름</label>
 					<div class="col-md-10 col-lg-10">
+						<input type="hidden" th:field="*{bulletinNo}"/>
 						<input name="title" type="text" class="form-control-plaintext"
 							th:field="*{title}" readonly>
+						<input name="writer" type="hidden" class="form-control-plaintext"
+							th:field="*{writer}" readonly>
 					</div>
 				</div>
 
@@ -89,20 +92,20 @@
 						th:onclick="|location.href='@{/user/assiList}'|">목록</button>
 					<button type="button" class="btn btn-warning" id="modifyBtn"
 						th:onclick="|location.href='@{/user/assiUpdate(bulletinNo=${assi.bulletinNo})}'|"
-						th:if="${#authentication.principal.username} == *{writer}">수정
+						th:if="${#authentication.principal.memberVO.memberCode} == *{writer}">수정
 					</button>
 					<button type="button" class="btn btn-danger"
 						th:onclick="|location.href='@{/user/assiDelete(bulletinNo=${assi.bulletinNo})}'|"
-						th:if="${#authentication.principal.username} == *{writer}">삭제
+						th:if="${#authentication.principal.memberVO.memberCode} == *{writer}">삭제
 					</button>
 					<button type="button" class="btn btn-primary" id="appBtn"
 						onclick='application(event)'
-						th:if="${#authentication.principal.username} != *{writer}">
+						th:if="${#authentication.principal.memberVO.memberCode} != *{writer}">
 						신청</button>
 				</div>
 			</form>
 		</div>
 	</section>
-	<script type="text/javascript" src="/assets/main/js/match/matchInfo.js"></script>
+	<script type="text/javascript" src="/assets/main/js/assi/assiInfo.js"></script>
 </body>
 </html>
