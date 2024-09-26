@@ -17,8 +17,7 @@ $(".odd").on('click', (e)=>{
 			
 			
 		let puppyInfo = `
-			<div class="card mb-6">
-			<div class="card-body pt-12" style="width:380px">
+			<div class="card-body pt-12" >
 				<div class="user-avatar-section">
 					<div class="d-flex align-items-center flex-column">
 						<img class="img-fluid rounded mb-4" src="/images/${result.picture}" height="240" width="240" alt="No image">
@@ -56,7 +55,6 @@ $(".odd").on('click', (e)=>{
 	        </div>
 			</div>
 			</div>
-		</div>
 		
         `;
         
