@@ -8,7 +8,6 @@
 <meta name="contextPath" th:value="${contextPath}">
 <link rel="stylesheet" href="/assets/main/css/match/matchInfo.css" type="text/css" />
 
-<title>matchInfo</title>
 </head>
 <body>
 <section class="first-section-pt">
@@ -97,14 +96,14 @@
 		</button>
         <button type="button" class="btn btn-warning" id="modifyBtn"
             th:onclick="|location.href='@{/user/matchUpdate(bulletinNo=${match.bulletinNo})}'|"
-            th:if="${#authentication.principal.memberVO.memberCode} == *{writer}">수정
+            th:if="${#authentication.principal.memberVO.nickName} == *{writer}">수정
         </button>
 		<button type="button" class="btn btn-danger"
 			th:onclick="|location.href='@{/user/matchDelete(bulletinNo=${match.bulletinNo})}'|"
-			th:if="${#authentication.principal.memberVO.memberCode} == *{writer}">삭제
+			th:if="${#authentication.principal.memberVO.nickName} == *{writer}">삭제
 		</button>
 		<button type="button" class="btn btn-primary" id="appBtn"  onclick='application(event)'
-		 	th:if="${#authentication.principal.memberVO.memberCode} != *{writer}">신청
+		 	th:if="${#authentication.principal.memberVO.nickName} != *{writer}">신청
 		</button>
      </div>
    </form>
