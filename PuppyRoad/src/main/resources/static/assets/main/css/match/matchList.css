@@ -1,3 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100..900&display=swap');
+
+label {
+	border-radius: 5px 5px 0px 0px;
+	
+}
+
+h4 {
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
 table {
   border: 1px #a39485 solid;
   font-size: .9em;
