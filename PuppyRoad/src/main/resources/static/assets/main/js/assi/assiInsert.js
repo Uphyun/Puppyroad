@@ -6,7 +6,7 @@ $('#insertBtn').on("click", function(){
 	
 	let title = $('input[name=title]').val();
 	let writer = $('input[name=writer]').val();
-	let walkPlaceAddress = $('input[name=walkPlaceAddress]').val();
+	let walkPlaceAddress = $("#walkPlaceAddress option:selected").val();
 	let content = $('[name=content]').val();
 	let matchingKind = '대리';
 	

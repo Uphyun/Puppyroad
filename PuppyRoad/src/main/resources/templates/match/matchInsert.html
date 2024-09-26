@@ -28,7 +28,7 @@
 					<label for="title" class="col-md-2 col-lg-2 col-form-label">작성자</label>
 					<div class="col-md-10 col-lg-10">
 						<input name="writer" type="text" class="form-control" 
-						th:value="${#authentication.principal.username}" readonly>
+						th:value="${#authentication.principal.memberVO.nickName}" readonly>
 					</div>
 				</div>
 				<hr />
