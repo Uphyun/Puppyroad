@@ -146,7 +146,7 @@ function startWalking(code = '0000000001', used = 'puppy') {
 
 			alert('위치 정보를 가져올 수 없습니다.');
 		}
-	}, 5000);
+	}, 10000);
 }
 
 //보낼 데이터 세팅
@@ -289,7 +289,7 @@ function startMatching(matchCode, used = 'match') {
 			})
 			.fail(err => console.log(err));
 
-	}, 3000);
+	}, 5000);
 }
 
 //거리 계산

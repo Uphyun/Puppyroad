@@ -5,10 +5,13 @@ package com.puppyroad.app.navi.mapper;
 import java.util.List;
 
 import com.puppyroad.app.navi.service.NaviVO;
+import com.puppyroad.app.puppy.service.PuppyVO;
 
 public interface NaviMapper {
 	//매칭 게시판 번호 조회
 	public int selectBulletinNo(String writer);
+	//강아지 목록 조회
+	public List<PuppyVO> selectPuppyList(String bulletinNo);
 	//강아지 경로 설정 및 조회
 	public void setCallDogNavi(NaviVO naviVO);
 	//실시간 매칭 등록

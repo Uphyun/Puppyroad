@@ -15,6 +15,9 @@ import com.puppyroad.app.navi.service.NaviService;
 import com.puppyroad.app.navi.service.NaviVO;
 import com.puppyroad.app.util.SecurityUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class NaviController {
 	
@@ -22,12 +25,14 @@ public class NaviController {
 	NaviService naviService;
 
 	@GetMapping("user/map")
-	public String mapPage(Model model) {
-		String userId = SecurityUtil.userId();
+	public String mapPage(Model model, String bulletinNo) {
+		String memberCode = SecurityUtil.memberCode();
 		
-		System.err.println(userId);
+		log.info(memberCode);
 		
-		model.addAttribute("bulletinNo", naviService.getBoardNo(userId));
+		model.addAttribute("bulletinNo", naviService.getBoardNo(memberCode));
+		model.addAttribute("puppyList", naviService.getPuppyList(bulletinNo));
+		
 		return "map/map";
 	}
 	

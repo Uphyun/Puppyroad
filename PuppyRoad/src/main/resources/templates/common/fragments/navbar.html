@@ -85,7 +85,7 @@
             </li>
             <th:block th:if="${auth == '관리자'}">
               <li class="nav-item">
-                <a class="nav-link fw-medium" th:href="@{admin}" target="_blank">관리자 홈</a>
+                <a class="nav-link fw-medium" th:href="@{/admin}" target="_blank">관리자 홈</a>
               </li>
             </th:block>
           </ul>
@@ -128,12 +128,12 @@
           <!-- navbar button: Start -->
           <li>
             <th:block sec:authorize="!isAuthenticated()">
-              <a th:href="@{memberLogin}" class="btn btn-primary" target="_self"><span
+              <a th:href="@{/memberLogin}" class="btn btn-primary" target="_self"><span
                   class="tf-icons ti ti-login scaleX-n1-rtl me-md-1"></span><span
                   class="d-none d-md-block">Login/Register</span></a>
             </th:block>
             <th:block sec:authorize="isAuthenticated()">
-              <a th:href="@{memberLogout}" class="btn btn-primary" target="_self"><span
+              <a th:href="@{/memberLogout}" class="btn btn-primary" target="_self"><span
                   class="tf-icons ti ti-login scaleX-n1-rtl me-md-1"></span><span
                   class="d-none d-md-block">Logout</span></a>
             </th:block>
