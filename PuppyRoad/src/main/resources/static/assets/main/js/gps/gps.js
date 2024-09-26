@@ -181,7 +181,7 @@ function drawPolylineNow(lines) {
 		strokeColor: "#39f",
 		strokeOpacity: 1,
 		strokeStyle: "solid",
-		strokeWeight: 3
+		strokeWeight: 8
 	});
 
 	overlays.push(polyline);
