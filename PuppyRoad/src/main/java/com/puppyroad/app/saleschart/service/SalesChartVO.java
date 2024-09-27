@@ -2,6 +2,8 @@ package com.puppyroad.app.saleschart.service;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
@@ -13,7 +15,8 @@ public class SalesChartVO {
 	private String method;
 	private Integer price;
 	private String orderName;
-	private Date pucharsedAt;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
+	private Date purchasedAt;
 	private Integer status;
 	
 }

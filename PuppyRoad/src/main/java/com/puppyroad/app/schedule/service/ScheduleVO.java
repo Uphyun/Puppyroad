@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
@@ -16,9 +18,9 @@ public class ScheduleVO {
 	private String address;
 	private String walkPath;
 	private String walkerCode;
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date holidayStart;
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date holidayEnd;
 	private Integer approvalState;
 	private String name;
@@ -29,6 +31,24 @@ public class ScheduleVO {
 	private String workWeek;
 	private String workTime;
 	private String scheduleTitle;
-	
+	private String paymentCode;
+	private String sender;
+	private String recipient;
+	private int price;
+	private String orderName;
+	private String method;
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private Date purchasedAt;
+	private Date cancelledAt;
+	private Date requestedAt;
+	private int status;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private Date nextFriday;
+	private Integer totalPrice;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private String monday;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private String sunday;
 
 }

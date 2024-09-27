@@ -2,6 +2,7 @@ package com.puppyroad.app.puppy.mapper;
 
 import java.util.List;
 
+import com.puppyroad.app.payment.service.PaymentVO;
 import com.puppyroad.app.puppy.service.PuppyVO;
 
 public interface PuppyMapper {
@@ -11,5 +12,8 @@ public interface PuppyMapper {
 	public PuppyVO selectPuppyInfo(PuppyVO puppyVO); //단건조회
 	public int updatePuppy(PuppyVO puppyVO); // 강아지 프로필 수정
 	public int deletePuppy(String puppyCode);
+	
+	//결제리스트
+	public List<PaymentVO> payList(String sender);
 	
 }
