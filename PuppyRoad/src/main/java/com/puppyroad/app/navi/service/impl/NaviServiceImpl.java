@@ -10,12 +10,19 @@ import org.springframework.stereotype.Service;
 import com.puppyroad.app.navi.mapper.NaviMapper;
 import com.puppyroad.app.navi.service.NaviService;
 import com.puppyroad.app.navi.service.NaviVO;
+import com.puppyroad.app.puppy.service.PuppyVO;
 
 @Service
 public class NaviServiceImpl implements NaviService {
 	
 	@Autowired
 	NaviMapper naviMapper;
+	
+	@Override
+
+	public List<PuppyVO> getPuppyList(String bulletinNo){
+		return naviMapper.selectPuppyList(bulletinNo);
+	};
 
 	@Override
 	public int getBoardNo(String writer) {

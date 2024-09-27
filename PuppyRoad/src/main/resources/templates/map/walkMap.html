@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org/" layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
+
+<body>
+	<!--====== PLACES CONTENT START ======-->
+	<div class="container">
+		<section class="locations-wrapper pt-120 pb-120 first-section-pt">
+			<div class="container">
+				<!-- Locations Maps -->
+				<div class col-12>
+				<p>[[ ${puppyList[0]} ]]
+					<div class="card mb-6">
+						<p class="card-header">
+							<b>Chrome 브라우저는 https 환경에서만 위치정보를 지원합니다.</b> 참고해주세요.
+						</p>
+					</div>
+					<div class="card-body" style="height: 900px;">
+						<div id="map" class="w-100 h-75"></div>
+						<div>
+							<button th:onclick="startWalking([[ ${puppyList[0].puppyCode} ]], 'puppy')">산책시작</button>
+							<button onclick="stopWalk()">산책종료</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</section>
+		<!--====== PLACES CONTENT END ======-->
+		<!--====== Back to Top ======-->
+		<a href="#" class="back-to-top" id="backToTop"> <i class="fal fa-angle-double-up"></i>
+		</a>
+	</div>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=22529f2e0edbc8b92825acd8646989cb&libraries=drawing"></script>
+	<script type="text/javascript" src="/assets/main/js/gps/gps.js"></script>
+	<script>
+		setMap("map");
+	</script>
+</body>
+
+</html>

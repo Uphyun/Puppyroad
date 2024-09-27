@@ -14,5 +14,12 @@ public interface AssiMapper {
 	// 단건 워커 프로필 조회
 	public WalkerAddInfoVO selectWalkerInfo(String writer);
 	
+	// 내 워커 추가정보 조회
+	public WalkerAddInfoVO selectmyWalkerInfo(String mcode);
+	
+	// 대리 등록
+	public int insertAssiInfo(AssiVO assiVO);
+	// 대리 수정
+	public int updateAssiInfo(AssiVO assiVO);
 
 }

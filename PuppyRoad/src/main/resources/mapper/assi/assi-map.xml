@@ -15,9 +15,18 @@
 		 		mb.animal_count,
 		 		mb.walk_place_address,
 		 		mb.matching_kind,
-		 		mb.client_code
+		 		mb.client_code,
+		 		wa.work_week,
+		 		wa.work_time,
+		 		wa.price,
+		 		wa.picture,
+		 		wa.gender,
+		 		wa.bank_code,
+		 		wa.bank_account
 	    FROM    matching_board mb join member m
 	    							on mb.writer = m.member_code
+	    						  join walker_add_info wa
+	    						    on m.member_code = wa.member_code
 	    WHERE   mb.matching_kind = '대리'
 	    ORDER BY bulletin_no desc
 	    
@@ -25,21 +34,31 @@
   
   <!-- 단건 조회 -->
   <select id="selectAssiInfo" resultType="AssiVO">
-		SELECT  bulletin_no,
-		 		cover_photo,
-		 		title,
-		 		writer,
-		 		content,
-		 		matching_state,
-		 		start_time,
-		 		end_time,
-		 		writing_time,
-		 		animal_count,
-		 		walk_place_address,
-		 		matching_kind,
-		 		client_code
-	    FROM    matching_board
-	    WHERE   bulletin_no = #{bulletinNo}
+        SELECT  mb.bulletin_no,
+		 		mb.cover_photo,
+		 		mb.title,
+		 		m.nickname as "writer",
+		 		mb.content,
+		 		mb.matching_state,
+		 		mb.start_time,
+		 		mb.end_time,
+		 		mb.writing_time,
+		 		mb.animal_count,
+		 		mb.walk_place_address,
+		 		mb.matching_kind,
+		 		mb.client_code,
+		 		wa.work_week,
+		 		wa.work_time,
+		 		wa.price,
+		 		wa.picture,
+		 		wa.gender,
+		 		wa.bank_code,
+		 		wa.bank_account
+	    FROM    matching_board mb join member m
+	    							on mb.writer = m.member_code
+	    						  join walker_add_info wa
+	    						    on m.member_code = wa.member_code
+	    WHERE   mb.bulletin_no = #{bulletinNo}
   </select>
   
   <!-- 단건 도그워커 프로필 조회 -->
@@ -63,4 +82,77 @@
   		                        FROM   member
   		                        Where  user_id = #{writer} )
   </select>
+  
+  <!-- 내 도그워커 프로필 조회 -->
+  <select id="selectmyWalkerInfo">
+  		SELECT 
+				member_code,
+				gender,
+				bank_code,
+				bank_account,
+				picture,
+				work_week,
+				work_time,
+				preference_location,
+				approval_state,
+				memo,
+				s_size,
+				m_size,
+				l_size,
+				price
+	 	FROM    walker_add_info
+	 	WHERE   member_code = #{mcode}
+  
+  </select>
+  
+  <!-- 대리매칭 등록 -->
+  <!-- 자율등록 -->
+  <insert id="insertAssiInfo" parameterType="AssiVO">
+        <selectKey keyProperty="bulletinNo"
+                   resultType="Integer"
+                   order="BEFORE">
+			SELECT NVL(MAX(bulletin_no), 0) + 1
+			FROM   matching_board
+        </selectKey>
+		INSERT INTO matching_board(
+								bulletin_no,
+				 				cover_photo,
+				 				title,
+				 				writer,
+				 				content,
+							 	matching_state,
+							 	start_time,
+							 	end_time,
+							 	writing_time,
+							 	animal_count,
+							 	walk_place_address,
+							 	matching_kind,
+							 	client_code)
+		VALUES (#{bulletinNo},
+		        #{coverPhoto},
+		        #{title},
+		        #{writer},
+		        #{content},
+		        1,
+		        #{startTime},
+		        #{endTime},
+		        sysdate,
+		        #{animalCount},
+		        #{walkPlaceAddress},
+		        '대리',
+		        #{clientCode})
+  </insert>
+  
+  <update id="updateAssiInfo" parameterType="AssiVO">
+  	UPDATE matching_board
+  	SET
+  	       title = #{title},
+  	       content = #{content},
+  	       matching_state = #{matchingState},
+  	       walk_place_address = #{walkPlaceAddress},
+  	       client_code = #{clientCode}
+  	WHERE  bulletin_no = #{bulletinNo}
+  </update>
+  
+
 </mapper>

@@ -11,5 +11,12 @@ public interface AssiService {
 	public AssiVO getAssiInfo(AssiVO assiVO);
 	// 단건 워커프로필 조회
 	public WalkerAddInfoVO getWalkerInfo(String writer);
+	
+	// 내 워커프로필 조회
+	public WalkerAddInfoVO getMyWalkerInfo(String mcode);
+	// 대리 등록
+	public int addAssiInfo(AssiVO assiVO);
+	// 대리 수정
+	public int modifyAssiInfo(AssiVO assiVO);
 
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.puppyroad.app.match.service.MatchVO;
+import com.puppyroad.app.petstarprofile.service.PetStarProfileVO;
 import com.puppyroad.app.websocket.mapper.ChatMapper;
 import com.puppyroad.app.websocket.service.ChatRoomDTO;
 import com.puppyroad.app.websocket.service.ChatRoomService;
@@ -29,13 +31,18 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 	}
 
 	@Override
-	public int addRoom(ChatRoomDTO chatRoomDTO) {
-		return chatMapper.insertRoom(chatRoomDTO);
+	public int addRoom(ChatRoomDTO chatRoomDTO, MatchVO matchVO) {
+		return chatMapper.insertRoom(chatRoomDTO, matchVO);
 	}
 
 	@Override
 	public List<ChatRoomDTO> getMyRoomList(ChatRoomDTO chatRoomDTO) {
 		return chatMapper.selectMyRoomList(chatRoomDTO);
+	}
+
+	@Override
+	public PetStarProfileVO getMyPorfile(PetStarProfileVO petStarProfileVO) {
+		return chatMapper.selectMyProfile(petStarProfileVO);
 	}
 
 }

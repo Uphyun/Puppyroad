@@ -15,19 +15,12 @@
 			<h4>실시간 매칭</h4>
 			<hr />
 			<form name="insertForm" th:action="@{/user/matchInsert}" method="post">
-				<div class="row mb-3">
-					<label for="title" class="col-md-2 col-lg-2 col-form-label">제목</label>
-					<div class="col-md-10 col-lg-10">
-						<input name="title" type="text" class="form-control" />
-					</div>
-				</div>
-				<hr />
 				
 				<div class="row mb-3">
 					<label for="title" class="col-md-2 col-lg-2 col-form-label">작성자</label>
 					<div class="col-md-10 col-lg-10">
 						<input name="writer" type="text" class="form-control" 
-						th:value="${#authentication.principal.username}" readonly>
+						th:value="${#authentication.principal.memberVO.nickName}" readonly>
 					</div>
 				</div>
 				<hr />
@@ -69,32 +62,14 @@
 					<hr />
 				  </div>
 				
-				<div class="row mb-3" id="second">
-					<label class="col-md-2 col-lg-2 col-form-label" for="eventGuests">지역</label>
-					  <div class="col-md-10 col-lg-10">
-		                  <select
-		                    class="select2 select-event-guests form-select"
-		                    id="walkPlaceAddress"
-		                    name="walkPlaceAddress">
-			                  <option value="서울">서울</option>
-			                  <option value="부산">부산</option>
-			                  <option value="대구">대구</option>
-			                  <option value="대전">대전</option>
-			                  <option value="광주">광주</option>
-			                  <option value="울산">울산</option>
-		                  </select>
-	                  </div>
-					</div>
-				<hr />
-
-				<div class="row mb-3">
+				<div class="row mb-3"  id="second">
 					<label for="content" class="col-md-2 col-lg-2 col-form-label">소개</label>
 					<div class="col-md-10 col-lg-10">
 						<textarea name="content" class="form-control" id="content"
 							style="height: 100px"></textarea>
 					</div>
 				</div>
-				<div class="text-right">
+				<div class="text-sm-center pb-2">
 				    <button type="button" class="btn btn-secondary" 
 						th:onclick="|location.href='@{/user/matchList}'|">목록
 					</button>

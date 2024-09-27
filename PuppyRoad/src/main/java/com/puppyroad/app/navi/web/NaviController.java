@@ -15,20 +15,33 @@ import com.puppyroad.app.navi.service.NaviService;
 import com.puppyroad.app.navi.service.NaviVO;
 import com.puppyroad.app.util.SecurityUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class NaviController {
 	
 	@Autowired
 	NaviService naviService;
 
-	@GetMapping("user/map")
-	public String mapPage(Model model) {
-		String userId = SecurityUtil.userId();
+	@GetMapping("user/walkMap")
+	public String walkMapPage(Model model, String bulletinNo) {
+		log.info(bulletinNo);
 		
-		System.err.println(userId);
+		model.addAttribute("puppyList", naviService.getPuppyList(bulletinNo));
 		
-		model.addAttribute("bulletinNo", naviService.getBoardNo(userId));
-		return "map/map";
+		return "map/walkMap";
+	}
+
+	@GetMapping("user/matchMap")
+	public String matchMapPage(Model model) {
+		String memberCode = SecurityUtil.memberCode();
+		
+		log.info(memberCode);
+		
+		model.addAttribute("bulletinNo", naviService.getBoardNo(memberCode));
+		
+		return "map/matchMap";
 	}
 	
 	@PostMapping("ajax/callNavi")

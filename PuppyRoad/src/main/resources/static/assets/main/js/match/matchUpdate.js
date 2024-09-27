@@ -3,31 +3,39 @@
  */
 
 const context = $('meta[name="contextPath"]').attr('value');
-$("#updateBtn").on("click", updateAjax);
+$("#updateBtn").on("click", function() {
 
-function updateAjax(event) {
-  // 보낼 데이터 가져오기
-  let dataObj = getFormData();
-  // AJAX
-  $.ajax("matchUpdate", {
-    type: "post",
-    contentType: "application/json",
-    data: JSON.stringify(dataObj),
-  })
-    .done((data) => {
-      if (data.result) {
-        alert("정상적으로 수정되었습니다");
-		let bno = $('#bulletinNo').val();
-		let url = context + '/user/matchInfo?bulletinNo=' + bno;
-		location.href = url;
-      } else {
-        alert("수정이 실패하였습니다");
-      }
-    })
-    .fail((err) => {
-      console.log(err);
-    });
-}
+	let title = $('input[name=title]').val();
+	let walkPlaceAddress = $("#walkPlaceAddress option:selected").val();
+	let content = $('[name=content]').val();
+	let bulletinNo = $('input[name=bulletinNo]').val();
+
+	let data = { title, content, walkPlaceAddress, bulletinNo }
+	console.log(data);
+
+	$.ajax({
+		url: '/user/matchUpdate',
+		type: "post",
+		data: data,
+		success: function(datas) {
+			if (datas.result = 1) {
+				alert("성공적으로 수정되었습니다.");
+				location.href = '/user/matchList'
+			} else {
+				alert("수정 오류")
+			}
+		}
+	})
+		.fail(err => console.log(err))
+
+
+
+
+
+});
+
+
+
 
 function getFormData() {
   let formAry = $('form[name="updateForm"]').serializeArray();

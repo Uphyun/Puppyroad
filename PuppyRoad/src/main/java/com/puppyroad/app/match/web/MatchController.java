@@ -115,9 +115,10 @@ public class MatchController {
 	// 수정 - 처리
 	@PostMapping("user/matchUpdate")
 	@ResponseBody // AJAX
-	public Map<String, Object> matchUpdate(MatchVO matchVO){
+	public int matchUpdate(MatchVO matchVO){
 		matchVO.setClientCode(SecurityUtil.memberCode());
-		return matchService.modifyMatch(matchVO);
+		int bno = matchService.modifyMatch(matchVO);
+		return bno;
 		
 	}
 	

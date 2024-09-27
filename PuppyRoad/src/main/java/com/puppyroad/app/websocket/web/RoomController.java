@@ -3,32 +3,22 @@ package com.puppyroad.app.websocket.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.puppyroad.app.match.service.MatchService;
 import com.puppyroad.app.match.service.MatchVO;
-import com.puppyroad.app.member.service.MemberService;
-import com.puppyroad.app.member.service.MemberVO;
+import com.puppyroad.app.petstarprofile.service.PetStarProfileVO;
 import com.puppyroad.app.puppy.service.PuppyVO;
-import com.puppyroad.app.security.service.LoginMemberVO;
 import com.puppyroad.app.util.SecurityUtil;
 import com.puppyroad.app.websocket.service.ChatMessageDTO;
 import com.puppyroad.app.websocket.service.ChatMessageService;
 import com.puppyroad.app.websocket.service.ChatRoomDTO;
 import com.puppyroad.app.websocket.service.ChatRoomService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -54,12 +44,16 @@ public class RoomController {
     
     //내 채팅방 목록
     @GetMapping("chat/myChat")
-    public String myRoomList(ChatRoomDTO chatRoomDTO, ChatMessageDTO chatMessageDTO,Model model, PuppyVO puppyVO) {
+    public String myRoomList(PetStarProfileVO petStarProfileVO,ChatRoomDTO chatRoomDTO, ChatMessageDTO chatMessageDTO, Model model, PuppyVO puppyVO) {
     	String mcode = SecurityUtil.memberCode();
     	
 		chatRoomDTO.setSender(mcode);
 		chatRoomDTO.setRecipient(mcode);
 		puppyVO.setClientUserId(mcode);
+		petStarProfileVO.setMemberCode(mcode);
+		
+		PetStarProfileVO myPro = chatRoomService.getMyPorfile(petStarProfileVO);
+		model.addAttribute("myPro", myPro);
 		
 		List<ChatRoomDTO> list = chatRoomService.getMyRoomList(chatRoomDTO);
     	model.addAttribute("myList", list); 
@@ -69,27 +63,24 @@ public class RoomController {
     	List<PuppyVO> dogs = matchService.getDogList(puppyVO);
     	model.addAttribute("myDogs", dogs);
     	
-        return "/chat/myChat";
+        return "chat/myChat";
     }
     
     //신청시 매칭 채팅방 : post
     @GetMapping("user/matchChat")
-    public String myRoomInsert(ChatRoomDTO chatRoomDTO, RedirectAttributes rttr, HttpServletRequest req){
+    public String myRoomInsert(ChatRoomDTO chatRoomDTO, MatchVO matchVO){
+    	System.err.println(matchVO.getTitle());
+    	System.err.println(matchVO.getWriter());
+    	
     	String mcode = SecurityUtil.memberCode();
-    	String title = req.getParameter("title");
-    	String writer = req.getParameter("writer");
-    	String type = req.getParameter("chattingType");
-    	int no = Integer.parseInt(req.getParameter("bulletinNo"));
     	
     	chatRoomDTO.setSender(mcode);
-    	chatRoomDTO.setRecipient(writer);
-    	chatRoomDTO.setRoomName(title);
-    	chatRoomDTO.setMatchNo(no);
     	
-    	int result = chatRoomService.addRoom(chatRoomDTO);
+    	int result = chatRoomService.addRoom(chatRoomDTO, matchVO);
     	return "redirect:/chat/myChat";
     }
 
+    /**
     //채팅방 개설 : post
     @PostMapping("chat/room")
     public String roomInsert(ChatRoomDTO chatRoomDTO, RedirectAttributes rttr){
@@ -98,6 +89,7 @@ public class RoomController {
     		rttr.addFlashAttribute("roomNames", chatRoomDTO.getRoomName());
     	return "redirect:/chat/rooms";
     }
+    */
     
     //채팅방 조회 : get
     @GetMapping("chat/room")

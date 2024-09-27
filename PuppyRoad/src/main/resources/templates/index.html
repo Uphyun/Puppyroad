@@ -84,30 +84,32 @@
 			</div>
 		</div>
 
-		<!-- 프로세스 설명 -->
+		<!-- 프로세스 -->
 		<div
-			class="container d-flex justify-content-between align-items-center mt-5"
-			style="background-color: #f9f9f9; padding: 20px; border-radius: 10px;">
+			class="container d-flex justify-content-center align-items-center mt-5"
+			style="padding: 20px; border-radius: 10px; flex-wrap: wrap; text-align: center;">
 
 			<div class="image-container">
 				<img id="sectionImage" src="/assets/admin/img/main/where.jpg"
 					alt="human image"
-					style="max-width: 600px; width: 100%; height: auto; border-radius: 10px; margin-right: 20px;"
-					class="animate__animated animate__fadeInUp">
+					style="width: 500px; height: auto; border-radius: 10px; margin-right: 20px;"
+					class="animate__animated animate__fadeInRight">
 			</div>
 
-			<div class="text-container" style="max-width: 400px;">
+			<div class="text-container"
+				style="max-width: 400px; min-height: 200px; flex-shrink: 0;">
 				<h4 class="mb-4">안심할 수 있는 산책 프로세스</h4>
 				<p id="sectionText" class="text-center">내 반려견의 위치를 실시간으로 확인할 수
 					있습니다!</p>
 
-				<button id="BtnOne" class="btn btn-info mb-3 process-btn">실시간
-					위치전송</button>
-				<button id="BtnTwo" class="btn btn-info mb-3 process-btn">산책
-					일기</button>
+				<div class="d-flex justify-content-center" style="gap: 10px;">
+					<button id="BtnOne" class="btn btn-light mb-3 process-btn"
+						>실시간 위치전송</button>
+					<button id="BtnTwo" class="btn btn-light mb-3 process-btn">산책
+						일기</button>
+				</div>
 			</div>
 		</div>
-
 
 
 	</section>
@@ -128,25 +130,33 @@
 	});
 
 	
-	 // 프로세스설명
     // 이미지 변경 시 애니메이션 적용
-    $('.process-btn').on('click', function() {
-        $('.process-btn').removeClass('active-btn'); 
-        $(this).addClass('active-btn'); 
+     $(document).ready(function() {
+        $('#BtnOne').addClass('active-btn');
         
-        // 애니메이션 적용을 위한 트릭: 기존 애니메이션 클래스를 제거한 뒤 다시 추가
-        $('#sectionImage').removeClass('animate__fadeInUp');
-        void $('#sectionImage')[0].offsetWidth; // 트리거용, 강제로 리플로우를 발생시켜 클래스 적용
+        // 기본 이미지 및 텍스트 설정
+        $('#sectionImage').attr('src', '/assets/admin/img/main/where.jpg');
+        $('#sectionText').text('내 반려견의 위치를 실시간으로 확인할 수 있습니다!');
 
-        if ($(this).attr('id') === 'BtnOne') {
-            $('#sectionImage').attr('src', '/assets/admin/img/main/where.jpg');
-            $('#sectionText').text('내 반려견의 위치를 실시간으로 확인할 수 있습니다!');
-        } else if ($(this).attr('id') === 'BtnTwo') {
-            $('#sectionImage').attr('src', '/assets/admin/img/main/diary.jpg');
-            $('#sectionText').text('산책 중 있었던 내용을 알려드립니다!');
-        }
+        // 버튼 클릭 시 이미지 및 텍스트 변경
+        $('.process-btn').on('click', function() {
+            $('.process-btn').removeClass('active-btn'); 
+            $(this).addClass('active-btn'); 
 
-        $('#sectionImage').addClass('animate__fadeInUp');
+            // 애니메이션 적용을 위한 트릭: 기존 애니메이션 클래스를 제거한 뒤 다시 추가
+            $('#sectionImage').removeClass('animate__fadeInRight');
+            void $('#sectionImage')[0].offsetWidth; // 트리거용, 강제로 리플로우를 발생시켜 클래스 적용
+
+            if ($(this).attr('id') === 'BtnOne') {
+                $('#sectionImage').attr('src', '/assets/admin/img/main/where.jpg');
+                $('#sectionText').text('내 반려견의 위치를 실시간으로 확인할 수 있습니다!');
+            } else if ($(this).attr('id') === 'BtnTwo') {
+                $('#sectionImage').attr('src', '/assets/admin/img/main/diary.jpg');
+                $('#sectionText').text('산책 중 있었던 내용을 알려드립니다!');
+            }
+
+            $('#sectionImage').addClass('animate__fadeInRight');
+        });
     });
 </script>
 

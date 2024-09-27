@@ -45,7 +45,7 @@
               <a href="javascript:void(0);"
                 class="nav-link dropdown-toggle navbar-ex-14-mega-dropdown mega-dropdown fw-medium"
                 aria-expanded="false" data-bs-toggle="mega-dropdown" data-trigger="hover">
-                <span data-i18n="Pages">매칭하기</span>
+                <span>매칭하기</span>
               </a>
               <div class="dropdown-menu p-4 p-xl-8">
                 <div class="row gy-4">
@@ -128,12 +128,12 @@
           <!-- navbar button: Start -->
           <li>
             <th:block sec:authorize="!isAuthenticated()">
-              <a th:href="@{memberLogin}" class="btn btn-primary" target="_self"><span
+              <a th:href="@{/memberLogin}" class="btn btn-primary" target="_self"><span
                   class="tf-icons ti ti-login scaleX-n1-rtl me-md-1"></span><span
                   class="d-none d-md-block">Login/Register</span></a>
             </th:block>
             <th:block sec:authorize="isAuthenticated()">
-              <a th:href="@{memberLogout}" class="btn btn-primary" target="_self"><span
+              <a th:href="@{/memberLogout}" class="btn btn-primary" target="_self"><span
                   class="tf-icons ti ti-login scaleX-n1-rtl me-md-1"></span><span
                   class="d-none d-md-block">Logout</span></a>
             </th:block>

@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer{
 	
-	@Value("${file.upload.url}")
+	@Value("${file.upload.path}")
 	private String uploadPath;
 	
 	//리소스 핸들링

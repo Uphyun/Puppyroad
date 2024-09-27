@@ -4,7 +4,8 @@
       layout:decorate="~{common/layouts/default_layout}"
       layout:fragment="Content">
 <head>
-    <script type="text/javascript" src="/assets/main/js/petstar/image.js"></script>
+<link rel="stylesheet" href="/assets/main/css/petstar/image.css"
+	type="text/css" />
     <script type="text/javascript" src="/assets/main/js/news/newsUpdate.js"></script>
     <meta charset="UTF-8">
     <title>소식통 수정</title>
@@ -50,7 +51,8 @@
                 <!-- 기존에 등록된 파일 목록 -->
                <div th:each="fileName : ${#strings.arraySplit(news.attachedFile, ',')}">
                     <div class="preview-item">
-                        <img th:src="@{/images/{fileName}(fileName=${fileName})}" alt="첨부 이미지" style="width: 100px; height: 100px; object-fit: cover; "/>
+                        <img th:src="@{/images/{fileName}(fileName=${fileName})}" alt="첨부 이미지" style="width: 100px; height: 100px; object-fit: cover; "
+                       />
                       <a th:onclick="deleteExistingFile([[${fileName}]])" style="display: block; margin-top: 5px;"><i class="ti ti-minus" ></i></a>	
                     </div>
                 </div>

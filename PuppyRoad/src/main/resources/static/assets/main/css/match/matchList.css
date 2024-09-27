@@ -38,8 +38,6 @@ tr > td:first-of-type {
   
 thead {
   font-weight: bold;
-  color: rgb(0, 0, 0);
-  background: rgb(255,255,255);
   border-bottom: 2px solid rgb(128,128,128);
 }
   
