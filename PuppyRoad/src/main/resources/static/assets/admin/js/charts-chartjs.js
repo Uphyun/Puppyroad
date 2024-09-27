@@ -126,6 +126,21 @@ $.ajax({
     }
 });
 
+  document.getElementById("barChart").onclick = function(evt) {
+        var activePoints = barChart.getElementsAtEvent(evt);
+
+        if(activePoints.length > 0)
+        {
+            var clickedElementindex = activePoints[0]["_index"];
+
+            var label = barChart.data.labels[clickedElementindex];
+            console.log("label : " + label);
+
+            var value = barChart.data.datasets[0].data[clickedElementindex];
+            console.log("value : " + value);
+        }
+    }
+
   // Horizontal Bar Chart
   // --------------------------------------------------------------------
 

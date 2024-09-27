@@ -143,13 +143,17 @@ $(document).ready(function(){
 									class="timeline-point timeline-point-primary"></span>
 									<div class="timeline-event">
 										<div class="timeline-header mb-3">
-											<h6 class="mb-0">도그워커 : ${res.recipient}</h6>
+											<h6 class="mb-0">도그워커 : ${res.name}</h6>
 											<small class="text-muted">결제일 : ${res.purchasedAt}</small>
 										</div>
-										<p class="mb-2">Invoices have been paid to the company</p>
 										<div class="d-flex align-items-center mb-2">
 											<div class="badge bg-lighter rounded d-flex align-items-center">
-												 <span class="h6 mb-0 text-body">결제방식 : ${res.method}, 가격 : ${res.price}원</span>
+												 <span class="h6 mb-0 text-body">결제방식 : ${res.method}</span>
+											</div>
+										</div>
+										<div class="d-flex align-items-center mb-2">
+											<div class="badge bg-lighter rounded d-flex align-items-center">
+												 <span class="h6 mb-0 text-body">가격 : ${res.price}원</span>
 											</div>
 										</div>
 									</div>

@@ -25,8 +25,8 @@
             p.NOTE,
             p.CLIENT_USER_ID,
             p.PICTURE
-        FROM WALK_JOURNAL w
-        LEFT JOIN PUPPY p ON w.PUPPY_CODE = p.PUPPY_CODE
+        FROM WALK_JOURNAL w JOIN PUPPY p ON w.PUPPY_CODE = p.PUPPY_CODE
+        WHERE CLIENT_USER_ID = #{clientUserId}
     </select>
     
     <select id="selectOneWalkJournals" resultType="WalkJournalVO">

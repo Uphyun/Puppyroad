@@ -26,7 +26,7 @@
                 <h5 class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">매칭내역 조회</font></font></h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table">
-                    <thead>
+                    <thead class="text-center">
                       <tr>
                         <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">매칭 상대</font></font></th>
                         <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">매칭 글 제목</font></font></th>
@@ -34,6 +34,8 @@
                         <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">매칭종류</font></font></th>
                         <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">직함</font></font></th>
                         <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">매칭상태</font></font></th>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">산책</font></font></th>
+                        
                         
                       </tr>
                     </thead>
@@ -54,6 +56,9 @@
 	                        </td>
 	                        <td>
 	                          <span class="fw-medium"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">[[${#dates.format(match.endTime, 'yyyy/MM/dd')}]]</font></font></span>
+	                        </td>
+	                        <td th:if="${match.matchingKind == null}">
+	                          <span class="fw-medium"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">???</font></font></span>
 	                        </td>
 	                        <td th:if="${match.matchingKind == '1'}">
 	                          <span class="fw-medium"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">자율매칭</font></font></span>
@@ -79,16 +84,7 @@
 	                        <td th:if="${match.matchingState == 2}"><span class="badge bg-label-primary me-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">매칭예약</font></font></span></td>
 	                        <td th:if="${match.matchingState == 3}"><span class="badge bg-label-primary me-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">매칭종료</font></font></span></td>
 	                        <td th:if="${match.matchingState == 4}"><span class="badge bg-label-primary me-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">매칭취소</font></font></span></td>
-	                        <td>
-	                          <div class="dropdown">
-	                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-	                              <i class="ti ti-dots-vertical"></i>
-	                            </button>
-	                            <div class="dropdown-menu">
-	                              <a class="dropdown-item waves-effect" href="javascript:void(0);"><i class="ti ti-trash me-1"></i> 삭제</a>
-	                            </div>
-	                          </div>
-	                        </td>
+	            		    <td class="text-center"><button type="button" class="w-75 h-75 btn rounded-pill btn-label-info waves-effect" th:onclick="|location.herf='@{/user/walkMap(bulletinNo=${match.bulletinNo})}'|">산책하기</button></td>
 	                      </tr>
                       </th:block>
                     </tbody>

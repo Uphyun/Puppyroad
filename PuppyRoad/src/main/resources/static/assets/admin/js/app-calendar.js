@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', function () {
       btnDeleteEvent = document.querySelector('.btn-delete-event'),
       btnCancel = document.querySelector('.btn-cancel'),
       eventTitle = document.querySelector('#eventTitle'),
-      //제발
       eventDogName = $('#eventDogName'),
       eventWalkFare = $('#eventWalkFare'),
       eventPhone = $('#eventPhone'),
@@ -50,8 +49,10 @@ document.addEventListener('DOMContentLoaded', function () {
       allDaySwitch = document.querySelector('.allDay-switch'),
       selectAll = document.querySelector('.select-all'),
       filterInput = [].slice.call(document.querySelectorAll('.input-filter')),
-      inlineCalendar = document.querySelector('.inline-calendar');
-
+      inlineCalendar = document.querySelector('.inline-calendar'),
+      totalPrice = $('#totalPrice'),
+      payterm = $('#payterm');
+      
     let eventToUpdate,
       currentEvents = events, // Assign app-calendar-events.js file events (assume events from API) to currentEvents (browser store/object) to manage and update calender events
       isFormValid = false,
@@ -152,10 +153,20 @@ document.addEventListener('DOMContentLoaded', function () {
 //바보
     // Event click function
     function eventClick(info) {
+		console.log(eventLabel.val());
+		eventLabel.on('change', function () {
+		  if (eventLabel.val() === 'Holiday') {
+		    $('.addHide').hide();
+		  } else if(eventLabel.val() === 'Business'){
+		    $('.totalPay').show();
+		  } else {
+		    $('.addHide').hide();
+		    $('#totalPay').hide();
+		  }
+		});
       eventToUpdate = info.event;
-      console.log(info.event);
-      console.log(eventDogName.val());
-      console.log(eventLabel);
+
+
       if (eventToUpdate.url) {
         info.jsEvent.preventDefault();
         window.open(eventToUpdate.url, '_blank');
@@ -191,11 +202,17 @@ document.addEventListener('DOMContentLoaded', function () {
         ? eventDogName.val(eventToUpdate.extendedProps.dogName).trigger('change')
         : null;
        eventToUpdate.extendedProps.walkFare !== undefined
-        ? eventWalkFare.val(eventToUpdate.extendedProps.walkFare).trigger('change')
+        ? eventWalkFare.val(eventToUpdate.extendedProps.walkFare+'원').trigger('change')
         : null;
        eventToUpdate.extendedProps.phone !== undefined
         ? eventPhone.val(eventToUpdate.extendedProps.phone).trigger('change')
         : null;
+       eventToUpdate.extendedProps.totalPrice !== undefined
+        ? totalPrice.val(eventToUpdate.extendedProps.totalPrice+'원').trigger('change')
+        : null;
+        payterm.val(eventToUpdate.extendedProps.monday+'에서'+eventToUpdate.extendedProps.sunday+'까지').trigger('change')
+    
+
       
 
       // // Call removeEvent function

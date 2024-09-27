@@ -10,4 +10,6 @@ public interface ScheduleService {
 	public int ScheduleUpdate(ScheduleVO scheduleVO);
 	//휴가추가
 	public int Scheduleinsert(ScheduleVO scheduleVO);
+	//결제일
+	public List<ScheduleVO> payList(String recipient);
 }

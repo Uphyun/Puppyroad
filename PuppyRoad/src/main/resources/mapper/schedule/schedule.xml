@@ -61,6 +61,24 @@
 		)
 	</insert>
 	
+	<select id="payList" resultType="ScheduleVO">
+		SELECT 
+		    SUM(price) AS total_price,
+		    NEXT_DAY(purchased_at, '금요일') AS next_friday,
+		    NEXT_DAY(purchased_at-7, '월요일') as monday,
+		    NEXT_DAY(purchased_at, '일요일') as sunday 
+		FROM 
+		    payment
+		WHERE 
+            recipient = #{recipient} and
+		    purchased_at BETWEEN NEXT_DAY(purchased_at-7, '월요일') 
+		                     AND NEXT_DAY(purchased_at, '일요일')
+		GROUP BY 
+		   NEXT_DAY(purchased_at, '금요일'),
+		   NEXT_DAY(purchased_at-7, '월요일'),
+		   NEXT_DAY(purchased_at, '일요일') 
+	</select>
+	
 
 
 </mapper>
