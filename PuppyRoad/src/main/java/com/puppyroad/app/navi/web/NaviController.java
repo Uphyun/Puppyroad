@@ -24,16 +24,24 @@ public class NaviController {
 	@Autowired
 	NaviService naviService;
 
-	@GetMapping("user/map")
-	public String mapPage(Model model, String bulletinNo) {
+	@GetMapping("user/walkMap")
+	public String walkMapPage(Model model, String bulletinNo) {
+		log.info(bulletinNo);
+		
+		model.addAttribute("puppyList", naviService.getPuppyList(bulletinNo));
+		
+		return "map/walkMap";
+	}
+
+	@GetMapping("user/matchMap")
+	public String matchMapPage(Model model) {
 		String memberCode = SecurityUtil.memberCode();
 		
 		log.info(memberCode);
 		
 		model.addAttribute("bulletinNo", naviService.getBoardNo(memberCode));
-		model.addAttribute("puppyList", naviService.getPuppyList(bulletinNo));
 		
-		return "map/map";
+		return "map/matchMap";
 	}
 	
 	@PostMapping("ajax/callNavi")

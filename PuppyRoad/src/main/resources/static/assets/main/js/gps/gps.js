@@ -92,7 +92,7 @@ function setDrawing() {
 }
 
 //실시간 경로그리기(산책시작)
-function startWalking(code = '0000000001', used = 'puppy') {
+function startWalking(code, used) {
 	//used => puppy, schedule, journal;
 	let turn = 0;
 
