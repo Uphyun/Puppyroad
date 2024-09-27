@@ -1,7 +1,6 @@
 /**
  * 
  */
-getMemberList('의뢰인', 'manageTable');
 // $(document).ready( function() {
 // 	$('#manageTable').DataTable();
 // });
