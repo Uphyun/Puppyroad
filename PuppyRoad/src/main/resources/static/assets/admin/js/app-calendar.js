@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		    $('.plzHide').hide();
 		  } else {
 		    $('.addHide').hide();
-		    $('#totalPay').hide();
+		    $('.totalPay').hide();
 		  }
 		});
       eventToUpdate = info.event;
