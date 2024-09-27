@@ -116,7 +116,6 @@
   	UPDATE matching_board
   	SET
   	       title = #{title},
-  	       writer = #{writer},
   	       content = #{content},
   	       matching_state = #{matchingState},
   	       matching_kind = #{matchingKind},

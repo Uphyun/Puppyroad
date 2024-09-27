@@ -60,21 +60,11 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
-	public Map<String, Object> modifyMatch(MatchVO matchVO) {
+	public int modifyMatch(MatchVO matchVO) {
 		// TODO 단건 수정
-		Map<String, Object> map = new HashMap<>();
-		boolean isSuccessed = false;
-		
 		int result = matchMapper.updateMatch(matchVO);
 		
-		if (result == 1) {
-			isSuccessed = true;
-		}
-		
-		map.put("result", isSuccessed);
-		map.put("target", matchVO);
-		
-		return map;
+		return result;
 	}
 
 	@Override

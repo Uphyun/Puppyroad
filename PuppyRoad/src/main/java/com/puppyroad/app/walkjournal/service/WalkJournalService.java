@@ -5,7 +5,7 @@ import java.util.List;
 public interface WalkJournalService {
 	
 	//의뢰인 산책일지 전체리스트 조회
-	public List<WalkJournalVO> WalkJournalList();
+	public List<WalkJournalVO> WalkJournalList(String userId);
 	
 	//의뢰인 단건조회
 	public WalkJournalVO WalkJournalGetInfo(WalkJournalVO walkJournalV);

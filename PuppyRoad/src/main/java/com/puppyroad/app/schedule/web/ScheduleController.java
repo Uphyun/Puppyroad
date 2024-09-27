@@ -20,6 +20,8 @@ public class ScheduleController {
 	
 	private ScheduleService scheduleService;
 	
+	
+	//일정표 전체조회
 	@GetMapping("user/scheduleListprocess")
 	@ResponseBody
 	public List<ScheduleVO> scheduleList(ScheduleVO scheduleVO, Model model) {
@@ -52,6 +54,13 @@ public class ScheduleController {
 		String mcode = SecurityUtil.memberCode();
 		scheduleVO.setWalkerCode(mcode);
 		return scheduleService.Scheduleinsert(scheduleVO);
+	}
+	
+	@GetMapping("user/SchedulePayList")
+	@ResponseBody
+	public List<ScheduleVO> SchedulePayList(String recipient){
+		String userId = SecurityUtil.userId();
+		return scheduleService.payList(userId);
 	}
 	
 }

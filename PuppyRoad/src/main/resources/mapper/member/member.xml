@@ -100,10 +100,10 @@
 	<update id="memberUpdate">
 		        
 		UPDATE member
-		   SET nickname = #{nickName},
-			   address = #{address},
-			   email = #{email},
-			   phone = #{phone}
+		   SET 
+		   	   user_pw = #{userPw},
+		   	   nickname = #{nickName},
+			   email = #{email}
 		WHERE  user_id = #{userId}
 				
 	</update>

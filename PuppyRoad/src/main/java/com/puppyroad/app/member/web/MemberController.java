@@ -95,7 +95,7 @@ public class MemberController {
 		System.out.println(randNum);
 		System.out.println("수신자 번호 : " + phoneNumber);
 		System.out.println("인증번호 : " + randNum);
-		//memberService.certifiedPhoneNumber(phoneNumber, randNum);
+		memberService.certifiedPhoneNumber(phoneNumber, randNum);
 		return randNum;
 	}
 	
@@ -149,6 +149,12 @@ public class MemberController {
 		}
 	}
 	
+	//정보확인하기
+	@GetMapping("user/checkDetail")
+	public String checkDetail() {
+		return "member/checkDetail";
+	}
+	
 	//회원정보수정
 	@PostMapping("user/memberUpdate")
 	@ResponseBody
@@ -156,6 +162,8 @@ public class MemberController {
 		System.out.println(memberVO);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		memberVO.setUserId(authentication.getName());
+		String password = passwordEncoder.encode(memberVO.getUserPw());
+		memberVO.setUserPw(password);
 		return memberService.memberUpdate(memberVO);
 	}
 	

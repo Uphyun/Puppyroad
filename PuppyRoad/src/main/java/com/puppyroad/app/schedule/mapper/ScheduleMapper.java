@@ -12,4 +12,6 @@ public interface ScheduleMapper {
 	public int ScheduleUpdate(ScheduleVO scheduleVO);
 	//휴가추가
 	public int ScheduleInsert(ScheduleVO scheduleVO);
+	//결제일
+	public List<ScheduleVO> payList(String recipient);
 }

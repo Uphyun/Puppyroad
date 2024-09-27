@@ -21,16 +21,33 @@
  
  <!-- 내 채팅방 목록 조회 -->
 <select id="selectMyRoomList" resultMap="ChatRoomRT">
-	SELECT    room_name,
-              room_id,
-              recipient,
-              created_date,
-              chatting_type,
-              sender,
-              match_no
-    FROM      chat_room
-    WHERE     recipient = #{recipient}
-    OR        sender = #{sender}
+	SELECT    cr.room_name,
+              cr.room_id,
+              cr.recipient,
+              cr.created_date,
+              cr.chatting_type,
+              cr.sender,
+              cr.match_no,
+              
+              CASE WHEN recipient = #{sender}  THEN (  SELECT profile_picture
+              										   FROM   pet_stargram_profile
+              										   WHERE  member_code = cr.sender     )
+              ELSE (   SELECT profile_picture
+              		   FROM   pet_stargram_profile
+                	   WHERE  member_code = cr.recipient    )
+                  END AS profile_picture
+              ,
+              CASE WHEN recipient = #{sender}  THEN (  SELECT nickname
+              										   FROM   pet_stargram_profile
+              										   WHERE  member_code = cr.sender     )
+              ELSE (   SELECT nickname
+              		   FROM   pet_stargram_profile
+                	   WHERE  member_code = cr.recipient    )
+                  END AS  nickname
+              
+    FROM      chat_room cr
+                    
+    WHERE     (recipient = #{sender}   OR  sender = #{sender})
     ORDER BY  created_date
 </select>
 
@@ -49,6 +66,19 @@
            GROUP BY room_id)
     AND       room_id = #{roomId}
 </select>
+
+<!-- 채팅방 목록 조회 join -->
+<select id="selectJoinList">
+	SELECT    room_name,
+              room_id,
+              recipient,
+              created_date,
+              chatting_type,
+              sender,
+              match_no
+    FROM      chat_room
+</select>
+
 
 
  
@@ -70,12 +100,16 @@
                           match_no)
     VALUES(
            LPAD(LTRIM(to_char(#{roomId}, 'xxxxxxxxxx')), 10, '0'),
-           #{roomName},
+           #{matchVO.title},
            sysdate,
-           #{chattingType},
-           #{sender},
-           #{recipient},
-           #{matchNo} 
+           #{chatRoomDTO.chattingType},
+           #{chatRoomDTO.sender},
+           (
+           	SELECT	writer
+           	FROM	matching_board
+           	where	bulletin_no = #{matchVO.bulletinNo} 
+           ),
+           #{matchVO.bulletinNo} 
            )
 </insert>
   
@@ -90,6 +124,14 @@
               match_no
     FROM      chat_room
     WHERE     room_id = #{roomId}
+</select>
+
+	<!-- 내 프로필 -->
+<select id="selectMyProfile">
+	SELECT profile_picture,
+	       nickname
+	FROM   pet_stargram_profile
+	WHERE  member_code = #{memberCode}
 </select>
   
 </mapper>

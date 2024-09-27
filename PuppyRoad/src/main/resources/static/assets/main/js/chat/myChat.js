@@ -8,6 +8,8 @@ $(document).ready(function() {
 	let title = '';
 	let roomId = '';
 	let writer = '';
+	let nickName = '';
+	let profilePicture = '';
 	
 	//calender 30분주기
 	$('.flatpickr-minute').attr("step", 30);
@@ -42,7 +44,7 @@ $(document).ready(function() {
 		 </div></div>
 		 <div class='user-avatar flex-shrink-0 ms-4'>
 		 <div class='avatar avatar-sm'>
-		 <img src='/assets/admin/img/avatars/1.png' alt='Avatar' class='rounded-circle' />
+		 <img src='/images/${myProfile}' alt='Avatar' class='rounded-circle' />
 		 </div></div></div></li>`
 
 		$('.list-unstyled.chat-history').append(app);
@@ -59,7 +61,7 @@ $(document).ready(function() {
 		 </div></div>
 		 <div class='user-avatar flex-shrink-0 ms-4'>
 		 <div class='avatar avatar-sm'>
-		 <img src='/assets/admin/img/avatars/1.png' alt='Avatar' class='rounded-circle' />
+		 <img src='${profilePicture}' alt='Avatar' class='rounded-circle' />
 		 </div></div></div></li>`
 
 		$('.list-unstyled.chat-history').append(app);
@@ -81,6 +83,8 @@ $(document).ready(function() {
 			bulletinNo = $(this).find('h6').attr('name');
 			roomId = $(this).attr('id');
 			writer = $(this).attr('name');
+			nickName = $(this).find('small').eq(1).attr('id');
+			profilePicture = $(this).find('img').attr('src');
 
 			$('.list-unstyled.chat-history').empty();
 			$('#chatProfile').empty();
@@ -93,7 +97,7 @@ $(document).ready(function() {
                               data-target='#app-chat-contacts'></i>
                             <div class='flex-shrink-0 avatar'>
                               <img
-                                src='/assets/admin/img/avatars/4.png'
+                                src="${profilePicture}"
                                 alt='Avatar'
                                 class='rounded-circle'
                                 data-bs-toggle='sidebar'
@@ -101,8 +105,8 @@ $(document).ready(function() {
                                 data-target='#app-chat-sidebar-right'/>
                             </div>
                             <div class='chat-contact-info flex-grow-1 ms-4'>
-                              <h6 class='m-0 fw-normal'>${roomId}</h6>
-                              <small class='user-status text-body'>${roomId}</small>
+                              <h6 class='m-0 fw-normal'>${title}</h6>
+                              <small class='user-status text-body'>${nickName}</small>
                             </div>`;
 			
 			$('#chatProfile').append(chatPro);
@@ -130,7 +134,7 @@ $(document).ready(function() {
 					 </div></div>
 					 <div class='user-avatar flex-shrink-0 ms-4'>
 					 <div class='avatar avatar-sm'>
-					 <img src='/assets/admin/img/avatars/1.png' alt='Avatar' class='rounded-circle' />
+					 <img src='/images/${myProfile}' alt='Avatar' class='rounded-circle' />
 					 </div></div></div></li>`
 							$('.list-unstyled.chat-history').append(app);
 						}
@@ -146,7 +150,7 @@ $(document).ready(function() {
 					 </div></div>
 					 <div class='user-avatar flex-shrink-0 ms-4'>
 					 <div class='avatar avatar-sm'>
-					 <img src='/assets/admin/img/avatars/1.png' alt='Avatar' class='rounded-circle' />
+					 <img src='${profilePicture}' alt='Avatar' class='rounded-circle' />
 					 </div></div></div></li>`
 							$('.list-unstyled.chat-history').append(app);
 						}
@@ -212,7 +216,7 @@ $(document).ready(function() {
 		puppy.push({bulletinNo, puppyCode});
 	})
 		
-	let data = {bulletinNo, title, writer, walkPlaceAddress, startTime, endTime, content, matchingKind, matchingState}
+	let data = {bulletinNo, title, walkPlaceAddress, startTime, endTime, content, matchingKind, matchingState}
 		console.log(puppy);
 		
 		$.ajax({

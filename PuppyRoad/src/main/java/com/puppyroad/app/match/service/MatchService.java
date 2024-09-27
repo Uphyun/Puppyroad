@@ -13,7 +13,7 @@ public interface MatchService {
 	// 단건 등록
 	public int addMatch(MatchVO matchVO);
 	// 단건 수정
-	public Map<String, Object> modifyMatch(MatchVO matchVO);
+	public int modifyMatch(MatchVO matchVO);
 	// 단건 삭제
 	public Map<String, Object> removeMatch(int matchId);
 	

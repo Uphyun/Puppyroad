@@ -21,39 +21,63 @@ let prevMonth = date.getMonth() === 11 ? new Date(date.getFullYear() - 1, 0, 1) 
       calendar: 'Business'
     }*/
 function test(){
+	
 	let datas =  $.ajax({
 							url : "/user/scheduleListprocess",
 							method : "GET",
 							 async: false
 						  }).responseText;
-							  
+						  
+						  
+	let results = $.ajax({
+							url : "/user/SchedulePayList",
+							method : "GET",
+							 async: false
+						  }).responseText;
+		
 	let newData=[];
+	results = JSON.parse(results)
+	for(let item of results){
+		newData.push({
+			start : item.nextFriday,
+			title : '정산일',
+			totalPrice : item.totalPrice,
+			monday : item.monday,
+			sunday : item.sunday,
+			extendedProps: {
+      			calendar: 'Holiday'
+   			 }
+		})
+	};
 	datas = JSON.parse(datas)
-	console.log(typeof datas);
 	for(let res of datas){
-		console.log(datas);
-		newData.push({
-			start : res.startTime,
-			end : res.endTime,
-			title : res.clientName,
-			dogName : res.dogName,
-			walkFare : res.walkFare,
-			address : res.address,
-			phone : res.phone,
-			extendedProps: {
-      			calendar: 'Business'
-   			 }
-			});
-		newData.push({
-			title : res.scheduleTitle,
-			start : res.holidayStart,
-			end : res.holidayEnd,
-			extendedProps: {
-      			calendar: 'Personal'
-   			 }
-			});
+		if(res.clientName != null){
+			newData.push({
+				start : res.startTime,
+				end : res.endTime,
+				title : res.clientName,
+				dogName : res.dogName,
+				walkFare : res.walkFare,
+				address : res.address,
+				phone : res.phone,
+				extendedProps: {
+	      			calendar: 'Business'
+	   			 }
+				})
+		};
+			
 	
 	}
+		if(datas.length > 0){
+			newData.push({
+				title : '휴가',
+				start : datas[0].holidayStart,
+				end : datas[0].holidayEnd,
+				extendedProps: {
+	      			calendar: 'Personal'
+	   			 }
+				})
+		};
 	return newData;
 
 }

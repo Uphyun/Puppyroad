@@ -28,26 +28,14 @@
                     <div class="col-xl-4 col-lg-6 col-md-6" >
                   <div class="card" >
                     <div class="card-body text-center" id="tr">
-                      <div class="dropdown btn-pinned">
-                        <button type="button" class="btn btn-icon btn-text-secondary rounded-pill dropdown-toggle hide-arrow p-4 waves-effect waves-light" data-bs-toggle="dropdown" aria-expanded="false">
-                          <i class="ti ti-dots-vertical ti-md text-muted"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                          <li><a class="dropdown-item waves-effect" href="javascript:void(0);">Share connection</a></li>
-                          <li><a class="dropdown-item waves-effect" href="javascript:void(0);">Block connection</a></li>
-                          <li>
-                            <hr class="dropdown-divider">
-                          </li>
-                          <li><a class="dropdown-item text-danger waves-effect" href="javascript:void(0);">Delete</a></li>
-                        </ul>
-                      </div>
                       <div class="mx-auto my-6">
                            <img th:if="${list.picture != null}" class="rounded-circle w-px-100" th:src="${list.picture}" alt="사진">
 	                          <span th:if="${list.picture == null}">이미지없음</span>
                       </div>
-                      <h5 class="mb-0 card-title">[[ ${list.name} ]]</h5>
+                      <h5 class="mb-0 card-title">고객이름 : [[ ${list.name} ]]</h5>
                       <div class="d-flex align-items-center justify-content-center my-6 gap-2">
-                        <a href="javascript:;"><span class="badge bg-label-warning">퍼피로드</span></a>
+                        <a href="javascript:;"><span class="badge bg-label-success">[[${#dates.format(list.walkDate, 'yyyy/MM/dd')}]]</span></a>
+                        <a href="javascript:;"><span class="badge bg-label-success">애완견 : [[ ${list.dogName} ]]</span></a>
                       </div>
 
                       <div class="d-flex align-items-center justify-content-around mb-6">
@@ -55,27 +43,10 @@
                           <h5 class="mb-0"></h5>
                           <span id="code">[[ ${list.journalCode} ]]</span>
                         </div>
-                        <div>
-                          <h5 class="mb-0">산책날짜</h5>
-                          <span>[[${#dates.format(list.walkDate, 'yyyy/MM/dd')}]]</span>
-                        </div>
                       </div>
                       <div class="d-flex align-items-center justify-content-around mb-6">
                         <div>
-                          <h5 class="mb-0">제목</h5>
-                          <span>[[ ${list.title} ]]</span>
-                        </div>
-                      </div>
-                      <div class="d-flex align-items-center justify-content-around mb-6">
-                        <div>
-                          <h5 class="mb-0">고객이름</h5>
-                          <span>[[ ${list.name} ]]</span>
-                        </div>
-                      </div>
-                      <div class="d-flex align-items-center justify-content-around mb-6">
-                        <div>
-                          <h5 class="mb-0">애완견</h5>
-                          <span>[[ ${list.dogName} ]]</span>
+                          <span>제목 : [[ ${list.title} ]]</span>
                         </div>
                       </div>
                       <div class="d-flex align-items-center justify-content-center">

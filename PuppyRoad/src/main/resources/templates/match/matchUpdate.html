@@ -36,7 +36,7 @@
 				</div>
 				<hr />
 
-			   	  <div class="first" id="first" style="display:none;">
+				<div class="first" id="first" style="display: none;">
 					<div class="row mb-3">
 						<div class="col-2">
 							<img src="/assets/main/img/logo.png" alt="puppyImg" />
@@ -69,22 +69,27 @@
 						</div>
 					</div>
 					<hr />
-				  </div>
-							<label for="dogInfo" class="col-form-label">반려견 정보</label>
-							<button type="button" class="my_btn" id="popBtn">불러오기</button>
-				<hr/>			
+				</div>
+				<label for="dogInfo" class="col-form-label">반려견 정보</label>
+				<button type="button" class="my_btn" id="popBtn">불러오기</button>
+				<hr />
 
-				<div class="row mb-3"  id="second">
-					<label for="WalkPlaceAddress"
-						class="col-md-2 col-lg-2 col-form-label">산책 장소</label>
+				<div class="row mb-3" id="second">
+					<label class="col-md-2 col-lg-2 col-form-label" for="eventGuests">지역</label>
 					<div class="col-md-10 col-lg-10">
-						<input name="WalkPlaceAddress" type="text" class="form-control"
-							th:field="*{walkPlaceAddress}"> <input
-							name="matchingState" type="hidden" th:field="*{matchingState}">
-						<input name="clientCode" type="hidden" th:field="*{clientCode}">
+						<select class="select2 select-event-guests form-select"
+							id="walkPlaceAddress" name="walkPlaceAddress">
+							<option value="서울">서울</option>
+							<option value="부산">부산</option>
+							<option value="대구">대구</option>
+							<option value="대전">대전</option>
+							<option value="광주">광주</option>
+							<option value="울산">울산</option>
+						</select>
 					</div>
 				</div>
 				<hr />
+
 
 				<div class="row mb-3">
 					<label for="content" class="col-md-2 col-lg-2 col-form-label">소개</label>
@@ -93,7 +98,9 @@
 							style="height: 100px" th:field="*{content}"></textarea>
 					</div>
 				</div>
-				<div class="center">
+				<div class="text-sm-center pb-2">
+					<button type="button" class="btn btn-secondary"
+						th:onclick="|location.href='@{/user/matchList}'|">목록</button>
 					<button type="button" class="btn btn-primary" id="updateBtn">저장</button>
 				</div>
 			</form>
