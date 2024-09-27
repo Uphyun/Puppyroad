@@ -21,6 +21,7 @@
 					<div class="col-md-10 col-lg-10">
 						<input name="title" type="text" class="form-control  border-0"
 							th:value="${assi.title}" readonly />
+						<input name="bulletinNo" type="hidden" th:value="${assi.bulletinNo}">
 					</div>
 				</div>
 				<hr />
@@ -37,7 +38,7 @@
 					<div class="row mb-3">
 						<label for="dogInfo" class="col-form-label">도그워커 정보</label>
 						<div class="col-2">
-							<img src="${picture}" alt="dogWalkerImg" />
+							<img src="${assi.picture}" alt="dogWalkerImg" class="img-fluid"/>
 						</div>
 						<div class="col-8">
 							<div class="row">
@@ -87,7 +88,7 @@
 							id="content" style="height: 100px" readonly >[[${assi.content}]]</textarea>
 					</div>
 				</div>
-				<div>
+				<div class="text-sm-center pb-2">
 					<button type="button" class="btn btn-secondary"
 						th:onclick="|location.href='@{/user/assiList}'|">목록</button>
 					<button type="button" class="btn btn-warning" id="modifyBtn"
