@@ -17,9 +17,6 @@
 					<div class="card-body" style="height: 900px;">
 						<div id="map" class="w-100 h-75"></div>
 						<div>
-							<button th:onclick="|startWalking(${puppyList[0].puppyCode})|">산책시작</button>
-							<button onclick="stopWalk()">산책종료</button>
-							<button th:onclick="|startMatching(${bulletinNo});|">매칭시작</button>
 							<button th:onclick="|stopMatcing(${bulletinNo});|">매칭종료</button>
 						</div>
 					</div>
@@ -36,7 +33,9 @@
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=22529f2e0edbc8b92825acd8646989cb&libraries=drawing"></script>
 	<script type="text/javascript" src="/assets/main/js/gps/gps.js"></script>
 	<script>
+		let bulletin = [[ ${bulletinNo} ]]; 
 		setMap("map");
+		startMatching(bulletin);
 	</script>
 </body>
 

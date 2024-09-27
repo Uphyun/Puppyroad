@@ -80,7 +80,7 @@ $('#insertBtn').on("click", function(){
 		success: function(datas) {
 			if(datas.result = 1) {
 				alert("성공적으로 등록되었습니다.");
-				location.href="/user/map"
+				location.href="/user/matchMap"
 			} else {
 				alert("등록 오류")
 			}
