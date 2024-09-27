@@ -128,7 +128,7 @@
 
 	<!-- 내 프로필 -->
 <select id="selectMyProfile">
-	SELECT profile_picture
+	SELECT profile_picture,
 	       nickname
 	FROM   pet_stargram_profile
 	WHERE  member_code = #{memberCode}
