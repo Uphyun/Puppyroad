@@ -44,7 +44,7 @@ $(document).ready(function() {
 		 </div></div>
 		 <div class='user-avatar flex-shrink-0 ms-4'>
 		 <div class='avatar avatar-sm'>
-		 <img src='${myProfile}' alt='Avatar' class='rounded-circle' />
+		 <img src='/images/${myProfile}' alt='Avatar' class='rounded-circle' />
 		 </div></div></div></li>`
 
 		$('.list-unstyled.chat-history').append(app);
@@ -134,7 +134,7 @@ $(document).ready(function() {
 					 </div></div>
 					 <div class='user-avatar flex-shrink-0 ms-4'>
 					 <div class='avatar avatar-sm'>
-					 <img src='${myProfile}' alt='Avatar' class='rounded-circle' />
+					 <img src='/images/${myProfile}' alt='Avatar' class='rounded-circle' />
 					 </div></div></div></li>`
 							$('.list-unstyled.chat-history').append(app);
 						}
