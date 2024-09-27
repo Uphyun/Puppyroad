@@ -95,7 +95,7 @@ public class MemberController {
 		System.out.println(randNum);
 		System.out.println("수신자 번호 : " + phoneNumber);
 		System.out.println("인증번호 : " + randNum);
-		//memberService.certifiedPhoneNumber(phoneNumber, randNum);
+		memberService.certifiedPhoneNumber(phoneNumber, randNum);
 		return randNum;
 	}
 	

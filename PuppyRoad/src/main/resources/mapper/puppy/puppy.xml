@@ -28,7 +28,7 @@
 		VALUES 
 		(
 
-			'D' || to_char(sysdate, 'yyMMdd') || LPAD(LTRIM(to_char(#{puppyCode}, 'xxxxxx')), 6, '0'),
+			'D' || to_char(sysdate, 'yyMMdd') || LPAD(LTRIM(to_char(#{puppyCode}, 'xxxxxx')), 6, '0')
 		    , #{dogName}
 		    , #{dogBreed}
 		    , #{age}

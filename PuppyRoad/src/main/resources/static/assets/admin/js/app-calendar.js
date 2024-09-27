@@ -157,8 +157,10 @@ document.addEventListener('DOMContentLoaded', function () {
 		eventLabel.on('change', function () {
 		  if (eventLabel.val() === 'Holiday') {
 		    $('.addHide').hide();
+		   	$('.totalPay').show();
 		  } else if(eventLabel.val() === 'Business'){
-		    $('.totalPay').show();
+		    $('.totalPay').hide();
+		    $('.plzHide').hide();
 		  } else {
 		    $('.addHide').hide();
 		    $('#totalPay').hide();
