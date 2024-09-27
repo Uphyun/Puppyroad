@@ -37,7 +37,7 @@ public class DogWalkerController {
 		return "walker/insertWalker";
 	}
 	
-	//도그워커 프로필 - 페이지
+	//도그워커 프로필 - 처리
 	@PostMapping("user/insertWalker")
 	public String insertWalkerProcess(DogWalkVO dogWalkVO, 
 			                          RedirectAttributes redirectAttributes, 

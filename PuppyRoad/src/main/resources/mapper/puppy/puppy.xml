@@ -104,6 +104,18 @@
 		WHERE puppy_code = #{puppyCode} 
 	
 	</delete>
+	<select id="payList" resultType="PaymentVO" parameterType="String">
+		SELECT  P.recipient,
+		        P.price,
+		        P.method,
+		        P.purchased_at,
+		        P.status,
+                m.name
+	    FROM    payment P JOIN member m
+                            ON  P.recipient = m.user_id
+	    where P.sender = #{sender}
+	    order by purchased_at DESC
+	</select>
 	
 
 </mapper>

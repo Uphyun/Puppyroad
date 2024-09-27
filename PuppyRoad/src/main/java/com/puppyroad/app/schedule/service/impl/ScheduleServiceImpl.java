@@ -34,6 +34,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 		
 		return scheduleMapper.ScheduleInsert(scheduleVO);
 	}
+
+	@Override
+	public List<ScheduleVO> payList(String recipient) {
+		
+		return scheduleMapper.payList(recipient);
+	}
 	
 
 	

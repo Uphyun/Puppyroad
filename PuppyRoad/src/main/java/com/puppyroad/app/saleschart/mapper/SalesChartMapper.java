@@ -1,8 +1,12 @@
 package com.puppyroad.app.saleschart.mapper;
 
+import java.util.List;
+
 import com.puppyroad.app.saleschart.service.SalesChartVO;
+import com.puppyroad.app.saleschart.service.SalesVO;
 
 public interface SalesChartMapper {
 	
-	public SalesChartVO salesChartInfo(SalesChartVO salesChartVO);
+	public List<SalesChartVO> salesChartInfo(SalesChartVO salesChartVO);
+	public List<SalesVO> salesChartList (String userId);
 }

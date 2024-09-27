@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.puppyroad.app.payment.service.PaymentVO;
 import com.puppyroad.app.puppy.mapper.PuppyMapper;
 import com.puppyroad.app.puppy.service.PuppyService;
 import com.puppyroad.app.puppy.service.PuppyVO;
@@ -50,6 +51,12 @@ public class PuppyServiceImpl implements PuppyService {
 	public int deletePuppy(String puppyCode) {
 		// TODO Auto-generated method stub
 		return puppymapper.deletePuppy(puppyCode);
+	}
+
+	@Override
+	public List<PaymentVO> payList(String sender) {
+		// TODO Auto-generated method stub
+		return puppymapper.payList(sender);
 	}
 	
 	

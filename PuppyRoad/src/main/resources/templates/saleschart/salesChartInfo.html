@@ -332,7 +332,7 @@
 }</style>
 
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../../assets/js/config.js"></script><link rel="stylesheet" type="text/css" href="../../assets/vendor/css/rtl/core.css" class="template-customizer-core-css"><link rel="stylesheet" type="text/css" href="../../assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css">
+    <script src="/assets/admin/js/config.js"></script><link rel="stylesheet" type="text/css" href="/assets/admin/vendor/css/rtl/core.css" class="template-customizer-core-css"><link rel="stylesheet" type="text/css" href="/assets/admin/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css">
   </head>
 <body>
 	<section class="first-section-pt">
@@ -340,72 +340,54 @@
 			<div class="flex-shrink-1 flex-grow-0 w-px-350 border-end container-p-x container-p-y">
 				<div th:insert="common/fragments/admin/aside :: AsideFragment"></div>
 			</div>
-		<div class="container-xxl flex-grow-1 container-p-y">
-              <div class="row">
-                <!-- Bar Charts -->
-                <div class="col-xl-6 col-12 mb-6">
+<div class="col-xl-6 col-12 mb-6">
                   <div class="card">
                     <div class="card-header header-elements">
-                      <h5 class="card-title mb-0">Latest Statistics</h5>
+                      <h5 class="card-title mb-0">매출내역</h5>
                       <div class="card-action-element ms-auto py-0">
                         <div class="dropdown">
-                          <button
-                            type="button"
-                            class="btn dropdown-toggle px-0"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                          <button type="button" class="btn dropdown-toggle px-0" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="ti ti-calendar"></i>
                           </button>
                           <ul class="dropdown-menu dropdown-menu-end">
                             <li>
-                              <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Today</a>
+                              <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center waves-effect">Today</a>
                             </li>
                             <li>
-                              <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
-                                >Yesterday</a
-                              >
+                              <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center waves-effect">Yesterday</a>
                             </li>
                             <li>
-                              <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
-                                >Last 7 Days</a
-                              >
+                              <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center waves-effect">Last 7 Days</a>
                             </li>
                             <li>
-                              <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
-                                >Last 30 Days</a
-                              >
+                              <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center waves-effect">Last 30 Days</a>
                             </li>
                             <li>
-                              <hr class="dropdown-divider" />
+                              <hr class="dropdown-divider">
                             </li>
                             <li>
-                              <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
-                                >Current Month</a
-                              >
+                              <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center waves-effect">Current Month</a>
                             </li>
                             <li>
-                              <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
-                                >Last Month</a
-                              >
+                              <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center waves-effect">Last Month</a>
                             </li>
                           </ul>
                         </div>
                       </div>
                     </div>
                     <div class="card-body">
-                      <canvas id="barChart" class="chartjs" data-height="400"></canvas>
+                      <canvas id="barChart" class="chartjs" data-height="400" height="400" style="display: block; box-sizing: border-box; height: 400px; width: 492px;" width="492"></canvas>
                     </div>
                   </div>
                 </div>
-                </div>
-                </div>
+                
 		</div>
 	</section>
 <div id="template-customizer" class="bg-card" style="visibility: visible"> <a href="javascript:void(0)" class="template-customizer-open-btn" tabindex="-1"></a> <div class="p-6 m-0 lh-1 border-bottom template-customizer-header position-relative py-4"> <h6 class="template-customizer-t-panel_header mb-1">Template Customizer</h6> <p class="template-customizer-t-panel_sub_header mb-0 small">Customize and preview in real time</p> <div class="d-flex align-items-center gap-2 position-absolute end-0 top-0 mt-6 me-5"> <a href="javascript:void(0)" class="template-customizer-reset-btn text-heading" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Reset Customizer"><i class="ti ti-refresh ti-lg"></i><span class="badge rounded-pill bg-danger badge-dot badge-notifications d-none"></span></a> <a href="javascript:void(0)" class="template-customizer-close-btn fw-light text-heading" tabindex="-1"> <i class="ti ti-x ti-lg"></i> </a> </div> </div> <div class="template-customizer-inner pt-6"> <div class="template-customizer-theming"> <h5 class="m-0 px-6 py-6"> <span class="template-customizer-t-theming_header bg-label-primary rounded-1 py-1 px-3 small">Theming</span> </h5> <div class="m-0 px-6 pb-6 template-customizer-style w-100"> <label for="customizerStyle" class="form-label d-block template-customizer-t-style_label mb-2">Style (Mode)</label> <div class="row px-1 template-customizer-styles-options"><div class="col-4 px-2">
       <div class="form-check custom-option custom-option-icon checked">
         <label class="form-check-label custom-option-content p-0" for="customRadioIconlight">
           <span class="custom-option-body mb-0">
-            <img src="../../assets/img/customizer/light.svg" alt="Light" class="img-fluid scaleX-n1-rtl">
+            <img src="/assets/admin/img/customizer/light.svg" alt="Light" class="img-fluid scaleX-n1-rtl">
           </span>
           <input name="customRadioIcon" class="form-check-input d-none" type="radio" value="light" id="customRadioIconlight" checked="checked">
         </label>
@@ -556,7 +538,7 @@
     <script src="/assets/admin/js/charts-apex.js"></script>
     <script src="/assets/admin/js/charts-chartjs.js"></script>
     <script src="/assets/admin/vendor/libs/popper/popper.js"></script>
-    <script src="/assets/admin/vendor/js/bootstrap.js"></script>
+    <script src="/assets/admin/js/bootstrap.js"></script>
     <script src="/assets/admin/vendor/libs/node-waves/node-waves.js"></script>
     <script src="/assets/admin/vendor/libs/chartjs/chartjs.js"></script>
     <script src="/assets/admin/js/main.js"></script>

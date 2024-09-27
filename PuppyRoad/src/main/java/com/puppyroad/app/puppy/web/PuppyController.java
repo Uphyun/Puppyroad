@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.puppyroad.app.payment.service.PaymentVO;
 import com.puppyroad.app.puppy.service.PuppyService;
 import com.puppyroad.app.puppy.service.PuppyVO;
 import com.puppyroad.app.util.SecurityUtil;
@@ -149,6 +150,15 @@ public class PuppyController {
 		puppyservice.deletePuppy(PuppyCode);
 		
 		return "success";
+	}
+	
+	//결제내역리스트
+	@GetMapping("user/payList")
+	@ResponseBody
+	public List<PaymentVO> payList(String sender) {
+		String userId = SecurityUtil.userId();
+		return puppyservice.payList(userId);
+		 
 	}
 	
 	

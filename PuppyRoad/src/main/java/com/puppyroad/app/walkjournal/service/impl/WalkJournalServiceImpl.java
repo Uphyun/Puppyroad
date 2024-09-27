@@ -21,9 +21,9 @@ public class WalkJournalServiceImpl implements WalkJournalService {
 	}
 	
 	@Override
-	public List<WalkJournalVO> WalkJournalList(){
+	public List<WalkJournalVO> WalkJournalList(String userId){
 		
-		return walkJournalMapper.selectAllWalkJournals();
+		return walkJournalMapper.selectAllWalkJournals(userId);
 	}
 
 	@Override

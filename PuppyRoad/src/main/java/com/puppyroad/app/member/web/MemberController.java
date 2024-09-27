@@ -149,6 +149,12 @@ public class MemberController {
 		}
 	}
 	
+	//정보확인하기
+	@GetMapping("user/checkDetail")
+	public String checkDetail() {
+		return "member/checkDetail";
+	}
+	
 	//회원정보수정
 	@PostMapping("user/memberUpdate")
 	@ResponseBody
@@ -156,6 +162,8 @@ public class MemberController {
 		System.out.println(memberVO);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		memberVO.setUserId(authentication.getName());
+		String password = passwordEncoder.encode(memberVO.getUserPw());
+		memberVO.setUserPw(password);
 		return memberService.memberUpdate(memberVO);
 	}
 	
