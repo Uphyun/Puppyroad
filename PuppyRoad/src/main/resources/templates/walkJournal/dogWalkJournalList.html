@@ -10,6 +10,10 @@
 .switch-success {
 	margin-top: 10px;
 }
+.divider {
+    border-bottom: 1px solid #e0e0e0; /* 연한 회색 선 */
+    margin: 10px 0; /* 위아래 여백 */
+}
 </style>
 <link rel="stylesheet"
 	href="/assets/vendor/libs/flatpickr/flatpickr.css">
@@ -24,6 +28,10 @@
 			</div>
 			<div class="container-xxl flex-grow-1 container-p-y">
                     <div class="row g-6">
+	                    <div class="col-12">
+							<button type="button" class="btn btn-primary waves-effect waves-light" th:href="@{/user/insertJournal}" id="registerWalkLog">산책일지등록</button>
+						</div>
+                    <div class="divider"></div>
                     <th:block th:each="list:${list}">
                     <div class="col-xl-4 col-lg-6 col-md-6" >
                   <div class="card" >
@@ -80,5 +88,7 @@ $(document).on("click", ".btn-primary", function() {
  let url = "/user/dogwalkJournalGetInfo?journalCode=" + code;
  location.href = url;
 }); 
+
+
 </script>
 </html>

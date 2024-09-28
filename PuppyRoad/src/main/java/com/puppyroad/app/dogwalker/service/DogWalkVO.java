@@ -19,5 +19,6 @@ public class DogWalkVO {
 	private Integer sSize;
 	private Integer mSize;
 	private Integer lSize;
+	private Integer price;
 	
 }

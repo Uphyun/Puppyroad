@@ -43,4 +43,10 @@ public class WalkJournalServiceImpl implements WalkJournalService {
 		
 		return walkJournalMapper.dogSelectOneWalkJournals(walkJournalV);
 	}
+
+	@Override
+	public int insertWalkJournal(WalkJournalVO walkJournalVO) {
+		// TODO Auto-generated method stub
+		return walkJournalMapper.insertWalkJournal(walkJournalVO);
+	}
 }//end

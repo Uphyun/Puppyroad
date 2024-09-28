@@ -13,4 +13,6 @@ public interface WalkJournalMapper {
 	public List<WalkJournalVO> dogWalkJournals(WalkJournalVO walkJournalV);
 	//도그워커 산책일지단건조회
 	public WalkJournalVO dogSelectOneWalkJournals(WalkJournalVO walkJournalV);
+	//도그워커 산책일지 등록
+	public int insertWalkJournal(WalkJournalVO walkJournalV);
 }

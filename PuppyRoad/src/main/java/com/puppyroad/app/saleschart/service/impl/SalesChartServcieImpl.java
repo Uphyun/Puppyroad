@@ -28,5 +28,11 @@ public class SalesChartServcieImpl implements SalesChartService {
 		
 		return salesChartMapper.salesChartList(userId);
 	}
+
+	@Override
+	public List<SalesVO> detailChartList(SalesVO salesVO) {
+		
+		return salesChartMapper.detailChartList(salesVO);
+	}
 	
 }

@@ -126,4 +126,11 @@ public class DogWalkerController {
 	    // 뷰로 이동
 	    return "walker/infoWalker";  // 단건 조회 페이지로 이동
 	}
+	@GetMapping("/user/walkerCount")
+	public String walkerCount(Model model) {
+		int count = dogWalkerSerivce.countWalkInfo();
+		model.addAttribute("count", count);
+		 System.err.println("Count: " + count); // count 값 확인
+		return "/templates/fragments/admin/aside";
+	}
 }//end of controll

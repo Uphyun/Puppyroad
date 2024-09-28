@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -86,6 +87,25 @@ public class WalkJournalController {
 		return "walkJournal/dogWalkJournalInfo";
 	}
 	
+	//산책일지 등록
+	@PostMapping("user/insertJournalProcess")
+	public String insertJournal(WalkJournalVO walkJournalVO, Model model) {
+		String mcode = SecurityUtil.memberCode();
+		walkJournalVO.setWalkerCode(mcode);
+		WalkJournalVO result = walkJournalService.dogWalkJournalGetInfo(walkJournalVO);
+		model.addAttribute("result", result);
+		walkJournalService.insertWalkJournal(walkJournalVO);
+		return "walkJournal/insertWalkJournal";
+		
+		
+	}
+	@GetMapping("user/insertJournal")
+	public String insertJournal() {
+
+		return "walkJournal/insertWalkJournal";
+		
+		
+	}
 	
 	
 	

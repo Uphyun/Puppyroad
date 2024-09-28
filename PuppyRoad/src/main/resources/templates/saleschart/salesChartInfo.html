@@ -345,34 +345,6 @@
                     <div class="card-header header-elements">
                       <h5 class="card-title mb-0">매출내역</h5>
                       <div class="card-action-element ms-auto py-0">
-                        <div class="dropdown">
-                          <button type="button" class="btn dropdown-toggle px-0" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="ti ti-calendar"></i>
-                          </button>
-                          <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                              <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center waves-effect">Today</a>
-                            </li>
-                            <li>
-                              <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center waves-effect">Yesterday</a>
-                            </li>
-                            <li>
-                              <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center waves-effect">Last 7 Days</a>
-                            </li>
-                            <li>
-                              <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center waves-effect">Last 30 Days</a>
-                            </li>
-                            <li>
-                              <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                              <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center waves-effect">Current Month</a>
-                            </li>
-                            <li>
-                              <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center waves-effect">Last Month</a>
-                            </li>
-                          </ul>
-                        </div>
                       </div>
                     </div>
                     <div class="card-body">
@@ -380,6 +352,21 @@
                     </div>
                   </div>
                 </div>
+                    <div >
+                    <table class="table datatable-invoice dataTable no-footer dtr-column"
+  										id="detailChart" style="width:350px;"
+  									aria-describedby="DataTables_Table_0_info">
+  									<thead>
+  										<tr style="text-align: center;">
+  											<th>결제일</th>
+  											<th>고객</th>
+  											<th>결제금액</th>
+  										</tr>
+  									</thead>
+  									<tbody style="text-align: center;" id="detailChartBody">
+  									</tbody>
+							</table>
+                    </div>
                 
 		</div>
 	</section>
@@ -545,7 +532,7 @@
     <script src="/assets/admin/js/charts-chartjs.js"></script>
     <script src="/assets/admin/vendor/libs/chartjs/chartjs.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+    <script src="/assets/main/js/chart/chart.js"></script>
 
 </body>
 </html>

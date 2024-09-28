@@ -15,4 +15,7 @@ public interface WalkJournalService {
 	
 	//도그워커 단건조회
 	public WalkJournalVO dogWalkJournalGetInfo(WalkJournalVO walkJournalV);
+	
+	//도그워커 산책일지 등록
+	public int insertWalkJournal(WalkJournalVO walkJournalVO);
 }

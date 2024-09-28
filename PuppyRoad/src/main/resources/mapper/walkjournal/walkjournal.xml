@@ -122,5 +122,36 @@
         WHERE w.WALKER_CODE = #{walkerCode}
         AND w.JOURNAL_CODE = #{journalCode}
     </select>
+    <insert id="insertWalkJournal">
+    <selectKey>
+    	select NVL(max(to_number(journal_code)),0)+1
+    	from   walk_journal;
+    </selectKey>
+	INSERT INTO WALK_JOURNAL 
+	  (
+	    JOURNAL_CODE,
+	    TITLE,
+	    WALK_DATE,
+	    JOURNAL_CONTENT,
+	    PATH,
+	    VIDEO,
+	    JOURNAL_PREPARATION_DATE,
+	    WALKER_CODE,
+	    PUPPY_CODE
+	  ) 
+	VALUES 
+		(
+		    #{journalCode},            
+		    #{title},                  
+		    #{walkDate},                
+		    #{journalContent},          
+		    #{path},                    
+		    #{video},                   
+		    sysdate,  
+		    #{walkerCode},              
+		    #{puppyCode}                
+		)
+    
+    </insert>
 
 </mapper>
