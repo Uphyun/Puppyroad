@@ -2,8 +2,8 @@ package com.puppyroad.app.admin.main.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.puppyroad.app.admin.main.service.AdminMainService;
 
@@ -14,11 +14,14 @@ public class adminMainController {
 	AdminMainService adminMainService;
 
 	@GetMapping("admin")
-	public String adminPage(Model model) {
-		int newWalkers = adminMainService.getNewWalkerCnt();
-		
-		model.addAttribute("newWalkers", newWalkers);
+	public String adminPage() {
 		
 		return "admin/index";
+	}
+	
+	@GetMapping("ajax/walkerCnt")
+	@ResponseBody
+	public int walkerCntAjax() {
+		return adminMainService.getNewWalkerCnt();
 	}
 }

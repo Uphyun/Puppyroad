@@ -276,7 +276,7 @@
 		Swal.fire('인증번호 발송완료!');
 		
 		$.ajax({
-			url : "sendSMS",
+			url : "/sendSMS",
 			method : "post",
 			data : {"phoneNumber" : $("input[name='phone']").val()},
 			success : function(res){
