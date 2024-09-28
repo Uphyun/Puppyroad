@@ -174,11 +174,13 @@ document.addEventListener('DOMContentLoaded', function () {
         window.open(eventToUpdate.url, '_blank');
       }
       bsAddEventSidebar.show();
+	  
+	  
       // For update event set offcanvas title text: Update Event
       if (offcanvasTitle) {
-        offcanvasTitle.innerHTML = '고객상세정보';
+        offcanvasTitle.innerHTML = '상세정보';
       }
-      btnSubmit.innerHTML = 'Update';
+      btnSubmit.innerHTML = '#PUPPY';
       btnSubmit.classList.add('btn-update-event');
       btnSubmit.classList.remove('btn-add-event');
       btnDeleteEvent.classList.remove('d-none');
@@ -212,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
        eventToUpdate.extendedProps.totalPrice !== undefined
         ? totalPrice.val(eventToUpdate.extendedProps.totalPrice+'원').trigger('change')
         : null;
-        payterm.val(eventToUpdate.extendedProps.monday+'에서'+eventToUpdate.extendedProps.sunday+'까지').trigger('change')
+        payterm.val(eventToUpdate.extendedProps.monday+'일에서 '+eventToUpdate.extendedProps.sunday+'일까지').trigger('change')
     
 
       
@@ -484,13 +486,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Add new event
     // ------------------------------------------------
+	eventLabel.on('change', function () {
+	  
+	    $('.addHide').hide();
+	   	$('.totalPay').hide();
+
+	});
     btnSubmit.addEventListener('click', e => {
-		
+
       if (btnSubmit.classList.contains('btn-add-event')) {
         if (isFormValid) {
-			
 
-			
           let newEvent = {
             id: calendar.getEvents().length + 1,
             title: eventTitle.value,
@@ -512,8 +518,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					async:false,
 					data:{
 						holidayStart : newEvent.start,
-						holidayEnd : newEvent.end,
-						schduleTitle : newEvent.title 
+						holidayEnd : newEvent.end
 					}
 					}).responseText;
 			
@@ -575,8 +580,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // ------------------------------------------------
     function resetValues() {
 	
-	  $('.addHide').hide();
-	
       eventEndDate.value = '';
       eventStartDate.value = '';
       eventDogName.val('').trigger('change');
@@ -593,14 +596,21 @@ document.addEventListener('DOMContentLoaded', function () {
       resetValues();
     });
 
-    // Hide left sidebar if the right sidebar is open
+    // Hide left sidebar if the right sidebar is open 니잖아
     btnToggleSidebar.addEventListener('click', e => {
+		btnSubmit.innerHTML = 'Add';
+		eventLabel.val('Personal').trigger('change'); 
+		$('#eventTitle').val('휴가');
+		$('#eventTitle').attr('readonly', true);
       if (offcanvasTitle) {
-        offcanvasTitle.innerHTML = 'Add Event';
+        offcanvasTitle.innerHTML = '휴가등록';
+		    $('.addHide').hide();
+		   	$('.totalPay').hide();
+			btnSubmit.classList.add('btn-add-event', 'btn btn-primary');
       }
-      btnSubmit.innerHTML = 'Add';
+	  $('.client_name').text('휴가제목');
       btnSubmit.classList.remove('btn-update-event');
-      btnSubmit.classList.add('btn-add-event');
+      btnSubmit.classList.add('btn-add-event', 'btn btn-primary');
       btnDeleteEvent.classList.add('d-none');
       appCalendarSidebar.classList.remove('show');
       appOverlay.classList.remove('show');

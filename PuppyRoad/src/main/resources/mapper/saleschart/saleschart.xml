@@ -18,11 +18,28 @@
 
 <select id="salesChartList" resultType="SalesVO">
 	SELECT sum(PRICE) as price
-		   ,TO_CHAR(PURCHASED_AT, 'yy/MM') as month
+		   ,TO_CHAR(PURCHASED_AT, 'yyyy-MM') as month
 	FROM   PAYMENT
 	WHERE  RECIPIENT = #{recipient}
-    group by TO_CHAR(PURCHASED_AT, 'yy/MM')
+    group by TO_CHAR(PURCHASED_AT, 'yyyy-MM')
     order by 2 asc
+</select>
+<select id="detailChartList" resultType="SalesVO">
+       SELECT  p.PAYMENT_CODE,
+		       p.SENDER,
+		       p.RECIPIENT,
+		       p.PRICE,
+		       p.ORDER_NAME,
+		       p.METHOD,
+		       p.PURCHASED_AT,
+		       p.STATUS,
+		       p.RECIPIENT,
+               m.name
+		FROM   PAYMENT p left JOIN member m
+                        ON  m.user_id = p.sender
+		WHERE  RECIPIENT = #{recipient}
+        AND    TO_CHAR(PURCHASED_AT, 'yyyy-MM') = #{monthDetail}
+			
 </select>
 
 </mapper>

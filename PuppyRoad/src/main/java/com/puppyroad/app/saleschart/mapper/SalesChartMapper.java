@@ -9,4 +9,6 @@ public interface SalesChartMapper {
 	
 	public List<SalesChartVO> salesChartInfo(SalesChartVO salesChartVO);
 	public List<SalesVO> salesChartList (String userId);
+	//상세정보 리스트
+	public List<SalesVO> detailChartList(SalesVO salesVO);
 }

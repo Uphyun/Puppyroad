@@ -68,15 +68,17 @@ function test(){
 			
 	
 	}
-		if(datas.length > 0){
-			newData.push({
-				title : '휴가',
-				start : datas[0].holidayStart,
-				end : datas[0].holidayEnd,
-				extendedProps: {
-	      			calendar: 'Personal'
-	   			 }
-				})
+		for(let res of datas){
+			if(datas.length > 0){
+				newData.push({
+					title : '휴가',
+					start : res.holidayStart,
+					end : res.holidayEnd,
+					extendedProps: {
+		      			calendar: 'Personal'
+		   			 }
+					})
+			}
 		};
 	return newData;
 

@@ -230,7 +230,7 @@
                       <div class="offcanvas-body">
                         <form class="event-form pt-0" id="eventForm" onsubmit="return false">
                           <div class="mb-5">
-                            <label class="form-label" for="eventTitle">고객성함</label>
+                            <label class="form-label client_name" for="eventTitle">고객성함</label>
                             <input
                               type="text"
                               class="form-control"
@@ -314,17 +314,17 @@
                           </div>
                           <div class="d-flex justify-content-sm-between justify-content-start mt-6 gap-2 addHide" style="display:none;">
                             <div class="d-flex">
-                              <button type="submit" id="addEventBtn" class="btn btn-primary btn-add-event me-4">
+                          <button style="display:none;" type="submit" id="addEventBtn" class="btn btn-outline-success btn-add-event me-4" data-bs-dismiss="offcanvas">
                                 Add
                               </button>
                               <button
                                 type="reset"
-                                class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
+                                class="btn btn-outline-success me-sm-0 me-1"
                                 data-bs-dismiss="offcanvas">
-                                Cancel
+                                #ROAD
                               </button>
                             </div>
-                            <button class="btn btn-label-danger btn-delete-event d-none">Delete</button>
+                            <button style="display:none;" class="btn btn-primary btn-delete-event d-none" data-bs-dismiss="offcanvas">확인</button>
                           </div>
                         </form>
                       </div>
