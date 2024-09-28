@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -122,6 +123,16 @@ public class MatchController {
 		
 	}
 	
+	// 수정 - 처리
+	@PostMapping("user/chatMatchUpdate")
+	@ResponseBody // AJAX
+	public int chatMatchUpdate(MatchVO matchVO){
+		matchVO.setClientCode(SecurityUtil.memberCode());
+		int bno = matchService.modifyChatMatch(matchVO);
+		return bno;
+		
+	}
+	
 	
 	// 삭제 - 처리
 	@GetMapping("user/matchDelete")
@@ -139,6 +150,18 @@ public class MatchController {
 		return "match/myMatchingList";
 	}
 	
-	// 
+	// 매칭견 종합 수정 - 처리
+	@PostMapping("user/matchDogUpdate")
+	@ResponseBody // AJAX
+	@Transactional
+	public int matchDogUpdate(@RequestBody List<MatchingPuppyVO> matchingPuppyVO){
+		
+		matchService.deleteMatchPuppy(matchingPuppyVO);
+		
+		int bno = matchService.addChatPuppy(matchingPuppyVO);
+		return bno;
+		
+	}
+	
 	
 }

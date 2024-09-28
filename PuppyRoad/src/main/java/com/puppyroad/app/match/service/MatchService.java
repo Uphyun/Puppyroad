@@ -14,6 +14,8 @@ public interface MatchService {
 	public int addMatch(MatchVO matchVO);
 	// 단건 수정
 	public int modifyMatch(MatchVO matchVO);
+	// 채팅 매칭 단건 수정
+	public int modifyChatMatch(MatchVO matchVO);
 	// 단건 삭제
 	public Map<String, Object> removeMatch(int matchId);
 	
@@ -30,6 +32,8 @@ public interface MatchService {
 	
 	//채팅견 등록
 	public int addChatPuppy(List<MatchingPuppyVO> matchingPuppyVO);
+	//매칭견 삭제
+	public int deleteMatchPuppy(List<MatchingPuppyVO> matchingPuppyVO);
 	
 	//매칭견 조회
 	public List<PuppyVO> getMatchingDogList(Integer bulletinNo);

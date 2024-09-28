@@ -11,6 +11,11 @@ $(document).ready(function() {
 	let nickName = '';
 	let profilePicture = '';
 	
+	let matchingState = '';
+	let matchingKind = '';
+	
+	let appCall = '';
+	
 	//calender 30분주기
 	$('.flatpickr-minute').attr("step", 30);
 	
@@ -85,6 +90,9 @@ $(document).ready(function() {
 			writer = $(this).attr('name');
 			nickName = $(this).find('small').eq(1).attr('id');
 			profilePicture = $(this).find('img').attr('src');
+			
+			matchingState = $(this).find('small').eq(0).attr('id');
+			matchingKind = $(this).find('img').attr('id');
 
 			$('.list-unstyled.chat-history').empty();
 			$('#chatProfile').empty();
@@ -180,22 +188,77 @@ $(document).ready(function() {
 				$('#eventStartDate').val(startDate);
 				$('#eventEndDate').val(endDate);
 				
-				
-				
 			  });
 			
+			//캘린더 아이콘 어펜드 및 삭제
+			$('#appCal').empty();
+			
+			if (matchingKind == '자율'){
+	            appCall = ` <div class='d-flex align-items-center' id='appCal'> 
+	                          <i class='ti ti-schedule ti-md cursor-pointer d-sm-inline-flex d-none me-1 
+			                  btn btn-sm btn-text-secondary text-secondary btn-icon rounded-pill freedom'
+			                  ></i> 
+			                </div>`
+			                
+				$('#appCal').append(appCall);
+			} else if (matchingKind == '대리'){
+	            appCall = ` <div class='d-flex align-items-center' id='appCal'> 
+	                          <i class='ti ti-schedule ti-md cursor-pointer d-sm-inline-flex d-none me-1 
+			                  btn btn-sm btn-text-secondary text-secondary btn-icon rounded-pill'
+			                  data-bs-toggle='offcanvas'
+			                  data-bs-target='#addEventSidebar'></i> 
+			                </div>`
+			                
+				$('#appCal').append(appCall);
+			} else { 
+			   appCall = ` <div class='d-flex align-items-center' id='appCal'> 
+	                          <i class='ti ti-schedule ti-md cursor-pointer d-sm-inline-flex d-none me-1 
+			                  btn btn-sm btn-text-secondary text-secondary btn-icon rounded-pill already'
+			                  ></i> 
+			                </div>`
+			                
+			   $('#appCal').append(appCall);
+			}
+			
+			//캘린더 아이콘의 신청버튼 토글느낌
+			if (matchingState == 1) {
+				$('#addSchedul').show();
+			} else if (matchingState == 2) {
+				$('#addSchedul').hide();
+			} else if (matchingState == 3) {
+				$('#addSchedul').hide();
+			} else if (matchingState == 4) {
+				$('#addSchedul').hide();
+			}
+
 		});
 
 	});
+	
+	$(".freedom").on("click", function() {
+		if(confirm("매칭완료 하시겠습니까?")){
+			alert("정상적으로 완료되었습니다.");
+			
+		}else{
+			alert("오류");
+		}
+		
+	});
 
 
-
+	
 	$("#button-send").on("click", function(e) {
 		var msg = document.getElementById("msg");
+		
+		if (msg == '') { //msg가 공백일 경우
+        	e.preventDefault() // 폼 전송을 막음
+        	alert('메세지를 입력해주세요') // '메세지를 입력해주세요' 라는 경고창을 띄움
+    	}else{
+			stomp.send('/pub/chat/message', {}, JSON.stringify({ roomId: roomId, message: msg.value, writer: username }));
+			msg.value = '';
+			
+		}
 
-		console.log(username + ":" + msg.value);
-		stomp.send('/pub/chat/message', {}, JSON.stringify({ roomId: roomId, message: msg.value, writer: username }));
-		msg.value = '';
 		
 
 	});
@@ -205,8 +268,6 @@ $(document).ready(function() {
 	let startTime =	$("input[name='eventStartDate']").val()
 	let endTime = $("input[name='eventEndDate']").val()
 	let walkPlaceAddress = $('input[name=walkPlaceAddress]').val();
-	let content = $('input[name=content]').val();
-	let matchingKind = '대리';
 	let matchingState = 2;
 	
 	let puppy = [];
@@ -215,41 +276,52 @@ $(document).ready(function() {
 		
 		puppy.push({bulletinNo, puppyCode});
 	})
+	
+    if (startTime == '') { // puppie가 공백일 경우
+        e.preventDefault() // 폼 전송을 막음
+        alert('시작시간을 입력해주세요') // '시작시간을 입력해주세요' 라는 경고창을 띄움
+    }
+    else if (endTime == '') { // content input이 공백일 경우
+        e.preventDefault() // 폼 전송을 막음
+        alert('종료시간을 입력해주세요') // '소개를 입력해주세요' 라는 경고창을 띄움
+    }
+    else if (puppy == '') { // puppy가 공백일 경우
+        e.preventDefault() // 폼 전송을 막음
+        alert('반려견을 입력해주세요') // '반려견을 입력해주세요' 라는 경고창을 띄움
+    }
+	else{
 		
-	let data = {bulletinNo, title, walkPlaceAddress, startTime, endTime, content, matchingKind, matchingState}
-		console.log(puppy);
-		
-		$.ajax({
-			url: '/user/matchUpdate',
-			method: 'post',
-			data: data,
-			success: function(datas) {
-				if(datas.result = 1) {
-					alert("성공적으로 신청되었습니다.");
-				} else {
-					alert("신청 오류")
+		let data = {bulletinNo, walkPlaceAddress, startTime, endTime, matchingState}
+			
+			$.ajax({
+				url: '/user/chatMatchUpdate',
+				method: 'post',
+				data: data,
+				success: function(datas) {
+					if(datas.result = 1) {
+						alert("성공적으로 신청되었습니다.");
+					} else {
+						alert("신청 오류")
+					}
 				}
-			}
-		})
-		  .fail(err => console.log(err))
+			})
+			  .fail(err => console.log(err))
+			  
+			  
+			$.ajax({
+				url : '/user/chatDogInsert?bulletinNo=' + bulletinNo,
+				method : 'post',
+				contentType : 'application/json',
+				data : JSON.stringify(puppy),
+				success: function(datas) {
+					location.href = '/user/pay?bulletinNo=' + bulletinNo;
+				}
+			})
+			  .fail(err => console.log(err))
 		  
-		  
-		$.ajax({
-			url : '/user/chatDogInsert?bulletinNo=' + bulletinNo,
-			method : 'post',
-			contentType : 'application/json',
-			data : JSON.stringify(puppy),
-			success: function(datas) {
-				location.href = '/user/pay?bulletinNo=' + bulletinNo;
-			}
-		})
-		  .fail(err => console.log(err))
-	
-	
-	
+		}
 	
 	}) 
-
-
+		
 });
 

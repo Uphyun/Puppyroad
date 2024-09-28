@@ -54,7 +54,7 @@ function getCheckboxValue(event)  {
   } 
 }
 
-$('#insertBtn').on("click", function(){
+$('#insertBtn').on("click", function(e){
 	
 	let title = $('input[name=title]').val();
 	let writer = $('input[name=writer]').val();
@@ -69,8 +69,22 @@ $('#insertBtn').on("click", function(){
 		puppie.push({puppyCode});
 	})
 	
+	
+    if (title == '') { //title input이 공백일 경우
+        e.preventDefault() // 폼 전송을 막음
+        alert('제목을 입력해주세요') // '제목을 입력해주세요' 라는 경고창을 띄움
+    }
+    else if (puppie == '') { // puppie가 공백일 경우
+        e.preventDefault() // 폼 전송을 막음
+        alert('반려견정보를 입력해주세요') // '반려견정보를 입력해주세요' 라는 경고창을 띄움
+    }
+    else if (content == '') { // content input이 공백일 경우
+        e.preventDefault() // 폼 전송을 막음
+        alert('소개를 입력해주세요') // '소개를 입력해주세요' 라는 경고창을 띄움
+    }
+	else{
+		
 	let data = {title, writer, walkPlaceAddress, content, matchingKind, puppie};
-	console.log(data);
 	
 	$.ajax({
 		url : '/user/matchInsert',
@@ -87,5 +101,6 @@ $('#insertBtn').on("click", function(){
 		}
 	})
 	  .fail(err => console.log(err))
+	}
 });
 
