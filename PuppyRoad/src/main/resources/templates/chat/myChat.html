@@ -125,7 +125,7 @@
                         <li
                           class="chat-contact-list-item chat-list-item-0 d-none"
                         >
-                          <h6 class="text-muted mb-0">No Chats Found</h6>
+                          <h6 class="text mb-0">No Chats Found</h6>
                         </li>
                         
                         <th:block th:each="room: ${myList}">
@@ -135,6 +135,7 @@
 	                            <div class="flex-shrink-0 avatar">
 	                              <img
 	                                th:src="@{/images/{fileName}(fileName=${room.profilePicture})}"
+	                                th:id = "${room.matchingKind}"
 	                                alt="Avatar"
 	                                class="rounded-circle"/>
 	                            </div>
@@ -144,10 +145,14 @@
 	                                <h6 class="chat-contact-name text-truncate m-0 fw-normal" th:id="${room.roomName}"  th:name="${room.matchNo}">
 	                                  [[${room.roomName}]]
 	                                </h6>
-	                    <small class="text-muted" th:if = "${room.chattingType}==1" th:text="매칭중"></small>
-						<small class="text-muted" th:if = "${room.chattingType}==2" th:text="매칭예약"></small>
-						<small class="text-muted" th:if = "${room.chattingType}==3" th:text="매칭완료"></small>
-						<small class="text-muted" th:if = "${room.chattingType}==4" th:text="비활성"></small>
+	                    <small class="text-muted" th:if = "${room.matchingState}==1" 
+	                    th:id="${room.matchingState}" th:text="매칭중" name="abc"></small>
+						<small class="text-muted" th:if = "${room.matchingState}==2" 
+						th:id="${room.matchingState}" th:text="매칭예약"></small>
+						<small class="text-muted" th:if = "${room.matchingState}==3" 
+						th:id="${room.matchingState}" th:text="매칭완료"></small>
+						<small class="text-muted" th:if = "${room.matchingState}==4" 
+						th:id="${room.matchingState}" th:text="비활성"></small>
 	                              </div>
 	                              <small class="chat-contact-status text-truncate" th:id="${room.nickName}">
 	                              	[[${room.nickName}]]
@@ -179,7 +184,7 @@
                             <div class="flex-shrink-0 avatar">
                               <img
                                 src=""
-                                alt="Avatar"
+                                alt="임시"
                                 class="rounded-circle"
                                 data-bs-toggle="sidebar"
                                 data-overlay
@@ -190,27 +195,9 @@
                              <small class="user-status text-body">닉네임</small>
                             </div>
                           </div>
-                          <div class="d-flex align-items-center">
+                          <div class="d-flex align-items-center" id="appCal">
                             <i class="ti ti-schedule ti-md cursor-pointer d-sm-inline-flex d-none me-1 
-                            btn btn-sm btn-text-secondary text-secondary btn-icon rounded-pill"
-	                        data-bs-toggle="offcanvas"
-	                        data-bs-target="#addEventSidebar"></i>
-                            <div class="dropdown">
-                              <button
-                                class="btn btn-sm btn-icon btn-text-secondary text-secondary rounded-pill dropdown-toggle hide-arrow"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="true"
-                                id="chat-header-actions">
-                                <i class="ti ti-dots-vertical ti-md"></i>
-                              </button>
-                              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="chat-header-actions">
-                                <a class="dropdown-item" href="javascript:void(0);">View Contact</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Mute Notifications</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Block Contact</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Clear Chat</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Report</a>
-                              </div>
-                            </div>
+                            btn btn-sm btn-text-secondary text-secondary btn-icon rounded-pill"></i>
                           </div>
                         </div>
                       </div>
@@ -303,15 +290,6 @@
                     placeholder="도시" />
                 </div>
                 <div class="mb-5">
-                  <label class="form-label" for="eventTitle">소개</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="content"
-                    name="content"
-                    placeholder="소개" />
-                </div>
-                <div class="mb-5">
                   <label class="form-label" for="eventStartDate">시작 시간</label>
                   <input
                     type="text"
@@ -344,7 +322,8 @@
                 
                 <div class="d-flex justify-content-sm-between justify-content-start mt-6 gap-2">
                   <div class="d-flex">
-                    <button type="button" id="addSchedul" class="btn btn-primary btn-add-event me-4">
+                    <button type="button" 
+                     id="addSchedul" class="btn btn-primary btn-add-event me-4">
                       신청
                     </button>
                     <button

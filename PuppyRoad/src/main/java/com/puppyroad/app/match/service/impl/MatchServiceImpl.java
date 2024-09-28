@@ -63,7 +63,13 @@ public class MatchServiceImpl implements MatchService {
 	public int modifyMatch(MatchVO matchVO) {
 		// TODO 단건 수정
 		int result = matchMapper.updateMatch(matchVO);
-		
+		return result;
+	}
+	
+	@Override
+	public int modifyChatMatch(MatchVO matchVO) {
+		// TODO 단건 채팅매칭 수정
+		int result = matchMapper.updateChatMatch(matchVO);
 		return result;
 	}
 
@@ -125,6 +131,15 @@ public class MatchServiceImpl implements MatchService {
 			matchMapper.insertChatPuppy(matchingPuppyVO);
 		}
 		return 1;  
+	}
+
+	@Override
+	public int deleteMatchPuppy(List<MatchingPuppyVO> list) {
+		// TODO 매칭견 삭제
+		for(MatchingPuppyVO matchingPuppyVO: list) {
+			matchMapper.deleteMatchPuppy(matchingPuppyVO);
+		}
+		return 1;
 	}
 
 

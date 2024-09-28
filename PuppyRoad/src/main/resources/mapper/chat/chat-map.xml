@@ -28,6 +28,8 @@
               cr.chatting_type,
               cr.sender,
               cr.match_no,
+              mb.matching_state,
+              mb.matching_kind,
               
               CASE WHEN recipient = #{sender}  THEN (  SELECT profile_picture
               										   FROM   pet_stargram_profile
@@ -45,8 +47,8 @@
                 	   WHERE  member_code = cr.recipient    )
                   END AS  nickname
               
-    FROM      chat_room cr
-                    
+    FROM      chat_room cr  JOIN  matching_board mb
+                ON cr.match_no = mb.bulletin_no
     WHERE     (recipient = #{sender}   OR  sender = #{sender})
     ORDER BY  created_date
 </select>

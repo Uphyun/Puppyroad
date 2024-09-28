@@ -7,30 +7,53 @@ $("#updateBtn").on("click", function() {
 
 	let title = $('input[name=title]').val();
 	let walkPlaceAddress = $("#walkPlaceAddress option:selected").val();
+	let matchingState = '1';
 	let content = $('[name=content]').val();
 	let bulletinNo = $('input[name=bulletinNo]').val();
+	
+	let puppy = [];
+	$('.road').each(function(idx, item){
+		let puppyCode = $(item).attr('id');
 
-	let data = { title, content, walkPlaceAddress, bulletinNo }
-	console.log(data);
+		puppy.push({bulletinNo, puppyCode});
+	})
+	console.log(puppy);
+
+	let data = { title, content, matchingState, walkPlaceAddress, bulletinNo }
 
 	$.ajax({
 		url: '/user/matchUpdate',
 		type: "post",
 		data: data,
+		dataType: "json",
 		success: function(datas) {
 			if (datas.result = 1) {
-				alert("성공적으로 수정되었습니다.");
-				location.href = '/user/matchList'
+				
 			} else {
 				alert("수정 오류")
 			}
 		}
 	})
 		.fail(err => console.log(err))
-
-
-
-
+		
+	
+	$.ajax({
+		url: '/user/matchDogUpdate',
+		type: "post",
+		contentType: "application/json",
+		data: JSON.stringify(puppy),
+		success: function(datas) {
+			if (datas.result = 1) {
+				alert("수정 되었습니다")
+				location.href = "/user/matchList"
+			} else {
+				alert("수정 오류")
+			}
+		}
+		
+	})
+	  .fail(err => console.log(err))
+	  
 
 });
 
@@ -74,6 +97,7 @@ function getCheckboxValue(event)  {
 		var div = $(event.target).closest(".abc");
 		puppyCode = div.find('#puppyCode').val();
 		
+		var picture = div.find('[name=puppyImage]').attr("src");
 		var dogBreed = div.find('#dogBreed').html();
 		var personality = div.find('#personality').html();
 		var dogSize = div.find('#dogSize').html();
@@ -81,9 +105,10 @@ function getCheckboxValue(event)  {
 		var diseasePreAbs = div.find('#diseasePreAbs').html();
 		
 	
-		$(".first").clone().attr('id', puppyCode).insertBefore("#second").removeClass("first").show();
+		$(".first").clone().attr('id', puppyCode).insertBefore("#second").removeClass("first").addClass("road").show();
 		var div2 = $("#" + puppyCode);
 
+	div2.find('[name=puppyImage2]').attr("src", picture);
 	div2.find('[name=dogBreed]').val(dogBreed);
 	div2.find('[name=personality]').val(personality);
 	div2.find('[name=dogSize]').val(dogSize);

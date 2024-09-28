@@ -29,6 +29,10 @@ public interface MatchMapper {
 	public int insertMatch(MatchVO matchVO);
 	// 수정
 	public int updateMatch(@Param("match") MatchVO matchVO);
+	
+	// 채팅매칭수정
+	public int updateChatMatch(@Param("match") MatchVO matchVO);
+	
 	// 삭제
 	public int deleteMatch(int bNo);
 	
@@ -38,8 +42,9 @@ public interface MatchMapper {
 	//단건 대리기준조회
 	public List<MatchVO> selectIdList(MatchVO matchVO);
 	
-	// 채팅견 등록
+	// 매칭견 등록
 	public int insertChatPuppy(MatchingPuppyVO matchingPuppyVO);
-	
+	// 매칭견 삭제
+	public int deleteMatchPuppy(MatchingPuppyVO matchingPuppyVO);
 
 }

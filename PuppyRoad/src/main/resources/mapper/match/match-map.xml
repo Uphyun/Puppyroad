@@ -110,6 +110,12 @@
            #{bulletinNo},
            #{puppyCode})
   </insert>
+  
+  <!-- 대리매칭의 반려견 삭제 -->
+  <delete id="deleteMatchPuppy" parameterType="MatchingPuppyVO">
+  	DELETE matching_puppy
+  	WHERE  bulletin_no = #{bulletinNo}
+  </delete>
     
   <!-- 자율수정 -->
   <update id="updateMatch" parameterType="MatchVO">
@@ -118,7 +124,18 @@
   	       title = #{title},
   	       content = #{content},
   	       matching_state = #{matchingState},
-  	       matching_kind = #{matchingKind},
+  	       start_time = #{startTime},
+  	       end_time = #{endTime},
+  	       walk_place_address = #{walkPlaceAddress},
+  	       client_code = #{clientCode}
+  	WHERE  bulletin_no = #{bulletinNo}
+  </update>
+  
+  <!-- 자율수정 -->
+  <update id="updateChatMatch" parameterType="MatchVO">
+  	UPDATE matching_board
+  	SET
+  	       matching_state = #{matchingState},
   	       start_time = #{startTime},
   	       end_time = #{endTime},
   	       walk_place_address = #{walkPlaceAddress},
