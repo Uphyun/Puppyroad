@@ -101,7 +101,7 @@
 					<button type="button" class="btn btn-primary" id="appBtn"
 						onclick='application(event)'
 						th:if="${#authentication.principal.memberVO.nickName} != ${assi.writer}
-						and *{matchingState} == 1">신청
+						and ${assi.matchingState} == 1">신청
 					</button>
 				</div>
 			</form>

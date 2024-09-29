@@ -1,6 +1,5 @@
 package com.puppyroad.app.payment.web;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -40,22 +38,19 @@ public class PaymentController {
 	//결제 내역 등록
 	@PostMapping("ajax/pay")
 	@ResponseBody
-	public Map<String, Object> addPayAjax(PaymentVO paymentVO, VbankVO vbankVO) {
+	public Map<String, Object> addPayAjax(@RequestBody PaymentVO paymentVO) {
 		System.err.println("커스텀");
 		System.err.println(paymentVO);
-		System.err.println(vbankVO);
-		//return paymentService.addPayInfo(paymentVO, vbankVO);
-		return null;
+		return paymentService.addPayInfo(paymentVO);
 	}
 
 	//가상계좌 업그레이드
 	@PostMapping("ajax/payback")
 	@ResponseBody
-	public Map<String, Object> payBack(@RequestBody PaymentVO paymentVO, VbankVO vbank_data, String order_id) {
+	public Map<String, Object> payBack(@RequestBody PaymentVO paymentVO) {
 		System.err.println("페이백");
 		System.err.println(paymentVO);
-		System.err.println(vbank_data);
-		Map<String, Object> map = paymentService.addPayInfo(paymentVO, vbank_data);
+		Map<String, Object> map = paymentService.addPayInfo(paymentVO);
 		
 		return map;
 	}

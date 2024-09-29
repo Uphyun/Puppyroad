@@ -28,6 +28,7 @@ public class PaymentVO {
 	private Date requested_at;
 	private int status;
 	private String name;
+	private VbankVO vbank_data;
 
 	void setPayment_code(String payment_code) {
 		this.payment_code = payment_code;

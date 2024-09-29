@@ -21,7 +21,8 @@
 	</select>
 	
 	<select id="selectWalkerInfo" resultType="MemberVO">
-		select	m.name
+		select	m.user_id
+				, m.name
 				, i.price
 		from	member m join walker_add_info i
 						on m.member_code = i.member_code

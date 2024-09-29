@@ -6,5 +6,5 @@ import com.puppyroad.app.match.service.MatchVO;
 
 public interface PaymentService {
 	public Map<String, Object> getPayInfo(MatchVO matchVO);
-	public Map<String, Object> addPayInfo(PaymentVO paymentVO, VbankVO vbankVO);
+	public Map<String, Object> addPayInfo(PaymentVO paymentVO);
 }

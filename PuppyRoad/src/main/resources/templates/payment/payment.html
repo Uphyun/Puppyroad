@@ -13,7 +13,7 @@
               <div class="row g-6">
                 <div class="col-md-8">
                   <label class="form-label" for="billings-userId">아이디</label>
-                  <input type="text" id="billings-userId" class="form-control" placeholder="userId" th:value="${info.client.userId}" />
+                  <input type="text" id="billings-userId" class="form-control" placeholder="아이디" th:value="${info.client.userId}" />
                 </div>
               </div>
               <div class="row g-6 mt-3">
@@ -31,9 +31,10 @@
               <div class="row g-6 mt-3">
                 <div class="col-md-8">
                   <label class="form-label" for="billings-phone">전화번호</label>
-                  <input type="text" id="billings-phone" class="form-control" placeholder="010-1234-1234" th:value="${info.client.phone}" />
+                  <input type="text" id="billings-phone" class="form-control" placeholder="'-'는 빼고 입력해주세요" th:value="${info.client.phone}" />
                 </div>
               </div>
+                <input type="hidden" id="#billings-wuserId" name="recipient" th:value="${info.walker.userId}">
             </form>
           </div>
           <div class="col-lg-6 card-body p-md-6">
