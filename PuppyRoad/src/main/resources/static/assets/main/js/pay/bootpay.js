@@ -11,6 +11,10 @@ async function sendPay() {
             case 'issued':
                 // 가상계좌 입금 완료 처리
                 console.log(response);
+                const data = registPayInfo(response.data);
+                console.log(1);
+                console.log(data);
+                
                 $.ajax({
                     url : '/ajax/pay',
                     method: 'post',
@@ -18,6 +22,7 @@ async function sendPay() {
                     data : JSON.stringify(data)
                 })
                     .done(result => {
+                        console.log(2);
 						console.log(result);
                         if(result.isInfo) {
                             console.log("가상계좌 처리 완료");
@@ -132,15 +137,21 @@ function getEndDate() {
 }
 
 function registPayInfo(data) {
-    let sender;
-    let recipient;
+    let sender = $("#billings-userId").val();
+    let recipient = $("#billings-wuserId").val();
     let datas = {
+        sender,
+        recipient,
         method: data.method,
         orderName: data.order_name,
         price: data.price,
         requestedAt: data.requested_at,
-        bankAccount: data.bank_account,
-        bankCode: data.bank_code,
-        bankName: data.bank_name,
+        vbank_data : {
+            bankAccount: data.vbank_data.bank_account,
+            bankCode: data.vbank_data.bank_code,
+            bankName: data.vbank_data.bank_name,
+        }
     }
+
+    return datas;
 }

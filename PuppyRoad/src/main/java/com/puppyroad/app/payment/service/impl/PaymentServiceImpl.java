@@ -14,6 +14,9 @@ import com.puppyroad.app.payment.service.PaymentService;
 import com.puppyroad.app.payment.service.PaymentVO;
 import com.puppyroad.app.payment.service.VbankVO;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class PaymentServiceImpl implements PaymentService{
 	
@@ -25,6 +28,7 @@ public class PaymentServiceImpl implements PaymentService{
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		MatchVO info = paymentMapper.selectMatchInfo(matchVO);
+		System.err.println(info);
 		
 		Date endTime = info.getEndTime();
 		Date startTime = info.getStartTime();
@@ -38,7 +42,7 @@ public class PaymentServiceImpl implements PaymentService{
 	};
 
 	@Override
-	public Map<String, Object> addPayInfo(PaymentVO paymentVO, VbankVO vbankVO) {
+	public Map<String, Object> addPayInfo(PaymentVO paymentVO) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean isInfo = false;
 		boolean isAddInfo = false;
@@ -50,10 +54,10 @@ public class PaymentServiceImpl implements PaymentService{
 		
 		System.err.println("코드 확인 >>> " + paymentVO.getPaymentCode());
 		
-		if(vbankVO.getBankAccount() != null) {
-			vbankVO.setPaymentCode(paymentVO.getPaymentCode());
+		if(paymentVO.getVbank_data().getBankAccount() != null) {
+			paymentVO.getVbank_data().setPaymentCode(paymentVO.getPaymentCode());
 			isTrue = true;
-			if(paymentMapper.insertAddVbankInfo(vbankVO) == 1) {
+			if(paymentMapper.insertAddVbankInfo(paymentVO.getVbank_data()) == 1) {
 				isAddInfo = true;
 			}
 		}
@@ -61,7 +65,6 @@ public class PaymentServiceImpl implements PaymentService{
 		map.put("isInfo", isInfo);
 		map.put("isAddInfo", isAddInfo);
 		map.put("info", paymentVO);
-		map.put("addInfo", vbankVO);
 		map.put("success", isTrue);
 		
 		return map;
