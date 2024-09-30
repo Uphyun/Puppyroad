@@ -30,7 +30,9 @@ public class NaviServiceImpl implements NaviService {
 	}
 
 	@Override
-	public List<NaviVO> callBackNavi(NaviVO naviVO) {
+	public Map<String, Object> callBackNavi(NaviVO naviVO) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
 		List<NaviVO> list = null;
 		if(naviVO.getPuppyCode() != null) {
 			naviMapper.setCallDogNavi(naviVO);
@@ -38,8 +40,10 @@ public class NaviServiceImpl implements NaviService {
 		} else if (naviVO.getMatchCode() != 0) {
 			list = naviMapper.getMatchingList(naviVO.getMatchCode());
 		}
+		
+		map.put("naviList", list);
 
-		return list;
+		return map;
 	}
 
 	@Override

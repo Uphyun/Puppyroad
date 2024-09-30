@@ -8,7 +8,7 @@ import com.puppyroad.app.puppy.service.PuppyVO;
 public interface NaviService {
 	public List<PuppyVO> getPuppyList(String bulletinNo);
 	public int getBoardNo(String writer);
-	public List<NaviVO> callBackNavi(NaviVO naviVO);
+	public Map<String, Object> callBackNavi(NaviVO naviVO);
 	public Map<String, Object> setMatching(NaviVO naviVO);
 	public String endMatching(int matchCode);
 }

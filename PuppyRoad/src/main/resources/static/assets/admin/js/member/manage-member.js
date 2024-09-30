@@ -62,7 +62,15 @@ function getMemberList(position, tableId) {
 					//responsivePriority: 4,
 					render: function (data, type, full, meta) {
 						let $joinDate = full['joinDate'];
-						return $joinDate;
+						if ($joinDate == null || $joinDate == '' || $joinDate == undefined) {
+							return "-";
+						} else {
+							let date = new Date($joinDate);
+							let showDate = date.getFullYear() + "년 "
+								+ (date.getMonth() + 1 > 10 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) + "월 "
+								+ (date.getDate() > 10 ? date.getDate() : "0" + date.getDate()) + "일";
+							return showDate;
+						}
 					}
 				},
 				{	//5번째 활동날짜
@@ -71,7 +79,15 @@ function getMemberList(position, tableId) {
 					//responsivePriority: 5,
 					render: function (data, type, full, meta) {
 						let $activityDate = full['activityDate'];
-						return $activityDate;
+						if ($activityDate == null || $activityDate == '' || $activityDate == undefined) {
+							return "-";
+						} else {
+							let date = new Date($activityDate);
+							let showDate = date.getFullYear() + "년 "
+								+ (date.getMonth() + 1 > 10 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) + "월 "
+								+ (date.getDate() > 10 ? date.getDate() : "0" + date.getDate()) + "일";
+							return showDate;
+						}
 					}
 				},
 				{	//6번째 탈퇴날짜
@@ -80,7 +96,15 @@ function getMemberList(position, tableId) {
 					//responsivePriority: 6,
 					render: function (data, type, full, meta) {
 						let $withdrawDate = full['withdrawDate'];
-						return $withdrawDate;
+						if ($withdrawDate == null || $withdrawDate == '' || $withdrawDate == undefined) {
+							return "-";
+						} else {
+							let date = new Date($withdrawDate);
+							let showDate = date.getFullYear() + "년 "
+								+ (date.getMonth() + 1 > 10 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) + "월 "
+								+ (date.getDate() > 10 ? date.getDate() : "0" + date.getDate()) + "일";
+							return showDate;
+						}
 					}
 				},
 				{	//7번째 상세보기
@@ -214,7 +238,9 @@ $('.viewInfo').on("click", function () {
 			$("#infoActivity").text(makeDateFormat(result.activityDate));
 			$("#modalAccountState").val(result.accountState).prop("selected", true);
 			$("#modalAccountState").data("membercode", result.memberCode);
-			$("#infoAddress").text(result.address);
+			let addrs = result.address.split(',');
+			$("#infoAddress").text(addrs[1] + ", " + addrs[3]);
+			$("#infoIntention").text(result.intention);
 
 			let puppyList = result.puppyList;
 			$("#puppies").html("");
@@ -228,6 +254,10 @@ $('.viewInfo').on("click", function () {
 
 //날짜 포맷
 function makeDateFormat(date) {
+	if (date == '' || date == null || date == undefined) {
+		return '-';
+	}
+
 	let beforeDate = new Date(date);
 	let dateFormat = beforeDate.getFullYear() + "년 "
 		+ ((beforeDate.getMonth() + 1) < 10 ? "0" + (beforeDate.getMonth() + 1) : (beforeDate.getMonth() + 1)) + "월 "
@@ -258,9 +288,9 @@ function appendPuppy(puppy) {
 	col2.addClass("col-md-2");
 	let imgTag = $("<img>");
 	imgTag.addClass("card-img card-img-left");
-	imgSrc = getRealData(puppy.picture, "image")
-	imgTag.src = ContextPath + "/images/" + imgSrc;
-	console.log(imgTag);
+	imgSrc = getRealData(puppy.picture, "image");
+	imgTag.attr('src', "/images/" + imgSrc);
+	imgTag.css("width", "150px");
 
 	col2.append(imgTag);
 	rowDiv.append(col2);
@@ -327,7 +357,7 @@ function getRealData(data, type) {
 		}
 	} else if (type == "image") {
 		if (data == null) {
-			return "Nodata.png";
+			return "no_image.png";
 		} else {
 			return data;
 		}

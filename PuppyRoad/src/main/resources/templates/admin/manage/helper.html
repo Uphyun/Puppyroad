@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="https://www.thymeleaf.org/" layout:decorate="~{common/layouts/admin_layout}"
+<html lang="ko" xmlns:th="https://www.thymeleaf.org/"
+	layout:decorate="~{common/layouts/admin_layout}"
 	layout:fragment="Content">
 
 <head>
-	<link rel="stylesheet" href="/assets/admin/vender/libs/datatables-bs5/datatables-bootstrap5.css">
+<link rel="stylesheet"
+	href="/assets/admin/vender/libs/datatables-bs5/datatables-bootstrap5.css">
 </head>
 
 <body>
@@ -12,7 +14,8 @@
 		<div class="card">
 			<div class="card-header border-bottom">
 				<h5 class="card-title mb-0">봉사인 목록</h5>
-				<div class="d-flex justify-content-between align-items-center row pt-4 gap-4 gap-md-0">
+				<div
+					class="d-flex justify-content-between align-items-center row pt-4 gap-4 gap-md-0">
 					<div class="col-md-4 user_role"></div>
 					<div class="col-md-4 user_plan"></div>
 					<div class="col-md-4 user_status"></div>
@@ -22,8 +25,8 @@
 				<table class="table" id="manageTable">
 					<thead>
 						<tr>
-							<th class="dt-checkboxes-cell dt-checkboxes-select-all"><input type="checkbox"
-									class="form-check-input"></th>
+							<th class="dt-checkboxes-cell dt-checkboxes-select-all"><input
+								type="checkbox" class="form-check-input"></th>
 							<th>닉네임</th>
 							<th>아이디</th>
 							<th>가입날짜</th>
@@ -37,11 +40,13 @@
 			</div>
 
 			<!-- View User Modal -->
-			<div class="modal fade" id="viewUser" tabindex="-1" style="display: none;" aria-hidden="true">
+			<div class="modal fade" id="viewUser" tabindex="-1"
+				style="display: none;" aria-hidden="true">
 				<div class="modal-dialog modal-lg modal-simple modal-edit-user">
 					<div class="modal-content">
 						<div class="modal-body">
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
 							<div id="modal-memberInfo">
 								<!-- Info table -->
 								<div class="card">
@@ -83,15 +88,17 @@
 												<th colspan="2">주소</th>
 												<td colspan="10" id="infoAddress" class="text-start"></td>
 											</tr>
+											<tr>
+												<th colspan="2">의도</th>
+												<td colspan="10" id="infoIntention" class="text-start"></td>
+											</tr>
 										</table>
 										<hr>
 
-										<h5 class="mb-2 pb-1">애완견 목록</h5>
-										<div id="puppies"></div>
-
 										<!-- close button -->
 										<div class="col-12 mt-3 text-center">
-											<button type="button" class="btn btn-label-secondary waves-effect"
+											<button type="button"
+												class="btn btn-label-secondary waves-effect"
 												data-bs-dismiss="modal" aria-label="Close">닫기</button>
 										</div>
 									</div>
@@ -104,6 +111,7 @@
 			<!--/ View User Modal -->
 		</div>
 	</div>
+	<script src="/assets/admin/js/member/manage-member.js"></script>
 	<script>
 		getMemberList('봉사인', 'manageTable');
 	</script>
