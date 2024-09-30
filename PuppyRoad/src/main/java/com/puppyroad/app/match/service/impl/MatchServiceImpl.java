@@ -13,16 +13,19 @@ import com.puppyroad.app.match.service.MatchService;
 import com.puppyroad.app.match.service.MatchVO;
 import com.puppyroad.app.match.service.MatchingPuppyVO;
 import com.puppyroad.app.puppy.service.PuppyVO;
+import com.puppyroad.app.websocket.mapper.ChatMapper;
 
 @Service
 public class MatchServiceImpl implements MatchService {
 	private MatchMapper matchMapper;
+	private ChatMapper  chatMapper;
 	
 	@Autowired
 	MatchServiceImpl(MatchMapper matchMapper){
 		this.matchMapper = matchMapper;
 	}
-
+	
+	
 	@Override
 	public List<MatchVO> getMatchList() {
 		// TODO 전체 자율매칭 조회
@@ -141,6 +144,7 @@ public class MatchServiceImpl implements MatchService {
 		}
 		return 1;
 	}
+
 
 
 

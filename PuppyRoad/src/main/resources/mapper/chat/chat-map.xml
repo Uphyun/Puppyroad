@@ -135,5 +135,12 @@
 	FROM   pet_stargram_profile
 	WHERE  member_code = #{memberCode}
 </select>
+
+<select id="checkChatRoom">
+	SELECT COUNT(*)
+	FROM   chat_room
+	WHERE  match_no = #{bulletinNo}
+
+</select>
   
 </mapper>
