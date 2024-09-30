@@ -46,7 +46,7 @@ public class NaviController {
 	
 	@PostMapping("ajax/callNavi")
 	@ResponseBody
-	public List<NaviVO> callBackNaviAjax(@RequestBody NaviVO naviVO) {
+	public Map<String, Object> callBackNaviAjax(@RequestBody NaviVO naviVO) {
 		return naviService.callBackNavi(naviVO);
 	}
 	
