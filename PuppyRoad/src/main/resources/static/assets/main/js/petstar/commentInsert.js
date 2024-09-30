@@ -41,7 +41,6 @@ function submitComment(bulletinId) {
 		},
 		success: function(response) {
 			if (response === 1) {
-				alert("댓글 등록에 성공했습니다.");
 				// 댓글 등록 후 입력창 초기화
 				$('#commentInput_' + bulletinId).val('');
 

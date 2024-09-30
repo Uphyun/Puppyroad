@@ -23,6 +23,10 @@
 					<!-- Apps & Pages -->
 					<li class="menu-header small"><span class="menu-header-text"
 						data-i18n="PetStar">펫스타 그램</span></li>
+					<li class="menu-item"><a href="petstar" class="menu-link">
+							<i class="menu-icon tf-icons ti ti-brand-wechat"></i>
+							<div data-i18n="My PetStar">펫스타 그램</div>
+					</a></li>
 					<li class="menu-item"><a href="mypage" class="menu-link"><i
 							class="menu-icon tf-icons ti ti-user-square-rounded"></i>
 							<div data-i18n="My PetStar">나의 펫스타</div></a></li>
@@ -38,12 +42,15 @@
 			<!-- End Aside -->
 
 			<!-- 게시글과 댓글 목록 그리드 -->
-			<div class="post-comment-grid">
+			<h5 style="text-align: center;  margin: 0 auto;" class="mb-5">
+				<i class="menu-icon tf-icons ti ti-paw"></i>펫스타 그램
+			</h5>
+			<div class="post-comment-grid mt-5">
 				<th:block th:each="info : ${bulletin}">
 					<div class="post-comment-item">
 						<!-- 게시글 -->
 						<div class="card border-primary border shadow-none">
-							<div class="card-body position-relative pt-4"
+							<div class="card-body position-relative pt-4 mb-5"
 								style="cursor: pointer;"
 								th:onClick="|location.href='@{/user/bulletinInfo(bulletinNo=${info.bulletinNo})}'|">
 								<div class="author-info">
@@ -54,7 +61,8 @@
 									<!-- 닉네임 -->
 									<p class="author-name">[[ ${info.nickName} ]]</p>
 									<!-- 작성 날짜 -->
-									<p class="post-date">[[${#dates.format(info.writingDate,'yyyy년 MM월 dd일')} ]]</p>
+									<p class="post-date">[[${#dates.format(info.writingDate,'yyyy년
+										MM월 dd일')} ]]</p>
 								</div>
 
 								<div id="image_container" class="my-5 pt-6 text-center">
@@ -63,12 +71,13 @@
 										th:src="@{/images/{fileName}(fileName=${fileName})}"
 										alt="첨부파일 이미지">
 								</div>
-								<p class="text-center mb-5">[[ ${info.content} ]]</p>
+								<p th:utext="${info.content}"
+									style="white-space: pre-wrap; text-align: center;"></p>
 							</div>
 						</div>
 
 						<!-- 게시글 댓글 목록 -->
-						<div class="comment-list"
+						<div class="comment-list mt-5"
 							th:attr="id='commentList_' + ${info.bulletinNo}">
 							<th:block th:each="com, stat : ${commentsMap[info.bulletinNo]}">
 								<div th:class="${stat.index < 3 ? '' : 'hidden-comment'}"
@@ -96,15 +105,16 @@
 								더보기</button>
 
 							<!-- 댓글 입력란 -->
-							<div class="d-flex align-items-center mb-3">
+							<div class="d-flex align-items-center mb-3" style="width: 100%;">
 								<img
 									th:src="@{/images/{fileName}(fileName=${profiles.profilePicture})}"
 									class="rounded-circle" alt="프로필 이미지" width="40" height="40">
 								<input type="text" class="form-control ms-3 comment-input"
 									th:attr="id='commentInput_' + ${info.bulletinNo}"
-									placeholder="댓글을 입력하세요">
+									placeholder="댓글을 입력하세요" style="flex-grow: 1; min-width: 0;">
 								<button class="btn btn-primary ms-2"
-									th:onclick="submitComment([[ ${info.bulletinNo} ]])">등록</button>
+									th:onclick="submitComment([[ ${info.bulletinNo} ]])"
+									style="min-width: 70px;">등록</button>
 							</div>
 						</div>
 					</div>
