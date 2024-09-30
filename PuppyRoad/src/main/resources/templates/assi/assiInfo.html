@@ -38,7 +38,9 @@
 					<div class="row mb-3">
 						<label for="dogInfo" class="col-form-label">도그워커 정보</label>
 						<div class="col-2">
-							<img src="${assi.picture}" alt="dogWalkerImg" class="img-fluid"/>
+							<img th:src="@{/images/{fileName}(fileName=${assi.picture})}"
+							alt="dogWalkerImg" class="img-fluid"
+							onerror="this.onerror=null; this.src='/assets/main/img/no_image.png';"/>
 						</div>
 						<div class="col-8">
 							<div class="row">
