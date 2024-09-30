@@ -87,6 +87,7 @@
                             class="user-avatar rounded-circle cursor-pointer"
                             th:src="@{/images/{fileName}(fileName=${myPro.profilePicture})}"
                             alt="img"
+                            onerror="this.onerror=null; this.src='/assets/main/img/profile.png';"
                           />
                         </div>
                         <div class="flex-grow-1 input-group input-group-merge">
@@ -137,7 +138,9 @@
 	                                th:src="@{/images/{fileName}(fileName=${room.profilePicture})}"
 	                                th:id = "${room.matchingKind}"
 	                                alt="Avatar"
-	                                class="rounded-circle"/>
+	                                class="rounded-circle"
+	                                onerror="this.onerror=null; this.src='/assets/main/img/profile.png'"
+	                                />
 	                            </div>
 	                            <div class="chat-contact-info flex-grow-1 ms-4">
 	                              <div class="d-flex justify-content-between align-items-center">
@@ -188,6 +191,7 @@
                                 src=""
                                 alt="임시"
                                 class="rounded-circle"
+                                onerror="this.onerror=null; this.src='/assets/main/img/profile.png'"
                                 data-bs-toggle="sidebar"
                                 data-overlay
                                 data-target="#app-chat-sidebar-right"/>
