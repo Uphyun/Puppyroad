@@ -39,29 +39,34 @@
 				<div class="first" id="first" style="display: none;">
 					<div class="row mb-3">
 						<div class="col-2">
-							<img name="puppyImage2" src="/assets/main/img/logo.png" alt="puppyImg" />
+							<img name="puppyImage2" src="/assets/main/img/logo.png" alt="puppyImg" class="img-fluid" />
 						</div>
 						<div class="col-8">
 							<div class="row">
 								<div class="col-md-6 pb-2 col-lg-4">
+									<label for="dogBreed" class="col-form-label">견종</label>
 									<input name="dogBreed" type="text" class="form-control"
 										placeholder="견종" readonly />
 								</div>
 								<div class="col-md-6 pb-2 col-lg-4">
+									<label for="personality" class="col-form-label">성격</label>
 									<input name="personality" type="text" class="form-control"
 										placeholder="성격" readonly />
 								</div>
 								<div class="col-md-6 pb-2 col-lg-4">
+									<label for="dogSize" class="col-form-label">견종 크기</label>
 									<input name="dogSize" type="text" class="form-control"
 										placeholder="견종 크기" readonly />
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-6 col-lg-4">
+									<label for="neutralizationPreAbs" class="col-form-label">중성화 유무</label>
 									<input name="neutralizationPreAbs" type="text"
 										class="form-control" placeholder="중성화 유무" readonly />
 								</div>
 								<div class="col-md-6 col-lg-4">
+									<label for="diseasePreAbs" class="col-form-label">질병 유무</label>
 									<input name="diseasePreAbs" type="text" class="form-control"
 										placeholder="질병 유무" readonly />
 								</div>
@@ -136,30 +141,36 @@
 											<div class="row">
 												<div class="col-md-6 pb-2 col-lg-4">
 													<input id="puppyCode" th:value="${matchDog.puppyCode}" type="hidden"/>
-													<h5 id="dogName" class="form-control">이름 : [[ ${matchDog.dogName} ]]</h5>
+													<label for="dogName" class="col-form-label">반려견 이름</label>
+													<h5 id="dogName" class="form-control">[[ ${matchDog.dogName} ]]</h5>
 												</div>
 												<div class="col-md-6 pb-2 col-lg-4">
-													<h5 id="dogBreed" class="form-control">견종 : [[ ${matchDog.dogBreed} ]]</h5>
+													<label for="dogBreed" class="col-form-label">견종</label>
+													<h5 id="dogBreed" class="form-control">[[ ${matchDog.dogBreed} ]]</h5>
 												</div>
 												<div class="col-md-6 pb-2 col-lg-4">
-													<h5 id="personality" class="form-control">성격 : [[ ${matchDog.personality} ]]</h5>
+													<label for="personality" class="col-form-label">성격</label>
+													<h5 id="personality" class="form-control">[[ ${matchDog.personality} ]]</h5>
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-md-6 pb-2 col-lg-4">
-													<h5 id="dogSize" class="form-control">사이즈 : [[ ${matchDog.dogSize} ]]</h5>
+													<label for="dogSize" class="col-form-label">견종 크기</label>
+													<h5 id="dogSize" class="form-control">[[ ${matchDog.dogSize} ]]</h5>
 												</div>
 												<div class="col-md-6 col-lg-4">
+													<label for="neutralizationPreAbs" class="col-form-label">중성화 유무</label>
 													<h5 id="neutralizationPreAbs" class="form-control"
-													    th:if="${matchDog.neutralizationPreAbs}==0">중성화 : O</h5>
+													    th:if="${matchDog.neutralizationPreAbs}==0">O</h5>
 													<h5 id="neutralizationPreAbs" class="form-control"
-													    th:if="${matchDog.neutralizationPreAbs}==1">중성화 : X</h5>
+													    th:if="${matchDog.neutralizationPreAbs}==1">X</h5>
 												</div>
 												<div class="col-md-6 col-lg-4">
+													<label for="diseasePreAbs" class="col-form-label">질병 유무</label>
 													<h5 id="diseasePreAbs" class="form-control"
-													    th:if="${matchDog.diseasePreAbs}==0">질병유무 : O</h5>
+													    th:if="${matchDog.diseasePreAbs}==0">O</h5>
 													<h5 id="diseasePreAbs" class="form-control"
-													    th:if="${matchDog.diseasePreAbs}==1">질병유무 : X</h5>
+													    th:if="${matchDog.diseasePreAbs}==1">X</h5>
 												</div>
 											</div>
 										</div>
