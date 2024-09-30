@@ -62,7 +62,11 @@ function getMemberList(position, tableId) {
 					//responsivePriority: 4,
 					render: function (data, type, full, meta) {
 						let $joinDate = full['joinDate'];
-						return $joinDate;
+						let date = new Date($joinDate);
+						let showDate = date.getFullYear() + "년 "
+									+ (date.getMonth()+1 > 10 ? date.getMonth()+1 : "0"+(date.getMonth()+1)) + "월 "
+									+ (date.getDate() > 10 ? date.getDate() : "0"+date.getDate()) + "일";
+						return showDate;
 					}
 				},
 				{	//5번째 활동날짜
@@ -71,7 +75,11 @@ function getMemberList(position, tableId) {
 					//responsivePriority: 5,
 					render: function (data, type, full, meta) {
 						let $activityDate = full['activityDate'];
-						return $activityDate;
+						let date = new Date($activityDate);
+						let showDate = date.getFullYear() + "년 "
+									+ (date.getMonth()+1 > 10 ? date.getMonth()+1 : "0"+(date.getMonth()+1)) + "월 "
+									+ (date.getDate() > 10 ? date.getDate() : "0"+date.getDate()) + "일";
+						return showDate;
 					}
 				},
 				{	//6번째 탈퇴날짜
@@ -80,7 +88,11 @@ function getMemberList(position, tableId) {
 					//responsivePriority: 6,
 					render: function (data, type, full, meta) {
 						let $withdrawDate = full['withdrawDate'];
-						return $withdrawDate;
+						let date = new Date($withdrawDate);
+						let showDate = date.getFullYear() + "년 "
+									+ (date.getMonth()+1 > 10 ? date.getMonth()+1 : "0"+(date.getMonth()+1)) + "월 "
+									+ (date.getDate() > 10 ? date.getDate() : "0"+date.getDate()) + "일";
+						return showDate;
 					}
 				},
 				{	//7번째 상세보기
