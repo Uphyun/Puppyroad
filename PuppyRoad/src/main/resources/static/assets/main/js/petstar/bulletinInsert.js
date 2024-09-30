@@ -98,7 +98,7 @@ function submitForm() {
 		success: function(data) {
 			if (data > 0) {
 				alert("성공적으로 제출되었습니다.");
-				location.href = "/user/mypage"
+				location.href = "/user/petstar"
 			} else {
 				alert("등록 오류.");
 			}
@@ -108,3 +108,5 @@ function submitForm() {
 		}
 	});
 }
+
+
