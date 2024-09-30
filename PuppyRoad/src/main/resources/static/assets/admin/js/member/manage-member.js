@@ -35,7 +35,7 @@ function getMemberList(position, tableId) {
 					targets: 0,
 					searchable: false,
 					//responsivePriority: 1,
-					render: function(data, type, full, meta) {
+					render: function (data, type, full, meta) {
 						let $memberCode = full['memberCode'];
 						return '<input type="checkbox" class="form-check-input" value="' + $memberCode + '"/>';
 					}
@@ -43,7 +43,7 @@ function getMemberList(position, tableId) {
 				{	//2번째 닉네임
 					targets: 1,
 					//responsivePriority: 2,
-					render: function(data, type, full, meta) {
+					render: function (data, type, full, meta) {
 						let $nickName = full['nickName'];
 						return $nickName;
 					}
@@ -51,7 +51,7 @@ function getMemberList(position, tableId) {
 				{	//3번째 아이디
 					targets: 2,
 					//responsivePriority: 3,
-					render: function(data, type, full, meta) {
+					render: function (data, type, full, meta) {
 						let $userId = full['userId'];
 						return $userId;
 					}
@@ -60,7 +60,7 @@ function getMemberList(position, tableId) {
 					targets: 3,
 					searchable: false,
 					//responsivePriority: 4,
-					render: function(data, type, full, meta) {
+					render: function (data, type, full, meta) {
 						let $joinDate = full['joinDate'];
 						if ($joinDate == null || $joinDate == '' || $joinDate == undefined) {
 							return "-";
@@ -77,7 +77,7 @@ function getMemberList(position, tableId) {
 					targets: 4,
 					searchable: false,
 					//responsivePriority: 5,
-					render: function(data, type, full, meta) {
+					render: function (data, type, full, meta) {
 						let $activityDate = full['activityDate'];
 						if ($activityDate == null || $activityDate == '' || $activityDate == undefined) {
 							return "-";
@@ -94,7 +94,7 @@ function getMemberList(position, tableId) {
 					targets: 5,
 					searchable: false,
 					//responsivePriority: 6,
-					render: function(data, type, full, meta) {
+					render: function (data, type, full, meta) {
 						let $withdrawDate = full['withdrawDate'];
 						if ($withdrawDate == null || $withdrawDate == '' || $withdrawDate == undefined) {
 							return "-";
@@ -111,7 +111,7 @@ function getMemberList(position, tableId) {
 					targets: 6,
 					searchable: false,
 					//responsivePriority: 7,
-					render: function(data, type, full, meta) {
+					render: function (data, type, full, meta) {
 						let $memberCode = full['memberCode'];
 						return '<button type="button" class="btn btn-primary waves-effect waves-light viewInfo" data-bs-toggle="modal" data-bs-target="#viewUser" data-memberCode="' + $memberCode + '">상세보기</button>';
 					}
@@ -120,7 +120,7 @@ function getMemberList(position, tableId) {
 					targets: 7,
 					searchable: false,
 					//responsivePriority: 7,
-					render: function(data, type, full, meta) {
+					render: function (data, type, full, meta) {
 						let $memberCode = full['memberCode'];
 						let $accountState = full['accountState'];
 						return setStateColumn($accountState, $memberCode);
@@ -151,8 +151,8 @@ function getMemberList(position, tableId) {
 						}
 					}), */
 					type: 'column',
-					renderer: function(api, rowIdx, columns) {
-						var data = $.map(columns, function(col, i) {
+					renderer: function (api, rowIdx, columns) {
+						var data = $.map(columns, function (col, i) {
 							return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
 								? '<tr data-dt-row="' +
 								col.rowIndex +
@@ -180,7 +180,7 @@ function getMemberList(position, tableId) {
 }
 
 //선택된 조건 설정
-$("#searchDrop a").on("click", function() {
+$("#searchDrop a").on("click", function () {
 	$("#searchTypeInput").val($(event.target).text());
 	$("#searchDrop button").text($(event.target).text());
 })
@@ -223,7 +223,7 @@ function setStateColumn(state, code) {
 }
 
 //회원 상제 조회
-$('.viewInfo').on("click", function() {
+$('.viewInfo').on("click", function () {
 	let memberCode = $(event.target).data("membercode");
 
 	$.ajax({
@@ -252,6 +252,10 @@ $('.viewInfo').on("click", function() {
 
 //날짜 포맷
 function makeDateFormat(date) {
+	if (date == '' || date == null || date == undefined) {
+		return '-';
+	}
+
 	let beforeDate = new Date(date);
 	let dateFormat = beforeDate.getFullYear() + "년 "
 		+ ((beforeDate.getMonth() + 1) < 10 ? "0" + (beforeDate.getMonth() + 1) : (beforeDate.getMonth() + 1)) + "월 "
@@ -282,8 +286,9 @@ function appendPuppy(puppy) {
 	col2.addClass("col-md-2");
 	let imgTag = $("<img>");
 	imgTag.addClass("card-img card-img-left");
-	imgSrc = getRealData(puppy.picture, "image")
-	imgTag.src = ContextPath + "/images/" + imgSrc;
+	imgSrc = getRealData(puppy.picture, "image");
+	console.log(imgSrc);
+	imgTag.attr('src', "/images/" + imgSrc);
 	console.log(imgTag);
 
 	col2.append(imgTag);
@@ -351,7 +356,7 @@ function getRealData(data, type) {
 		}
 	} else if (type == "image") {
 		if (data == null) {
-			return "Nodata.png";
+			return "no_image.png";
 		} else {
 			return data;
 		}

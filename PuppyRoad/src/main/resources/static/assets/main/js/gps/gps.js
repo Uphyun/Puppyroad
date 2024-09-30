@@ -31,7 +31,7 @@ function setMap(mapWrap = "map") {
 
 	try {
 		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(function(position) {
+			navigator.geolocation.getCurrentPosition(function (position) {
 				console.log("인식완료");
 				const lat = position.coords.latitude;
 				const lon = position.coords.longitude;
@@ -98,11 +98,11 @@ function startWalking(code, used) {
 
 	alert("산책을 시작합니다!");
 
-	walkingInterval = setInterval(function() {
+	walkingInterval = setInterval(function () {
 		// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
 		if (navigator.geolocation) {
 			// GeoLocation을 이용해서 접속 위치를 얻어옵니다
-			navigator.geolocation.getCurrentPosition(function(position) {
+			navigator.geolocation.getCurrentPosition(function (position) {
 
 				let lat = position.coords.latitude; // 위도(세로-y)
 				let lon = position.coords.longitude; // 경도(가로-x)
@@ -230,7 +230,7 @@ function startMatching(matchCode, used = 'match') {
 	let lat, lon;
 
 	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(function(position) {
+		navigator.geolocation.getCurrentPosition(function (position) {
 
 			lat = position.coords.latitude; // 위도(세로-y)
 			lon = position.coords.longitude; // 경도(가로-x)
@@ -253,17 +253,17 @@ function startMatching(matchCode, used = 'match') {
 		})
 	}
 
-	matchingInterval = setInterval(function() {
+	matchingInterval = setInterval(function () {
 		if (timing > 1 && timing % 10 == 0) {
 			if (timing > 50) {
 				alert("최대 검색 거리에 도달하여 더이상 검색 할 수 없습니다.\n매칭을 종료하겠습니다.")
-				stopMatcing(matchCode);
+				return stopMatcing(matchCode);
 			}
 			if (confirm(`'${km}'km 이내에 매칭을 완료했습니다.
                 \n더 넓은 범위를 탐색하시겠습니까?`)) {
 				km++;
 			} else {
-				stopMatcing(matchCode);
+				return stopMatcing(matchCode);
 			}
 		}
 		timing++;
@@ -275,13 +275,13 @@ function startMatching(matchCode, used = 'match') {
 			data: JSON.stringify(sendData),
 		})
 			.done(result => {
-				result.forEach(data => {
+				removeMarkers();
+				result.naviList.forEach(data => {
 					const stationlat = data.y;
 					const stationlon = data.x;
 
 					let distanceInKm = getDistanceFromLatLonInKm(lon, lat, stationlon, stationlat);
 
-					removeMarkers();
 					if (distanceInKm <= km) {
 						createMarker(stationlat, stationlon);
 					}
@@ -382,7 +382,7 @@ function clickMarkerEvent(marker) {
 	});
 
 	// 마커에 클릭이벤트를 등록합니다
-	kakao.maps.event.addListener(marker, 'click', function() {
+	kakao.maps.event.addListener(marker, 'click', function () {
 		// 마커 위에 인포윈도우를 표시합니다
 		infowindow.open(map, marker);
 	});
