@@ -44,29 +44,37 @@
 						<div class="col-8">
 							<div class="row">
 								<div class="col-md-6 pb-2 col-lg-4">
+									<label for="gender" class="col-form-label">성별</label>
 									<input name="gender" type="text" class="form-control" readonly
-										placeholder="성별" th:value="${myPr.gender}" />
+										placeholder="성별" th:if="${myPr.gender}==1" value="남성" />
+									<input name="gender" type="text" class="form-control" readonly
+										placeholder="성별" th:if="${myPr.gender}==2" value="여성" />
 								</div>
 								<div class="col-md-6 pb-2 col-lg-4">
+									<label for="bankCode" class="col-form-label">은행 이름</label>
 									<input name="bankCode" type="text" class="form-control" readonly
 										placeholder="은행" th:value="${myPr.bankCode}"/>
 								</div>
 								<div class="col-md-6 pb-2 col-lg-4">
+									<label for="bankAccount" class="col-form-label">계좌 번호</label>
 									<input name="bankAccount" type="text" class="form-control" readonly
 										placeholder="계좌 번호" th:value="${myPr.bankAccount}"/>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-6 col-lg-4">
+									<label for="workWeek" class="col-form-label">근무 요일</label>
 									<input name="workWeek" type="text" readonly
 										class="form-control" placeholder="근무 요일" th:value="${myPr.workWeek}"/>
 								</div>
 								<div class="col-md-6 col-lg-4">
-									<input name="price" type="text" class="form-control"
-										placeholder="희망 요금" th:value="${myPr.price}" readonly/>
+									<label for="price" class="col-form-label">희망 요금</label>
+									<input name="price" type="text" class="form-control" readonly
+										placeholder="희망 요금" th:value="${myPr.price}"/>
 								</div>
 
 								  <div class="col-md-6 col-lg-4">
+								  	<label for="walkPlaceAddress" class="col-form-label">지역</label>
 					                  <select
 					                    class="select2 select-event-guests form-select"
 					                    id="walkPlaceAddress"
