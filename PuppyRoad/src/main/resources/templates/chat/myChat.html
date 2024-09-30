@@ -286,7 +286,7 @@
             <div class="offcanvas-body">
               <form class="event-form pt-0" id="eventForm">
                 <div class="mb-5">
-                  <label class="form-label" for="walkPlaceAddress">도시</label>
+                  <label class="form-label" id="cityLabel" for="walkPlaceAddress">도시</label>
                   <input
                   	readonly
                     type="text"
@@ -314,7 +314,7 @@
                     placeholder="종료 시간" />
                 </div>
                 <div class="mb-4 select2-primary">
-                  <label class="form-label" for="eventGuests">반려견 추가</label>
+                  <label class="form-label" id="dogLabel" for="eventGuests">댕댕이 추가</label>
                   <select
                     class="select2 select-event-guests form-select"
                     id="myDogs"
@@ -330,7 +330,7 @@
                   <div class="d-flex">
                     <button type="button" 
                      id="addSchedul" class="btn-primary btn-add-event me-4">
-                      신청
+                      예약
                     </button>
                     <button
                       type="reset"

@@ -17,4 +17,6 @@ public interface ChatRoomService {
 	
 	// 단건 내 프로필 조회
 	public PetStarProfileVO getMyPorfile(PetStarProfileVO petStarProfileVO);
+	
+	public int checkChatRoom(int bulletinNo);
 }

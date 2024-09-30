@@ -131,14 +131,13 @@
   	WHERE  bulletin_no = #{bulletinNo}
   </update>
   
-  <!-- 자율수정 -->
+  <!-- 자율수정 chat -->
   <update id="updateChatMatch" parameterType="MatchVO">
   	UPDATE matching_board
   	SET
   	       matching_state = #{matchingState},
   	       start_time = #{startTime},
   	       end_time = #{endTime},
-  	       walk_place_address = #{walkPlaceAddress},
   	       client_code = #{clientCode}
   	WHERE  bulletin_no = #{bulletinNo}
   </update>

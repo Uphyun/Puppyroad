@@ -235,6 +235,18 @@ $(document).ready(function() {
 				$('#addSchedul').hide();
 			}
 
+			if (matchingKind == "대리") {
+				$('#walkPlaceAddress').show();
+				$('#dogLabel').show();
+				$('#cityLabel').show();
+				$('.select2-selection--multiple').show();
+			} else {
+				$('#walkPlaceAddress').hide();
+				$('#dogLabel').hide();
+				$('#cityLabel').hide();
+				$('.select2-selection--multiple').hide();
+			}
+
 		});
 
 	});
@@ -277,52 +289,64 @@ $(document).ready(function() {
 			e.preventDefault() // 폼 전송을 막음
 			alert('종료시간을 입력해주세요') // '소개를 입력해주세요' 라는 경고창을 띄움
 		}
-		else if (puppy == '') { // puppy가 공백일 경우
-			e.preventDefault() // 폼 전송을 막음
-			alert('반려견을 입력해주세요') // '반려견을 입력해주세요' 라는 경고창을 띄움
-		}
 		else {
 
 			let data = { bulletinNo, walkPlaceAddress, startTime, endTime, matchingState }
+			
+			if (matchingKind == '대리') {
+				
+				if (puppy == '') { // puppy가 공백일 경우
+					e.preventDefault() // 폼 전송을 막음
+					alert('반려견을 입력해주세요') // '반려견을 입력해주세요' 라는 경고창을 띄움
+				} else {
+					
+					$.ajax({
+						url: '/user/chatMatchUpdate',
+						method: 'post',
+						data: data,
+						success: function(datas) {
+							if (datas.result = 1) {
+								alert("성공적으로 예약되었습니다.");
 
-			console.log(data);
+								$.ajax({
+									url: '/user/chatDogInsert?bulletinNo=' + bulletinNo,
+									method: 'post',
+									contentType: 'application/json',
+									data: JSON.stringify(puppy),
+									success: function(datas) {
+											location.href = '/user/pay?bulletinNo=' + bulletinNo;
+									}
+								})
+									.fail(err => console.log(err))
 
-			$.ajax({
-				url: '/user/chatMatchUpdate',
-				method: 'post',
-				data: data,
-				success: function(datas) {
-					if (datas.result = 1) {
-						alert("성공적으로 신청되었습니다.");
-
-						$.ajax({
-							url: '/user/chatDogInsert?bulletinNo=' + bulletinNo,
-							method: 'post',
-							contentType: 'application/json',
-							data: JSON.stringify(puppy),
-							success: function(datas) {
-								if (matchingKind == "대리") {
-									location.href = '/user/pay?bulletinNo=' + bulletinNo;
-
-								} else {
-									location.href = '/user/matchList'
-
-								}
+							} else {
+								alert("예약 오류")
 							}
-						})
-							.fail(err => console.log(err))
-							
-					} else {
-						alert("신청 오류")
-					}
+						}
+					})
+						.fail(err => console.log(err))
+					
 				}
-			})
-				.fail(err => console.log(err))
 
+				
+			} else {
 
+				$.ajax({
+					url: '/user/chatMatchUpdate',
+					method: 'post',
+					data: data,
+					success: function(datas) {
+						if (datas.result = 1) {
+							alert("성공적으로 예약되었습니다.");
+							location.href = '/user/matchList'
+						} else {
+							alert("예약 오류")
+						}
+					}
+				})
+					.fail(err => console.log(err))
 
-
-
+			}
 
 
 		}
