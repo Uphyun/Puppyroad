@@ -23,6 +23,10 @@
 					<!-- Apps & Pages -->
 					<li class="menu-header small"><span class="menu-header-text"
 						data-i18n="PetStar">펫스타 그램</span></li>
+					<li class="menu-item"><a href="petstar" class="menu-link">
+							<i class="menu-icon tf-icons ti ti-brand-wechat"></i>
+							<div data-i18n="My PetStar">펫스타 그램</div>
+					</a></li>
 					<li class="menu-item"><a href="mypage" class="menu-link">
 							<i class="menu-icon tf-icons ti ti-user-square-rounded"></i>
 							<div data-i18n="My PetStar">나의 펫스타</div>
@@ -43,6 +47,8 @@
 
 			<!-- 등록 내용 -->
 			<div class="card-body" style="flex: 1;">
+			<h5 style="text-align: center;" class="mb-5"><i
+							class="ti ti-file-description"></i>게시글 상세정보</h5>
 				<form class="d-flex flex-column align-items-center">
 
 					<!-- 번호 -->
@@ -74,28 +80,29 @@
 							<span id="basic-icon-default-message2" class="input-group-text"><i
 								class="ti ti-message-dots"></i></span>
 							<textarea id="content" class="form-control" name="content"
-								placeholder="내용을 입력해 주세요." readonly>[[${bulletin.content}]]</textarea>
+								placeholder="내용을 입력해 주세요." style="white-space: pre-wrap;"
+								readonly>[[${bulletin.content}]]</textarea>
 						</div>
 					</div>
 
 					<!-- 수정 및 삭제 버튼 (memberCode 일치 시에만 보이도록 설정) -->
 					<div class="d-flex justify-content-center gap-2">
 						<!-- 수정하기 버튼 -->
-						<button type="button" class="btn btn-primary d-grid w-40"
+						<button type="button" class="btn btn-outline-primary d-grid w-40"
 							th:if="${#authentication.principal.memberVO.memberCode == bulletin.memberCode}"
 							th:onClick="|location.href='@{/user/bulletinUpdate(bulletinNo=${bulletin.bulletinNo})}'|">수정하기</button>
 
 						<!-- 삭제하기 버튼 -->
-						<button type="button" class="btn btn-danger d-grid w-40"
+						<button type="button" class="btn btn-outline-danger d-grid w-40"
 							th:if="${#authentication.principal.memberVO.memberCode == bulletin.memberCode}"
 							th:onClick="|confirmDelete(${bulletin.bulletinNo})|">삭제하기</button>
 					</div>
-					
+
 				</form>
-			</div>	
+			</div>
 		</div>
-		
-		
+
+
 	</section>
 
 </body>

@@ -12,7 +12,7 @@
 				,p.nickname
 		FROM  pet_stargram_bulletin b JOIN pet_stargram_profile p
 										ON b.member_code = p.member_code
-		ORDER BY writing_date DESC
+		ORDER BY b.bulletin_no DESC
 	</select>
 	
 	<!-- 전체조회 mypage -->
@@ -24,7 +24,7 @@
 				,member_code
 		FROM  pet_stargram_bulletin 
 		WHERE member_code = #{memberCode}		
-		ORDER BY writing_date DESC
+		ORDER BY bulletin_no DESC
 	</select>
 	
 	<!-- 단건조회 -->
