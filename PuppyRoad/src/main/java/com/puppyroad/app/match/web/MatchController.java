@@ -163,5 +163,15 @@ public class MatchController {
 		
 	}
 	
+	// 매칭채팅 확인
+	@GetMapping("user/matchChatCheck")
+	@ResponseBody // AJAX
+	public int matchChatCheck() {
+
+		
+		int bno = 0;
+		return bno;
+	}
+	
 	
 }

@@ -284,48 +284,47 @@ $(document).ready(function() {
 		else {
 
 			let data = { bulletinNo, walkPlaceAddress, startTime, endTime, matchingState }
-			
-			if(matchingKind == '대리'){
 
-				$.ajax({
-					url: '/user/chatMatchUpdate',
-					method: 'post',
-					data: data,
-					success: function(datas) {
-						if (datas.result = 1) {
-							alert("성공적으로 신청되었습니다.");
-						} else {
-							alert("신청 오류")
-						}
-					}
-				})
-					.fail(err => console.log(err))
-	
-	
-				$.ajax({
-					url: '/user/chatDogInsert?bulletinNo=' + bulletinNo,
-					method: 'post',
-					contentType: 'application/json',
-					data: JSON.stringify(puppy),
-					success: function(datas) {
-						if(matchingKind == "대리"){
-						location.href = '/user/pay?bulletinNo=' + bulletinNo;
+			console.log(data);
+
+			$.ajax({
+				url: '/user/chatMatchUpdate',
+				method: 'post',
+				data: data,
+				success: function(datas) {
+					if (datas.result = 1) {
+						alert("성공적으로 신청되었습니다.");
+
+						$.ajax({
+							url: '/user/chatDogInsert?bulletinNo=' + bulletinNo,
+							method: 'post',
+							contentType: 'application/json',
+							data: JSON.stringify(puppy),
+							success: function(datas) {
+								if (matchingKind == "대리") {
+									location.href = '/user/pay?bulletinNo=' + bulletinNo;
+
+								} else {
+									location.href = '/user/matchList'
+
+								}
+							}
+						})
+							.fail(err => console.log(err))
 							
-						} else{
-						location.href = '/user/matchList'
-						
-						}
+					} else {
+						alert("신청 오류")
 					}
-				})
-					.fail(err => console.log(err))
+				}
+			})
+				.fail(err => console.log(err))
 
-			} else {
-				alert("자율 막아둠");
-			}
-			
-			
-			
-			
+
+
+
+
+
+
 		}
 
 	})
