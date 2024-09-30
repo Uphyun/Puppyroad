@@ -287,9 +287,8 @@ function appendPuppy(puppy) {
 	let imgTag = $("<img>");
 	imgTag.addClass("card-img card-img-left");
 	imgSrc = getRealData(puppy.picture, "image");
-	console.log(imgSrc);
 	imgTag.attr('src', "/images/" + imgSrc);
-	console.log(imgTag);
+	imgTag.css("width", "150px");
 
 	col2.append(imgTag);
 	rowDiv.append(col2);
