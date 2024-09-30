@@ -1,5 +1,6 @@
 package com.puppyroad.app.admin.manage.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,14 +30,10 @@ public class ManageMemberController {
 	}
 	
 	@GetMapping("ajax/memberList")
-	public String getMemberListPaging(Model model, PageDTO pageDTO, MemberVO memberVO, String condition) {
-		List<MemberVO> memberList = manageMemberService.getMemberList(pageDTO, memberVO, condition);
-		PageDTO nowPagingDTO = new PageDTO(pageDTO.getPage(), pageDTO.getRecordSize(), manageMemberService.getMemberPage(memberVO, condition));
+	@ResponseBody
+	public List<MemberVO> getMemberList(MemberVO memberVO) {
 		
-		System.err.println(nowPagingDTO);
-		model.addAttribute("memberList", memberList);
-		model.addAttribute("page", pageDTO);
-		return "admin/manage/member::#memberListBody";
+		return manageMemberService.getMemberList(memberVO);
 	}
 	
 	@GetMapping("ajax/manageMember")
@@ -52,15 +49,6 @@ public class ManageMemberController {
 		System.out.println(memberVO);
 		
 		return manageMemberService.updateAccountState(memberVO);
-	}
-	
-	@GetMapping("ajax/searchMember")
-	//@ResponseBody
-	public String searchMembers(MemberVO memberVO, String condition, Model model) {
-		List<MemberVO> mlist = manageMemberService.getSearchMemberList(memberVO, condition);
-		
-		model.addAttribute("memberList", mlist);
-		return "admin/manage/member::#memberListBody";
 	}
 
 	//봉사인 리스트

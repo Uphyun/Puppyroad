@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
+<head>
+<script type="text/javascript"
+	src="/assets/vendor/libs/flatpickr/flatpickr.js"></script>
+<style>
+.switch-success {
+	margin-top: 10px;
+}
+</style>
+<link rel="stylesheet"
+	href="/assets/vendor/libs/flatpickr/flatpickr.css">
+</head>
+<body>
+
+	<section class="first-section-pt">
+		<div class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
+			<div
+				class="flex-shrink-1 flex-grow-0 w-px-350 border-end container-p-x container-p-y">
+				<div th:insert="common/fragments/admin/aside :: AsideFragment"></div>
+			</div>
+<div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
+                  <!-- Customer Pills -->
+                  <div class="nav-align-top">
+                    <ul class="nav nav-pills flex-column flex-md-row mb-6 row-gap-2">
+                      <li class="nav-item">
+                        <a class="nav-link active waves-effect waves-light" th:href="@{/user/walkJournalList}"><i class="ti ti-user ti-sm me-1_5"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">산책일지</font></font></a>
+                      </li>
+                    </ul>
+                  </div>
+                  <!--/ Customer Pills -->
+
+                  <!-- / Customer cards -->
+                  <div class="row text-nowrap">
+                    <div class="col-md-6 mb-6">
+                      <div class="card h-100">
+                        <div class="card-body">
+                          <div class="card-info">
+                          <div class="badge bg-label-danger me-4 rounded p-1_5">
+                            <i class="ti ti-brand-paypal ti-md"></i>
+                          </div>
+                            <h5 class="card-title mb-2"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">애완견이름 : [[ ${result.dogName} ]]</font></font></h5>
+                            <div class="d-flex align-items-baseline gap-1">
+                              <h5 class="text-primary mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></h5>
+                              <p class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><img class="rounded-circle w-px-100" th:src="@{${result.picture}}" height="120" width="120" alt="사진"></font></font></p>
+                            </div>
+                            <p class="mb-0 text-truncate"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">나이 : [[ ${result.age} ]]살</font></font></p>
+                            <p class="mb-0 text-truncate"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">몸무게 : [[ ${result.weight} ]]kg</font></font></p>
+                            <p class="mb-0 text-truncate"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">견종 : [[ ${result.dogBreed} ]]</font></font></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-6">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-info">
+                          <div class="badge bg-label-primary rounded p-1_5"><i class="ti ti-users ti-md"></i></div>
+                           <h5 class="card-title mb-2"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">이름 : [[ ${result.Name} ]]</font></font></h5>
+                            <p class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">산책일자 : [[${#dates.format(result.walkDate, 'yyyy/MM/dd HH:mm')}]]</font></font></p>
+                            <p class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">일지제목 : [[${result.title}]]</font></font></p>
+                            <p class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">산책경로 : [[${result.path}]]</font></font></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-6">
+                      <div class="card">
+                
+                      </div>
+                    </div>
+					
+                  </div>
+                  <div class="card-body px-0">
+                      <div class="row">
+                        <div class="col-12">
+                          <div>
+                            <label for="note" class="fw-medium text-heading mb-1">산책일지 내용</label>
+                          <div class="bg-label-primary rounded text-center mb-4 pt-4">
+                        <img class="img-fluid" src="../../assets/main/img/illustrations/girl-with-laptop.png" alt="Card girl image" width="140">
+                      </div>
+                      	<div style="margin-bottom:100px;">
+                            <textarea  class="form-control" rows="2" id="note"> [[ ${result.journalContent} ]]</textarea>
+                            <p style="float: right; margin: 0;">작성일 : [[${#dates.format(result.journalPreparationDate, 'yyyy/MM/dd HH:mm')}]]</p>
+                         </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+		</div>
+	</section>
+
+</body>
+</html>

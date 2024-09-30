@@ -10,20 +10,7 @@ let nextDay = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
 let nextMonth = date.getMonth() === 11 ? new Date(date.getFullYear() + 1, 0, 1) : new Date(date.getFullYear(), date.getMonth() + 1, 1);
 // prettier-ignore
 let prevMonth = date.getMonth() === 11 ? new Date(date.getFullYear() - 1, 0, 1) : new Date(date.getFullYear(), date.getMonth() - 1, 1);
-
-window.events = [
-  {
-    id: 1,
-    url: '',
-    title: 'Design Review',
-    start: date,
-    end: nextDay,
-    allDay: false,
-    extendedProps: {
-      calendar: 'Business'
-    }
-  },
-  {
+/**{
     id: 2,
     url: '',
     title: 'Meeting With Client',
@@ -32,92 +19,69 @@ window.events = [
     allDay: true,
     extendedProps: {
       calendar: 'Business'
-    }
-  },
-  {
-    id: 3,
-    url: '',
-    title: 'Family Trip',
-    allDay: true,
-    start: new Date(date.getFullYear(), date.getMonth() + 1, -9),
-    end: new Date(date.getFullYear(), date.getMonth() + 1, -7),
-    extendedProps: {
-      calendar: 'Holiday'
-    }
-  },
-  {
-    id: 4,
-    url: '',
-    title: "Doctor's Appointment",
-    start: new Date(date.getFullYear(), date.getMonth() + 1, -11),
-    end: new Date(date.getFullYear(), date.getMonth() + 1, -10),
-    extendedProps: {
-      calendar: 'Personal'
-    }
-  },
-  {
-    id: 5,
-    url: '',
-    title: 'Dart Game?',
-    start: new Date(date.getFullYear(), date.getMonth() + 1, -13),
-    end: new Date(date.getFullYear(), date.getMonth() + 1, -12),
-    allDay: true,
-    extendedProps: {
-      calendar: 'ETC'
-    }
-  },
-  {
-    id: 6,
-    url: '',
-    title: 'Meditation',
-    start: new Date(date.getFullYear(), date.getMonth() + 1, -13),
-    end: new Date(date.getFullYear(), date.getMonth() + 1, -12),
-    allDay: true,
-    extendedProps: {
-      calendar: 'Personal'
-    }
-  },
-  {
-    id: 7,
-    url: '',
-    title: 'Dinner',
-    start: new Date(date.getFullYear(), date.getMonth() + 1, -13),
-    end: new Date(date.getFullYear(), date.getMonth() + 1, -12),
-    extendedProps: {
-      calendar: 'Family'
-    }
-  },
-  {
-    id: 8,
-    url: '',
-    title: 'Product Review',
-    start: new Date(date.getFullYear(), date.getMonth() + 1, -13),
-    end: new Date(date.getFullYear(), date.getMonth() + 1, -12),
-    allDay: true,
-    extendedProps: {
-      calendar: 'Business'
-    }
-  },
-  {
-    id: 9,
-    url: '',
-    title: 'Monthly Meeting',
-    start: nextMonth,
-    end: nextMonth,
-    allDay: true,
-    extendedProps: {
-      calendar: 'Business'
-    }
-  },
-  {
-    id: 10,
-    url: '',
-    title: 'Monthly Checkup',
-    start: prevMonth,
-    end: prevMonth,
-    allDay: true,
-    extendedProps: {
-      calendar: 'Personal'
-    }
-  }
-];
+    }*/
+function test(){
+	
+	let datas =  $.ajax({
+							url : "/user/scheduleListprocess",
+							method : "GET",
+							 async: false
+						  }).responseText;
+						  
+						  
+	let results = $.ajax({
+							url : "/user/SchedulePayList",
+							method : "GET",
+							 async: false
+						  }).responseText;
+		
+	let newData=[];
+	results = JSON.parse(results)
+	for(let item of results){
+		newData.push({
+			start : item.nextFriday,
+			title : '정산일',
+			totalPrice : item.totalPrice,
+			monday : item.monday,
+			sunday : item.sunday,
+			extendedProps: {
+      			calendar: 'Holiday'
+   			 }
+		})
+	};
+	datas = JSON.parse(datas)
+	for(let res of datas){
+		if(res.clientName != null){
+			newData.push({
+				start : res.startTime,
+				end : res.endTime,
+				title : res.clientName,
+				dogName : res.dogName,
+				walkFare : res.walkFare,
+				address : res.address,
+				phone : res.phone,
+				extendedProps: {
+	      			calendar: 'Business'
+	   			 }
+				})
+		};
+			
+	
+	}
+		for(let res of datas){
+			if(datas.length > 0){
+				newData.push({
+					title : '휴가',
+					start : res.holidayStart,
+					end : res.holidayEnd,
+					extendedProps: {
+		      			calendar: 'Personal'
+		   			 }
+					})
+			}
+		};
+	return newData;
+
+}
+
+window.events = test();

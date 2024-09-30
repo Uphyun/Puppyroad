@@ -10,11 +10,31 @@ async function sendPay() {
         switch (response.event) {
             case 'issued':
                 // 가상계좌 입금 완료 처리
-                break
+                console.log(response);
+                const data = registPayInfo(response.data);
+                console.log(1);
+                console.log(data);
+                
+                $.ajax({
+                    url : '/ajax/pay',
+                    method: 'post',
+                    contentType : 'application/json',
+                    data : JSON.stringify(data)
+                })
+                    .done(result => {
+                        console.log(2);
+						console.log(result);
+                        if(result.isInfo) {
+                            console.log("가상계좌 처리 완료");
+                        }
+                    })
+                    .fail(err => console.log(err));
+                break;
             case 'done':
+                console.log("결제 처리 완료");
                 console.log(response);
                 // 결제 완료 처리
-                break
+                break;
             case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
                 console.log(response.receipt_id);
                 /**
@@ -31,7 +51,7 @@ async function sendPay() {
                  * // requestServerConfirm(); //예시) 서버 승인을 할 수 있도록  API를 호출한다. 서버에서는 재고확인과 로직 검증 후 서버승인을 요청한다.
                  * Bootpay.destroy(); //결제창을 닫는다.
                  */
-                break
+                break;
         }
     } catch (e) {
         // 결제 진행중 오류 발생
@@ -43,24 +63,32 @@ async function sendPay() {
             case 'cancel':
                 // 사용자가 결제창을 닫을때 호출
                 console.log(e.message);
-                break
+                break;
             case 'error':
                 // 결제 승인 중 오류 발생시 호출
                 console.log(e.error_code);
-                break
+                break;
         }
     }
 }
 
 
 //부트페이 결제 폼(통합결제)
-function payForm(price = 100, times = 30, user = { userId: 'admin', name: "관리자", phone: "01011112222", email: "alscjf2738@naver.com" }) {
-    getEndDate();
+function payForm() {
+    let price = $("#total").text().replace(',', '');
+    let times = $("#times").text();
+    let user = {
+        userId : $("#billings-userId").val(),
+        name : $("#billings-uname").val(),
+        phone : $("#billings-phone").val(),
+        email : $("#billings-email").val()
+    };
+
     const data = {
-        "application_id": "59a4d323396fa607cbe75de4",
+        "application_id": "66e29ba8692d0516c36e4b2a",
         "price": price,
-        "order_name": "도그워커 비용",
-        "order_id": "0001",
+        "order_name": "산책 '" + times + "'분",
+        "order_id": "0000",
         //"pg": "다날",
         //"method": "카드",
         "tax_free": 0,
@@ -72,8 +100,8 @@ function payForm(price = 100, times = 30, user = { userId: 'admin', name: "관�
         },
         "items": [
             {
-                "id": "item_id",
-                "name": "산책 '" + times + "'분",
+                "id": "0000",
+                "name": "도그워커 비용",
                 "qty": 1,
                 "price": price
             }
@@ -84,10 +112,11 @@ function payForm(price = 100, times = 30, user = { userId: 'admin', name: "관�
             "escrow": false,
             "deposit_expiration": getEndDate(),
             "test_deposit": true,    //가상계좌 모의입금
-            "show_close_button": true
+            "show_close_button": true,
+            "common_event_webhook": true
         }
     }
-
+    console.log(data)
     return data;
 }
 
@@ -101,13 +130,28 @@ function getEndDate() {
     let minutes = today.getMinutes();
     let seconds = today.getSeconds();
 
-    let endDate = `${year}-
-                    ${month > 10 ? month : '0' + month}-
-                    ${date > 10 ? date : '0' + date} 
-                    ${hours > 10 ? hours : '0' + hours}:
-                    ${minutes > 10 ? minutes : '0' + minutes}:
-                    ${seconds > 10 ? seconds : '0' + seconds}`;
+    let endDate = `${year}-${month > 10 ? month : '0' + month}-${date > 10 ? date : '0' + date} ${hours > 10 ? hours : '0' + hours}:${minutes > 10 ? minutes : '0' + minutes}:${seconds > 10 ? seconds : '0' + seconds}`;
     console.log(endDate);
 
     return endDate;
+}
+
+function registPayInfo(data) {
+    let sender = $("#billings-userId").val();
+    let recipient = $("#billings-wuserId").val();
+    let datas = {
+        sender,
+        recipient,
+        method: data.method,
+        orderName: data.order_name,
+        price: data.price,
+        requestedAt: data.requested_at,
+        vbank_data : {
+            bankAccount: data.vbank_data.bank_account,
+            bankCode: data.vbank_data.bank_code,
+            bankName: data.vbank_data.bank_name,
+        }
+    }
+
+    return datas;
 }

@@ -4,57 +4,67 @@
 	layout:decorate="~{common/layouts/default_layout}"
 	layout:fragment="Content">
 <head>
-<link rel="stylesheet" href="/assets/main/css/news/newsInfo.css" type="text/css" />
+<link rel="stylesheet" href="/assets/main/css/news/newsInfo.css"
+	type="text/css" />
 <script type="text/javascript" src="/assets/main/js/petstar/image.js"></script>
 <meta charset="UTF-8">
-<title>공지사항 상세</title>
 </head>
 <body>
-<section class="first-section-pt">
-	<div class="container d-flex flex-column justify-content-center align-items-center pt-60 pb-60">
-		<!-- 번호 -->
-		<div class="col-md-8 mb-3 info-field mx-auto">
-			<div class="label">번호</div>
-			<div class="value">[[${news.bulletinNo}]]</div>
-		</div>
+	<section class="first-section-pt">
+		<div
+			class="container d-flex flex-column justify-content-center align-items-center pt-60 pb-60">
+			
+			<!-- 번호 (관리자 전용) -->
+			<th:block th:if="${auth == '관리자'}">
+				<div class="col-md-8 mb-3 info-field mx-auto">
+					<div class="label"><i class="ti ti-list-numbers"></i> 번호</div>
+					<div class="value">[[${news.bulletinNo}]]</div>
+				</div>
+			</th:block>
 
-		<!-- 제목 -->
-		<div class="col-md-8 mb-3 info-field mx-auto">
-			<div class="label">제목</div>
-			<div class="value">[[${news.title}]]</div>
-		</div>
+			<!-- 제목 -->
+			<div class="col-md-8 mb-3 info-field mx-auto">
+				<div class="label"><i class="ti ti-ballpen"></i> 제목</div>
+				<div class="value">[[${news.title}]]</div>
+			</div>
 
-		<!-- 내용 -->
-		<div class="col-md-8 mb-3 info-field mx-auto">
-			<div class="label">내용</div>
-			<div class="value" style="white-space: pre-wrap;">[[${news.content}]]</div>
-		</div>
+			<!-- 내용 -->
+			<div class="col-md-8 mb-3 info-field mx-auto">
+				<div class="label"><i class="ti ti-message"></i> 내용</div>
+				<div class="value" style="white-space: pre-wrap;">[[${news.content}]]</div>
+			</div>
 
-		<!-- 등록일 -->
-		<div class="col-md-8 mb-3 info-field mx-auto">
-			<div class="label">등록일</div>
-			<div class="value">[[${#dates.format(news.writingDate,'yyyy년 MM월 dd일')}]]</div>
-		</div>
+			<!-- 등록일 -->
+			<div class="col-md-8 mb-3 info-field mx-auto">
+				<div class="label"><i class="ti ti-calendar-month"></i> 등록일</div>
+				<div class="value">[[${#dates.format(news.writingDate,'yyyy년 MM월 dd일')}]]</div>
+			</div>
 
-		<!-- 첨부파일 미리보기 -->
-		<div class="col-md-8 mb-3 info-field mx-auto">
-			<div class="label">첨부파일</div>
-			<div class="value">
-				<div id="image_container">
-					<img th:each="fileName : ${#strings.arraySplit(news.attachedFile, ',')}"
-						th:src="@{/images/{fileName}(fileName=${fileName})}" alt="첨부파일 이미지">
+			<!-- 첨부파일 미리보기 -->
+			<div class="col-md-8 mb-3 info-field mx-auto">
+				<div class="label"><i class="ti ti-paperclip"></i> 첨부파일</div>
+				<div class="value">
+					<div id="image_container">
+						<img
+							th:each="fileName : ${#strings.arraySplit(news.attachedFile, ',')}"
+							th:src="@{/images/{fileName}(fileName=${fileName})}"
+							alt="첨부파일 이미지">
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<!-- 버튼 -->
-		<div class="buttons">
-			<button type="button" class="btn btn-warning"
-				th:onClick="|location.href='@{/user/newsUpdate(bulletinNo=${news.bulletinNo})}'|">수정</button>
-			<button type="button" class="btn btn-danger"
-			    th:onClick="|confirmDelete(${news.bulletinNo})|">삭제</button>
+			<!-- 버튼 -->
+			<div class="buttons">
+				<button type="button" class="btn btn-outline-info"
+					th:onClick="location.href='newsList'">목록</button>
+				<th:block th:if="${auth == '관리자'}">
+					<button type="button" class="btn btn-outline-warning"
+						th:onClick="|location.href='@{/user/newsUpdate(bulletinNo=${news.bulletinNo})}'|">수정</button>
+					<button type="button" class="btn btn-outline-danger"
+						th:onClick="|confirmDelete(${news.bulletinNo})|">삭제</button>
+				</th:block>
+			</div>
 		</div>
-	</div>
-</section>
+	</section>
 </body>
 </html>

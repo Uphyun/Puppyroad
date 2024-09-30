@@ -1,36 +1,54 @@
 #image_container {
 	display: flex;
-	gap: 10px;
+	gap: 15px;
 	margin-top: 10px;
 	flex-wrap: wrap;
+	justify-content: center;
 }
 
 #image_container img {
-	max-width: 100px;
-	max-height: 100px;
+	max-width: 120px;
+	max-height: 120px;
 	object-fit: cover;
-	border-radius: 4px;
-	border: 1px solid #ced4da;
+	border-radius: 6px;
+	border: 2px solid #8000ff;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.info-field {
+	display: flex;
+	align-items: center;
+	padding: 15px;
+	border: 1px solid #8000ff;
+	border-radius: 6px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .info-field .label {
-	min-width: 100px;
-	font-weight: bold;
+	min-width: 120px;
+	font-weight: 600;
 	text-align: left;
-	margin-right: 20px;
+	margin-right: 15px;
 }
 
 .info-field .value {
 	flex: 1;
-	padding: 10px;
-	background-color: #f8f9fa;
-	border: 1px solid #ced4da;
-	border-radius: 4px;
+	padding: 10px 15px;
+	border: 1px solid #8080ff;
+	border-radius: 6px;
+	text-align: left;
 }
 
 .buttons {
 	margin-top: 30px;
 	display: flex;
 	justify-content: center;
-	gap: 10px;
+	gap: 15px;
+}
+
+.buttons .btn {
+	padding: 10px 20px;
+	border-radius: 6px;
+	font-size: 16px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }

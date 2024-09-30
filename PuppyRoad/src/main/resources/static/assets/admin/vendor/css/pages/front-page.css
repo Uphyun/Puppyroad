@@ -21,6 +21,15 @@
   }
 }
 
+.custom-first-section-pt {
+  padding-top: 6rem;
+}
+@media (max-width: 1199.98px) {
+  .custom-first-section-pt {
+    padding-top: 7.5rem;
+  }
+}
+
 .card[class*=card-hover-border-] {
   transition: all 0.2s ease-in-out;
 }

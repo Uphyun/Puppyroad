@@ -10,34 +10,52 @@
 <body>
 	<section class="first-section-pt">
 		<div class="container text-center pt-60 pb-60">
-			<!-- 공지사항 이동 -->
-			<button type="button" class="btn btn-info"
-				th:onClick="location.href='newsList'">공지사항</button>
-			<!-- 이벤트 이동 -->
-			<button type="button" class="btn btn-success"
-				th:onClick="location.href='eventList'">이벤트</button>
-			<!-- 등록 이동 (관리자만)-->
-			<button type="button" class="btn btn-dark float-right"
-				th:onClick="location.href= 'newsInsert'">등록</button>
+			<div class="row">
+				<!-- 공지사항 이동 -->
+				<div class="col-auto">
+					<button type="button" class="btn btn-info mr-3"
+						th:onClick="location.href='newsList'">공지사항</button>
+				</div>
+
+				<!-- 이벤트 이동 -->
+				<div class="col-auto">
+					<button type="button" class="btn btn-success mr-auto"
+						th:onClick="location.href='eventList'">이벤트</button>
+				</div>
+
+				<!-- 등록 이동 (관리자만) -->
+				<th:block th:if="${auth == '관리자'}">
+					<div class="col ml-auto">
+						<button type="button" class="btn btn-dark"
+							th:onClick="|location.href='@{newsInsert}'|"
+							style="float: right;">등록</button>
+					</div>
+				</th:block>
+			</div>
+
 			<table class="table mt-6">
-				<thead>
+				<thead class="table-light">
 					<tr>
 						<th>번호</th>
 						<th>제목</th>
 						<th>게시일</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody class="table-border-bottom-0">
 					<th:block th:each="info : ${newss}">
 						<tr>
 							<td>[[ ${info.bulletinNo} ]]</td>
-							<td style="cursor: pointer;" class="title">[[ ${info.title} ]]</td>
+							<td style="cursor: pointer;" class="title">[[ ${info.title}
+								]]</td>
 							<td>[[ ${#dates.format(info.writingDate,'yyyy년MM월dd일')} ]]</td>
 						</tr>
 					</th:block>
 				</tbody>
 			</table>
 		</div>
+
+
 	</section>
+
 </body>
 </html>

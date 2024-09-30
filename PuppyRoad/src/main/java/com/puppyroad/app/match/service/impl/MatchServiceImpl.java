@@ -11,16 +11,21 @@ import org.springframework.transaction.annotation.Transactional;
 import com.puppyroad.app.match.mapper.MatchMapper;
 import com.puppyroad.app.match.service.MatchService;
 import com.puppyroad.app.match.service.MatchVO;
+import com.puppyroad.app.match.service.MatchingPuppyVO;
+import com.puppyroad.app.puppy.service.PuppyVO;
+import com.puppyroad.app.websocket.mapper.ChatMapper;
 
 @Service
 public class MatchServiceImpl implements MatchService {
 	private MatchMapper matchMapper;
+	private ChatMapper  chatMapper;
 	
 	@Autowired
 	MatchServiceImpl(MatchMapper matchMapper){
 		this.matchMapper = matchMapper;
 	}
-
+	
+	
 	@Override
 	public List<MatchVO> getMatchList() {
 		// TODO 전체 자율매칭 조회
@@ -38,26 +43,37 @@ public class MatchServiceImpl implements MatchService {
 	public int addMatch(MatchVO matchVO) {
 		// TODO 단건 등록
 		int result = matchMapper.insertMatch(matchVO);
-		return result == 1 ? matchVO.getBulletinNo() : -1;  
+		
+		if (result == 1) {
+			//인서트 성공 시 
+			for(MatchingPuppyVO matchingPuppyVO : matchVO.getPuppie()) {
+				matchingPuppyVO.setBulletinNo(matchVO.getBulletinNo());
+				
+				matchMapper.insertMatchingPuppy(matchingPuppyVO);
+			}		
+			
+			result = 1;
+		}
+		else {
+			result = -1;
+		}
+		
+		return result;
 				
 	}
 
 	@Override
-	public Map<String, Object> modifyMatch(MatchVO matchVO) {
+	public int modifyMatch(MatchVO matchVO) {
 		// TODO 단건 수정
-		Map<String, Object> map = new HashMap<>();
-		boolean isSuccessed = false;
-		
 		int result = matchMapper.updateMatch(matchVO);
-		
-		if (result == 1) {
-			isSuccessed = true;
-		}
-		
-		map.put("result", isSuccessed);
-		map.put("target", matchVO);
-		
-		return map;
+		return result;
+	}
+	
+	@Override
+	public int modifyChatMatch(MatchVO matchVO) {
+		// TODO 단건 채팅매칭 수정
+		int result = matchMapper.updateChatMatch(matchVO);
+		return result;
 	}
 
 	@Override
@@ -75,15 +91,15 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
-	public List<MatchVO> getDogList(MatchVO matchVO) {
+	public List<PuppyVO> getDogList(PuppyVO puppyVO) {
 		// 개 정보 리스트
-		return matchMapper.selectDogMatchList(matchVO);
+		return matchMapper.selectDogMatchList(puppyVO);
 	}
 
 	@Override
-	public MatchVO getDogInfo(MatchVO matchVO) {
+	public PuppyVO getDogInfo(PuppyVO puppyVO) {
 		// 개 단건 정보
-		return matchMapper.selectDogMatchInfo(matchVO);
+		return matchMapper.selectDogMatchInfo(puppyVO);
 	}
 
 	@Override
@@ -91,6 +107,45 @@ public class MatchServiceImpl implements MatchService {
 		// TODO Auto-generated method stub
 		return matchMapper.selectMatchingBoard(writer);
 	}
+
+	@Override
+	public int addMatchingPuppy(MatchingPuppyVO matchingPuppyVO) {
+		// TODO 매칭견 등록
+		int result = matchMapper.insertMatchingPuppy(matchingPuppyVO);
+		return result == 1 ? matchingPuppyVO.getBulletinNo() : -1;  
+	}
+
+	@Override
+	public List<PuppyVO> getMatchingDogList(Integer bulletinNo) {
+		// TODO 매칭견 조회
+		return matchMapper.selectMatchingDogList(bulletinNo);
+	}
+
+	@Override
+	public List<MatchVO> getIdList(MatchVO matchVO) {
+		// TODO 대리매칭에 id로 단건 조회
+		return matchMapper.selectIdList(matchVO);
+	}
+
+	@Override
+	public int addChatPuppy(List<MatchingPuppyVO> list) {
+		// TODO 채팅견 등록
+		for(MatchingPuppyVO matchingPuppyVO: list) {
+			matchMapper.insertChatPuppy(matchingPuppyVO);
+		}
+		return 1;  
+	}
+
+	@Override
+	public int deleteMatchPuppy(List<MatchingPuppyVO> list) {
+		// TODO 매칭견 삭제
+		for(MatchingPuppyVO matchingPuppyVO: list) {
+			matchMapper.deleteMatchPuppy(matchingPuppyVO);
+		}
+		return 1;
+	}
+
+
 
 
 }

@@ -4,110 +4,239 @@
 	layout:decorate="~{common/layouts/default_layout}"
 	layout:fragment="Content">
 <head>
-<meta charset="UTF-8">
+<script type="text/javascript"
+	src="/assets/vendor/libs/flatpickr/flatpickr.js"></script>
+<style>
+.switch-success {
+	margin-top: 10px;
+}
+.form-control{
+	width: 200px;
+}
+.col-md-10{
+	width: 200px;
+}
+.readonly{
+	background-color: #f5f5f5; /* 배경 색상 변경 */
+	opacity: 0.6; /* 불투명도 설정 */
+	cursor: not-allowed; /* 입력 불가 상태처럼 커서 변경 */
+}
+</style>
+<link rel="stylesheet"
+	href="/assets/vendor/libs/flatpickr/flatpickr.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 </head>
 <body>
-	<div style="width: 500px; margin: auto">
-		<h3 class="box-title">내 정보 수정</h3>
-		<div class="comment-form">
-			<form name="updateForm" th:object="${list}" id="memberUpdate">
 
-				<div class="input-group input-group-two textarea mb-20">
-					<input th:field="*{userId}" readonly>
-					<div class="icon">
-						<i class="fas fa-user"></i>
-					</div>
-				</div>
-				<div class="input-group input-group-two mb-20">
+	<section class="first-section-pt">
+			<div class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
+			<div class="flex-shrink-1 flex-grow-0 w-px-350 border-end container-p-x container-p-y">
+				<div th:insert="common/fragments/admin/aside :: AsideFragment"></div>
+			</div>
+	<form style="margin:auto;" name="updateForm">
+		<div class="card mb-8" style="width:800px;" >
+		<div class="card">
+                    <h5 class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">회원 정보</font></font></h5>
+                    <div class="card-body">
+                      <div class="mb-4 row">
+                        <label for="html5-text-input" class="col-md-2 col-form-label"><font><font>아이디</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control readonly" type="text" th:value="${list.userId}" id="html5-text-input" readonly>
+                        </div>
+                      </div>
+                      <div class="mb-4 row">
+                        <label for="html5-password-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">비밀번호</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control" id="nowPw" name="nowPw" type="password" placeholder="현재 비밀번호확인" >
+                          <button id="nowPwck" type="button" class="btn btn-primary waves-effect waves-light">비밀번호변경</button>
+                        </div>
+                      </div>
+                      <div class="mb-4 row" id="pwckDiv" style="display:none;">
+                        <label for="html5-password-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">비밀번호확인</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control" name="userPw" type="password" placeholder="새 비밀번호" id="html5-password-input">
+                          <input class="form-control" name="userPwck" type="password" placeholder="새 비밀번호확인" id="html5-password-input">
+                          <button id="pwckAlr" type="button" class="btn btn-primary waves-effect waves-light">비밀번호 확인</button>
+                        </div>
+                      </div>
+                      <div class="mb-4 row">
+                        <label for="html5-search-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">이름</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control readonly" type="search" th:value="${list.name}" id="html5-search-input" readonly><div style="font-size:0.5; color:red;"></div>
+                        </div>
+                      </div>
+                      <div class="mb-4 row">
+                        <label for="html5-email-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">이메일</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control" type="email"  name="email" th:value="${list.email}" id="html5-email-input">
+                        </div>
+                      </div>
+                      <div class="mb-4 row">
+                        <label for="html5-url-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">닉네임</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control" type="text"  th:value="${list.nickName}" name="nickName" id="html5-url-input">
+                        </div>
+                      </div>
+                      <div class="mb-4 row">
+                        <label for="html5-tel-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">핸드폰</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control readonly" type="text"  name="phone" th:value="${list.phone}" id="html5-tel-input" readonly>
+                          <button id="sendPhoneNumber" type="button" class="btn btn-primary waves-effect waves-light">인증번호 전송</button>
+                          
+                        </div>
+                      </div>
+                       <div class="mb-4 row" id="phonebutton" style="display:none;">
+                        <label for="html5-tel-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">인증번호</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control" type="text"  name="vaildnumber">
+                          <button class="btn btn-primary waves-effect waves-light" type="button" id="checkBtn">확인</button>
+                        </div>
+                      </div>
+                      <div class="mb-4 row">
+                        <label for="html5-number-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">직함</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control readonly" type="text" th:value="${list.position}" id="html5-number-input" readonly>
+                        </div>
+                      </div>
+                      <div class="mb-4 row">
+                        <label for="html5-datetime-local-input" class="col-md-2 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">가입날짜</font></font></label>
+                        <div class="col-md-10">
+                          <input class="form-control readonly" type="text" th:value="${#dates.format(list.joinDate, 'yyyy/MM/dd')}" id="html5-datetime-local-input" readonly>
+                        </div>
+                      </div>
+                      
+                      
+                  <button type="button" style="margin:auto" class="btn btn-primary waves-effect waves-light" id="updateBtn">저장</button>
+                  <button type="button" style="margin:auto" class="btn btn-danger waves-effect waves-light" id="cancelBtn">취소</button>
+                  </div>
+                  </div>
+             </div>
+             </form>
+             </div>
+	</section>
 
-					<div class="icon">
-						<i class="fas fa-user" id="pwUpdate"></i>
-					</div>
-				</div>
-				<div class="input-group input-group-two mb-20">
-					<input th:field="*{name}" type="text" placeholder="Enter your name">
-					<div class="icon">
-						<i class="fas fa-user"></i>
-					</div>
-				</div>
-				<div class="input-group input-group-two mb-20">
-					<input th:field="*{nickName}" type="text"
-						placeholder="Enter your Nickname">
-					<div class="icon">
-						<i class="fas fa-pen"></i>
-					</div>
-				</div>
-				<div class="input-group input-group-two mb-20">
-					<input th:field="*{email}" type="email"
-						placeholder="Type your Website....">
-					<div class="icon">
-						<i class="fas fa-pen"></i>
-					</div>
-				</div>
-				<div class="input-group input-group-two mb-20">
-					<input th:field="*{address}" type="text"
-						placeholder="Type your Website....">
-					<div class="icon">
-						<i class="fas fa-user"></i>
-					</div>
-				</div>
-				<div class="input-group input-group-two mb-20">
-					<input th:field="*{phone}" type="text"
-						placeholder="Type your Name....">
-					<div class="icon">
-						<i class="fas fa-pen"></i>
-					</div>
-				</div>
-				<div class="input-group input-group-two mb-20">
-					<input th:field="*{position}" type="text" readonly>
-					<div class="icon">
-						<i class="fas fa-user"></i>
-					</div>
-				</div>
-				<div class="input-group  mt-30">
-					<button id="updateBtn" type="button" style="margin: auto"
-						class="main-btn btn-filled">
-						<i class="far fa-comments"></i> 저장
-					</button>
-				</div>
-				<div class="input-group  mt-30">
-				<a href="@{/memberDelete}">
-					<button id="deleteBtn" type="button" style="margin: auto"
-						class="main-btn btn-filled">
-						<i class="far fa-comments"></i> 탈퇴하기
-					</button></a>
-				</div>
-			</form>
-		</div>
-	</div>
 </body>
 <script>
-	$("#updateBtn").on('click', (e)=>{
-		 let datas = getFormData();
-		
+let pwck = true;
+let phoneCk = true;
+
+$("#sendPhoneNumber").on('click', () => {
+    $("#phonebutton").attr('style', 'inline-block');
+    let phoneNumber = $("input[name='phone']").val();
+    Swal.fire('인증번호 발송 완료!');
+
+    $.ajax({
+        url: "/sendSMS",
+        method: "post",
+        data: { "phoneNumber": phoneNumber },
+        success: function (res) {
+            $('#checkBtn').off('click').on('click', () => {
+            	
+                if ($.trim(res) === $("input[name='vaildnumber']").val()) {
+                    Swal.fire(
+                        '인증 성공!',
+                        '휴대폰 인증이 정상적으로 완료되었습니다.',
+                        'success',
+                    );
+               
+                    phoneCk = false;
+                } else {
+                    Swal.fire(
+                        '인증 실패!',
+                        '휴대폰 인증번호를 다시 입력해주세요.',
+                        'error',
+                    );
+                }
+            });
+        }
+    });
+});
+
+$("#pwckAlr").on('click', function () {
+    if ($("input[name='userPw']").val() === $("input[name='userPwck']").val()) {
+    	 Swal.fire("비밀번호가 일치합니다.");
+          pwck = false;
+    } else {
+    	 Swal.fire("비밀번호가 일치하지 않습니다.");
+    }
+});
+
+
+
+$("#updateBtn").on('click', (e) => {
+    // 비밀번호와 핸드폰 인증 체크
+    if (pwck) {
+    	 Swal.fire("비밀번호를 확인해주세요.");
+        return;
+    }
+    if (phoneCk) {
+    	 Swal.fire("본인 인증을 진행해주세요.");
+        return;
+    }
+
+    let datas = getFormData();
+
+    $.ajax({
+        url: "/user/memberUpdate",
+        method: "post",
+        data: JSON.stringify(datas),
+        contentType: "application/json;charset=UTF-8;",
+    }).done((result) => {
+        Swal.fire(
+            '저장 완료!',
+            '정보가 성공적으로 업데이트되었습니다.',
+            'success'
+            
+        );
+    }).fail((error) => {
+        Swal.fire(
+            '저장 실패',
+            '정보 업데이트 중 오류가 발생했습니다.',
+            'error'
+        );
+        console.log(error);
+    });
+});
+
+// JSON 형태로 폼 데이터 추출
+function getFormData() {
+    let formArr = $("form[name='updateForm']").serializeArray();  
+    let datas = {};
+
+    $.each(formArr, function (idx, tag) {
+        datas[tag.name] = tag.value;
+    });
+
+    return datas;
+}
+
+$("#nowPwck").on('click', function(e) {
+	
+		let userPw = $("#nowPw").val();
 		$.ajax({
-			url : "/ajax/memberUpdate",
-			method : "post",
-			data : JSON.stringify(datas),
-			contentType : "application/json;charset=UTF-8;",
-		}).done((result)=> {
-		alert("정보가 성공적으로 업데이트되었습니다.")
-		console.log (result)});
-	})
-	//JSON 형태 폼 value 꺼내기
-	function getFormData() {
-			let formArr = $("form[name='updateForm']").serializeArray();
-			let datas = {};
+			url: "checkPassword",
+			method: "POST",
+			data: { userPw: userPw }
+		}).done((result) => {
+			if (result === "비밀번호일치") {
+				Swal.fire("비밀번호 확인 완료");
+				pwck = true;
+				$('#pwckDiv').attr('style', 'inline-block');
+			} else {
+				Swal.fire("비밀번호가 일치하지 않습니다.");
+				pwck = false;
+			}
+		}).fail((error) => {
+			console.error(error.responseText);
+			Swal.fire("비밀번호 확인 중 오류가 발생했습니다.");
+		});
+	
+});
 
-			$.each(formArr, function (idx, tag) {
-				datas[tag.name] = tag.value;
-			});
-
-			return datas;
-		}
-	$("#deleteBtn").on('click', ()=>{
-		
-	})
-</script>
+$("#cancelBtn").on('click', function(e){
+	location.href = "/"
+})
+ </script>
 </body>
 </html>

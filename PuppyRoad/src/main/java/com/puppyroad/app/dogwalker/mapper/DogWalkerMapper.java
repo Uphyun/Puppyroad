@@ -10,5 +10,7 @@ public interface DogWalkerMapper {
 	public int updatewalker(DogWalkVO dogWalkVO);
 	//조회
 	public DogWalkVO selectWalkerInfo(String memberCode);
+	//도그워커정보갯수조회
+	public int countWalkInfo();
 
 }

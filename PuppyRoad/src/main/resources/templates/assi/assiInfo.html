@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+<meta name="contextPath" th:value="${contextPath}">
+<link rel="stylesheet" href="/assets/main/css/match/matchInfo.css"
+	type="text/css" />
+
+</head>
+<body>
+	<section class="first-section-pt">
+		<div class="container justify-content-center">
+			<h4>대리매칭 조회</h4>
+			<hr />
+			<form name="insertForm" th:each="assi : ${assi}">
+				<div class="row mb-3">
+					<label for="title" class="col-md-2 col-lg-2 col-form-label">제목</label>
+					<div class="col-md-10 col-lg-10">
+						<input name="title" type="text" class="form-control  border-0"
+							th:value="${assi.title}" readonly />
+						<input name="bulletinNo" type="hidden" th:value="${assi.bulletinNo}">
+					</div>
+				</div>
+				<hr />
+
+				<div class="row mb-3">
+					<label for="title" class="col-md-2 col-lg-2 col-form-label">작성자</label>
+					<div class="col-md-10 col-lg-10">
+						<input name="writer" type="text" class="form-control  border-0"
+							th:value="${assi.writer}" readonly>
+					</div>
+				</div>
+				<hr />
+				<div class="first" id="first">
+					<div class="row mb-3">
+						<label for="dogInfo" class="col-form-label">도그워커 정보</label>
+						<div class="col-2">
+							<img th:src="@{/images/{fileName}(fileName=${assi.picture})}"
+							alt="dogWalkerImg" class="img-fluid"
+							onerror="this.onerror=null; this.src='/assets/main/img/no_image.png';"/>
+						</div>
+						<div class="col-8">
+							<div class="row">
+								<div class="col-md-6 pb-2 col-lg-4">
+								<label for="gender" class="col-form-label">성별</label>
+									<input name="gender" type="text" class="form-control"
+										th:if="${assi.gender}==1" placeholder="성별" value="남자"
+										readonly /> <input name="gender" type="text"
+										class="form-control" th:if="${assi.gender}==2"
+										placeholder="성별" value="여자" readonly />
+								</div>
+								<div class="col-md-6 pb-2 col-lg-4">
+								<label for="bankCode" class="col-form-label">은행 이름</label>
+									<input name="bankCode" type="text" class="form-control"
+										placeholder="은행" th:value="${assi.bankCode}" readonly />
+								</div>
+								<div class="col-md-6 pb-2 col-lg-4">
+								<label for="bankAccount" class="col-form-label">계좌 번호</label>
+									<input name="bankAccount" type="text" class="form-control"
+										placeholder="계좌 번호" th:value="${assi.bankAccount}" readonly />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6 col-lg-4">
+								<label for="workWeek" class="col-form-label">근무 요일</label>
+									<input name="workWeek" type="text" class="form-control"
+										placeholder="근무 요일" th:value="${assi.workWeek}" readonly />
+								</div>
+								<div class="col-md-6 col-lg-4">
+								<label for="price" class="col-form-label">희망 요금</label>
+									<input name="price" type="text" class="form-control"
+										placeholder="희망 요금" th:value="${assi.price}" readonly />
+								</div>
+
+								<div class="col-md-6 col-lg-4">
+								<label for="walkPlaceAddress" class="col-form-label">지역</label>
+									<input name="walkPlaceAddress" type="text" class="form-control"
+										placeholder="지역" th:value="${assi.walkPlaceAddress}" readonly />
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<hr />
+				</div>
+
+
+
+				<div class="row mb-3">
+					<label for="content" class="col-md-2 col-lg-2 col-form-label">소개</label>
+					<div class="col-md-10 col-lg-10">
+						<textarea name="content" class="form-control border-0"
+							id="content" style="height: 100px" readonly >[[${assi.content}]]</textarea>
+					</div>
+				</div>
+				<div class="text-sm-center pb-2">
+					<button type="button" class="btn btn-secondary"
+						th:onclick="|location.href='@{/user/assiList}'|">목록</button>
+					<button type="button" class="btn btn-warning" id="modifyBtn"
+						th:onclick="|location.href='@{/user/assiUpdate(bulletinNo=${assi.bulletinNo})}'|"
+						th:if="${#authentication.principal.memberVO.nickName} == ${assi.writer}">수정
+					</button>
+					<button type="button" class="btn btn-danger"
+						th:onclick="|location.href='@{/user/assiDelete(bulletinNo=${assi.bulletinNo})}'|"
+						th:if="${#authentication.principal.memberVO.nickName} == ${assi.writer}">삭제</button>
+					<button type="button" class="btn btn-primary" id="appBtn"
+						onclick='application(event)'
+						th:if="${#authentication.principal.memberVO.nickName} != ${assi.writer}
+						and ${assi.matchingState} == 1">신청
+					</button>
+				</div>
+			</form>
+		</div>
+	</section>
+	<script type="text/javascript" src="/assets/main/js/assi/assiInfo.js"></script>
+</body>
+</html>

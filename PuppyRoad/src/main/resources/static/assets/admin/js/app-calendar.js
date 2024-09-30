@@ -36,6 +36,9 @@ document.addEventListener('DOMContentLoaded', function () {
       btnDeleteEvent = document.querySelector('.btn-delete-event'),
       btnCancel = document.querySelector('.btn-cancel'),
       eventTitle = document.querySelector('#eventTitle'),
+      eventDogName = $('#eventDogName'),
+      eventWalkFare = $('#eventWalkFare'),
+      eventPhone = $('#eventPhone'),
       eventStartDate = document.querySelector('#eventStartDate'),
       eventEndDate = document.querySelector('#eventEndDate'),
       eventUrl = document.querySelector('#eventURL'),
@@ -46,8 +49,10 @@ document.addEventListener('DOMContentLoaded', function () {
       allDaySwitch = document.querySelector('.allDay-switch'),
       selectAll = document.querySelector('.select-all'),
       filterInput = [].slice.call(document.querySelectorAll('.input-filter')),
-      inlineCalendar = document.querySelector('.inline-calendar');
-
+      inlineCalendar = document.querySelector('.inline-calendar'),
+      totalPrice = $('#totalPrice'),
+      payterm = $('#payterm');
+      
     let eventToUpdate,
       currentEvents = events, // Assign app-calendar-events.js file events (assume events from API) to currentEvents (browser store/object) to manage and update calender events
       isFormValid = false,
@@ -145,23 +150,41 @@ document.addEventListener('DOMContentLoaded', function () {
         inline: true
       });
     }
-
+//바보
     // Event click function
     function eventClick(info) {
+		console.log(eventLabel.val());
+		eventLabel.on('change', function () {
+		  if (eventLabel.val() === 'Holiday') {
+		    $('.addHide').hide();
+		   	$('.totalPay').show();
+		  } else if(eventLabel.val() === 'Business'){
+		    $('.totalPay').hide();
+		    $('.plzHide').hide();
+		  } else {
+		    $('.addHide').hide();
+		    $('.totalPay').hide();
+		  }
+		});
       eventToUpdate = info.event;
+
+
       if (eventToUpdate.url) {
         info.jsEvent.preventDefault();
         window.open(eventToUpdate.url, '_blank');
       }
       bsAddEventSidebar.show();
+	  
+	  
       // For update event set offcanvas title text: Update Event
       if (offcanvasTitle) {
-        offcanvasTitle.innerHTML = 'Update Event';
+        offcanvasTitle.innerHTML = '상세정보';
       }
-      btnSubmit.innerHTML = 'Update';
+      btnSubmit.innerHTML = '#PUPPY';
       btnSubmit.classList.add('btn-update-event');
       btnSubmit.classList.remove('btn-add-event');
       btnDeleteEvent.classList.remove('d-none');
+      $('.addHide').show();
 
       eventTitle.value = eventToUpdate.title;
       start.setDate(eventToUpdate.start, true, 'Y-m-d');
@@ -170,8 +193,8 @@ document.addEventListener('DOMContentLoaded', function () {
         ? end.setDate(eventToUpdate.end, true, 'Y-m-d')
         : end.setDate(eventToUpdate.start, true, 'Y-m-d');
       eventLabel.val(eventToUpdate.extendedProps.calendar).trigger('change');
-      eventToUpdate.extendedProps.location !== undefined
-        ? (eventLocation.value = eventToUpdate.extendedProps.location)
+      eventToUpdate.extendedProps.address !== undefined
+        ? (eventLocation.value = eventToUpdate.extendedProps.address)
         : null;
       eventToUpdate.extendedProps.guests !== undefined
         ? eventGuests.val(eventToUpdate.extendedProps.guests).trigger('change')
@@ -179,6 +202,22 @@ document.addEventListener('DOMContentLoaded', function () {
       eventToUpdate.extendedProps.description !== undefined
         ? (eventDescription.value = eventToUpdate.extendedProps.description)
         : null;
+       eventToUpdate.extendedProps.dogName !== undefined
+        ? eventDogName.val(eventToUpdate.extendedProps.dogName).trigger('change')
+        : null;
+       eventToUpdate.extendedProps.walkFare !== undefined
+        ? eventWalkFare.val(eventToUpdate.extendedProps.walkFare+'원').trigger('change')
+        : null;
+       eventToUpdate.extendedProps.phone !== undefined
+        ? eventPhone.val(eventToUpdate.extendedProps.phone).trigger('change')
+        : null;
+       eventToUpdate.extendedProps.totalPrice !== undefined
+        ? totalPrice.val(eventToUpdate.extendedProps.totalPrice+'원').trigger('change')
+        : null;
+        payterm.val(eventToUpdate.extendedProps.monday+'일에서 '+eventToUpdate.extendedProps.sunday+'일까지').trigger('change')
+    
+
+      
 
       // // Call removeEvent function
       // btnDeleteEvent.addEventListener('click', e => {
@@ -251,6 +290,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Init FullCalendar
     // ------------------------------------------------
     let calendar = new Calendar(calendarEl, {
+		
       initialView: 'dayGridMonth',
       events: fetchEvents,
       plugins: [dayGridPlugin, interactionPlugin, listPlugin, timegridPlugin],
@@ -270,6 +310,7 @@ document.addEventListener('DOMContentLoaded', function () {
       direction: direction,
       initialDate: new Date(),
       navLinks: true, // can click day/week names to navigate views
+      
       eventClassNames: function ({ event: calendarEvent }) {
         const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
         // Background Color
@@ -445,9 +486,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Add new event
     // ------------------------------------------------
+	eventLabel.on('change', function () {
+	  
+	    $('.addHide').hide();
+	   	$('.totalPay').hide();
+
+	});
     btnSubmit.addEventListener('click', e => {
+
       if (btnSubmit.classList.contains('btn-add-event')) {
         if (isFormValid) {
+
           let newEvent = {
             id: calendar.getEvents().length + 1,
             title: eventTitle.value,
@@ -460,12 +509,20 @@ document.addEventListener('DOMContentLoaded', function () {
               location: eventLocation.value,
               guests: eventGuests.val(),
               calendar: eventLabel.val(),
-              description: eventDescription.value
             }
           };
-          if (eventUrl.value) {
-            newEvent.url = eventUrl.value;
-          }
+          
+          $.ajax({
+					url:"/user/scheduleInsert",
+					method:"post",
+					async:false,
+					data:{
+						holidayStart : newEvent.start,
+						holidayEnd : newEvent.end
+					}
+					}).responseText;
+			
+    
           if (allDaySwitch.checked) {
             newEvent.allDay = true;
           }
@@ -481,20 +538,34 @@ document.addEventListener('DOMContentLoaded', function () {
             title: eventTitle.value,
             start: eventStartDate.value,
             end: eventEndDate.value,
+            dogName : eventDogName.value,
             url: eventUrl.value,
             extendedProps: {
               location: eventLocation.value,
               guests: eventGuests.val(),
               calendar: eventLabel.val(),
-              description: eventDescription.value
             },
+
             display: 'block',
             allDay: allDaySwitch.checked ? true : false
           };
 
-          updateEvent(eventData);
-          bsAddEventSidebar.hide();
-        }
+	          $.ajax({
+						url:"/user/scheduleUpdate",
+						method:"post",
+						async:false,
+						data:{
+							holidayStart : eventData.start,
+							holidayEnd : eventData.end,
+							schduleTitle : eventData.title,
+							dogName : eventData.dogName
+						}
+						}).responseText;
+	
+	          updateEvent(eventData);
+	          bsAddEventSidebar.hide();
+        	
+       }
       }
     });
 
@@ -508,14 +579,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // Reset event form inputs values
     // ------------------------------------------------
     function resetValues() {
+	
       eventEndDate.value = '';
-      eventUrl.value = '';
       eventStartDate.value = '';
+      eventDogName.val('').trigger('change');
       eventTitle.value = '';
       eventLocation.value = '';
       allDaySwitch.checked = false;
       eventGuests.val('').trigger('change');
-      eventDescription.value = '';
+      eventWalkFare.val('').trigger('change');
+      eventPhone.val('').trigger('change');
     }
 
     // When modal hides reset input values
@@ -523,14 +596,21 @@ document.addEventListener('DOMContentLoaded', function () {
       resetValues();
     });
 
-    // Hide left sidebar if the right sidebar is open
+    // Hide left sidebar if the right sidebar is open 니잖아
     btnToggleSidebar.addEventListener('click', e => {
+		btnSubmit.innerHTML = 'Add';
+		eventLabel.val('Personal').trigger('change'); 
+		$('#eventTitle').val('휴가');
+		$('#eventTitle').attr('readonly', true);
       if (offcanvasTitle) {
-        offcanvasTitle.innerHTML = 'Add Event';
+        offcanvasTitle.innerHTML = '휴가등록';
+		    $('.addHide').hide();
+		   	$('.totalPay').hide();
+			btnSubmit.classList.add('btn-add-event', 'btn btn-primary');
       }
-      btnSubmit.innerHTML = 'Add';
+	  $('.client_name').text('휴가제목');
       btnSubmit.classList.remove('btn-update-event');
-      btnSubmit.classList.add('btn-add-event');
+      btnSubmit.classList.add('btn-add-event', 'btn btn-primary');
       btnDeleteEvent.classList.add('d-none');
       appCalendarSidebar.classList.remove('show');
       appOverlay.classList.remove('show');

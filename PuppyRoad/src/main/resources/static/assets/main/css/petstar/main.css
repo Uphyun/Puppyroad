@@ -1,0 +1,140 @@
+/* 리스트 */
+#image_container {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-top: 10px;
+	flex-wrap: wrap;
+}
+
+#image_container img {
+	max-width: 100px;
+	max-height: 100px;
+	object-fit: cover;
+	border-radius: 4px;
+	border: 1px solid #ced4da;
+}
+
+#image_list {
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
+	flex-wrap: wrap;
+}
+
+#image_list img {
+	max-width: 100px;
+	max-height: 100px;
+	object-fit: cover;
+	border-radius: 4px;
+	border: 1px solid #ced4da;
+}
+
+/*  정리 */
+
+/* 전체 그리드 레이아웃 */
+.post-comment-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3열 그리드 */
+    gap: 20px; /* 각 게시글과 댓글 세트 간의 간격 */
+    align-items: stretch; /* 모든 항목을 동일한 높이로 설정 */
+    
+}
+
+/* 각 게시글과 댓글을 담는 아이템 */
+.post-comment-item {
+    display: flex;	
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* 아이템 전체 높이를 채우도록 설정 */
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #8000ff;
+}
+
+/* 작성자 정보 레이아웃 */
+.author-info {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 프로필 이미지와 텍스트 사이의 간격 */
+    margin-bottom: 15px; /* 아래 콘텐츠와의 간격 */
+}
+
+/* 닉네임 스타일 */
+.author-name {
+    font-size: 16px; /* 닉네임 폰트 크기 */
+    margin: 0;
+}
+
+/* 작성 날짜 스타일 */
+.post-date {
+    font-size: 12px; /* 날짜 폰트 크기 */
+    color: #888888; /* 날짜 글자 색 */
+    margin: 0;
+}
+
+/* 댓글 목록 */
+.comment-list {
+    flex-grow: 1;
+    padding: 20px;
+    max-height: 300px; /* 댓글 목록의 최대 높이 설정 */
+    overflow-y: auto; /* 세로 스크롤 활성화 */
+}
+
+
+
+/* 댓글 ------------------------------------------ */
+
+.hidden-comment {
+    display: none;
+}
+
+
+/* 댓글 아이템 레이아웃 */
+.comment-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+/* 숨겨진 댓글도 동일한 레이아웃 유지 */
+.comment-item.hidden-comment {
+    display: none;
+}
+
+/* 댓글 이미지 스타일 */
+.comment-item img {
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* 댓글 텍스트 스타일 */
+.comment-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.comment-content p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.comment-content .text-muted {
+    font-size: 13px;
+    color: #6c757d;
+}
+
+input.form-control {
+    flex-grow: 1; 
+    min-width: 0; 
+}
+
+button.btn {
+    min-width: 70px; 
+    padding: 8px 12px; 
+}
+

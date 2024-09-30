@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.puppyroad.app.saleschart.mapper.SalesChartMapper">
+
+<select id="salesChartInfo" resultType="SalesChartVO">
+	SELECT 	PAYMENT_CODE
+		   ,SENDER
+		   ,RECIPIENT
+		   ,PRICE
+		   ,ORDER_NAME
+		   ,METHOD
+		   ,PURCHASED_AT
+		   ,STATUS
+		   ,RECIPIENT
+	FROM   PAYMENT
+	WHERE  RECIPIENT = #{recipient}
+</select>
+
+<select id="salesChartList" resultType="SalesVO">
+	SELECT sum(PRICE) as price
+		   ,TO_CHAR(PURCHASED_AT, 'yyyy-MM') as month
+	FROM   PAYMENT
+	WHERE  RECIPIENT = #{recipient}
+    group by TO_CHAR(PURCHASED_AT, 'yyyy-MM')
+    order by 2 asc
+</select>
+<select id="detailChartList" resultType="SalesVO">
+       SELECT  p.PAYMENT_CODE,
+		       p.SENDER,
+		       p.RECIPIENT,
+		       p.PRICE,
+		       p.ORDER_NAME,
+		       p.METHOD,
+		       p.PURCHASED_AT,
+		       p.STATUS,
+		       p.RECIPIENT,
+               m.name
+		FROM   PAYMENT p left JOIN member m
+                        ON  m.user_id = p.sender
+		WHERE  RECIPIENT = #{recipient}
+        AND    TO_CHAR(PURCHASED_AT, 'yyyy-MM') = #{monthDetail}
+			
+</select>
+
+</mapper>

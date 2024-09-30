@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.puppyroad.app.puppy.mapper.PuppyMapper">
+<mapper namespace="com.puppyroad.app.match.mapper.MatchMapper">
   
   <!-- 매칭견 전체 리스트 -->
   <select id="selectDogMatchList" resultType="PuppyVO">
@@ -12,7 +12,8 @@
 		         dog_size,
 		         personality,
 		         neutralization_pre_abs,
-		         disease_pre_abs
+		         disease_pre_abs,
+		         picture
 	    FROM     puppy
 	    WHERE    client_user_id = #{clientUserId}
 	    ORDER BY puppy_code
@@ -33,6 +34,26 @@
 	    FROM     puppy
         WHERE    puppy_code = #{puppyCode}
         ORDER BY puppy_code
+  </select>
+  
+  <select id="selectMatchingDogList" resultType="PuppyVO">
+		SELECT 
+		       a.dog_name dog_name,
+		       a.dog_breed dog_breed,
+		       a.age age,
+		       a.gender gender,
+		       a.dog_size dog_size,
+		       a.weight weight,
+		       a.personality personality,
+		       a.neutralization_pre_abs neutralization_pre_abs,
+		       a.disease_pre_abs disease_pre_abs,
+		       a.note note,
+		       a.client_user_id client_user_id,
+		       a.picture picture
+		FROM   puppy a 
+		JOIN   matching_puppy b
+		     ON  a.puppy_code = b.puppy_code
+		WHERE  bulletin_no = #{bulletinNo}
   </select>
 
 </mapper>

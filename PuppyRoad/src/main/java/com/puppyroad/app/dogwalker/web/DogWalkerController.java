@@ -36,11 +36,15 @@ public class DogWalkerController {
 		model.addAttribute("dogWalkVO", new DogWalkVO());
 		return "walker/insertWalker";
 	}
-	//도그워커 프로필 - 페이지
+	
+	//도그워커 프로필 - 처리
 	@PostMapping("user/insertWalker")
-	public String insertWalkerProcess(DogWalkVO dogWalkVO, RedirectAttributes redirectAttributes, Model model, @RequestPart(required = false) MultipartFile file) {
-		 	String mcode = SecurityUtil.memberCode();
-		    dogWalkVO.setMemberCode(mcode);
+	public String insertWalkerProcess(DogWalkVO dogWalkVO, 
+			                          RedirectAttributes redirectAttributes, 
+			                          @RequestPart(required = false) MultipartFile file) {
+		
+	 	String mcode = SecurityUtil.memberCode();
+	    dogWalkVO.setMemberCode(mcode);
 		    
 		  if (file != null && !file.isEmpty()) {
 		        String fileName = file.getOriginalFilename();
@@ -59,12 +63,9 @@ public class DogWalkerController {
 		 
 		int result = dogWalkerSerivce.walkerinsert(dogWalkVO);
 		if(result == 1) {
-		   
-		    model.addAttribute("dogWalkVO", dogWalkVO);
 		    return "redirect:/user/insertDone";  // 성공 시 리다이렉트할 경로
-		} else {
-			
-			model.addAttribute("message", "프로필 등록 실패");
+		} else {			
+			redirectAttributes.addFlashAttribute("message", "프로필 등록 실패");
 		    return "redirect:/user/insertWalker?error=true";  // 실패 시 리다이렉트할 경로
 		}
 		
@@ -78,13 +79,11 @@ public class DogWalkerController {
 	
 	//프로필 수정
 	@PostMapping("user/updateWalker")
-	@ResponseBody
 	public String updateWalker(@RequestPart(required = false) MultipartFile file, DogWalkVO dogWalkVO) {
 		
-			String mcode = SecurityUtil.memberCode();
-		    dogWalkVO.setMemberCode(mcode);
+		String mcode = SecurityUtil.memberCode();
+	    dogWalkVO.setMemberCode(mcode);
 	    
-		
 		 if (file != null && !file.isEmpty()) {
 		        String fileName = file.getOriginalFilename();
 		        String saveName = uploadPath + fileName;
@@ -102,9 +101,10 @@ public class DogWalkerController {
 		 
 		 dogWalkerSerivce.walkerupdate(dogWalkVO);
 		 
-		return "walker/infoWalker";
+		return "redirect:/user/walkerProfile";
 	}
 	
+	//도그워커단건조회
 	@GetMapping("/user/walkerProfile")
 	public String getWalkerProfile(Model model) {
 	    
@@ -125,5 +125,12 @@ public class DogWalkerController {
 
 	    // 뷰로 이동
 	    return "walker/infoWalker";  // 단건 조회 페이지로 이동
+	}
+	@GetMapping("/user/walkerCount")
+	public String walkerCount(Model model) {
+		int count = dogWalkerSerivce.countWalkInfo();
+		model.addAttribute("count", count);
+		 System.err.println("Count: " + count); // count 값 확인
+		return "/templates/fragments/admin/aside";
 	}
 }//end of controll

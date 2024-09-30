@@ -8,17 +8,17 @@
 <meta name="contextPath" th:value="${contextPath}">
 <link rel="stylesheet" href="/assets/main/css/match/matchInfo.css" type="text/css" />
 
-<title>matchInfo</title>
 </head>
 <body>
 <section class="first-section-pt">
-<div class="container pt-3">
+<div class="container pt-3 pb-3">
 <h4>자율매칭</h4>
 <hr/>
    <form name="InfoForm" th:object="${match}">
      <div class="row mb-3">
        <label for="title" class="col-md-2 col-lg-2 col-form-label">제목</label>
        <div class="col-md-10 col-lg-10">
+       	 <input name="bulletinNo" type="hidden" th:field="*{bulletinNo}"/>
          <input name="title" type="text" class="form-control-plaintext" th:field="*{title}" readonly>
        </div>
      </div>
@@ -33,39 +33,48 @@
      </div>
      
      <hr/>
-     
-				<div class="row mb-3">
-
-					<div class="col-2">
 						<label for="dogInfo" class="col-form-label">반려견 정보</label>
-					</div>
+	<hr/>
+     
+				<div class="row mb-3" th:each="matchDog : ${matchingDog}">
 					<div class="col-2">
-						<img src="/assets/main/img/logo.png" alt="puppyImg">
+						<img th:src="@{/images/{fileName}(fileName=${matchDog.picture})}" alt="puppyImg" class="img-fluid"
+						onerror="this.onerror=null; this.src='/assets/main/img/no_image.png';">
 					</div>
 					<div class="col-8">
 						<div class="row">
-
 							<div class="col-md-6 pb-2 col-lg-4">
-								<input name="dogBreed" type="text" class="form-control"
-									placeholder="견종" readonly>
+								<input id="puppyCode" th:value="${matchDog.puppyCode}" type="hidden"/>
+								<label for="dogName" class="col-form-label">반려견 이름</label>
+								<h5 id="dogName" class="form-control">[[ ${matchDog.dogName} ]]</h5>
 							</div>
 							<div class="col-md-6 pb-2 col-lg-4">
-								<input name="personality" type="text" class="form-control"
-									placeholder="성격" readonly>
+								<label for="personality" class="col-form-label">견종</label>
+								<h5 id="dogBreed" class="form-control">[[ ${matchDog.dogBreed} ]]</h5>
 							</div>
 							<div class="col-md-6 pb-2 col-lg-4">
-								<input name="dogSize" type="text" class="form-control"
-									placeholder="견종 크기" readonly>
+								<label for="personality" class="col-form-label">성격</label>
+								<h5 id="personality" class="form-control">[[ ${matchDog.personality} ]]</h5>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-6 col-lg-4">
-								<input name="neutralizationPreAbs" type="text"
-									class="form-control" placeholder="중성화 유무" readonly>
+							<div class="col-md-6 pb-2 col-lg-4">
+								<label for="dogSize" class="col-form-label">견종 크기</label>
+								<h5 id="dogSize" class="form-control">[[ ${matchDog.dogSize} ]]</h5>
 							</div>
 							<div class="col-md-6 col-lg-4">
-								<input name="diseasePreAbs" type="text" class="form-control"
-									placeholder="질병 유무" readonly>
+								<label for="neutralizationPreAbs" class="col-form-label">중성화 유무</label>
+								<h5 id="neutralizationPreAbs" class="form-control"
+								    th:if="${matchDog.neutralizationPreAbs}==0">O</h5>
+								<h5 id="neutralizationPreAbs" class="form-control"
+								    th:if="${matchDog.neutralizationPreAbs}==1">X</h5>
+							</div>
+							<div class="col-md-6 col-lg-4">
+								<label for="diseasePreAbs" class="col-form-label">질병 유무</label>
+								<h5 id="diseasePreAbs" class="form-control"
+								    th:if="${matchDog.diseasePreAbs}==0">질병유무 : O</h5>
+								<h5 id="diseasePreAbs" class="form-control"
+								    th:if="${matchDog.diseasePreAbs}==1">질병유무 : X</h5>
 							</div>
 						</div>
 					</div>
@@ -89,21 +98,21 @@
        </div>
      </div>
           <hr/>
-     <div class="text-right">
+     <div class="text-sm-center pb-2">
 	    <button type="button" class="btn btn-secondary" 
 			th:onclick="|location.href='@{/user/matchList}'|">목록
 		</button>
         <button type="button" class="btn btn-warning" id="modifyBtn"
             th:onclick="|location.href='@{/user/matchUpdate(bulletinNo=${match.bulletinNo})}'|"
-            th:if="${#authentication.principal.username} == *{writer}">수정
+            th:if="${#authentication.principal.memberVO.nickName} == *{writer}">수정
         </button>
 		<button type="button" class="btn btn-danger"
 			th:onclick="|location.href='@{/user/matchDelete(bulletinNo=${match.bulletinNo})}'|"
-			th:if="${#authentication.principal.username} == *{writer}">삭제
+			th:if="${#authentication.principal.memberVO.nickName} == *{writer}">삭제
 		</button>
-		<button type="button" class="btn btn-primary" id="appBtn"
-		 th:if="${#authentication.principal.username} != *{writer}">
-			신청
+		<button type="button" class="btn btn-primary" id="appBtn"  onclick='application(event)'
+		 	th:if="${#authentication.principal.memberVO.nickName} != *{writer}
+			and *{matchingState} == 1">신청
 		</button>
      </div>
    </form>

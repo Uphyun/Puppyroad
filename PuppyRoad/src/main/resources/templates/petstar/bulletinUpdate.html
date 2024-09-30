@@ -24,6 +24,10 @@
 					<!-- Apps & Pages -->
 					<li class="menu-header small"><span class="menu-header-text"
 						data-i18n="PetStar">펫스타 그램</span></li>
+					<li class="menu-item"><a href="petstar" class="menu-link">
+							<i class="menu-icon tf-icons ti ti-brand-wechat"></i>
+							<div data-i18n="My PetStar">펫스타 그램</div>
+					</a></li>
 					<li class="menu-item"><a href="mypage" class="menu-link">
 							<i class="menu-icon tf-icons ti ti-user-square-rounded"></i>
 							<div data-i18n="My PetStar">나의 펫스타</div>
@@ -33,13 +37,9 @@
 							class="menu-icon tf-icons ti ti-pencil-plus"></i>
 							<div data-i18n="Board">글 작성하기</div>
 					</a></li>
-					<li class="menu-item"><a href="commentInfo" class="menu-link">
+					<li class="menu-item"><a href="commentList" class="menu-link">
 							<i class="menu-icon tf-icons ti ti-message"></i>
 							<div data-i18n="Comment">나의 댓글</div>
-					</a></li>
-					<li class="menu-item"><a href="Like" class="menu-link"> <i
-							class="menu-icon tf-icons ti ti-heart"></i>
-							<div data-i18n="Like">좋아요 표시한 글</div>
 					</a></li>
 				</ul>
 
@@ -48,9 +48,12 @@
 
 			<!-- 등록 내용 -->
 			<div class="card-body" style="flex: 1;">
+			<h5 style="text-align: center;" class="mb-5">
+				<i class="ti ti-edit-circle"></i>게시글 수정하기
+			</h5>
 				<form name="updateForm" id="updateForm" method="post"
 					enctype="multipart/form-data" th:object="${bulletin}"
-					class="d-flex flex-column align-items-center">
+					class="d-flex flex-column align-items-center mt-5">
 
 					<!-- 번호 -->
 					<div class="col-md-3 mb-6">

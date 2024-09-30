@@ -34,3 +34,6 @@ build/
 
 ### properties ###
 *.properties
+# Ignore only application.properties
+application.properties
+

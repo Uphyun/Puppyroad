@@ -36,4 +36,10 @@ public class DogWalkerServiceImpl implements DogWalkerSerivce {
 		return dogWalkerMapper.selectWalkerInfo(memberCode);
 	}
 
+	@Override
+	public int countWalkInfo() {
+		// TODO Auto-generated method stub
+		return dogWalkerMapper.countWalkInfo();
+	}
+
 }

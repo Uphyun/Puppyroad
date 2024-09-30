@@ -22,18 +22,14 @@ import com.puppyroad.app.member.service.MemberService;
 import com.puppyroad.app.member.service.MemberVO;
 
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 
 @Controller
+@AllArgsConstructor
 //@RequestMapping("member")
 public class MemberController {
 	private MemberService memberService;
 	private PasswordEncoder passwordEncoder;
-
-	@Autowired
-	MemberController(MemberService memberService, PasswordEncoder passwordEncoder) {
-		this.memberService = memberService;
-		this.passwordEncoder = passwordEncoder;
-	}
 
 	// 회원가입등록 - 페이지
 	@GetMapping("memberInsert")
@@ -45,7 +41,9 @@ public class MemberController {
 
 	// 회원가입등록 - 처리
 	@PostMapping("memberInsert")
-	public String memberInsertProcess(@Valid MemberVO memberVO, BindingResult bindingResult, Model model, String pwck) {
+	public String memberInsertProcess(@Valid MemberVO memberVO, 
+			                          BindingResult bindingResult, 
+			                          Model model) {
 
 
 		// 입력 값에 오류가 있는 경우
@@ -53,17 +51,16 @@ public class MemberController {
 			model.addAttribute("memberVO", memberVO);
 			return "member/memberInsert"; // 입력 폼으로 다시 이동
 		} else {
-					String password = passwordEncoder.encode(memberVO.getUserPw());
-					memberVO.setUserPw(password);
-					String mid = memberService.addMember(memberVO);
-					if (mid.equals("fail")) {
-						return "redirect:member/memberInsert";
-					} else {
-						
-						return "redirect:member/memberJoin";
-					}
-				} 
-		}
+			String password = passwordEncoder.encode(memberVO.getUserPw());
+			memberVO.setUserPw(password);
+			String mid = memberService.addMember(memberVO);
+			if (mid.equals("fail")) {
+				return "redirect:/memberInsert";
+			} else {				
+				return "redirect:/memberJoin";
+			}
+		} 
+	}
 	
 	// 아이디중복체크
 	@PostMapping("idCheck")
@@ -98,7 +95,7 @@ public class MemberController {
 		System.out.println(randNum);
 		System.out.println("수신자 번호 : " + phoneNumber);
 		System.out.println("인증번호 : " + randNum);
-		//memberService.certifiedPhoneNumber(phoneNumber, randNum);
+		memberService.certifiedPhoneNumber(phoneNumber, randNum);
 		return randNum;
 	}
 	
@@ -133,7 +130,6 @@ public class MemberController {
 	public String memberGetInfo(MemberVO memberVO, Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		memberVO.setUserId(authentication.getName());
-		System.out.println("2 => " + memberVO.getUserId());
 		MemberVO list = memberService.memberGetInfo(memberVO);
 		model.addAttribute("list", list);
 		return "member/memberGetInfo";
@@ -153,6 +149,12 @@ public class MemberController {
 		}
 	}
 	
+	//정보확인하기
+	@GetMapping("user/checkDetail")
+	public String checkDetail() {
+		return "member/checkDetail";
+	}
+	
 	//회원정보수정
 	@PostMapping("user/memberUpdate")
 	@ResponseBody
@@ -160,6 +162,8 @@ public class MemberController {
 		System.out.println(memberVO);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		memberVO.setUserId(authentication.getName());
+		String password = passwordEncoder.encode(memberVO.getUserPw());
+		memberVO.setUserPw(password);
 		return memberService.memberUpdate(memberVO);
 	}
 	
@@ -174,7 +178,7 @@ public class MemberController {
 	public String memberDelete(MemberVO memberVO) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		memberVO.setUserId(authentication.getName());
-		 memberService.memberDelete(memberVO);
-		 return "redirect:/";
+		memberService.memberDelete(memberVO);
+		return "redirect:/";
 	}
 }

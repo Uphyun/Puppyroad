@@ -16,3 +16,8 @@ function confirmDelete(bulletinNo) {
 		location.href = '/user/newsDelete?no=' + bulletinNo;
 	}
 }
+
+
+
+
+

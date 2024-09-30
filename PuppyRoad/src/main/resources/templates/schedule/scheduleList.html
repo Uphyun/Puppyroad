@@ -1,11 +1,8 @@
 <!DOCTYPE html>
-<html
-  lang="ko"
-  xmlns:th="https://www.thymeleaf.org/"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-  layout:decorate="~{common/layouts/default_layout}"
-  layout:fragment="Content"
->
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
 
 <head>
     <meta charset="utf-8" />
@@ -64,7 +61,72 @@
 
   <body>
     <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
+    <div class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
+			<aside id="layout-menu" style="margin:auto"
+				class="layout-menu menu-vertical menu bg-menu-theme">
+				<ul class="menu-inner py-1">
+					<!-- Apps & Pages -->
+					<li class="menu-header"><span class="menu-header-text"
+						data-i18n="PetStar">마이페이지</span></li>
+					<li class="menu-item"><a href="/user/memberGetInfo" class="menu-link">
+							<i class="menu-icon tf-icons ti ti-user-square-rounded"></i>
+							<div>나의 정보수정</div>
+					</a></li>
+					<th:block th:if="${auth == '의뢰인'}">
+					<li class="menu-item"><a href="/user/listPuppy"
+						class="menu-link"> <i
+							class="menu-icon tf-icons ti ti-pencil-plus"></i>
+							<div>댕댕이 설정</div>
+					</a></li>
+					</th:block>
+					<li class="menu-item"><a href="/user/myMatchingList" class="menu-link">
+							<i class="menu-icon tf-icons ti ti-message"></i>
+							<div>매칭 내역조회</div>
+					</a></li>
+					<th:block th:if="${auth == '도그워커'}">
+					<li class="menu-item"><a href="/user/insertWalker" class="menu-link"> <i
+							class="menu-icon tf-icons ti ti-heart"></i>
+							<div >도크워커 프로필등록</div>
+					</a></li>
+					</th:block>
+					<th:block th:if="${auth == '봉사인'}">
+					<li class="menu-item"><a href="/user/insertWalker" class="menu-link"> <i
+							class="menu-icon tf-icons ti ti-heart"></i>
+							<div >도크워커 프로필전환</div>
+					</a></li>
+					</th:block>
+					<th:block th:if="${auth == '도그워커'}">
+					<li class="menu-item"><a href="/user/walkerProfile" class="menu-link"> <i
+							class="menu-icon tf-icons ti ti-heart"></i>
+							<div >도크워커 프로필수정</div>
+					</a></li>
+					</th:block>
+					<th:block th:if="${auth == '도그워커'}">
+					<li class="menu-item"><a href="/user/salesChartInfo" class="menu-link"> <i
+							class="menu-icon tf-icons ti ti-heart"></i>
+							<div >매출관리</div>
+					</a></li>
+					</th:block>
+					<th:block th:if="${auth == '도그워커'}">
+					<li class="menu-item"><a href="/user/scheduleList" class="menu-link"> <i
+							class="menu-icon tf-icons ti ti-heart"></i>
+							<div>일정표</div>
+					</a></li>
+					</th:block>
+					<th:block th:if="${auth == '의뢰인'}">
+					<li class="menu-item"><a href="/user/walkJournalList" class="menu-link"> <i
+							class="menu-icon tf-icons ti ti-heart"></i>
+							<div>산책일지조회</div>
+					</a></li>
+					</th:block>
+					<th:block th:if="${auth == '도그워커'}">
+					<li class="menu-item"><a href="/user/dogwalkJournalList" class="menu-link"> <i
+							class="menu-icon tf-icons ti ti-heart"></i>
+							<div>산책일지조회(도그워커)</div>
+					</a></li>
+					</th:block>
+				</ul>
+			</aside>
       <div class="layout-container">
         <!-- Layout container -->
         <div class="layout-page">
@@ -84,7 +146,7 @@
                         data-bs-target="#addEventSidebar"
                         aria-controls="addEventSidebar">
                         <i class="ti ti-plus ti-16px me-2"></i>
-                        <span class="align-middle">Add Event</span>
+                        <span class="align-middle">휴가 등록</span>
                       </button>
                     </div>
                     <div class="px-3 pt-2">
@@ -105,7 +167,7 @@
                           id="selectAll"
                           data-value="all"
                           checked />
-                        <label class="form-check-label" for="selectAll">View All</label>
+                        <label class="form-check-label" for="selectAll">모두보기</label>
                       </div>
 
                       <div class="app-calendar-events-filter text-heading">
@@ -116,7 +178,7 @@
                             id="select-personal"
                             data-value="personal"
                             checked />
-                          <label class="form-check-label" for="select-personal">Personal</label>
+                          <label class="form-check-label" for="select-personal">휴가</label>
                         </div>
                         <div class="form-check mb-5 ms-2">
                           <input
@@ -125,41 +187,22 @@
                             id="select-business"
                             data-value="business"
                             checked />
-                          <label class="form-check-label" for="select-business">Business</label>
-                        </div>
-                        <div class="form-check form-check-warning mb-5 ms-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-family"
-                            data-value="family"
-                            checked />
-                          <label class="form-check-label" for="select-family">Family</label>
+                          <label class="form-check-label" for="select-business">예약</label>
                         </div>
                         <div class="form-check form-check-success mb-5 ms-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-holiday"
-                            data-value="holiday"
-                            checked />
-                          <label class="form-check-label" for="select-holiday">Holiday</label>
+                          <input class="form-check-input input-filter" type="checkbox" id="select-holiday" data-value="holiday" checked="">
+                          <label class="form-check-label" for="select-holiday">정산일</label>
                         </div>
-                        <div class="form-check form-check-info ms-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-etc"
-                            data-value="etc"
-                            checked />
-                          <label class="form-check-label" for="select-etc">ETC</label>
-                        </div>
+                  
+                    
+                   
                       </div>
                     </div>
                   </div>
                   <!-- /Calendar Sidebar -->
 
                   <!-- Calendar & Modal -->
+                    
                   <div class="col app-calendar-content">
                     <div class="card shadow-none border-0">
                       <div class="card-body pb-0">
@@ -169,6 +212,7 @@
                     </div>
                     <div class="app-overlay"></div>
                     <!-- FullCalendar Offcanvas -->
+                    
                     <div
                       class="offcanvas offcanvas-end event-sidebar"
                       tabindex="-1"
@@ -182,25 +226,24 @@
                           data-bs-dismiss="offcanvas"
                           aria-label="Close"></button>
                       </div>
+                     
                       <div class="offcanvas-body">
                         <form class="event-form pt-0" id="eventForm" onsubmit="return false">
                           <div class="mb-5">
-                            <label class="form-label" for="eventTitle">Title</label>
+                            <label class="form-label client_name" for="eventTitle">고객성함</label>
                             <input
                               type="text"
                               class="form-control"
                               id="eventTitle"
                               name="eventTitle"
-                              placeholder="Event Title" />
+                              placeholder="Event Title"/>
                           </div>
                           <div class="mb-5">
-                            <label class="form-label" for="eventLabel">Label</label>
+                            <label class="form-label" for="eventLabel">예약종류</label>
                             <select class="select2 select-event-label form-select" id="eventLabel" name="eventLabel">
-                              <option data-label="primary" value="Business" selected>Business</option>
-                              <option data-label="danger" value="Personal">Personal</option>
-                              <option data-label="warning" value="Family">Family</option>
-                              <option data-label="success" value="Holiday">Holiday</option>
-                              <option data-label="info" value="ETC">ETC</option>
+                              <option data-label="badge badge-dot bg-danger me-2" value="Personal">휴가</option>
+                              <option data-label="badge badge-dot bg-primary me-2" value="Business">예약</option>
+                              <option data-label="badge badge-dot bg-success me-2" value="Holiday">정산일</option>
                             </select>
                           </div>
                           <div class="mb-5">
@@ -221,65 +264,71 @@
                               name="eventEndDate"
                               placeholder="End Date" />
                           </div>
-                          <div class="mb-5">
+                          <div class="mb-5" style="display:none;">
                             <div class="form-check form-switch">
                               <input type="checkbox" class="form-check-input allDay-switch" id="allDaySwitch" />
                               <label class="form-check-label" for="allDaySwitch">All Day</label>
                             </div>
                           </div>
+                          <div class="mb-5 addHide">
+                            <label class="form-label" for="eventDogName">애완견</label>
+                            <input type="text" class="form-control" id="eventDogName" name="eventDogName" readonly>
+                          </div>
+                          <div class="mb-5 addHide">
+                            <label class="form-label" for="eventWalkFare">산책요금</label>
+                            <input type="text" class="form-control" id="eventWalkFare" name="eventWalkFare" readonly>
+                          </div>
+                          <div class="mb-5 addHide">
+                            <label class="form-label" for="eventLocation">예약장소</label>
+                            <input type="text" class="form-control" id="eventLocation" name="eventLocation" readonly>
+                          </div>
+                          <div class="mb-5 addHide">
+                            <label class="form-label" for="eventPhone">연락처</label>
+                            <input type="text" class="form-control" id="eventPhone" name="eventPhone" readonly>
+                          </div>
+                          <div class="mb-5 totalPay">
+                            <label class="form-label" for="totalPrice">정산요금</label>
+                            <input type="text" class="form-control" id="totalPrice" name="totalPrice" readonly>
+                          </div>
+                          <div class="mb-5 totalPay">
+                            <label class="form-label" for="payterm">정산기간</label>
+                            <input type="text" class="form-control" id="payterm" name="payterm" readonly>
+                          </div>
+                          <div class="mb-5 addHide plzHide">
+                            <label class="form-label" for="PriceList">내역</label>
+                            <input type="text" class="form-control" id="priceList" name="PriceList" readonly>
+                          </div>
+                          <div class="mb-5 addHide plzHide">
+                            <label class="form-label" for="PriceDay">결제일</label>
+                            <input type="text" class="form-control" id="priceDay" name="PriceDay" readonly>
+                          </div>
+                          <div class="mb-5 addHide plzHide">
+                            <label class="form-label" for="priceName">고객성함</label>
+                            <input type="text" class="form-control" id="priceName" name="priceName" readonly>
+                          </div>
                           <div class="mb-5">
-                            <label class="form-label" for="eventURL">Event URL</label>
-                            <input
-                              type="url"
-                              class="form-control"
-                              id="eventURL"
-                              name="eventURL"
-                              placeholder="https://www.google.com" />
+                          <div class="addHide">
+                            <label class="form-label" for="eventLocation">산책경로</label>
+                            <button class="btn btn-label-success waves-effect" type="button">지도보기</button>
                           </div>
-                          <div class="mb-4 select2-primary">
-                            <label class="form-label" for="eventGuests">Add Guests</label>
-                            <select
-                              class="select2 select-event-guests form-select"
-                              id="eventGuests"
-                              name="eventGuests"
-                              multiple>
-                              <option data-avatar="1.png" value="Jane Foster">Jane Foster</option>
-                              <option data-avatar="3.png" value="Donna Frank">Donna Frank</option>
-                              <option data-avatar="5.png" value="Gabrielle Robertson">Gabrielle Robertson</option>
-                              <option data-avatar="7.png" value="Lori Spears">Lori Spears</option>
-                              <option data-avatar="9.png" value="Sandy Vega">Sandy Vega</option>
-                              <option data-avatar="11.png" value="Cheryl May">Cheryl May</option>
-                            </select>
                           </div>
-                          <div class="mb-5">
-                            <label class="form-label" for="eventLocation">Location</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventLocation"
-                              name="eventLocation"
-                              placeholder="Enter Location" />
-                          </div>
-                          <div class="mb-5">
-                            <label class="form-label" for="eventDescription">Description</label>
-                            <textarea class="form-control" name="eventDescription" id="eventDescription"></textarea>
-                          </div>
-                          <div class="d-flex justify-content-sm-between justify-content-start mt-6 gap-2">
+                          <div class="d-flex justify-content-sm-between justify-content-start mt-6 gap-2 addHide" style="display:none;">
                             <div class="d-flex">
-                              <button type="submit" id="addEventBtn" class="btn btn-primary btn-add-event me-4">
+                          <button style="display:none;" type="submit" id="addEventBtn" class="btn btn-outline-success btn-add-event me-4" data-bs-dismiss="offcanvas">
                                 Add
                               </button>
                               <button
                                 type="reset"
-                                class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
+                                class="btn btn-outline-success me-sm-0 me-1"
                                 data-bs-dismiss="offcanvas">
-                                Cancel
+                                #ROAD
                               </button>
                             </div>
-                            <button class="btn btn-label-danger btn-delete-event d-none">Delete</button>
+                            <button style="display:none;" class="btn btn-primary btn-delete-event d-none" data-bs-dismiss="offcanvas">확인</button>
                           </div>
                         </form>
                       </div>
+                    </div>
                     </div>
                   </div>
                   <!-- /Calendar & Modal -->
@@ -292,8 +341,10 @@
           </div>
           <!-- Content wrapper -->
         </div>
+        
         <!-- / Layout page -->
       </div>
+       </div>
 
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
@@ -332,6 +383,11 @@
 
     <!-- Page JS -->
     <script src="/assets/admin/js/app-calendar-events.js"></script>
+    
+    
     <script src="/assets/admin/js/app-calendar.js"></script>
+ 
   </body>
+ 	 <script type="text/javascript" src="/assets/main/js/schedule/scheduleList.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </html>

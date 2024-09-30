@@ -21,14 +21,32 @@ public class WalkJournalServiceImpl implements WalkJournalService {
 	}
 	
 	@Override
-	public List<WalkJournalVO> WalkJournalList(){
+	public List<WalkJournalVO> WalkJournalList(String userId){
 		
-		return walkJournalMapper.selectAllWalkJournals();
+		return walkJournalMapper.selectAllWalkJournals(userId);
 	}
 
 	@Override
 	public WalkJournalVO WalkJournalGetInfo(WalkJournalVO walkJournalVO) {
 		
 		return walkJournalMapper.selectOneWalkJournals(walkJournalVO);
+	}
+
+	@Override
+	public List<WalkJournalVO> dogWalkJournalList(WalkJournalVO walkJournalV) {
+		
+		return walkJournalMapper.dogWalkJournals(walkJournalV);
+	}
+
+	@Override
+	public WalkJournalVO dogWalkJournalGetInfo(WalkJournalVO walkJournalV) {
+		
+		return walkJournalMapper.dogSelectOneWalkJournals(walkJournalV);
+	}
+
+	@Override
+	public int insertWalkJournal(WalkJournalVO walkJournalVO) {
+		// TODO Auto-generated method stub
+		return walkJournalMapper.insertWalkJournal(walkJournalVO);
 	}
 }//end

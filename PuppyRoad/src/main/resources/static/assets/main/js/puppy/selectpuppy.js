@@ -17,8 +17,7 @@ $(".odd").on('click', (e)=>{
 			
 			
 		let puppyInfo = `
-			<div class="card mb-6">
-			<div class="card-body pt-12" style="width:380px">
+			<div class="card-body pt-12" >
 				<div class="user-avatar-section">
 					<div class="d-flex align-items-center flex-column">
 						<img class="img-fluid rounded mb-4" src="/images/${result.picture}" height="240" width="240" alt="No image">
@@ -56,7 +55,6 @@ $(".odd").on('click', (e)=>{
 	        </div>
 			</div>
 			</div>
-		</div>
 		
         `;
         
@@ -127,5 +125,39 @@ function handleSubmit(event) {
 		alert("수정이 완료되었습니다!");
 		document.getElementById("editUserForm").submit();  
 }
+
+//페이지 랜더링시 결제내역리스트
+$(document).ready(function(){
+	$.ajax({
+		url: '/user/payList',
+		method: 'GET'
+		
+	}).done((result)=>{
+		console.log(result);
+		for(let res of result){
+			console.log(res.recipient);
+			$('.payList').append(
+			`<li class="timeline-item timeline-item-transparent"><span
+									class="timeline-point timeline-point-primary"></span>
+									<div class="timeline-event">
+										<div class="timeline-header mb-3">
+											<h6 class="mb-0">도그워커 : ${res.name}</h6>
+											<small class="text-muted">결제일 : ${res.purchasedAt}</small>
+										</div>
+										<div class="d-flex align-items-center mb-2">
+											<div class="badge bg-lighter rounded d-flex align-items-center">
+												 <span class="h6 mb-0 text-body">결제방식 : ${res.method}</span>
+											</div>
+										</div>
+										<div class="d-flex align-items-center mb-2">
+											<div class="badge bg-lighter rounded d-flex align-items-center">
+												 <span class="h6 mb-0 text-body">가격 : ${res.price}원</span>
+											</div>
+										</div>
+									</div>
+								</li>`)
+		}
+	})
+})
 	
 

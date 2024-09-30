@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <script type="text/javascript" src="/assets/vendor/libs/flatpickr/flatpickr.js"></script>
+    <style>
+        .switch-success {
+            margin-top: 10px;
+        }
+    </style>
+    <link rel="stylesheet" href="/assets/vendor/libs/flatpickr/flatpickr.css">
+</head>
+<body>
+
+    <section class="first-section-pt">
+        <div class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
+            <div class="flex-shrink-1 flex-grow-0 w-px-350 border-end container-p-x container-p-y">
+                <div th:insert="common/fragments/admin/aside :: AsideFragment"></div>
+            </div>
+
+            <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
+                <!-- 산책일지 폼 시작 -->
+                <form id="walkJournalForm" th:action="@{/walkJournal/save}" method="post">
+                    <!-- 산책 일지 정보 -->
+                    <div class="row text-nowrap">
+                        <div class="col-md-6 mb-6">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="card-info">
+                                        <div class="badge bg-label-danger me-4 rounded p-1_5">
+                                            <i class="ti ti-brand-paypal ti-md"></i>
+                                        </div>
+                                        <h5 class="card-title mb-2">애완견이름 : </h5>
+                                        <input type="hidden" name="dogName">
+                                        <p class="mb-0"><img class="rounded-circle w-px-100" th:src="@{${result.picture}}" height="120" width="120" alt="사진"></p>
+                                        <p class="mb-0 text-truncate">나이 : </p>
+                                        <input type="hidden" name="age" value="[[${result.age}]]">
+                                        <p class="mb-0 text-truncate">몸무게 : [[ ${result.weight} ]]kg</p>
+                                        <input type="hidden" name="weight" value="[[${result.weight}]]">
+                                        <p class="mb-0 text-truncate">견종 : [[ ${result.dogBreed} ]]</p>
+                                        <input type="hidden" name="dogBreed" value="[[${result.dogBreed}]]">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-info">
+                                        <div class="badge bg-label-primary rounded p-1_5"><i class="ti ti-users ti-md"></i></div>
+                                        <h5 class="card-title mb-2">이름 : [[ ${result.name} ]]</h5>
+                                        <input type="hidden" name="walkerName" value="[[${result.name}]]">
+                                        <p class="mb-0">산책일자 : [[${#dates.format(result.walkDate, 'yyyy/MM/dd HH:mm')}]]</p>
+                                        <input type="hidden" name="walkDate" value="[[${result.walkDate}]]">
+                                        <p class="mb-0">일지제목 : [[${result.title}]]</p>
+                                        <input type="hidden" name="title" value="[[${result.title}]]">
+                                        <p class="mb-0">산책경로 : [[${result.path}]]</p>
+                                        <input type="hidden" name="path" value="[[${result.path}]]">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 산책 일지 내용 -->
+                    <div class="card-body px-0">
+                        <div class="row">
+                            <div class="col-12">
+                                <div>
+                                    <label for="journalContent" class="fw-medium text-heading mb-1">산책일지 내용</label>
+                                    <textarea class="form-control" rows="2" name="journalContent" id="journalContent" placeholder="산책내용을 입력하세요"></textarea>
+                                    <p style="float: right; margin: 0;">작성일 : [[${#dates.format(sysdate, 'yyyy/MM/dd HH:mm')}]]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 저장 버튼 -->
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary waves-effect waves-light">저장</button>
+                    </div>
+                </form>
+                <!-- 산책일지 폼 끝 -->
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

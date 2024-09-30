@@ -16,7 +16,8 @@
 		    S_SIZE, 
 		    M_SIZE, 
 		    L_SIZE,
-		    MEMBER_CODE 
+		    MEMBER_CODE,
+		    PRICE
         ) 
   VALUES 
 	  (
@@ -32,7 +33,8 @@
 	    #{sSize}, 
 	    #{mSize}, 
 	    #{lSize},
-	    #{memberCode}
+	    #{memberCode},
+	    #{price}
 	  )
 	</insert>
 	
@@ -42,7 +44,9 @@
 	        GENDER = #{gender}, 
 	        BANK_CODE = #{bankCode}, 
 	        BANK_ACCOUNT = #{bankAccount}, 
+	        <if test="picture != null and picture != ''">
 	        PICTURE = #{picture}, 
+	        </if>
 	        WORK_WEEK = #{workWeek}, 
 	        WORK_TIME = #{workTime}, 
 	        PREFERENCE_LOCATION = #{preferenceLocation}, 
@@ -69,9 +73,14 @@
         S_SIZE, 
         M_SIZE, 
         L_SIZE, 
-        MEMBER_CODE
+        MEMBER_CODE,
+        price
     FROM walker_add_info
     WHERE MEMBER_CODE = #{memberCode}
+</select>	
+<select id="countWalkInfo">
+	SELECT count(*)
+	FROM walker_add_info;
 </select>
 	
 

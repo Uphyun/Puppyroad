@@ -7,9 +7,85 @@
 <script type="text/javascript"
 	src="/assets/vendor/libs/flatpickr/flatpickr.js"></script>
 <style>
+
 .switch-success {
+    margin-top: 5px; /* 현재 설정된 값 */
+    margin-bottom: 5px; /* 아래 간격 추가 */
+    width:140px;
+}
+
+.switch-group {
+    margin-bottom: 15px; /* 각 스위치 그룹 간의 간격 조정 */
+}
+
+.size-input {
+    margin-left: 10px; /* 스위치와 입력 필드 사이의 간격 */
+}
+
+.switch-toggle-slider {
+    display: inline-block;
+    width: auto; /* 필요시 슬라이더의 크기 조정 */
+}
+.switch-group-container {
+    display: flex;
+    justify-content: space-between; /* 항목들을 가로로 배치 */
+    gap: 20px; /* 각 항목 사이의 간격 */
+    margin-bottom: 15px; /* 아래 간격 추가 */
+}
+
+.switch-group {
+    display: flex;
+    align-items: center;
+}
+
+.size-input {
+    margin-left: 10px; /* 스위치와 입력 필드 사이의 간격 */
+    width: 100px; /* 입력 필드의 너비 조정 */
+}
+.size-input[readonly] {
+    opacity: 0.5; /* 투명도 설정 */
+    cursor: not-allowed; /* 커서 모양 변경 */
+}
+
+.switch-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.size-input {
+    margin-left: 10px;
+    width: 100px;
+}
+.bank-account-fee-container {
+    display: flex;
+    justify-content: space-between; /* 항목을 가로로 정렬하고 간격 조정 */
+    gap: 20px; /* 항목 사이 간격 */
+    margin-bottom: 15px; /* 아래 여백 */
+}
+
+.form-group {
+    flex: 1; /* 모든 항목을 동일한 너비로 설정 */
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 5px; /* 라벨과 입력 필드 사이 간격 */
+}
+
+.form-control {
+    width: 100%; /* 입력 필드가 전체 너비를 차지하도록 */
+}
+.form-label{
+	margin-bottom : 10px;
 	margin-top: 10px;
 }
+.divider {
+    border-bottom: 1px solid #e0e0e0; /* 연한 회색 선 */
+    margin: 10px 0; /* 위아래 여백 */
+}
+
 </style>
 <link rel="stylesheet"
 	href="/assets/vendor/libs/flatpickr/flatpickr.css">
@@ -27,9 +103,9 @@
 				<div class="content">
 					<div class="col-md">
 						<div class="card">
-							<h5 class="card-header" style="width: 400px; margin: auto">도크워커
+							<h5 class="card-header" style="width: 700px; margin: auto">도크워커
 								프로필 설정</h5>
-							<div class="card-body" style="width: 400px; margin: auto">
+							<div class="card-body" style="width: 700px; margin: auto">
 								<form class="needs-validation" th:object="${dogWalkVO}"
 									th:action="@{/user/insertWalker}" method="post"
 									enctype="multipart/form-data" novalidate="">
@@ -69,13 +145,13 @@
 											</div>
 										</div>
 									</div>
+										<div class="divider"></div>
+										<div>
 									<div
 										class="mb-5 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid">
 										<label class="form-label" for="eventStartDate"><font
 											style="vertical-align: inherit;"><font
-												style="vertical-align: inherit;">근무 날짜</font></font></label>
-
-										<div>
+												style="vertical-align: inherit;">근무 요일</font></font></label>
 											<br> <label class="switch switch-success"> <input
 												type="checkbox" class="switch-input" checked="" value="월"
 												name="workWeek"> <span class="switch-toggle-slider">
@@ -128,7 +204,12 @@
 											</label>
 										</div>
 									</div>
+									<div class="divider"></div>
 									<!--  -->
+												<label class="form-label" for="eventStartDate"><font
+											style="vertical-align: inherit;"><font
+												style="vertical-align: inherit;">근무 시간</font></font></label>
+												<br>
 									<label class="switch switch-success"> <input
 										type="checkbox" class="switch-input" value="08:00-09:00"
 										name="workTime" checked=""> <span
@@ -137,7 +218,8 @@
 										</span> <span class="switch-off"> <i class="ti ti-x"></i>
 										</span>
 									</span> <span class="switch-label">08:00 - 09:00</span>
-									</label> <label class="switch switch-success"> <input
+									</label> 
+									<label class="switch switch-success"> <input
 										type="checkbox" class="switch-input" value="09:00-10:00"
 										name="workTime" checked=""> <span
 										class="switch-toggle-slider"> <span class="switch-on">
@@ -145,7 +227,8 @@
 										</span> <span class="switch-off"> <i class="ti ti-x"></i>
 										</span>
 									</span> <span class="switch-label">09:00 - 10:00</span>
-									</label> <label class="switch switch-success"> <input
+									</label> 
+									<label class="switch switch-success"> <input
 										type="checkbox" class="switch-input" value="10:00-11:00"
 										name="workTime" checked=""> <span
 										class="switch-toggle-slider"> <span class="switch-on">
@@ -153,7 +236,8 @@
 										</span> <span class="switch-off"> <i class="ti ti-x"></i>
 										</span>
 									</span> <span class="switch-label">10:00 - 11:00</span>
-									</label> <label class="switch switch-success"> <input
+									</label>
+									 <label class="switch switch-success"> <input
 										type="checkbox" class="switch-input" value="11:00-12:00"
 										name="workTime" checked=""> <span
 										class="switch-toggle-slider"> <span class="switch-on">
@@ -161,7 +245,8 @@
 										</span> <span class="switch-off"> <i class="ti ti-x"></i>
 										</span>
 									</span> <span class="switch-label">11:00 - 12:00</span>
-									</label> <label class="switch switch-success"> <input
+									</label> 
+									<label class="switch switch-success"> <input
 										type="checkbox" class="switch-input" value="12:00-13:00"
 										name="workTime" checked=""> <span
 										class="switch-toggle-slider"> <span class="switch-on">
@@ -169,7 +254,8 @@
 										</span> <span class="switch-off"> <i class="ti ti-x"></i>
 										</span>
 									</span> <span class="switch-label">12:00 - 13:00</span>
-									</label> <label class="switch switch-success"> <input
+									</label> 
+									<label class="switch switch-success"> <input
 										type="checkbox" class="switch-input" value="13:00-14:00"
 										name="workTime" checked=""> <span
 										class="switch-toggle-slider"> <span class="switch-on">
@@ -177,7 +263,8 @@
 										</span> <span class="switch-off"> <i class="ti ti-x"></i>
 										</span>
 									</span> <span class="switch-label">13:00 - 14:00</span>
-									</label> <label class="switch switch-success"> <input
+									</label> 
+									<label class="switch switch-success"> <input
 										type="checkbox" class="switch-input" value="14:00-15:00"
 										name="workTime" checked=""> <span
 										class="switch-toggle-slider"> <span class="switch-on">
@@ -185,7 +272,8 @@
 										</span> <span class="switch-off"> <i class="ti ti-x"></i>
 										</span>
 									</span> <span class="switch-label">14:00 - 15:00</span>
-									</label> <label class="switch switch-success"> <input
+									</label> 
+									<label class="switch switch-success"> <input
 										type="checkbox" class="switch-input" value="15:00-16:00"
 										name="workTime" checked=""> <span
 										class="switch-toggle-slider"> <span class="switch-on">
@@ -193,7 +281,8 @@
 										</span> <span class="switch-off"> <i class="ti ti-x"></i>
 										</span>
 									</span> <span class="switch-label">15:00 - 16:00</span>
-									</label> <label class="switch switch-success"> <input
+									</label> 
+									<label class="switch switch-success"> <input
 										type="checkbox" class="switch-input" value="17:00-18:00"
 										name="workTime" checked=""> <span
 										class="switch-toggle-slider"> <span class="switch-on">
@@ -201,7 +290,8 @@
 										</span> <span class="switch-off"> <i class="ti ti-x"></i>
 										</span>
 									</span> <span class="switch-label">17:00 - 18:00</span>
-									</label> <label class="switch switch-success"> <input
+									</label> 
+									<label class="switch switch-success"> <input
 										type="checkbox" class="switch-input" value="18:00-19:00"
 										name="workTime" checked=""> <span
 										class="switch-toggle-slider"> <span class="switch-on">
@@ -209,7 +299,8 @@
 										</span> <span class="switch-off"> <i class="ti ti-x"></i>
 										</span>
 									</span> <span class="switch-label">18:00 - 19:00</span>
-									</label> <label class="switch switch-success"> <input
+									</label> 
+									<label class="switch switch-success"> <input
 										type="checkbox" class="switch-input" value="19:00-20:00"
 										name="workTime" checked=""> <span
 										class="switch-toggle-slider"> <span class="switch-on">
@@ -217,88 +308,75 @@
 										</span> <span class="switch-off"> <i class="ti ti-x"></i>
 										</span>
 									</span> <span class="switch-label">19:00 - 20:00</span>
-									</label> <label class="switch switch-success"> <input
-										type="checkbox" class="switch-input" value="20:00-21:00"
-										name="workTime" checked=""> <span
-										class="switch-toggle-slider"> <span class="switch-on">
-												<i class="ti ti-check"></i>
-										</span> <span class="switch-off"> <i class="ti ti-x"></i>
-										</span>
-									</span> <span class="switch-label">20:00 - 21:00</span>
-									</label> <label class="switch switch-success"> <input
-										type="checkbox" class="switch-input" value="21:00-22:00"
-										name="workTime" checked=""> <span
-										class="switch-toggle-slider"> <span class="switch-on">
-												<i class="ti ti-check"></i>
-										</span> <span class="switch-off"> <i class="ti ti-x"></i>
-										</span>
-									</span> <span class="switch-label">21:00 - 22:00</span>
-									</label> <br> <label class="form-label" for="eventStartDate">
-										<font style="vertical-align: inherit;"> <font
-											style="vertical-align: inherit;">선호 애견크기</font>
-									</font>
-									</label> <br>
-									<div class="switch-group">
-										<label class="switch switch-success"> <input
-											type="checkbox" class="switch-input" checked=""> <span
-											class="switch-toggle-slider"> <span class="switch-on">
-													<i class="ti ti-check"></i>
-											</span> <span class="switch-off"> <i class="ti ti-x"></i>
-											</span>
-										</span> <span class="switch-label">소</span>
-										</label> <input class="form-control size-input" type="text"
-											name="sSize">
+									</label> 
+									
+									<br>
+									<div class="divider"></div>
+									<label class="form-label" for="eventStartDate">
+										<font style="vertical-align: inherit;">선호 애견크기</font>
+									</label> 
+								<div class="switch-group-container">
+									    <div class="switch-group">
+									        <label class="switch switch-success">
+									            <input type="checkbox" class="switch-input" checked="" id="smallSwitch" onchange="toggleInput('smallSwitch', 'smallInput')">
+									            <span class="switch-toggle-slider">
+									                <span class="switch-on"><i class="ti ti-check"></i></span>
+									                <span class="switch-off"><i class="ti ti-x"></i></span>
+									            </span>
+									            <span class="switch-label">소</span>
+									        </label>
+									        <input class="form-control size-input" type="text" name="sSize" id="smallInput" placeholder="ex)2마리">
+									    </div>
+									
+									    <div class="switch-group">
+									        <label class="switch switch-success">
+									            <input type="checkbox" class="switch-input" checked="" id="mediumSwitch" onchange="toggleInput('mediumSwitch', 'mediumInput')">
+									            <span class="switch-toggle-slider">
+									                <span class="switch-on"><i class="ti ti-check"></i></span>
+									                <span class="switch-off"><i class="ti ti-x"></i></span>
+									            </span>
+									            <span class="switch-label">중</span>
+									        </label>
+									        <input class="form-control size-input" name="mSize" id="mediumInput" type="text" placeholder="ex)2마리">
+									    </div>
+									
+									    <div class="switch-group">
+									        <label class="switch switch-success">
+									            <input type="checkbox" class="switch-input" checked id="largeSwitch" onchange="toggleInput('largeSwitch', 'largeInput')">
+									            <span class="switch-toggle-slider">
+									                <span class="switch-on"><i class="ti ti-check"></i></span>
+									                <span class="switch-off"><i class="ti ti-x"></i></span>
+									            </span>
+									            <span class="switch-label">대</span>
+									        </label>
+									        <input class="form-control size-input" name="lSize" id="largeInput" type="text" placeholder="ex)2마리">
+									    </div>
 									</div>
-
-									<div class="switch-group">
-										<label class="switch switch-success"> <input
-											type="checkbox" class="switch-input" checked=""> <span
-											class="switch-toggle-slider"> <span class="switch-on">
-													<i class="ti ti-check"></i>
-											</span> <span class="switch-off"> <i class="ti ti-x"></i>
-											</span>
-										</span> <span class="switch-label">중</span>
-										</label> <input class="form-control size-input" name="mSize"
-											type="text">
+									<div class="divider"></div>
+									<div class="bank-account-fee-container">
+									    <div class="form-group">
+									        <label class="form-label" for="bs-validation-country">은행</label>
+									        <select class="form-select" id="bs-validation-country" name="bankCode" required="">
+									            <option value="">은행 선택</option>
+									            <option value="신한은행">신한은행</option>
+									            <option value="국민은행">국민은행</option>
+									            <option value="하나은행">하나은행</option>
+									            <option value="농협">농협</option>
+									            <option value="카카오뱅크">카카오뱅크</option>
+									        </select>
+									    </div>
+									
+									    <div class="form-group">
+									        <label class="form-label" for="bs-validation-dob">계좌번호</label>
+									        <input type="text" name="bankAccount" class="form-control" id="bs-validation-dob" required="" placeholder="'-'없이 입력">
+									    </div>
+									
+									    <div class="form-group">
+									        <label class="form-label" for="bs-validation-price">요금설정</label>
+									        <input type="text" name="price" class="form-control" id="bs-validation-price" placeholder="30분 단위 요금설정">
+									    </div>
 									</div>
-
-									<div class="switch-group">
-										<label class="switch switch-success"> <input
-											type="checkbox" class="switch-input" checked> <span
-											class="switch-toggle-slider"> <span class="switch-on">
-													<i class="ti ti-check"></i>
-											</span> <span class="switch-off"> <i class="ti ti-x"></i>
-											</span>
-										</span> <span class="switch-label">대</span>
-										</label> <input class="form-control size-input" name="lSize"
-											type="text">
-									</div>
-
-
-
-									<div class="mb-6">
-										<label class="form-label" for="bs-validation-country">은행</label>
-										<select class="form-select" id="bs-validation-country"
-											name="bankCode" required="">
-											<option value="">은행 선택</option>
-											<option value="신한은행">신한은행</option>
-											<option value="국민은행">국민은행</option>
-											<option value="하나은행">하나은행</option>
-											<option value="농협">농협</option>
-											<option value="카카오뱅크">카카오뱅크</option>
-										</select>
-										<div class="valid-feedback">Looks good!</div>
-										<div class="invalid-feedback">Please select your country</div>
-									</div>
-									<div class="mb-6">
-										<label class="form-label" for="bs-validation-dob">계좌번호</label>
-										<input type="text" name="bankAccount"
-											class="form-control flatpickr-validation flatpickr-input"
-											id="bs-validation-dob" required="" placeholder="'-'없이 입력">
-										<div class="valid-feedback">Looks good!</div>
-										<div class="invalid-feedback">Please Enter Your DOB</div>
-									</div>
-
+									<div class="divider"></div>
 									<div class="mb-6">
 										<label class="form-label" for="bs-validation-bio">자기소개</label>
 										<textarea class="form-control" name="memo"
@@ -355,6 +433,18 @@
 			}
 		};
 		reader.readAsDataURL(event.target.files[0]);
+	}
+	function toggleInput(switchId, inputId) {
+	    const switchElement = document.getElementById(switchId);
+	    const inputElement = document.getElementById(inputId);
+
+	    if (switchElement.checked) {
+	        inputElement.removeAttribute('readonly');  // 읽기 전용 해제
+	        inputElement.style.opacity = '1';          // 투명도 원상복구
+	    } else {
+	        inputElement.setAttribute('readonly', true);  // 읽기 전용 설정
+	        inputElement.style.opacity = '0.5';          // 투명도 높임
+	    }
 	}
 </script>
 </html>
