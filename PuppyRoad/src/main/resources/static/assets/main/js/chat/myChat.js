@@ -49,7 +49,10 @@ $(document).ready(function() {
 		 </div></div>
 		 <div class='user-avatar flex-shrink-0 ms-4'>
 		 <div class='avatar avatar-sm'>
-		 <img src='/images/${myProfile}' alt='Avatar' class='rounded-circle' />
+		 
+		 <img src='/images/${myProfile}' alt='Avatar' class='rounded-circle' 
+		 onerror='this.onerror=null; this.src="/assets/main/img/profile.png"'/>
+		 
 		 </div></div></div></li>`
 
 		$('.list-unstyled.chat-history').append(app);
@@ -66,7 +69,8 @@ $(document).ready(function() {
 		 </div></div>
 		 <div class='user-avatar flex-shrink-0 ms-4'>
 		 <div class='avatar avatar-sm'>
-		 <img src='${profilePicture}' alt='Avatar' class='rounded-circle' />
+		 <img src='${profilePicture}' alt='Avatar' class='rounded-circle' 
+		 onerror='this.onerror=null; this.src="/assets/main/img/profile.png"'/>
 		 </div></div></div></li>`
 
 		$('.list-unstyled.chat-history').append(app);
@@ -108,6 +112,7 @@ $(document).ready(function() {
                                 src="${profilePicture}"
                                 alt='Avatar'
                                 class='rounded-circle'
+                                onerror='this.onerror=null; this.src="/assets/main/img/profile.png"'
                                 data-bs-toggle='sidebar'
                                 data-overlay
                                 data-target='#app-chat-sidebar-right'/>
@@ -142,7 +147,8 @@ $(document).ready(function() {
 					 </div></div>
 					 <div class='user-avatar flex-shrink-0 ms-4'>
 					 <div class='avatar avatar-sm'>
-					 <img src='/images/${myProfile}' alt='Avatar' class='rounded-circle' />
+					 <img src='/images/${myProfile}' alt='Avatar' class='rounded-circle' 
+					 onerror='this.onerror=null; this.src="/assets/main/img/profile.png"'/>
 					 </div></div></div></li>`
 							$('.list-unstyled.chat-history').append(app);
 						}
@@ -158,7 +164,8 @@ $(document).ready(function() {
 					 </div></div>
 					 <div class='user-avatar flex-shrink-0 ms-4'>
 					 <div class='avatar avatar-sm'>
-					 <img src='${profilePicture}' alt='Avatar' class='rounded-circle' />
+					 <img src='${profilePicture}' alt='Avatar' class='rounded-circle' 
+					 onerror='this.onerror=null; this.src="/assets/main/img/profile.png"'/>
 					 </div></div></div></li>`
 							$('.list-unstyled.chat-history').append(app);
 						}
@@ -223,11 +230,7 @@ $(document).ready(function() {
 			//캘린더 아이콘의 신청버튼 토글느낌
 			if (matchingState == 1) {
 				$('#addSchedul').show();
-			} else if (matchingState == 2) {
-				$('#addSchedul').hide();
-			} else if (matchingState == 3) {
-				$('#addSchedul').hide();
-			} else if (matchingState == 4) {
+			} else  {
 				$('#addSchedul').hide();
 			}
 

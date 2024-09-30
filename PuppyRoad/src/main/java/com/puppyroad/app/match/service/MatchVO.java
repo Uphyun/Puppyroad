@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.puppyroad.app.member.service.MemberVO;
 
 import lombok.Data;
@@ -16,9 +17,9 @@ public class MatchVO {
 	private String  title;
 	private String  writer;
 	private Integer matchingState;           // 매칭상태
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
 	private Date    startTime;
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
 	private Date    endTime;
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date    writingTime;
