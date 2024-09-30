@@ -238,7 +238,9 @@ $('.viewInfo').on("click", function () {
 			$("#infoActivity").text(makeDateFormat(result.activityDate));
 			$("#modalAccountState").val(result.accountState).prop("selected", true);
 			$("#modalAccountState").data("membercode", result.memberCode);
-			$("#infoAddress").text(result.address);
+			let addrs = result.address.split(',');
+			$("#infoAddress").text(addrs[1] + ", " + addrs[3]);
+			$("#infoIntention").text(result.intention);
 
 			let puppyList = result.puppyList;
 			$("#puppies").html("");
