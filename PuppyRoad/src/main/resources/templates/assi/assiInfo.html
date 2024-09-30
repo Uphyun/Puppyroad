@@ -45,32 +45,38 @@
 						<div class="col-8">
 							<div class="row">
 								<div class="col-md-6 pb-2 col-lg-4">
+								<label for="gender" class="col-form-label">성별</label>
 									<input name="gender" type="text" class="form-control"
-										th:if="${assi.gender}==1" placeholder="성별" value="성별 : 남자"
+										th:if="${assi.gender}==1" placeholder="성별" value="남자"
 										readonly /> <input name="gender" type="text"
 										class="form-control" th:if="${assi.gender}==2"
-										placeholder="성별" value="성별 : 여자" readonly />
+										placeholder="성별" value="여자" readonly />
 								</div>
 								<div class="col-md-6 pb-2 col-lg-4">
+								<label for="bankCode" class="col-form-label">은행 이름</label>
 									<input name="bankCode" type="text" class="form-control"
 										placeholder="은행" th:value="${assi.bankCode}" readonly />
 								</div>
 								<div class="col-md-6 pb-2 col-lg-4">
+								<label for="bankAccount" class="col-form-label">계좌 번호</label>
 									<input name="bankAccount" type="text" class="form-control"
 										placeholder="계좌 번호" th:value="${assi.bankAccount}" readonly />
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-6 col-lg-4">
+								<label for="workWeek" class="col-form-label">근무 요일</label>
 									<input name="workWeek" type="text" class="form-control"
 										placeholder="근무 요일" th:value="${assi.workWeek}" readonly />
 								</div>
 								<div class="col-md-6 col-lg-4">
+								<label for="price" class="col-form-label">희망 요금</label>
 									<input name="price" type="text" class="form-control"
 										placeholder="희망 요금" th:value="${assi.price}" readonly />
 								</div>
 
 								<div class="col-md-6 col-lg-4">
+								<label for="walkPlaceAddress" class="col-form-label">지역</label>
 									<input name="walkPlaceAddress" type="text" class="form-control"
 										placeholder="지역" th:value="${assi.walkPlaceAddress}" readonly />
 								</div>

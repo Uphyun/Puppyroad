@@ -85,34 +85,40 @@
 				     th:id="${assi.bulletinNo}">
 					<div class="card-body card-widget-separator">
 						<div class="row gy-4 gy-sm-1">
-							<div class="col-sm-8">
+							<div class="col-sm-9">
 							  <div class="row">
 								<div class="col-sm-2" id="img">
-									<img th:src="@{/images/{fileName}(fileName=${assi.picture})}" alt="image"
-									 class="img-fluid" onerror="this.onerror=null; this.src='/assets/main/img/no_image.png';">
+									<img th:src="@{/images/{fileName}(fileName=${assi.picture})}" 
+									alt="image"
+									 class="img-fluid" 
+									 onerror="this.onerror=null; this.src='/assets/main/img/no_image.png';">
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sm-4">
 									<h6>[[${assi.writer}]] 도그워커</h6>
 									<span>[[${assi.title}]]</span>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sm-4">
 									<h6>근무요일 : [[${assi.workWeek}]] </h6>
 									<span>[[${assi.content}]]</span>
 								</div>
 								<hr>
 							  </div>
 								<div class="row">
-									<div class="col-sm-3">
+									<div class="col-sm-2" id="img">
+									</div>
+									<div class="col-sm-4">
 										<h6>반려견 30분 산책</h6>
 										<h6>[[${assi.price}]]원</h6>
 									</div>
-									<div class="col-sm-3" id="anne">
+									<div class="col-sm-4" id="anne">
 										<h6>※시간에 유의하세요!</h6>
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-3">
-								<img th:src="@{/images/{fileName}(fileName=${assi.coverPhoto})}" alt="image" class="img-fluid"
+								<img th:src="@{/images/{fileName}(fileName=${assi.coverPhoto})}" 
+								alt="image" 
+								style="width:330px; height:220px"
 								onerror="this.onerror=null; this.src='/assets/main/img/no_image.png';">
 							</div>
 						</div>
