@@ -11,7 +11,6 @@ $(document).ready(function () {
             if (result > 0) {
                 $("#walkerMenu").text(result);
             }
-            console.log(result)
         })
         .fail(err => console.log(err));
 });

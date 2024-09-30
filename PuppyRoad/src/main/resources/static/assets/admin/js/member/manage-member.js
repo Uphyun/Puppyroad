@@ -35,7 +35,7 @@ function getMemberList(position, tableId) {
 					targets: 0,
 					searchable: false,
 					//responsivePriority: 1,
-					render: function (data, type, full, meta) {
+					render: function(data, type, full, meta) {
 						let $memberCode = full['memberCode'];
 						return '<input type="checkbox" class="form-check-input" value="' + $memberCode + '"/>';
 					}
@@ -43,7 +43,7 @@ function getMemberList(position, tableId) {
 				{	//2번째 닉네임
 					targets: 1,
 					//responsivePriority: 2,
-					render: function (data, type, full, meta) {
+					render: function(data, type, full, meta) {
 						let $nickName = full['nickName'];
 						return $nickName;
 					}
@@ -51,7 +51,7 @@ function getMemberList(position, tableId) {
 				{	//3번째 아이디
 					targets: 2,
 					//responsivePriority: 3,
-					render: function (data, type, full, meta) {
+					render: function(data, type, full, meta) {
 						let $userId = full['userId'];
 						return $userId;
 					}
@@ -60,34 +60,58 @@ function getMemberList(position, tableId) {
 					targets: 3,
 					searchable: false,
 					//responsivePriority: 4,
-					render: function (data, type, full, meta) {
+					render: function(data, type, full, meta) {
 						let $joinDate = full['joinDate'];
-						return $joinDate;
+						if ($joinDate == null || $joinDate == '' || $joinDate == undefined) {
+							return "-";
+						} else {
+							let date = new Date($joinDate);
+							let showDate = date.getFullYear() + "년 "
+								+ (date.getMonth() + 1 > 10 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) + "월 "
+								+ (date.getDate() > 10 ? date.getDate() : "0" + date.getDate()) + "일";
+							return showDate;
+						}
 					}
 				},
 				{	//5번째 활동날짜
 					targets: 4,
 					searchable: false,
 					//responsivePriority: 5,
-					render: function (data, type, full, meta) {
+					render: function(data, type, full, meta) {
 						let $activityDate = full['activityDate'];
-						return $activityDate;
+						if ($activityDate == null || $activityDate == '' || $activityDate == undefined) {
+							return "-";
+						} else {
+							let date = new Date($activityDate);
+							let showDate = date.getFullYear() + "년 "
+								+ (date.getMonth() + 1 > 10 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) + "월 "
+								+ (date.getDate() > 10 ? date.getDate() : "0" + date.getDate()) + "일";
+							return showDate;
+						}
 					}
 				},
 				{	//6번째 탈퇴날짜
 					targets: 5,
 					searchable: false,
 					//responsivePriority: 6,
-					render: function (data, type, full, meta) {
+					render: function(data, type, full, meta) {
 						let $withdrawDate = full['withdrawDate'];
-						return $withdrawDate;
+						if ($withdrawDate == null || $withdrawDate == '' || $withdrawDate == undefined) {
+							return "-";
+						} else {
+							let date = new Date($withdrawDate);
+							let showDate = date.getFullYear() + "년 "
+								+ (date.getMonth() + 1 > 10 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) + "월 "
+								+ (date.getDate() > 10 ? date.getDate() : "0" + date.getDate()) + "일";
+							return showDate;
+						}
 					}
 				},
 				{	//7번째 상세보기
 					targets: 6,
 					searchable: false,
 					//responsivePriority: 7,
-					render: function (data, type, full, meta) {
+					render: function(data, type, full, meta) {
 						let $memberCode = full['memberCode'];
 						return '<button type="button" class="btn btn-primary waves-effect waves-light viewInfo" data-bs-toggle="modal" data-bs-target="#viewUser" data-memberCode="' + $memberCode + '">상세보기</button>';
 					}
@@ -96,7 +120,7 @@ function getMemberList(position, tableId) {
 					targets: 7,
 					searchable: false,
 					//responsivePriority: 7,
-					render: function (data, type, full, meta) {
+					render: function(data, type, full, meta) {
 						let $memberCode = full['memberCode'];
 						let $accountState = full['accountState'];
 						return setStateColumn($accountState, $memberCode);
@@ -127,8 +151,8 @@ function getMemberList(position, tableId) {
 						}
 					}), */
 					type: 'column',
-					renderer: function (api, rowIdx, columns) {
-						var data = $.map(columns, function (col, i) {
+					renderer: function(api, rowIdx, columns) {
+						var data = $.map(columns, function(col, i) {
 							return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
 								? '<tr data-dt-row="' +
 								col.rowIndex +
@@ -156,7 +180,7 @@ function getMemberList(position, tableId) {
 }
 
 //선택된 조건 설정
-$("#searchDrop a").on("click", function () {
+$("#searchDrop a").on("click", function() {
 	$("#searchTypeInput").val($(event.target).text());
 	$("#searchDrop button").text($(event.target).text());
 })
@@ -199,7 +223,7 @@ function setStateColumn(state, code) {
 }
 
 //회원 상제 조회
-$('.viewInfo').on("click", function () {
+$('.viewInfo').on("click", function() {
 	let memberCode = $(event.target).data("membercode");
 
 	$.ajax({
