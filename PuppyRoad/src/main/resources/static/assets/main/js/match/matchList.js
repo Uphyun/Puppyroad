@@ -141,7 +141,7 @@ $(function () {
       
       order: [0, 'desc'], //[0]번째컬럼 내림차순
       dom:
-        `<'card-header d-flex flex-wrap py-0 flex-column flex-sm-row'
+        `<'card-header d-flex flex-wrap py-3 flex-column flex-sm-row'
         <'filter3 col-md-6'>
         <'d-flex justify-content-center justify-content-md-end align-items-baseline'<'dt-action-buttons d-flex justify-content-center flex-md-row align-items-baseline'lB>>
         >t

@@ -20,9 +20,8 @@
       rel="stylesheet" />
     
     <!-- Core CSS -->
-    <link rel="stylesheet" href="/assets/admin/vendor/css/rtl/core.css" class="template-customizer-core-css" />
     <link rel="stylesheet" href="/assets/admin/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
-    
+
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="/assets/admin/vendor/libs/node-waves/node-waves.css" />
     <link rel="stylesheet" href="/assets/admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
@@ -53,6 +52,7 @@
     
     <!-- Page CSS -->
     <link rel="stylesheet" href="/assets/admin/vendor/css/pages/app-chat.css" />
+    <link rel="stylesheet" href="/assets/main/css/chat/myChat.css" type="text/css" />
   </head>
 
   <body>
@@ -140,8 +140,7 @@
 	                                class="rounded-circle"/>
 	                            </div>
 	                            <div class="chat-contact-info flex-grow-1 ms-4">
-	                              <div
-	                                class="d-flex justify-content-between align-items-center">
+	                              <div class="d-flex justify-content-between align-items-center">
 	                                <h6 class="chat-contact-name text-truncate m-0 fw-normal" th:id="${room.roomName}"  th:name="${room.matchNo}">
 	                                  [[${room.roomName}]]
 	                                </h6>
@@ -154,9 +153,12 @@
 						<small class="text-muted" th:if = "${room.matchingState}==4" 
 						th:id="${room.matchingState}" th:text="비활성"></small>
 	                              </div>
-	                              <small class="chat-contact-status text-truncate" th:id="${room.nickName}">
-	                              	[[${room.nickName}]]
-	                              </small>
+	                              <div class="d-flex justify-content-between align-items-center">
+		                              <small class="chat-contact-name text-truncate" th:id="${room.nickName}">
+		                              	[[${room.nickName}]]
+		                              </small>
+		                              <small class="text-muted">[[${room.matchingKind}]]매칭</small>
+	                              </div>
 	                              <input type="hidden" th:value="${room.recipient}" id=recipient/>
 	                              <input type="hidden" th:value="${room.sender}" id=sender/>
 	                            </div>
@@ -323,7 +325,7 @@
                 <div class="d-flex justify-content-sm-between justify-content-start mt-6 gap-2">
                   <div class="d-flex">
                     <button type="button" 
-                     id="addSchedul" class="btn btn-primary btn-add-event me-4">
+                     id="addSchedul" class="btn-primary btn-add-event me-4">
                       신청
                     </button>
                     <button

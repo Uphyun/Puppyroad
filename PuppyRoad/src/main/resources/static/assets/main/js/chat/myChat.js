@@ -223,11 +223,7 @@ $(document).ready(function() {
 			//캘린더 아이콘의 신청버튼 토글느낌
 			if (matchingState == 1) {
 				$('#addSchedul').show();
-			} else if (matchingState == 2) {
-				$('#addSchedul').hide();
-			} else if (matchingState == 3) {
-				$('#addSchedul').hide();
-			} else if (matchingState == 4) {
+			} else  {
 				$('#addSchedul').hide();
 			}
 
