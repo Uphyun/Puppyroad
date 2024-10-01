@@ -10,4 +10,6 @@ public interface DogWalkerSerivce {
 	public DogWalkVO walkerInfo(String memberCode);
 	//정보 개수 조회
 	public int countWalkInfo();
+	
+	public boolean walkerInfoCount(String memberCode);
 }

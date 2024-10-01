@@ -44,5 +44,13 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 	public PetStarProfileVO getMyPorfile(PetStarProfileVO petStarProfileVO) {
 		return chatMapper.selectMyProfile(petStarProfileVO);
 	}
+	
+	@Override
+	public int checkChatRoom(int bulletinNo) {
+		// TODO 채팅방 수 확인
+		int bno = chatMapper.checkChatRoom(bulletinNo);
+		return bno;
+	}
+
 
 }

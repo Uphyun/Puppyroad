@@ -111,9 +111,12 @@
 		        P.purchased_at,
 		        P.status,
                 m.name
-	    FROM    payment P JOIN member m
+	    FROM    payment P LEFT JOIN member m
                             ON  P.recipient = m.user_id
 	    where P.sender = #{sender}
+	    <![CDATA[
+	    and   rownum <= 5
+	    ]]>  
 	    order by purchased_at DESC
 	</select>
 	

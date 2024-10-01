@@ -18,6 +18,7 @@ import com.puppyroad.app.match.service.MatchVO;
 import com.puppyroad.app.match.service.MatchingPuppyVO;
 import com.puppyroad.app.puppy.service.PuppyVO;
 import com.puppyroad.app.util.SecurityUtil;
+import com.puppyroad.app.websocket.service.ChatRoomService;
 
 
 @Controller
@@ -25,7 +26,8 @@ public class MatchController {
 	
 	@Autowired
 	MatchService matchService;
-	
+	@Autowired
+	ChatRoomService chatRoomService;
 	
 	@GetMapping("user/match")
 	public String match(Model model) {
@@ -166,10 +168,8 @@ public class MatchController {
 	// 매칭채팅 확인
 	@GetMapping("user/matchChatCheck")
 	@ResponseBody // AJAX
-	public int matchChatCheck() {
-
-		
-		int bno = 0;
+	public int matchChatCheck(int bulletinNo) {
+		int bno = chatRoomService.checkChatRoom(bulletinNo);
 		return bno;
 	}
 	

@@ -20,5 +20,8 @@ public interface ChatMapper {
 	public ChatRoomDTO selectRoomInfo(ChatRoomDTO chatRoomDTO);
 	// 단건 내 프로필
 	public PetStarProfileVO selectMyProfile(PetStarProfileVO petStarProfileVO);
+	
+	// 방갯수 확인
+	public int checkChatRoom(int bulletinNo);
 
 }

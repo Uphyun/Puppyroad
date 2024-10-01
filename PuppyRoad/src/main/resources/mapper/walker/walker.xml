@@ -78,10 +78,18 @@
     FROM walker_add_info
     WHERE MEMBER_CODE = #{memberCode}
 </select>	
+
 <select id="countWalkInfo">
 	SELECT count(*)
 	FROM walker_add_info;
 </select>
 	
+
+<!-- 워커정보 카운트 -->
+<select id="walkerInfoCount">
+	SELECT COUNT(*) 
+	FROM walker_add_info 
+	WHERE member_code = #{memberCode}
+</select>
 
 </mapper>

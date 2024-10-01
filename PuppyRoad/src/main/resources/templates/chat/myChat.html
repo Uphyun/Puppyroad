@@ -1,407 +1,270 @@
 <!DOCTYPE html>
-<html
-  lang="ko"
-  xmlns:th="https://www.thymeleaf.org/"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-  layout:decorate="~{common/layouts/default_layout}"
-  layout:fragment="Content"
->
-  <head>
-    <meta charset="UTF-8" />
+<html lang="ko" xmlns:th="https://www.thymeleaf.org/"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="/assets/main/css/chat/myChat.css"
+	type="text/css" />
+</head>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/assets/admin/img/favicon/favicon.ico" />
-   
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&ampdisplay=swap"
-      rel="stylesheet" />
-    
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="/assets/admin/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
+<body>
+	<!-- Layout wrapper -->
+	<div class="layout-wrapper layout-content-navbar">
+		<div class="layout-container">
+			<!-- Layout container -->
+			<div class="layout-page">
+				<!-- Content wrapper -->
+				<div class="content-wrapper">
+					<!-- Content -->
 
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="/assets/admin/vendor/libs/node-waves/node-waves.css" />
-    <link rel="stylesheet" href="/assets/admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="/assets/admin/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="/assets/admin/vendor/libs/fullcalendar/fullcalendar.css" />
-    <link rel="stylesheet" href="/assets/admin/vendor/libs/flatpickr/flatpickr.css" />
-    <link rel="stylesheet" href="/assets/admin/vendor/libs/select2/select2.css" />
-    <link rel="stylesheet" href="/assets/admin/vendor/libs/quill/editor.css" />
-    <link rel="stylesheet" href="/assets/admin/vendor/libs/@form-validation/form-validation.css" />
-    
-    <!-- Page CSS -->
-    <link rel="stylesheet" href="/assets/admin/vendor/css/pages/app-calendar.css" />
-    
-    <!-- Helpers -->
-    <script src="/assets/admin/vendor/js/helpers.js"></script>
-    <script src="/assets/admin/vendor/js/template-customizer.js"></script>
-    <script src="/assets/admin/js/config.js"></script>
-    
-    <!-- Icons -->
-    <link rel="stylesheet" href="/assets/admin/vendor/fonts/fontawesome.css" />
-    <link rel="stylesheet" href="/assets/admin/vendor/fonts/tabler-icons.css" />
-    <link rel="stylesheet" href="/assets/admin/vendor/fonts/flag-icons.css" />
-    <link rel="stylesheet" href="/assets/admin/css/demo.css" />
-    <link rel="stylesheet" href="/assets/admin/vendor/libs/bs-stepper/bs-stepper.css" />
+					<div class="container-xxl flex-grow-1 container-p-y">
+						<div class="app-chat card overflow-hidden">
+							<div class="row g-0">
+								<!-- 채팅방 -->
+								<div
+									class="col app-chat-contacts app-sidebar flex-grow-0 overflow-hidden border-end"
+									id="app-chat-contacts">
+									<div
+										class="sidebar-header h-px-75 px-5 border-bottom d-flex align-items-center">
+										<div class="d-flex align-items-center me-6 me-lg-0">
+											<div class="flex-shrink-0 avatar me-4"
+												data-bs-toggle="sidebar" data-overlay="app-overlay-ex"
+												data-target="#app-chat-sidebar-left">
+												<img class="user-avatar rounded-circle cursor-pointer"
+													th:src="@{/images/{fileName}(fileName=${myPro.profilePicture})}"
+													alt="img"
+													onerror="this.onerror=null; this.src='/assets/main/img/profile.png';" />
+											</div>
+											<div class="flex-grow-1 input-group input-group-merge">
+												<span class="input-group-text" id="basic-addon-search31"><i
+													class="ti ti-search"></i></span> <input type="text"
+													class="form-control chat-search-input" placeholder="채팅방 검색"
+													aria-label="Search..."
+													aria-describedby="basic-addon-search31" />
+											</div>
+										</div>
+										<i
+											class="ti ti-x ti-lg cursor-pointer position-absolute top-50 end-0 translate-middle d-lg-none d-block"
+											data-overlay data-bs-toggle="sidebar"
+											data-target="#app-chat-contacts"></i>
+									</div>
+									<div class="sidebar-body">
+										<!-- 채팅 -->
+										<ul class="list-unstyled chat-contact-list py-2 mb-0"
+											id="chat-list">
+											<li
+												class="chat-contact-list-item chat-contact-list-item-title mt-0">
+												<h5 class="text-primary mb-0">Chat</h5>
+											</li>
+											<li class="chat-contact-list-item chat-list-item-0 d-none">
+												<h6 class="text mb-0">No Chats Found</h6>
+											</li>
 
-    <!-- Helpers -->
-    <link rel="stylesheet" href="/assets/admin/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.css"/>
-    
-    <!-- Page CSS -->
-    <link rel="stylesheet" href="/assets/admin/vendor/css/pages/app-chat.css" />
-    <link rel="stylesheet" href="/assets/main/css/chat/myChat.css" type="text/css" />
-  </head>
+											<th:block th:each="room: ${myList}">
 
-  <body>
-    <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
-      <div class="layout-container">
-        <!-- Layout container -->
-        <div class="layout-page">
-          <!-- Content wrapper -->
-          <div class="content-wrapper">
-            <!-- Content -->
+												<li class="chat-contact-list-item mb-1 room"
+													th:id="${room.roomId}" th:name="${room.recipient}"><a
+													class="d-flex align-items-center">
+														<div class="flex-shrink-0 avatar">
+															<img
+																th:src="@{/images/{fileName}(fileName=${room.profilePicture})}"
+																th:id="${room.matchingKind}" alt="Avatar"
+																class="rounded-circle"
+																onerror="this.onerror=null; this.src='/assets/main/img/profile.png'" />
+														</div>
+														<div class="chat-contact-info flex-grow-1 ms-4">
+															<div
+																class="d-flex justify-content-between align-items-center">
+																<h6
+																	class="chat-contact-name text-truncate m-0 fw-normal"
+																	th:id="${room.roomName}" th:name="${room.matchNo}">
+																	[[${room.roomName}]]</h6>
+																<small class="text-muted"
+																	th:if="${room.matchingState}==1"
+																	th:id="${room.matchingState}" th:text="매칭중" name="abc"></small>
+																<small class="text-muted"
+																	th:if="${room.matchingState}==2"
+																	th:id="${room.matchingState}" th:text="매칭예약"></small> <small
+																	class="text-muted" th:if="${room.matchingState}==3"
+																	th:id="${room.matchingState}" th:text="매칭완료"></small> <small
+																	class="text-muted" th:if="${room.matchingState}==4"
+																	th:id="${room.matchingState}" th:text="비활성"></small>
+															</div>
+															<div
+																class="d-flex justify-content-between align-items-center">
+																<small class="chat-contact-name text-truncate"
+																	th:id="${room.nickName}"> [[${room.nickName}]]
+																</small> <small class="text-muted">[[${room.matchingKind}]]매칭</small>
+															</div>
+															<input type="hidden" th:value="${room.recipient}"
+																id=recipient /> <input type="hidden"
+																th:value="${room.sender}" id=sender />
+														</div>
+												</a></li>
 
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="app-chat card overflow-hidden">
-                <div class="row g-0">
-                  <!-- 채팅방 -->
-                  <div
-                    class="col app-chat-contacts app-sidebar flex-grow-0 overflow-hidden border-end"
-                    id="app-chat-contacts"
-                  >
-                    <div
-                      class="sidebar-header h-px-75 px-5 border-bottom d-flex align-items-center"
-                    >
-                      <div class="d-flex align-items-center me-6 me-lg-0">
-                        <div
-                          class="flex-shrink-0 avatar me-4"
-                          data-bs-toggle="sidebar"
-                          data-overlay="app-overlay-ex"
-                          data-target="#app-chat-sidebar-left"
-                        >
-                          <img
-                            class="user-avatar rounded-circle cursor-pointer"
-                            th:src="@{/images/{fileName}(fileName=${myPro.profilePicture})}"
-                            alt="img"
-                            onerror="this.onerror=null; this.src='/assets/main/img/profile.png';"
-                          />
-                        </div>
-                        <div class="flex-grow-1 input-group input-group-merge">
-                          <span
-                            class="input-group-text"
-                            id="basic-addon-search31"
-                            ><i class="ti ti-search"></i
-                          ></span>
-                          <input
-                            type="text"
-                            class="form-control chat-search-input"
-                            placeholder="채팅방 검색"
-                            aria-label="Search..."
-                            aria-describedby="basic-addon-search31"
-                          />
-                        </div>
-                      </div>
-                      <i
-                        class="ti ti-x ti-lg cursor-pointer position-absolute top-50 end-0 translate-middle d-lg-none d-block"
-                        data-overlay
-                        data-bs-toggle="sidebar"
-                        data-target="#app-chat-contacts"
-                      ></i>
-                    </div>
-                    <div class="sidebar-body">
-                      <!-- 채팅 -->
-                      <ul
-                        class="list-unstyled chat-contact-list py-2 mb-0"
-                        id="chat-list"
-                      >
-                        <li
-                          class="chat-contact-list-item chat-contact-list-item-title mt-0"
-                        >
-                          <h5 class="text-primary mb-0">Chat</h5>
-                        </li>
-                        <li
-                          class="chat-contact-list-item chat-list-item-0 d-none"
-                        >
-                          <h6 class="text mb-0">No Chats Found</h6>
-                        </li>
-                        
-                        <th:block th:each="room: ${myList}">
-                        
-	                        <li class="chat-contact-list-item mb-1 room" th:id="${room.roomId}" th:name="${room.recipient}">
-	                          <a class="d-flex align-items-center">
-	                            <div class="flex-shrink-0 avatar">
-	                              <img
-	                                th:src="@{/images/{fileName}(fileName=${room.profilePicture})}"
-	                                th:id = "${room.matchingKind}"
-	                                alt="Avatar"
-	                                class="rounded-circle"
-	                                onerror="this.onerror=null; this.src='/assets/main/img/profile.png'"
-	                                />
-	                            </div>
-	                            <div class="chat-contact-info flex-grow-1 ms-4">
-	                              <div class="d-flex justify-content-between align-items-center">
-	                                <h6 class="chat-contact-name text-truncate m-0 fw-normal" th:id="${room.roomName}"  th:name="${room.matchNo}">
-	                                  [[${room.roomName}]]
-	                                </h6>
-	                    <small class="text-muted" th:if = "${room.matchingState}==1" 
-	                    th:id="${room.matchingState}" th:text="매칭중" name="abc"></small>
-						<small class="text-muted" th:if = "${room.matchingState}==2" 
-						th:id="${room.matchingState}" th:text="매칭예약"></small>
-						<small class="text-muted" th:if = "${room.matchingState}==3" 
-						th:id="${room.matchingState}" th:text="매칭완료"></small>
-						<small class="text-muted" th:if = "${room.matchingState}==4" 
-						th:id="${room.matchingState}" th:text="비활성"></small>
-	                              </div>
-	                              <div class="d-flex justify-content-between align-items-center">
-		                              <small class="chat-contact-name text-truncate" th:id="${room.nickName}">
-		                              	[[${room.nickName}]]
-		                              </small>
-		                              <small class="text-muted">[[${room.matchingKind}]]매칭</small>
-	                              </div>
-	                              <input type="hidden" th:value="${room.recipient}" id=recipient/>
-	                              <input type="hidden" th:value="${room.sender}" id=sender/>
-	                            </div>
-	                          </a>
-	                        </li>
-                        
-                        </th:block>
-                        
-                      </ul>
-                    </div>
-                  </div>
-                  <!-- /채팅방 -->
+											</th:block>
 
-                  <!-- Chat History -->
-                  <div class="col app-chat-history">
-                    <div class="chat-history-wrapper">
-                      <div class="chat-history-header border-bottom">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div class="d-flex overflow-hidden align-items-center"  id="chatProfile">
-                            <i
-                              class="ti ti-menu-2 ti-lg cursor-pointer d-lg-none d-block me-4"
-                              data-bs-toggle="sidebar"
-                              data-overlay
-                              data-target="#app-chat-contacts"></i>
-                            <div class="flex-shrink-0 avatar">
-                              <img
-                                src=""
-                                alt="임시"
-                                class="rounded-circle"
-                                onerror="this.onerror=null; this.src='/assets/main/img/profile.png'"
-                                data-bs-toggle="sidebar"
-                                data-overlay
-                                data-target="#app-chat-sidebar-right"/>
-                            </div>
-                            <div class="chat-contact-info flex-grow-1 ms-4">
-                              <h6 class="m-0 fw-normal">방 이름</h6>
-                             <small class="user-status text-body">닉네임</small>
-                            </div>
-                          </div>
-                          <div class="d-flex align-items-center" id="appCal">
-                            <i class="ti ti-schedule ti-md cursor-pointer d-sm-inline-flex d-none me-1 
+										</ul>
+									</div>
+								</div>
+								<!-- /채팅방 -->
+
+								<!-- Chat History -->
+								<div class="col app-chat-history">
+									<div class="chat-history-wrapper">
+										<div class="chat-history-header border-bottom">
+											<div
+												class="d-flex justify-content-between align-items-center">
+												<div class="d-flex overflow-hidden align-items-center"
+													id="chatProfile">
+													<i
+														class="ti ti-menu-2 ti-lg cursor-pointer d-lg-none d-block me-4"
+														data-bs-toggle="sidebar" data-overlay
+														data-target="#app-chat-contacts"></i>
+													<div class="flex-shrink-0 avatar">
+														<img src="" alt="임시" class="rounded-circle"
+															onerror="this.onerror=null; this.src='/assets/main/img/profile.png'"
+															data-bs-toggle="sidebar" data-overlay
+															data-target="#app-chat-sidebar-right" />
+													</div>
+													<div class="chat-contact-info flex-grow-1 ms-4">
+														<h6 class="m-0 fw-normal">방 이름</h6>
+														<small class="user-status text-body">닉네임</small>
+													</div>
+												</div>
+												<div class="d-flex align-items-center" id="appCal">
+													<i
+														class="ti ti-schedule ti-md cursor-pointer d-sm-inline-flex d-none me-1 
                             btn btn-sm btn-text-secondary text-secondary btn-icon rounded-pill"></i>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="chat-history-body">
-                        <ul class="list-unstyled chat-history">
-                        </ul>
-                      </div>
-                      <!-- Chat message form -->
-                      <div class="chat-history-footer shadow-xs">
-                        <form class="form-send-message d-flex justify-content-between align-items-center">
-                          <input
-                            class="form-control message-input border-0 me-4 shadow-none"
-                            id="msg"
-                            placeholder="메세지 입력"
-                          />
-                          <div class="message-actions d-flex align-items-center">
-                            <label for="attach-doc" class="form-label mb-0">
-                              <input type="file" id="attach-doc" hidden />
-                            </label>
-                            <button class="btn btn-primary d-flex send-msg-btn" id="button-send">
-                              <span
-                                class="align-middle d-md-inline-block d-none"
-                                >Send</span
-                              >
-                              <i class="ti ti-send ti-16px ms-md-2 ms-0"></i>
-                            </button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /Chat History -->
+												</div>
+											</div>
+										</div>
+										<div class="chat-history-body">
+											<ul class="list-unstyled chat-history">
+											</ul>
+										</div>
+										<!-- Chat message form -->
+										<div class="chat-history-footer shadow-xs">
+											<form
+												class="form-send-message d-flex justify-content-between align-items-center">
+												<input
+													class="form-control message-input border-0 me-4 shadow-none"
+													id="msg" placeholder="메세지 입력" />
+												<div class="message-actions d-flex align-items-center">
+													<label for="attach-doc" class="form-label mb-0"> <input
+														type="file" id="attach-doc" hidden />
+													</label>
+													<button class="btn btn-primary d-flex send-msg-btn"
+														id="button-send">
+														<span class="align-middle d-md-inline-block d-none">Send</span>
+														<i class="ti ti-send ti-16px ms-md-2 ms-0"></i>
+													</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+								<!-- /Chat History -->
 
-                  <div class="app-overlay"></div>
-                </div>
-              </div>
-            </div>
-            <!-- / Content -->
+								<div class="app-overlay"></div>
+							</div>
+						</div>
+					</div>
+					<!-- / Content -->
 
-            <div class="content-backdrop fade"></div>
-          </div>
-          <!-- Content wrapper -->
-        </div>
-        <!-- / Layout page -->
-      </div>
-      
+					<div class="content-backdrop fade"></div>
+				</div>
+				<!-- Content wrapper -->
+			</div>
+			<!-- / Layout page -->
+		</div>
 
 
-      <!-- Overlay -->
-      <div class="layout-overlay layout-menu-toggle"></div>
 
-      <!-- Drag Target Area To SlideIn Menu On Small Screens -->
-      <div class="drag-target"></div>
-    </div>
-    <!-- / Layout wrapper -->
-    
-  <!-- Schedule Modal -->    
-  <div class="container-xxl flex-grow-1 container-p-y">
-    <div class="card app-calendar-wrapper">
-      <div class="row g-0">
-      
-        <!-- Calendar & Modal -->
-        <div class="col app-calendar-content">
-          <div class="card shadow-none border-0">
-          </div>
-          <!-- FullCalendar Offcanvas -->
-          <div
-            class="offcanvas offcanvas-end event-sidebar"
-            tabindex="-1"
-            id="addEventSidebar"
-            aria-labelledby="addEventSidebarLabel">
-            <div class="offcanvas-header border-bottom">
-              <h5 class="offcanvas-title" id="addEventSidebarLabel">일정 조율</h5>
-              <button
-                type="button"
-                class="btn-close text-reset"
-                data-bs-dismiss="offcanvas"
-                aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-              <form class="event-form pt-0" id="eventForm">
-                <div class="mb-5">
-                  <label class="form-label" for="walkPlaceAddress">도시</label>
-                  <input
-                  	readonly
-                    type="text"
-                    class="form-control"
-                    id="walkPlaceAddress"
-                    name="walkPlaceAddress"
-                    placeholder="도시" />
-                </div>
-                <div class="mb-5">
-                  <label class="form-label" for="eventStartDate">시작 시간</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="eventStartDate"
-                    name="eventStartDate"
-                    placeholder="시작 시간" />
-                </div>
-                <div class="mb-5">
-                  <label class="form-label" for="eventEndDate">종료 시간</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="eventEndDate"
-                    name="eventEndDate"
-                    placeholder="종료 시간" />
-                </div>
-                <div class="mb-4 select2-primary">
-                  <label class="form-label" for="eventGuests">반려견 추가</label>
-                  <select
-                    class="select2 select-event-guests form-select"
-                    id="myDogs"
-                    name="myDogs"
-                    multiple>
-                    <th:block th:each="dogs : ${myDogs}" >
-	                    <option th:data-value="${dogs.puppyCode}">[[${dogs.dogName}]]</option>
-	                </th:block>
-                  </select>
-                </div>
-                
-                <div class="d-flex justify-content-sm-between justify-content-start mt-6 gap-2">
-                  <div class="d-flex">
-                    <button type="button" 
-                     id="addSchedul" class="btn-primary btn-add-event me-4">
-                      신청
-                    </button>
-                    <button
-                      type="reset"
-                      class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
-                      data-bs-dismiss="offcanvas">
-                      취소
-                    </button>
-                  </div>
-                  <button class="btn btn-label-danger btn-delete-event d-none">Delete</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        <!-- /Calendar & Modal -->
-      </div>
-    </div>
-  </div>
-    <!-- / Schedule Modal -->
-  
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="/assets/admin/vendor/libs/jquery/jquery.js"></script>
-    <script src="/assets/admin/vendor/libs/popper/popper.js"></script>
-    <script src="/assets/admin/vendor/js/bootstrap.js"></script>
-    <script src="/assets/admin/vendor/libs/node-waves/node-waves.js"></script>
-    <script src="/assets/admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="/assets/admin/vendor/libs/hammer/hammer.js"></script>
-    <script src="/assets/admin/vendor/libs/i18n/i18n.js"></script>
-    <script src="/assets/admin/vendor/libs/typeahead-js/typeahead.js"></script>
-    <script src="/assets/admin/vendor/js/menu.js"></script>
-    <!-- endbuild -->
-    
-    <!-- Vendors JS -->
-    <script src="/assets/admin/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.js"></script>
-    <script src="/assets/admin/vendor/libs/fullcalendar/fullcalendar.js"></script>
-    <script src="/assets/admin/vendor/libs/@form-validation/popular.js"></script>
-    <script src="/assets/admin/vendor/libs/@form-validation/bootstrap5.js"></script>
-    <script src="/assets/admin/vendor/libs/@form-validation/auto-focus.js"></script>
-    <script src="/assets/admin/vendor/libs/select2/select2.js"></script>
-    <script src="/assets/admin/vendor/libs/moment/moment.js"></script>
-    <script src="/assets/admin/vendor/libs/flatpickr/flatpickr.js"></script>
-    <script src="/assets/admin/vendor/libs/cleavejs/cleave.js"></script>
-    <script src="/assets/admin/vendor/libs/cleavejs/cleave-phone.js"></script>
-    <script src="/assets/admin/vendor/libs/bs-stepper/bs-stepper.js"></script>
-    
-    <!-- Main JS -->
-    <script src="/assets/admin/js/main.js"></script>
-    <!-- Page JS -->
-    <script src="/assets/admin/js/app-chat.js"></script>
-    <script src="/assets/admin/js/app-calendar-events.js"></script>
-    <script src="/assets/main/js/chat/app-calendar.js"></script>
+		<!-- Overlay -->
+		<div class="layout-overlay layout-menu-toggle"></div>
 
-    <script src="/assets/main/js/chat/myChat.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+		<!-- Drag Target Area To SlideIn Menu On Small Screens -->
+		<div class="drag-target"></div>
+	</div>
+	<!-- / Layout wrapper -->
 
-    <!-- Page JS -->
-    <script src="/assets/admin/js/pages-pricing.js"></script>
-    <script src="/assets/admin/js/modal-create-app.js"></script>
-    <script src="/assets/admin/js/modal-add-new-cc.js"></script>
-    <script src="/assets/admin/js/modal-add-new-address.js"></script>
-    <script src="/assets/admin/js/modal-edit-user.js"></script>
-    <script src="/assets/admin/js/modal-enable-otp.js"></script>
-    <script src="/assets/admin/js/modal-share-project.js"></script>
-    <script src="/assets/admin/js/modal-two-factor-auth.js"></script>
-   
-    <script th:inline="javascript">
+	<!-- Schedule Modal -->
+	<div class="container-xxl flex-grow-1 container-p-y">
+		<div class="card app-calendar-wrapper">
+			<div class="row g-0">
+
+				<!-- Calendar & Modal -->
+				<div class="col app-calendar-content">
+					<div class="card shadow-none border-0"></div>
+					<!-- FullCalendar Offcanvas -->
+					<div class="offcanvas offcanvas-end event-sidebar" tabindex="-1"
+						id="addEventSidebar" aria-labelledby="addEventSidebarLabel">
+						<div class="offcanvas-header border-bottom">
+							<h5 class="offcanvas-title" id="addEventSidebarLabel">일정 조율</h5>
+							<button type="button" class="btn-close text-reset"
+								data-bs-dismiss="offcanvas" aria-label="Close"></button>
+						</div>
+						<div class="offcanvas-body">
+							<form class="event-form pt-0" id="eventForm">
+								<div class="mb-5">
+									<label class="form-label" id="cityLabel" for="walkPlaceAddress">도시</label>
+									<input readonly type="text" class="form-control"
+										id="walkPlaceAddress" name="walkPlaceAddress" placeholder="도시" />
+								</div>
+								<div class="mb-5">
+									<label class="form-label" for="eventStartDate">시작 시간</label> <input
+										type="text" class="form-control" id="eventStartDate"
+										name="eventStartDate" placeholder="시작 시간" />
+								</div>
+								<div class="mb-5">
+									<label class="form-label" for="eventEndDate">종료 시간</label> <input
+										type="text" class="form-control" id="eventEndDate"
+										name="eventEndDate" placeholder="종료 시간" />
+								</div>
+								<div class="mb-4 select2-primary">
+									<label class="form-label" id="dogLabel" for="eventGuests">댕댕이
+										추가</label> <select class="select2 select-event-guests form-select"
+										id="myDogs" name="myDogs" multiple>
+										<th:block th:each="dogs : ${myDogs}">
+											<option th:data-value="${dogs.puppyCode}">[[${dogs.dogName}]]</option>
+										</th:block>
+									</select>
+								</div>
+
+								<div
+									class="d-flex justify-content-sm-between justify-content-start mt-6 gap-2">
+									<div class="d-flex">
+										<button type="button" id="addSchedul"
+											class="btn-primary btn-add-event me-4">예약</button>
+										<button type="reset"
+											class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
+											data-bs-dismiss="offcanvas">취소</button>
+									</div>
+									<button class="btn btn-label-danger btn-delete-event d-none">Delete</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- /Calendar & Modal -->
+			</div>
+		</div>
+	</div>
+	<!-- / Schedule Modal -->
+
+	<script src="/assets/main/js/chat/myChat.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+	<script th:inline="javascript">
     var username = [[${#authentication.principal.username}]];
     var myProfile = [[${myPro.profilePicture}]];
     </script>
-    
-  </body>
+
+</body>
 </html>

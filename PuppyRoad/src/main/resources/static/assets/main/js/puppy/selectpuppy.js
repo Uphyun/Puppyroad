@@ -131,7 +131,6 @@ $(document).ready(function(){
 	$.ajax({
 		url: '/user/payList',
 		method: 'GET'
-		
 	}).done((result)=>{
 		console.log(result);
 		for(let res of result){
