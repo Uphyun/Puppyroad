@@ -97,7 +97,6 @@
 	border-bottom: 1px solid #ccc;
 }
 
-/* 숨겨진 댓글도 동일한 레이아웃 유지 */
 .comment-item.hidden-comment {
 	display: none;
 }
