@@ -338,7 +338,7 @@ $(document).ready(function() {
 					success: function(datas) {
 						if (datas.result = 1) {
 							alert("성공적으로 예약되었습니다.");
-							location.href = '/user/matchList'
+							location.href = '/user/myMatchingList'
 						} else {
 							alert("예약 오류")
 						}
