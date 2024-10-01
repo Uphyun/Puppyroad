@@ -1,0 +1,16 @@
+#image_container {
+    display: flex;
+    justify-content: center;  /* 가운데 정렬 */
+    gap: 10px; /* 이미지 사이의 간격 설정 */
+    flex-wrap: wrap; /* 이미지가 많을 경우 자동 줄바꿈 */
+}
+
+#image_container img {
+    max-width: 100px; /* 이미지 너비 설정 */
+    max-height: 100px; /* 이미지 높이 설정 */
+    object-fit: cover; /* 이미지 비율 유지하며 자름 */
+    border-radius: 4px; /* 모서리 둥글게 */
+    border: 1px solid #ced4da; /* 이미지 테두리 */
+}
+
+

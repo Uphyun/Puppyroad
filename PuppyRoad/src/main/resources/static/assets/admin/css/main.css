@@ -19,17 +19,14 @@
 	object-fit: contain;
 }
 
-/* 간격 문제 해결을 위해 이미지 오른쪽에 마진 추가 */
 .image-container img {
 	margin-right: 20px;
 }
 
-/* 텍스트 컨테이너의 최소 높이 설정 */
 .text-container {
 	min-height: 200px;
 }
 
-/* 버튼 hover 및 active 스타일 */
 .process-btn:hover {
 	background-color: #00ffff;
 	color: white;

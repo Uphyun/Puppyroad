@@ -207,7 +207,7 @@ public class PetstarBulletinController {
 	@GetMapping("user/bulletinDelete")
 	public String bulletinDelete(@RequestParam Integer no) {
 		bulletinService.removeBulletin(no);
-		return "redirect:/user/mypage";
+		return "redirect:/user/petstar";
 	}
 
 }

@@ -13,6 +13,9 @@
 
 <body>
 	<section class="first-section-pt">
+		<h5 style="text-align: center; margin: 0 auto;" class="mb-5">
+			<i class="menu-icon tf-icons ti ti-paw"></i>펫스타 그램
+		</h5>
 		<div style="display: flex;">
 
 			<!-- Aside 메뉴 -->
@@ -42,16 +45,14 @@
 			<!-- End Aside -->
 
 			<!-- 게시글과 댓글 목록 그리드 -->
-			<h5 style="text-align: center;  margin: 0 auto;" class="mb-5">
-				<i class="menu-icon tf-icons ti ti-paw"></i>펫스타 그램
-			</h5>
+
 			<div class="post-comment-grid mt-5">
 				<th:block th:each="info : ${bulletin}">
 					<div class="post-comment-item">
 						<!-- 게시글 -->
-						<div class="card border-primary border shadow-none">
+						<div class="card border shadow-none">
 							<div class="card-body position-relative pt-4 mb-5"
-								style="cursor: pointer;"
+								style="cursor: pointer; height: 300px;"
 								th:onClick="|location.href='@{/user/bulletinInfo(bulletinNo=${info.bulletinNo})}'|">
 								<div class="author-info">
 									<!-- 프로필 이미지 -->
@@ -67,17 +68,21 @@
 
 								<div id="image_container" class="my-5 pt-6 text-center">
 									<img
-										th:each="fileName : ${#strings.arraySplit(info.attachedFile, ',')}"
+										th:each="fileName, stat : ${#strings.arraySplit(info.attachedFile, ',')}"
+										th:if="${stat.index < 1}"
 										th:src="@{/images/{fileName}(fileName=${fileName})}"
-										alt="첨부파일 이미지">
+										alt="첨부파일 이미지"> <span
+										th:if="${info.attachedFile != null and #strings.arraySplit(info.attachedFile, ',').length > 1}">.
+										. .</span>
 								</div>
-								<p th:utext="${info.content}"
-									style="white-space: pre-wrap; text-align: center;"></p>
+								<p class="bulletinContent" th:utext="${info.content}"></p>
 							</div>
 						</div>
 
 						<!-- 게시글 댓글 목록 -->
-						<div class="comment-list mt-5"
+						<p class="mt-5 mb-0">댓글 개수: [[
+							${commentsMap[info.bulletinNo].size()} ]]</p>
+						<div class="comment-list mt-0"
 							th:attr="id='commentList_' + ${info.bulletinNo}">
 							<th:block th:each="com, stat : ${commentsMap[info.bulletinNo]}">
 								<div th:class="${stat.index < 3 ? '' : 'hidden-comment'}"
@@ -97,7 +102,7 @@
 
 							<!-- 댓글 더보기 버튼 -->
 							<br>
-							<p>댓글 개수: [[ ${commentsMap[info.bulletinNo].size()} ]]</p>
+
 							<button class="btn btn-link"
 								th:if="${commentsMap[info.bulletinNo].size() > 3}"
 								th:attr="id='moreCommentsBtn_' + ${info.bulletinNo}"
