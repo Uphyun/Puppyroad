@@ -13,4 +13,5 @@ public interface DogWalkerMapper {
 	//도그워커정보갯수조회
 	public int countWalkInfo();
 
+	public int walkerInfoCount(String memberCode);
 }

@@ -123,46 +123,7 @@
 					</div>
 					<!-- /결제내역 -->
 
-					<!-- Invoice table -->
-					<div class="card mb-4">
-						<div class="card-datatable table-responsive">
-							<div id="DataTables_Table_0_wrapper"
-								class="dataTables_wrapper dt-bootstrap5 no-footer">
-								<div class="row mx-6">
-									<div
-										class="col-sm-6 col-12 d-flex align-items-center justify-content-center justify-content-sm-start mt-6 mt-sm-0">
-										<div class="invoice-head-label">
-											<h5 class="card-title mb-0">Invoice List</h5>
-										</div>
-									</div>
-									<div
-										class="col-sm-6 col-12 d-flex justify-content-center justify-content-md-end align-items-baseline">
-										<div
-											class="dt-action-buttons d-flex justify-content-center flex-md-row align-items-baseline gap-2">
-											<div class="dataTables_length" id="DataTables_Table_0_length">
-												<label>Show <select name="DataTables_Table_0_length"
-													aria-controls="DataTables_Table_0" class="form-select"><option
-															value="10">10</option>
-														<option value="25">25</option>
-														<option value="50">50</option>
-														<option value="100">100</option></select></label>
-											</div>
-											<div class="dt-buttons btn-group flex-wrap">
-												<div class="btn-group">
-													<button
-														class="btn btn-secondary buttons-collection dropdown-toggle btn-label-secondary float-sm-end mb-3 mb-sm-0 waves-effect waves-light"
-														tabindex="0" aria-controls="DataTables_Table_0"
-														type="button" aria-haspopup="dialog" aria-expanded="false">
-														<span><i class="ti ti-upload ti-xs me-2"></i>Export</span>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+
 					<!-- /Invoice table -->
 				</div>
 				<!--/ User Content -->
@@ -178,13 +139,12 @@
 							<button type="button" class="btn-close" data-bs-dismiss="modal"
 								aria-label="Close"></button>
 							<div class="text-center mb-6">
-								<h4 class="mb-2">Edit User Information</h4>
-								<p>Updating user details will receive a privacy audit.</p>
+								<h4 class="mb-2">애완견 정보 수정</h4>
 							</div>
 							<form id="editUserForm" th:action="@{/user/updatePuppy}" method="post"
 								class="row g-6 fv-plugins-bootstrap5 fv-plugins-framework" enctype="multipart/form-data"
 								 novalidate="novalidate">
-								 <div class="col-12 col-md-5 mb-4 text-center">
+								 <div class="col-12 col-md-6 text-center">
 								<label for="profilePictureEdit" style="cursor: pointer;">
 									<img id="profileImagePreview"
 									th:src="@{/images/{fileName}(fileName=${picture})}"

@@ -59,8 +59,8 @@
 						th:errors="*{age}"></div></li>
 				<li class="mb-2">		
 				<li class="mb-2"><span class="h6">성별</span>
-							<div class="col-xl-6">
-						<div class="card">
+					<div class="col-xl-6">
+						<div class="card" style="width: 400px;" >
 							<div class="card-body" style="width: 400px; margin: auto">
 								<div class="row">
 									<div class="col-md mb-md-0 mb-5">
@@ -75,7 +75,7 @@
 											</label>
 										</div>
 									</div>
-									<div class="col-md mb-md-0 mb-5">
+									<div class="col-md mb-md-0 mb-5" >
 										<div
 											class="form-check custom-option custom-option-icon checked">
 											<label class="form-check-label custom-option-content"
@@ -95,7 +95,7 @@
 					<div class="error-class" th:if="${#fields.hasErrors('gender')}"
 						th:errors="*{gender}"></div></li>
 				<li class="mb-2"><span class="h6">크기</span>
-					<div class="col-xl-6">
+					<div class="col-xl-6" style="width: 400px;">
 						<div class="card">
 							<h5 class="card-header"></h5>
 							<div class="card-body" style="width: 400px; margin: auto">
@@ -108,7 +108,7 @@
 													class="ti ti-brand-gitlab mb-2"></i> <span
 													class="custom-option-title">소형</span>
 											</span> <input name="dogSize" class="form-check-input"
-												type="radio" value="소형" id="dogSize1" checked="">
+												type="radio" value="소형" id="dogSize1"  placeholder="4마리">
 											</label>
 										</div>
 									</div>
@@ -121,19 +121,19 @@
 													class="ti ti-brand-gitlab mb-2"></i> <span
 													class="custom-option-title"> 중형 </span>
 											</span> <input name="dogSize" class="form-check-input"
-												type="radio" value="중형" id="dogSize2">
+												type="radio" value="중형" id="dogSize2"  placeholder="1마리">
 											</label>
 										</div>
 									</div>
 									<div class="col-md">
 										<div class="form-check custom-option custom-option-icon">
 											<label class="form-check-label custom-option-content"
-												for="dogSize3"> <span
-												class="custom-option-body"> <i
-													class="ti ti-brand-gitlab mb-2"></i> <span
-													class="custom-option-title"> 대형 </span>
-											</span> <input name="dogSize" class="form-check-input"
-												type="radio" value="대형" id="dogSize3">
+												for="dogSize3"> 
+												<span class="custom-option-body"> 
+													<i class="ti ti-brand-gitlab mb-2"></i> 
+													<span class="custom-option-title"> 대형 </span>
+											    </span> 
+											    <input name="dogSize" class="form-check-input" type="radio" value="대형" id="dogSize3" placeholder="2마리">
 											</label>
 										</div>
 									</div>
@@ -153,7 +153,7 @@
 					<div class="error-class" th:if="${#fields.hasErrors('personality')}"
 						th:errors="*{personality}"></div>
 				<li class="mb-2"><span class="h6">중성화유무</span>
-					<div class="col-xl-6">
+					<div class="col-xl-6" style="width: 400px;">
 						<div class="card">
 							<div class="card-body" style="width: 400px; margin: auto">
 								<div class="row">
@@ -187,7 +187,7 @@
 						</div>
 					</div></li>
 				<li class="mb-2"><span class="h6">질병</span>
-					<div class="col-xl-6">
+					<div class="col-xl-6" style="width: 400px;">
 						<div class="card">
 							<div class="card-body" style="width: 400px; margin: auto">
 								<div class="row">
@@ -215,6 +215,7 @@
 									</div>
 								</div>
 							</div>
+						</div>
 						</div>
 			</ul>
 			<span class="h6">특이사항</span>
