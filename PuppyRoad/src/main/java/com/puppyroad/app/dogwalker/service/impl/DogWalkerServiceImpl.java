@@ -42,4 +42,9 @@ public class DogWalkerServiceImpl implements DogWalkerSerivce {
 		return dogWalkerMapper.countWalkInfo();
 	}
 
+	@Override
+	public boolean walkerInfoCount(String memberCode) {
+		return dogWalkerMapper.walkerInfoCount(memberCode) >= 1;
+	}
+
 }
