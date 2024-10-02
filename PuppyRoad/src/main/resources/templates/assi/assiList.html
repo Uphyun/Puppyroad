@@ -31,7 +31,7 @@
 								<div class="col-sm-9">
 									<div class="row">
 										<div class="col-sm-2" id="img">
-											<img th:src="@{/images/{fileName}(fileName=${assi.picture})}"
+											<img th:src="@{/images/{fileName}(fileName=${assi.profilePicture})}"
 												alt="image" class="img-fluid"
 												onerror="this.onerror=null; this.src='/assets/main/img/no_image.png';">
 										</div>
@@ -58,7 +58,7 @@
 								</div>
 								<div class="col-sm-3">
 									<img
-										th:src="@{/images/{fileName}(fileName=${assi.coverPhoto})}"
+										th:src="@{/images/{fileName}(fileName=${assi.picture})}"
 										alt="image" style="width: 330px; height: 220px"
 										onerror="this.onerror=null; this.src='/assets/main/img/no_image.png';">
 								</div>
