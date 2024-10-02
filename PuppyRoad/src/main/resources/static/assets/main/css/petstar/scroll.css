@@ -34,11 +34,11 @@
 }
 
 #image_container img {
-	max-width: 350px;
-	max-height: 350px;
-	object-fit: cover;
-	border-radius: 4px;
-	border: 1px solid #ced4da;
+    max-width: 100%; 
+    max-height: 350px; 
+    object-fit: contain; 
+    border-radius: 4px;
+    border: 1px solid #ced4da;
 }
 
 #image_list {
