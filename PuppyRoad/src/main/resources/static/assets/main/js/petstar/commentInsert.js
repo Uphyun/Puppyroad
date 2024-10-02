@@ -12,9 +12,6 @@ function previewImage(event) {
 	}
 }
 
-function confirmSubmit() {
-	return confirm('정말로 수정하시겠습니까?');
-}
 
 // 단건조회 삭제
 function confirmDelete(bulletinNo) {

@@ -22,11 +22,14 @@
 		 		wa.picture,
 		 		wa.gender,
 		 		wa.bank_code,
-		 		wa.bank_account
+		 		wa.bank_account,
+		 		ps.profile_picture
 	    FROM    matching_board mb join member m
 	    							on mb.writer = m.member_code
 	    						  join walker_add_info wa
 	    						    on m.member_code = wa.member_code
+	    						  join pet_stargram_profile ps
+	    						    on m.member_code = ps.member_code
 	    WHERE   mb.matching_kind = '대리'
 	    ORDER BY bulletin_no desc
 	    

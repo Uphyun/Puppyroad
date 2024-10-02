@@ -28,20 +28,20 @@
 						data-i18n="PetStar">펫스타 그램</span></li>
 					<li class="menu-item"><a href="petstar" class="menu-link">
 							<i class="menu-icon tf-icons ti ti-brand-wechat"></i>
-							<div data-i18n="My PetStar">펫스타 그램</div>
+							펫스타 그램
 					</a></li>
 					<li class="menu-item"><a href="mypage" class="menu-link">
 							<i class="menu-icon tf-icons ti ti-user-square-rounded"></i>
-							<div data-i18n="My PetStar">나의 펫스타</div>
+							나의 펫스타
 					</a></li>
 					<li class="menu-item"><a href="bulletinInsert"
 						class="menu-link"> <i
 							class="menu-icon tf-icons ti ti-pencil-plus"></i>
-							<div data-i18n="Board">글 작성하기</div>
+							글 작성하기
 					</a></li>
 					<li class="menu-item"><a href="commentList" class="menu-link">
 							<i class="menu-icon tf-icons ti ti-message"></i>
-							<div data-i18n="Comment">나의 댓글</div>
+							나의 댓글
 					</a></li>
 				</ul>
 
@@ -68,20 +68,23 @@
 
 			</div>
 		</div>
-
 		<!-- 게시글 목록 -->
 		<div class="scroll-container">
 			<th:block th:each="info : ${bulletin}">
 				<div class="card">
 					<div class="card-body"
-						th:onClick="|location.href='@{/user/bulletinInfo(bulletinNo=${info.bulletinNo})}'|">
+						th:onClick="|location.href='@{/user/bulletinInfo(bulletinNo=${info.bulletinNo})}'|"
+						style="text-align: center;">
 						<div id="image_container" class="my-5 text-center">
 							<img
-								th:each="fileName : ${#strings.arraySplit(info.attachedFile, ',')}"
+								th:each="fileName, stat : ${#strings.arraySplit(info.attachedFile, ',')}"
+								th:if="${stat.index < 1}"
 								th:src="@{/images/{fileName}(fileName=${fileName})}"
 								th:alt="${fileName}">
+								<span
+										th:if="${info.attachedFile != null and #strings.arraySplit(info.attachedFile, ',').length > 1}">. . .</span>
 						</div>
-						<p style="white-space: pre-wrap;">[[ ${info.content} ]]</p>
+						<p class="bulletinContent">[[ ${info.content} ]]</p>
 					</div>
 				</div>
 			</th:block>
@@ -139,9 +142,9 @@
 
 							<!-- 자기소개 입력 -->
 							<div class="mb-5">
-								<label for="exampleFormControlTextarea1" class="form-label">자기
-									소개</label>
-								<textarea class="form-control" th:field="*{info}" rows="5"></textarea>
+								<label for="exampleFormControlTextarea1" class="form-label">간단한 자기
+									소개 (70자 제한)</label>
+								<textarea  maxlength= "70" class="form-control" th:field="*{info}" rows="5"></textarea>
 							</div>
 
 							<!-- 제출 및 취소 버튼 -->

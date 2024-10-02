@@ -26,6 +26,7 @@ async function sendPay() {
 						console.log(result);
                         if(result.isInfo) {
                             console.log("가상계좌 처리 완료");
+                            location.href="/";
                         }
                     })
                     .fail(err => console.log(err));
@@ -33,6 +34,7 @@ async function sendPay() {
             case 'done':
                 console.log("결제 처리 완료");
                 console.log(response);
+                            location.href="/";
                 // 결제 완료 처리
                 break;
             case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
@@ -44,6 +46,7 @@ async function sendPay() {
                 const confirmedData = await Bootpay.confirm(); //결제를 승인한다
                 if (confirmedData.event === 'done') {
                     //결제 성공
+                            location.href="/";
                 }
 
                 /**
@@ -67,6 +70,7 @@ async function sendPay() {
             case 'error':
                 // 결제 승인 중 오류 발생시 호출
                 console.log(e.error_code);
+                alert("결제중 오류가 발생하였습니다.");
                 break;
         }
     }
@@ -130,7 +134,7 @@ function getEndDate() {
     let minutes = today.getMinutes();
     let seconds = today.getSeconds();
 
-    let endDate = `${year}-${month > 10 ? month : '0' + month}-${date > 10 ? date : '0' + date} ${hours > 10 ? hours : '0' + hours}:${minutes > 10 ? minutes : '0' + minutes}:${seconds > 10 ? seconds : '0' + seconds}`;
+    let endDate = `${year}-${month > 10 ? month : '0' + month}-${date >= 10 ? date : '0' + date} ${hours > 10 ? hours : '0' + hours}:${minutes > 10 ? minutes : '0' + minutes}:${seconds > 10 ? seconds : '0' + seconds}`;
     console.log(endDate);
 
     return endDate;

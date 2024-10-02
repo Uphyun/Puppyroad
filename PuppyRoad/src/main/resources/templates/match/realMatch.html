@@ -36,24 +36,29 @@
 						<div class="col-8">
 							<div class="row">
 								<div class="col-md-6 pb-2 col-lg-4">
+								<label for="dogBreed" class="col-form-label">견종</label>
 									<input name="dogBreed" type="text" class="form-control"
 										placeholder="견종" readonly />
 								</div>
 								<div class="col-md-6 pb-2 col-lg-4">
+								<label for="personality" class="col-form-label">성격</label>
 									<input name="personality" type="text" class="form-control"
 										placeholder="성격" readonly />
 								</div>
 								<div class="col-md-6 pb-2 col-lg-4">
+								<label for="dogSize" class="col-form-label">견종 크기</label>
 									<input name="dogSize" type="text" class="form-control"
 										placeholder="견종 크기" readonly />
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-6 col-lg-4">
+								<label for="neutralizationPreAbs" class="col-form-label">중성화 유무</label>
 									<input name="neutralizationPreAbs" type="text"
 										class="form-control" placeholder="중성화 유무" readonly />
 								</div>
 								<div class="col-md-6 col-lg-4">
+								<label for="diseasePreAbs" class="col-form-label">질병 유무</label>
 									<input name="diseasePreAbs" type="text" class="form-control"
 										placeholder="질병 유무" readonly />
 								</div>
@@ -101,36 +106,44 @@
 									<div class="row mb-3 abc">
 										<div class="col-2">
 											<input type="checkbox" class="checkBox" name="dogBox" onclick='getCheckboxValue(event)'>
-										</div>
-										<div class="col-2">
 											<img name="puppyImage"
-											class="img-fluid"
-											th:src="@{/images/{fileName}(fileName=${matchDog.picture})}" 
-											onerror="this.onerror=null; this.src='/assets/main/img/no_image.png';"
-											alt="puppyImg" />
+											th:src="@{/images/{fileName}(fileName=${matchDog.picture})}" alt="puppyImg" class="img-fluid" 
+											onerror="this.onerror=null; this.src='/assets/main/img/no_image.png';"/>
 										</div>
 										<div class="col-8">
 											<div class="row">
 												<div class="col-md-6 pb-2 col-lg-4">
 													<input id="puppyCode" th:value="${matchDog.puppyCode}" type="hidden"/>
+													<label for="dogName" class="col-form-label">반려견 이름</label>
 													<h5 id="dogName" class="form-control">[[ ${matchDog.dogName} ]]</h5>
 												</div>
 												<div class="col-md-6 pb-2 col-lg-4">
+													<label for="dogBreed" class="col-form-label">견종</label>
 													<h5 id="dogBreed" class="form-control">[[ ${matchDog.dogBreed} ]]</h5>
 												</div>
 												<div class="col-md-6 pb-2 col-lg-4">
+													<label for="personality" class="col-form-label">성격</label>
 													<h5 id="personality" class="form-control">[[ ${matchDog.personality} ]]</h5>
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-md-6 pb-2 col-lg-4">
+													<label for="dogSize" class="col-form-label">견종 크기</label>
 													<h5 id="dogSize" class="form-control">[[ ${matchDog.dogSize} ]]</h5>
 												</div>
 												<div class="col-md-6 col-lg-4">
-													<h5 id="neutralizationPreAbs" class="form-control">[[ ${matchDog.neutralizationPreAbs} ]]</h5>
+													<label for="neutralizationPreAbs" class="col-form-label">중성화 유무</label>
+													<h5 id="neutralizationPreAbs" class="form-control"
+													    th:if="${matchDog.neutralizationPreAbs}==0">O</h5>
+													<h5 id="neutralizationPreAbs" class="form-control"
+													    th:if="${matchDog.neutralizationPreAbs}==1">X</h5>
 												</div>
 												<div class="col-md-6 col-lg-4">
-													<h5 id="diseasePreAbs" class="form-control">[[ ${matchDog.diseasePreAbs} ]]</h5>
+													<label for="diseasePreAbs" class="col-form-label">질병 유무</label>
+													<h5 id="diseasePreAbs" class="form-control"
+													    th:if="${matchDog.diseasePreAbs}==0">O</h5>
+													<h5 id="diseasePreAbs" class="form-control"
+													    th:if="${matchDog.diseasePreAbs}==1">X</h5>
 												</div>
 											</div>
 										</div>

@@ -44,6 +44,7 @@ public class AssiVO {
 	private Integer mSize;
 	private Integer lSize;
 	private Integer price;
+	private String  profilePicture;
 	
 	
 	
