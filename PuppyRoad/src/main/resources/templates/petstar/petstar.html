@@ -16,7 +16,7 @@
 		<h5 style="text-align: center; margin: 0 auto;" class="mb-5">
 			<i class="menu-icon tf-icons ti ti-paw"></i>펫스타 그램
 		</h5>
-		<div style="display: flex;">
+		<div class="mb-5" style="display: flex;">
 
 			<!-- Aside 메뉴 -->
 			<aside id="layout-menu"
@@ -46,7 +46,7 @@
 
 			<!-- 게시글과 댓글 목록 그리드 -->
 
-			<div class="post-comment-grid mt-5">
+			<div class="post-comment-grid mt-5 mb-5">
 				<th:block th:each="info : ${bulletin}">
 					<div class="post-comment-item">
 						<!-- 게시글 -->
@@ -89,7 +89,7 @@
 									th:style="${stat.index >= 3 ? 'display: none;' : ''}"
 									class="comment-item d-flex align-items-start mb-3">
 									<img
-										th:src="@{/images/{fileName}(fileName=${com.profilePicture})}"
+										th:src="@{/images/{fileName}(fileName=${profiles.profilePicture})}"
 										class="rounded-circle" alt="프로필 이미지" width="40" height="40">
 									<div class="comment-content ms-3">
 										<p class="mb-0">
