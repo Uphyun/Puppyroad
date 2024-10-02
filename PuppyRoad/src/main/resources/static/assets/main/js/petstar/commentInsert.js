@@ -13,6 +13,13 @@ function previewImage(event) {
 }
 
 
+// 단건조회 삭제
+function confirmDelete(bulletinNo) {
+	if (confirm("정말로 삭제하시겠습니까?")) {
+		location.href = '/user/bulletinDelete?no=' + bulletinNo;
+	}
+}
+
 function submitComment(bulletinId) {
 	let commentContent = $('#commentInput_' + bulletinId).val(); // 댓글 내용 가져오기
 
@@ -53,10 +60,3 @@ window.showAllComments = function(bulletinNo) {
     document.getElementById('moreCommentsBtn_' + bulletinNo).style.display = 'none';  // 더보기 버튼 숨기기
 };
 
-
-// 댓글 단건 삭제
-function confirmDelete(commentCode) {
-	if (confirm("정말로 삭제하시겠습니까?")) {
-		location.href = '/user/commentDelete?no=' + commentCode;
-	}
-}
