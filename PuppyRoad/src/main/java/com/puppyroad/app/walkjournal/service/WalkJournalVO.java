@@ -25,4 +25,5 @@ public class WalkJournalVO {
     private String picture;
     private String name;
     private String phone;
+    private String Writer;
 }

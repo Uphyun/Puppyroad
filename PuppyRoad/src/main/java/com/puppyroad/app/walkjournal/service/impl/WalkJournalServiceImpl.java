@@ -49,4 +49,10 @@ public class WalkJournalServiceImpl implements WalkJournalService {
 		// TODO Auto-generated method stub
 		return walkJournalMapper.insertWalkJournal(walkJournalVO);
 	}
+
+	@Override
+	public int walkJournalPetInfo(WalkJournalVO walkJournalVO) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }//end

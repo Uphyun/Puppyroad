@@ -159,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		    $('.addHide').hide();
 		   	$('.totalPay').show();
 		  } else if(eventLabel.val() === 'Business'){
+		    $('.addHide').show();
 		    $('.totalPay').hide();
 		    $('.plzHide').hide();
 		  } else {
