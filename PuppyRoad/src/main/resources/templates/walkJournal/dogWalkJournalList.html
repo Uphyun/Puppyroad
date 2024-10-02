@@ -29,7 +29,7 @@
 			<div class="container-xxl flex-grow-1 container-p-y">
                     <div class="row g-6">
 	                    <div class="col-12">
-							<button type="button" class="btn btn-primary waves-effect waves-light" th:href="@{/user/insertJournal}" id="registerWalkLog">산책일지등록</button>
+							<a href="@{/user/insertJournal}"><button type="button" class="btn btn-primary waves-effect waves-light"  id="registerWalkLog">산책일지등록</button></a>
 						</div>
                     <div class="divider"></div>
                     <th:block th:each="list:${list}">

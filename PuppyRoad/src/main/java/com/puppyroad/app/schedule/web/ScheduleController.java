@@ -48,7 +48,7 @@ public class ScheduleController {
 		return scheduleService.ScheduleUpdate(scheduleVO);
 	}
 	
-	@PostMapping("/user/scheduleInsert")
+	@PostMapping("user/scheduleInsert")
 	@ResponseBody
 	public int scheduleInsert(ScheduleVO scheduleVO) {
 		String mcode = SecurityUtil.memberCode();

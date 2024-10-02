@@ -1,88 +1,132 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/">
+<html xmlns:th="https://www.thymeleaf.org/"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{common/layouts/default_layout}"
+    layout:fragment="Content">
 <head>
-    <script type="text/javascript" src="/assets/vendor/libs/flatpickr/flatpickr.js"></script>
-    <style>
-        .switch-success {
-            margin-top: 10px;
-        }
-    </style>
-    <link rel="stylesheet" href="/assets/vendor/libs/flatpickr/flatpickr.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/assets/vendor/libs/flatpickr/flatpickr.js"></script>
+<style>
+.switch-success {
+    margin-top: 10px;
+}
+</style>
+<link rel="stylesheet" href="/assets/vendor/libs/flatpickr/flatpickr.css">
 </head>
 <body>
 
-    <section class="first-section-pt">
-        <div class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
-            <div class="flex-shrink-1 flex-grow-0 w-px-350 border-end container-p-x container-p-y">
-                <div th:insert="common/fragments/admin/aside :: AsideFragment"></div>
+<section class="first-section-pt">
+    <div class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
+        <div class="flex-shrink-1 flex-grow-0 w-px-350 border-end container-p-x container-p-y">
+            <div th:insert="common/fragments/admin/aside :: AsideFragment"></div>
+        </div>
+        <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
+            <!-- Customer Pills -->
+            <div class="nav-align-top">
+                <ul class="nav nav-pills flex-column flex-md-row mb-6 row-gap-2">
+                    <li class="nav-item">
+                        <a class="nav-link active waves-effect waves-light"><i class="ti ti-user ti-sm me-1_5"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">산책일지</font></font></a>
+                    </li>
+                </ul>
             </div>
+            <!--/ Customer Pills -->
 
-            <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
-                <!-- 산책일지 폼 시작 -->
-                <form id="walkJournalForm" th:action="@{/walkJournal/save}" method="post">
-                    <!-- 산책 일지 정보 -->
-                    <div class="row text-nowrap">
-                        <div class="col-md-6 mb-6">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <div class="card-info">
-                                        <div class="badge bg-label-danger me-4 rounded p-1_5">
-                                            <i class="ti ti-brand-paypal ti-md"></i>
-                                        </div>
-                                        <h5 class="card-title mb-2">애완견이름 : </h5>
-                                        <input type="hidden" name="dogName">
-                                        <p class="mb-0"><img class="rounded-circle w-px-100" th:src="@{${result.picture}}" height="120" width="120" alt="사진"></p>
-                                        <p class="mb-0 text-truncate">나이 : </p>
-                                        <input type="hidden" name="age" value="[[${result.age}]]">
-                                        <p class="mb-0 text-truncate">몸무게 : [[ ${result.weight} ]]kg</p>
-                                        <input type="hidden" name="weight" value="[[${result.weight}]]">
-                                        <p class="mb-0 text-truncate">견종 : [[ ${result.dogBreed} ]]</p>
-                                        <input type="hidden" name="dogBreed" value="[[${result.dogBreed}]]">
-                                    </div>
+            <!-- / Customer cards -->
+            <div class="row text-nowrap">
+                <div class="col-md-6 mb-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="card-info">
+                                <div class="badge bg-label-danger me-4 rounded p-1_5">
+                                    <i class="ti ti-brand-paypal ti-md"></i>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="card-info">
-                                        <div class="badge bg-label-primary rounded p-1_5"><i class="ti ti-users ti-md"></i></div>
-                                        <h5 class="card-title mb-2">이름 : [[ ${result.name} ]]</h5>
-                                        <input type="hidden" name="walkerName" value="[[${result.name}]]">
-                                        <p class="mb-0">산책일자 : [[${#dates.format(result.walkDate, 'yyyy/MM/dd HH:mm')}]]</p>
-                                        <input type="hidden" name="walkDate" value="[[${result.walkDate}]]">
-                                        <p class="mb-0">일지제목 : [[${result.title}]]</p>
-                                        <input type="hidden" name="title" value="[[${result.title}]]">
-                                        <p class="mb-0">산책경로 : [[${result.path}]]</p>
-                                        <input type="hidden" name="path" value="[[${result.path}]]">
-                                    </div>
+                                <h5 class="card-title mb-2"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">애완견이름 : [[${list.dogName}]]</font></font></h5>
+                                <div class="d-flex align-items-baseline gap-1">
+                                    <h5 class="text-primary mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></h5>
+                                    <p class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><img class="rounded-circle w-px-100" height="120" width="120" alt="사진"></font></font></p>
                                 </div>
+                                <p class="mb-0 text-truncate"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">나이 : [[${list.age}]]살</font></font></p>
+                                <p class="mb-0 text-truncate"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">몸무게 : [[${list.weight}]]kg</font></font></p>
+                                <p class="mb-0 text-truncate"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">견종 : [[${list.dogBreed}]]</font></font></p>
+                                <p class="mb-0 text-truncate"><font style="vertical-align: inherit;"><input type="text" th:value="${list.puppyCode}"></font></p>
                             </div>
                         </div>
                     </div>
-
-                    <!-- 산책 일지 내용 -->
-                    <div class="card-body px-0">
-                        <div class="row">
-                            <div class="col-12">
-                                <div>
-                                    <label for="journalContent" class="fw-medium text-heading mb-1">산책일지 내용</label>
-                                    <textarea class="form-control" rows="2" name="journalContent" id="journalContent" placeholder="산책내용을 입력하세요"></textarea>
-                                    <p style="float: right; margin: 0;">작성일 : [[${#dates.format(sysdate, 'yyyy/MM/dd HH:mm')}]]</p>
-                                </div>
+                </div>
+                <div class="col-md-6 mb-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-info">
+                                <div class="badge bg-label-primary rounded p-1_5"><i class="ti ti-users ti-md"></i></div>
+                                <p class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">산책일자 : </font><input class="form-control" type="date" id="walkDate"></font></p>
+                                <p class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">일지제목 : </font><input class="form-control" type="text" id="title"></font></p>
+                                <p class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">산책경로 : </font><input class="form-control" type="text" id="path"></font></p>
                             </div>
                         </div>
                     </div>
-
-                    <!-- 저장 버튼 -->
+                </div>
+                <div class="col-md-6 mb-6">
+                    <div class="card">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body px-0">
+                <div class="row">
                     <div class="col-12">
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">저장</button>
+                        <div>
+                            <label for="journalContent" class="fw-medium text-heading mb-1">산책일지 내용</label>
+                            <div class="bg-label-primary rounded text-center mb-4 pt-4">
+                                <img class="img-fluid" src="../../assets/main/img/illustrations/girl-with-laptop.png" alt="Card girl image" width="140">
+                            </div>
+                            <div style="margin-bottom:100px; text-align: center;">
+                                <textarea class="form-control" rows="2" id="journalContent" name="journalContent"></textarea>
+                                <button style="margin-top:20px; width:100px;" type="button" class="btn btn-primary" id="submitButton">등록</button>
+                            </div>
+                        </div>
                     </div>
-                </form>
-                <!-- 산책일지 폼 끝 -->
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<script>
+$(document).ready(function() {
+    $('#submitButton').click(function() {
+        // 입력된 값들을 변수에 저장
+        const walkDate = $('#walkDate').val();
+        const title = $('#title').val();
+        const path = $('#path').val();
+        const journalContent = $('#journalContent').val();
+        console.log(title);
+
+        // Ajax 요청
+        $('#submitButton').click(function() {
+            const dataToSend = {
+                walkDate: $('#walkDate').val(),
+                title: $('#title').val(),
+                path: $('#path').val(),
+                journalContent: $('#journalContent').val()
+            };
+
+            console.log("Sending data:", JSON.stringify(dataToSend)); // 직렬화된 데이터 확인
+
+            $.ajax({
+                url: "/user/insertJournalProcess",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(dataToSend),
+                success: function(response) {
+                    alert("산책일지가 성공적으로 등록되었습니다!");
+                },
+                error: function() {
+                    alert("산책일지 등록 중 오류가 발생했습니다.");
+                }
+            });
+        });
+    });
+});
+</script>
 
 </body>
 </html>
