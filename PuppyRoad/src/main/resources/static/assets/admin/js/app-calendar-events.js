@@ -35,7 +35,7 @@ function test(){
 							 async: false
 						  }).responseText;
 		
-	let newData=[];
+	let newData=[]; //정산일
 	results = JSON.parse(results)
 	for(let item of results){
 		newData.push({

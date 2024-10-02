@@ -162,19 +162,13 @@
     m.MEMBER_CODE,
     m.NAME,
     m.position,
-     CASE WHEN recipient = #{sender}  THEN (  SELECT nickname
-              								   FROM   member
-              								   WHERE  member_code = cr.sender     )
-              ELSE (   SELECT profile_picture
-              		   FROM   pet_stargram_profile
-                	   WHERE  member_code = cr.recipient    )
-                  END AS nickname
+    m.nickName
 FROM 
     matching_board mb
 JOIN 
     member m ON mb.CLIENT_CODE = m.MEMBER_CODE
-WHERE 
-	m.MEMBER_CODE = #{memberCode}
+WHERE mb.writer = #{memberCode}
+OR    mb.client_code = #{memberCode}
 	
 </select>
 
