@@ -48,7 +48,7 @@ public class ScheduleController {
 		return scheduleService.ScheduleUpdate(scheduleVO);
 	}
 	
-	@PostMapping("/user/scheduleInsert")
+	@PostMapping("user/scheduleInsert")
 	@ResponseBody
 	public int scheduleInsert(ScheduleVO scheduleVO) {
 		String mcode = SecurityUtil.memberCode();
@@ -56,7 +56,7 @@ public class ScheduleController {
 		return scheduleService.Scheduleinsert(scheduleVO);
 	}
 	
-	@GetMapping("/user/SchedulePayList")
+	@GetMapping("user/SchedulePayList")
 	@ResponseBody
 	public List<ScheduleVO> SchedulePayList(String recipient){
 		String userId = SecurityUtil.userId();
