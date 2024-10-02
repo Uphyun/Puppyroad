@@ -29,15 +29,15 @@ function test(){
 						  }).responseText;
 						  
 						  
-	let results = $.ajax({
+	let payList = $.ajax({
 							url : "/user/SchedulePayList",
 							method : "GET",
 							 async: false
 						  }).responseText;
 		
 	let newData=[]; //정산일
-	results = JSON.parse(results)
-	for(let item of results){
+	payList = JSON.parse(payList);
+	for(let item of payList){
 		newData.push({
 			start : item.nextFriday,
 			title : '정산일',
@@ -49,7 +49,7 @@ function test(){
    			 }
 		})
 	};
-	datas = JSON.parse(datas)
+	datas = JSON.parse(datas);
 	for(let res of datas){
 		if(res.clientName != null){
 			newData.push({
