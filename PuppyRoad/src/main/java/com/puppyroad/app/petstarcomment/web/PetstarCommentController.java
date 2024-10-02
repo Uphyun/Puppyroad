@@ -53,6 +53,9 @@ public class PetstarCommentController {
 	@PostMapping("user/commentInsert")
 	@ResponseBody
 	public int commentInsertProcess(PetstarCommentVO commentVO) {
+		String mcode = SecurityUtil.memberCode();
+		commentVO.setMemberCode(mcode);
+		
 		String nick = SecurityUtil.nickname();
 		commentVO.setWriter(nick);
 		

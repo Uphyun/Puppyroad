@@ -6,8 +6,8 @@
 }
 
 #image_container img {
-    max-width: 100px; /* 이미지 너비 설정 */
-    max-height: 100px; /* 이미지 높이 설정 */
+    max-width: 250px; /* 이미지 너비 설정 */
+    max-height: 250px; /* 이미지 높이 설정 */
     object-fit: cover; /* 이미지 비율 유지하며 자름 */
     border-radius: 4px; /* 모서리 둥글게 */
     border: 1px solid #ced4da; /* 이미지 테두리 */

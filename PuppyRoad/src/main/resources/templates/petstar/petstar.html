@@ -16,7 +16,7 @@
 		<h5 style="text-align: center; margin: 0 auto;" class="mb-5">
 			<i class="menu-icon tf-icons ti ti-paw"></i>펫스타 그램
 		</h5>
-		<div style="display: flex;">
+		<div class="mb-5" style="display: flex;">
 
 			<!-- Aside 메뉴 -->
 			<aside id="layout-menu"
@@ -27,26 +27,22 @@
 					<li class="menu-header small"><span class="menu-header-text"
 						data-i18n="PetStar">펫스타 그램</span></li>
 					<li class="menu-item"><a href="petstar" class="menu-link">
-							<i class="menu-icon tf-icons ti ti-brand-wechat"></i>
-							펫스타 그램
+							<i class="menu-icon tf-icons ti ti-brand-wechat"></i> 펫스타 그램
 					</a></li>
 					<li class="menu-item"><a href="mypage" class="menu-link"><i
-							class="menu-icon tf-icons ti ti-user-square-rounded"></i>
-							나의 펫스타</a></li>
+							class="menu-icon tf-icons ti ti-user-square-rounded"></i> 나의 펫스타</a></li>
 					<li class="menu-item"><a href="bulletinInsert"
 						class="menu-link"><i
-							class="menu-icon tf-icons ti ti-pencil-plus"></i>
-							글 작성하기</a></li>
+							class="menu-icon tf-icons ti ti-pencil-plus"></i> 글 작성하기</a></li>
 					<li class="menu-item"><a href="commentList" class="menu-link"><i
-							class="menu-icon tf-icons ti ti-message"></i>
-							나의 댓글</a></li>
+							class="menu-icon tf-icons ti ti-message"></i> 나의 댓글</a></li>
 				</ul>
 			</aside>
 			<!-- End Aside -->
 
 			<!-- 게시글과 댓글 목록 그리드 -->
 
-			<div class="post-comment-grid mt-5">
+			<div class="post-comment-grid mt-5 mb-5">
 				<th:block th:each="info : ${bulletin}">
 					<div class="post-comment-item">
 						<!-- 게시글 -->
@@ -65,7 +61,7 @@
 									<p class="post-date">[[${#dates.format(info.writingDate,'yyyy년
 										MM월 dd일')} ]]</p>
 								</div>
-
+								<!-- 게시글 사진 -->
 								<div id="image_container" class="my-5 pt-6 text-center">
 									<img
 										th:each="fileName, stat : ${#strings.arraySplit(info.attachedFile, ',')}"
@@ -88,6 +84,7 @@
 								<div th:class="${stat.index < 3 ? '' : 'hidden-comment'}"
 									th:style="${stat.index >= 3 ? 'display: none;' : ''}"
 									class="comment-item d-flex align-items-start mb-3">
+									<!-- 댓글 유저 이미지 -->
 									<img
 										th:src="@{/images/{fileName}(fileName=${com.profilePicture})}"
 										class="rounded-circle" alt="프로필 이미지" width="40" height="40">
