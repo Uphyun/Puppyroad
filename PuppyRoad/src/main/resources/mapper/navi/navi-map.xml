@@ -53,6 +53,15 @@
 	    	  , sysdate)
 	</insert>
 	
+	<select id="selectMarkerInfo" resultType="MatchVO">
+		select  m.member_code as "client_code",
+				m.user_id as writer,
+		        mb.content
+		from    matching_board mb join member m
+		                            on mb.writer = m.member_code
+		where   mb.bulletin_no = #{bulletinNo}
+	</select>
+	
 	<select id="getMatchingList">
 		select  n.x
 			  , n.y
