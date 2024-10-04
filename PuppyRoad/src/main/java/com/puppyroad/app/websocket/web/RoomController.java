@@ -76,7 +76,7 @@ public class RoomController {
     	
     	chatRoomDTO.setSender(mcode);
     	
-    	int result = chatRoomService.addRoom(chatRoomDTO, matchVO);
+    	chatRoomService.addRoom(chatRoomDTO, matchVO);
     	return "redirect:/chat/myChat";
     }
 
