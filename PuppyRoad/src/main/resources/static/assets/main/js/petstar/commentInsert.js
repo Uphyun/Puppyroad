@@ -34,7 +34,8 @@ function submitComment(bulletinId) {
 		url: '/user/commentInsert',
 		data: {
 			bulletinNo: bulletinId,
-			content: commentContent
+			content: commentContent,
+			
 		},
 		success: function(response) {
 			if (response === 1) {
