@@ -52,10 +52,12 @@ function submitComment(bulletinId) {
 	});
 }
 
+
+// 댓글 더보기
 window.showAllComments = function(bulletinNo) {
     const hiddenComments = document.querySelectorAll('#commentList_' + bulletinNo + ' .hidden-comment');
     hiddenComments.forEach(function(comment) {
-        comment.style.display = 'flex';  // 숨겨진 댓글을 보이게 하면서 동일한 레이아웃 유지
+        comment.style.display = 'flex';  
     });
     document.getElementById('moreCommentsBtn_' + bulletinNo).style.display = 'none';  // 더보기 버튼 숨기기
 };
