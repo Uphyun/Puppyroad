@@ -16,18 +16,23 @@ import com.puppyroad.app.petstarbulletin.service.PetstarBulletinService;
 import com.puppyroad.app.petstarbulletin.service.PetstarBulletinVO;
 import com.puppyroad.app.petstarcomment.service.PetstarCommentService;
 import com.puppyroad.app.petstarcomment.service.PetstarCommentVO;
+import com.puppyroad.app.petstarprofile.service.PetStarProfileVO;
+import com.puppyroad.app.petstarprofile.service.PetstarProfileService;
 import com.puppyroad.app.util.SecurityUtil;
 
 @Controller
 public class PetstarCommentController {
 	private PetstarCommentService commentService;
 	private PetstarBulletinService bulletinService;
+	private PetstarProfileService profileService;
 	
 	@Autowired
 	PetstarCommentController(PetstarCommentService commentService,
-							PetstarBulletinService bulletinService) {
+							PetstarBulletinService bulletinService,
+							PetstarProfileService profileService) {
 		this.commentService = commentService;
 		this.bulletinService = bulletinService;
+		this.profileService = profileService;
 	}
 	
 	// 나의 댓글 조회
@@ -52,10 +57,24 @@ public class PetstarCommentController {
 	// 등록 - 처리 (AJAX)
 	@PostMapping("user/commentInsert")
 	@ResponseBody
-	public int commentInsertProcess(PetstarCommentVO commentVO) {
+	public int commentInsertProcess(PetstarCommentVO commentVO, PetStarProfileVO profileVO) {
+		String mcode = SecurityUtil.memberCode();
+		commentVO.setMemberCode(mcode);
+		profileVO.setMemberCode(mcode);
+		
 		String nick = SecurityUtil.nickname();
 		commentVO.setWriter(nick);
 		
+		PetStarProfileVO findVO = profileService.getProfileInfo(profileVO);
+		if (findVO != null && findVO.getProfilePicture() != null) {
+		    String picture = findVO.getProfilePicture();
+		    commentVO.setProfilePicture(picture);
+		} else {
+		    // 프로필 사진이 없을 경우 기본 이미지 설정 또는 예외 처리
+		    commentVO.setProfilePicture("default_profile_picture.png"); // 기본 이미지 파일
+		}
+		
+
 		return commentService.addComment(commentVO);
 	}
 	

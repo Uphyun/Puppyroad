@@ -56,6 +56,7 @@ public class PetstarBulletinController {
 
 		String mcode = SecurityUtil.memberCode();
 		profileVO.setMemberCode(mcode);
+		
 
 		String nick = SecurityUtil.nickname();
 		bulletinVO.setNickName(nick);

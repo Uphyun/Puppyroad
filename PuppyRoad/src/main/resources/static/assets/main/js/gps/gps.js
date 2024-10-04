@@ -275,6 +275,7 @@ function startMatching(matchCode, used = 'match') {
 			data: JSON.stringify(sendData),
 		})
 			.done(result => {
+				console.log(result);
 				removeMarkers();
 				result.naviList.forEach(data => {
 					const stationlat = data.y;
@@ -283,7 +284,7 @@ function startMatching(matchCode, used = 'match') {
 					let distanceInKm = getDistanceFromLatLonInKm(lon, lat, stationlon, stationlat);
 
 					if (distanceInKm <= km) {
-						createMarker(stationlat, stationlon);
+						createMarker(stationlat, stationlon, data.matchCode);
 					}
 				})
 			})
@@ -322,6 +323,7 @@ function stopMatcing(matchCode) {
 			if (result == "success") {
 				alert("매칭을 종료합니다.");
 				clearInterval(matchingInterval);
+				location.href="/";
 			} else {
 				alert("종료할 매칭이 없습니다.");
 			}
@@ -333,9 +335,9 @@ function stopMatcing(matchCode) {
 }
 
 //마커 생성
-function createMarker(lat, lng) {
+function createMarker(lat, lng, matchCode) {
 	const markerPosition = new kakao.maps.LatLng(lat, lng);
-	var imageSrc = '/assets/main/img/navi/logo_noText_noBack.png', // 마커이미지의 주소입니다    
+	var imageSrc = '/assets/main/img/navi/nt_nb_logo.png', // 마커이미지의 주소입니다    
 		imageSize = new kakao.maps.Size(50, 52), // 마커이미지의 크기입니다
 		imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 	// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
@@ -343,12 +345,15 @@ function createMarker(lat, lng) {
 	const marker = new kakao.maps.Marker({
 		position: markerPosition,
 		image: markerImage,
+		title : matchCode,
 		clickable: true
 	});
+
 	const mark = {
 		marker: marker,
 		add: 1
 	}
+
 	console.log(mark);
 	clickMarkerEvent(marker);
 
@@ -371,19 +376,36 @@ function removeMarkers() {
 
 //마커 이벤트 등록
 function clickMarkerEvent(marker) {
-	// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-	let iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-		iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+	let data = {
+		bulletinNo : marker.getTitle()
+	}
+	$.ajax({
+		method: "post",
+		contentType : "application/json",
+		url: "/ajax/markInfo",
+		data: JSON.stringify(data),
+	})
+		.done(result => {
+			// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
+			let iwContent = 	`<div style="padding:5px; width:100px; height:75px;">
+										<p>아이디 : ${result.writer}</p>
+										<p>내용 : ${result.content}</p>
+										<button class="btn btn-primary" id="${result.clientCode}">신청하기</button>
+									</div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+				iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+		
+			// 인포윈도우를 생성합니다
+			let infowindow = new kakao.maps.InfoWindow({
+				content: iwContent,
+				removable: iwRemoveable
+			});
+		
+			// 마커에 클릭이벤트를 등록합니다
+			kakao.maps.event.addListener(marker, 'click', function () {
+				// 마커 위에 인포윈도우를 표시합니다
+				infowindow.open(map, marker);
+			});
+		})
+		.fail(err => console.log(err));
 
-	// 인포윈도우를 생성합니다
-	let infowindow = new kakao.maps.InfoWindow({
-		content: iwContent,
-		removable: iwRemoveable
-	});
-
-	// 마커에 클릭이벤트를 등록합니다
-	kakao.maps.event.addListener(marker, 'click', function () {
-		// 마커 위에 인포윈도우를 표시합니다
-		infowindow.open(map, marker);
-	});
 }

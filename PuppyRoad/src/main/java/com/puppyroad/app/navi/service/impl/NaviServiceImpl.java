@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.puppyroad.app.match.service.MatchVO;
 import com.puppyroad.app.navi.mapper.NaviMapper;
 import com.puppyroad.app.navi.service.NaviService;
 import com.puppyroad.app.navi.service.NaviVO;
@@ -44,6 +45,11 @@ public class NaviServiceImpl implements NaviService {
 		map.put("naviList", list);
 
 		return map;
+	}
+
+	@Override
+	public MatchVO getMarkerInfo(int bulletinNo) {
+		return naviMapper.selectMarkerInfo(bulletinNo);
 	}
 
 	@Override
