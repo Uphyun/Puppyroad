@@ -1,6 +1,5 @@
 package com.puppyroad.app.navi.web;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.puppyroad.app.match.service.MatchVO;
 import com.puppyroad.app.navi.service.NaviService;
 import com.puppyroad.app.navi.service.NaviVO;
 import com.puppyroad.app.util.SecurityUtil;
@@ -48,6 +48,13 @@ public class NaviController {
 	@ResponseBody
 	public Map<String, Object> callBackNaviAjax(@RequestBody NaviVO naviVO) {
 		return naviService.callBackNavi(naviVO);
+	}
+	
+	@PostMapping("ajax/markInfo")
+	@ResponseBody
+	public MatchVO markInfoAjax(@RequestBody MatchVO matchVO) {
+		System.err.println(matchVO);
+		return naviService.getMarkerInfo(matchVO.getBulletinNo());
 	}
 	
 	@PostMapping("ajax/setMatch")
