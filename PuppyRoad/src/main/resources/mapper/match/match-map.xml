@@ -160,15 +160,20 @@
     mb.CLIENT_CODE,
     mb.END_TIME,
     m.MEMBER_CODE,
-    m.NAME,
+    m.name,
     m.position,
-    m.nickName
+    case when writer = #{memberCode} then (select  nickname
+                                            from   member
+                                            where member_code = mb.client_code)
+    else (select  nickname
+           from   member 
+           where  member_code = mb.writer )
+    end  as nickname
 FROM 
     matching_board mb
-JOIN 
-    member m ON mb.CLIENT_CODE = m.MEMBER_CODE
+JOIN member m ON mb.CLIENT_CODE = m.MEMBER_CODE
 WHERE mb.writer = #{memberCode}
-OR    mb.client_code = #{memberCode}
+   OR mb.client_code = #{memberCode}
 	
 </select>
 
