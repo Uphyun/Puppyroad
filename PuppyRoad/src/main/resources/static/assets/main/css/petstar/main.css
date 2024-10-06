@@ -9,7 +9,7 @@
 
 #image_container img {
     max-width: 100%; 
-    max-height: 300px; 
+    max-height: 150px; 
     object-fit: cover; 
     border-radius: 4px;
     border: 1px solid #ced4da;
@@ -92,7 +92,6 @@
 .comment-item {
 	display: flex;
 	align-items: center;
-	padding: 10px 0;
 	border-bottom: 1px solid #ccc;
 }
 

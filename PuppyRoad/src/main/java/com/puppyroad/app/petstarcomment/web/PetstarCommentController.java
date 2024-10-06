@@ -60,15 +60,21 @@ public class PetstarCommentController {
 	public int commentInsertProcess(PetstarCommentVO commentVO, PetStarProfileVO profileVO) {
 		String mcode = SecurityUtil.memberCode();
 		commentVO.setMemberCode(mcode);
+		profileVO.setMemberCode(mcode);
 		
 		String nick = SecurityUtil.nickname();
 		commentVO.setWriter(nick);
 		
 		PetStarProfileVO findVO = profileService.getProfileInfo(profileVO);
-		String picture = findVO.getProfilePicture();
+		if (findVO != null && findVO.getProfilePicture() != null) {
+		    String picture = findVO.getProfilePicture();
+		    commentVO.setProfilePicture(picture);
+		} else {
+		    // 프로필 사진이 없을 경우 기본 이미지 설정 또는 예외 처리
+		    commentVO.setProfilePicture("default_profile_picture.png"); // 기본 이미지 파일
+		}
 		
-		commentVO.setProfilePicture(picture);
-		
+
 		return commentService.addComment(commentVO);
 	}
 	
