@@ -67,8 +67,8 @@ function getMemberList(position, tableId) {
 						} else {
 							let date = new Date($joinDate);
 							let showDate = date.getFullYear() + "년 "
-								+ (date.getMonth() + 1 > 10 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) + "월 "
-								+ (date.getDate() > 10 ? date.getDate() : "0" + date.getDate()) + "일";
+								+ (date.getMonth() + 1 >= 10 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) + "월 "
+								+ (date.getDate() >= 10 ? date.getDate() : "0" + date.getDate()) + "일";
 							return showDate;
 						}
 					}
@@ -84,8 +84,8 @@ function getMemberList(position, tableId) {
 						} else {
 							let date = new Date($activityDate);
 							let showDate = date.getFullYear() + "년 "
-								+ (date.getMonth() + 1 > 10 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) + "월 "
-								+ (date.getDate() > 10 ? date.getDate() : "0" + date.getDate()) + "일";
+								+ (date.getMonth() + 1 >= 10 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) + "월 "
+								+ (date.getDate() >= 10 ? date.getDate() : "0" + date.getDate()) + "일";
 							return showDate;
 						}
 					}
@@ -101,8 +101,8 @@ function getMemberList(position, tableId) {
 						} else {
 							let date = new Date($withdrawDate);
 							let showDate = date.getFullYear() + "년 "
-								+ (date.getMonth() + 1 > 10 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) + "월 "
-								+ (date.getDate() > 10 ? date.getDate() : "0" + date.getDate()) + "일";
+								+ (date.getMonth() + 1 >= 10 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) + "월 "
+								+ (date.getDate() >= 10 ? date.getDate() : "0" + date.getDate()) + "일";
 							return showDate;
 						}
 					}

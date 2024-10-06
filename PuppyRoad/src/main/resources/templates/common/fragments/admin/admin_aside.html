@@ -3,7 +3,7 @@
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
 	<div class="app-brand demo">
-		<a th:href="@{/admin}" class="app-brand-link">
+		<a th:href="@{/}" class="app-brand-link">
 			<span class="app-brand-logo demo">
 				<img src="/assets/main/img/nt_nb_logo.png" alt="로고" style="height: 25px;">
 			</span>
@@ -18,36 +18,34 @@
 	<div class="menu-inner-shadow"></div>
 
 	<!-- Home -->
+	<!-- 
 	<li class="menu-item">
-		<a th:href="@{/}" class="menu-link">
+		<a th:href="@{/admin/manageMember}" class="menu-link">
 			<i class="menu-icon tf-icons ti ti-smart-home"></i>
-			<div data-i18n="메인 홈">메인 홈</div>
+			<div data-i18n="메인 홈">관리자 홈</div>
 		</a>
 	</li>
+	 -->
 
 	<!-- manageUsers -->
-	<li class="menu-item active open"><a href="javascript:void(0);" class="menu-link menu-toggle">
-			<i class="menu-icon tf-icons ti ti-users"></i>
-			<div data-i18n="회원관리">회원관리</div>
+	<li class="menu-item">
+		<a th:href="@{/admin/manageMember}" class="menu-link">
+	<i class="menu-icon tf-icons ti ti-users"></i>
+			<div data-i18n="의뢰인">의뢰인</div>
 		</a>
-		<ul class="menu-sub">
-			<li class="menu-item active">
-				<a th:href="@{/admin/manageMember}" class="menu-link">
-					<div data-i18n="의뢰인">의뢰인</div>
-				</a>
-			</li>
-			<li class="menu-item">
-				<a th:href="@{/admin/manageHelper}" class="menu-link">
-					<div data-i18n="봉사인">봉사인</div>
-				</a>
-			</li>
-			<li class="menu-item">
-				<a th:href="@{/admin/manageWalker}" class="menu-link">
-					<div data-i18n="도그워커">도그워커</div>
-					<div id="walkerMenu" class="badge bg-danger rounded-pill ms-auto"></div>
-				</a>
-			</li>
-		</ul>
+	</li>
+	<li class="menu-item">
+		<a th:href="@{/admin/manageHelper}" class="menu-link">
+	<i class="menu-icon tf-icons ti ti-users"></i>
+			<div data-i18n="봉사인">봉사인</div>
+		</a>
+	</li>
+	<li class="menu-item">
+		<a th:href="@{/admin/manageWalker}" class="menu-link">
+	<i class="menu-icon tf-icons ti ti-users"></i>
+			<div data-i18n="도그워커">도그워커</div>
+			<div id="walkerMenu" class="badge bg-danger rounded-pill ms-auto"></div>
+		</a>
 	</li>
 
 </aside>
