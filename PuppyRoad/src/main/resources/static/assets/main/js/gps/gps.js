@@ -121,7 +121,7 @@ function startWalking(code, used) {
 				})
 					.done(datas => {
 						console.log(datas);
-						datas.forEach(data => {
+						datas.naviList.forEach(data => {
 							locations.push({
 								turnNo: data.turnNo,
 								x: data.x,
@@ -217,6 +217,7 @@ function removeOverlays() {
 function stopWalk() {
 	alert("산책을 종료합니다!");
 	clearInterval(walkingInterval);
+	location.href="/user/myMatchingList";
 }
 
 //매칭 시작
